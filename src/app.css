@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	/* Autocomplete styles */
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover,
+	textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		background: none;
+		-webkit-text-fill-color: none;
+		-webkit-box-shadow: 0 0 0 0 none inset;
+		transition: background-color 5000s ease-in-out 0s;
+	}
+
+	@font-face {
+		font-family: 'Mona Sans';
+		src:
+			url('/fonts/Mona-Sans.woff2') format('woff2 supports variations'),
+			url('/fonts/Mona-Sans.woff2') format('woff2-variations');
+		font-weight: 200 900;
+		font-stretch: 75% 125%;
+		font-display: swap;
+	}
+
+	* {
+		@apply font-wide font-normal;
+	}
+
+	p {
+		@apply font-extralight;
+	}
+}
+
+@layer components {
+	/* auth components */
+	.input-auth {
+		@apply bg-dark-400 placeholder-dark-200 focus:bg-dark-300 focus:placeholder-dark-100 flex w-full items-center justify-center rounded-xl p-4 text-white outline-none transition-all;
+	}
+	.btn-auth {
+		@apply bg-primary-200 flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none p-4 text-white transition-all hover:bg-opacity-90;
+	}
+}
+
+@layer utilities {
+	.font-wide {
+		font-stretch: 125%;
+	}
+}
