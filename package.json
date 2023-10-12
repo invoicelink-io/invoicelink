@@ -14,7 +14,10 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"db:push": "pnpm dlx prisma db push",
+		"db:deploy": "pnpm dlx prisma migrate deploy",
+		"postinstall": "pnpm dlx prisma generate"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.38.1",
