@@ -73,7 +73,11 @@
 			bind:value={formData.password}
 		/>
 	</AuthInput>
-	<button class="btn-auth mb-2" type="submit">Log In</button>
+	{#if loading}
+		<button class="btn-auth mb-2" disabled={loading} type="submit"> Logging in </button>
+	{:else}
+		<button class="btn-auth mb-2" type="submit">Log In</button>
+	{/if}
 	<a class="text-center font-extralight opacity-70 hover:opacity-100" href="/signup"
 		>Sign Up Instead</a
 	>
