@@ -41,10 +41,13 @@
 @layer components {
 	/* auth components */
 	.input-auth {
-		@apply bg-dark-400 placeholder-dark-200 focus:bg-dark-300 focus:placeholder-dark-100 flex w-full items-center justify-center rounded-xl p-4 text-white outline-none transition-all;
+		@apply flex w-full items-center justify-center rounded-xl bg-dark-400 px-4 pb-2 pt-6 text-white placeholder-dark-200 outline-none transition-all focus:bg-dark-300 focus:placeholder-dark-100;
+	}
+	.input-auth-label {
+		@apply absolute bottom-0 top-0 ml-4 flex items-center text-dark-200 transition-all focus:text-xs group-focus-within:bottom-1/2 group-focus-within:text-[12px] group-focus-within:text-dark-100;
 	}
 	.btn-auth {
-		@apply bg-primary-200 flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none p-4 text-white transition-all hover:bg-opacity-90;
+		@apply flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none bg-primary-200 p-4 text-white transition-all hover:bg-opacity-90;
 	}
 }
 

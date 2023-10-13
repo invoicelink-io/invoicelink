@@ -1,4 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { validateSignupForm } from './validation';
 import type { PageServerLoad, Actions } from './$types';
 import { auth } from '$lib/server/lucia';
 
@@ -11,13 +12,27 @@ export const load = (async ({ locals }) => {
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-		const { name, email, password } = Object.fromEntries(await request.formData()) as Record<
-			string,
-			string
-		>;
+		const formData = Object.fromEntries(await request.formData()) as {
+			name: string;
+			email: string;
+			password: string;
+			passwordConfirm: string;
+		};
 
-		console.log({ name, email, password });
-		// TODO: Validate user input
+		const result = validateSignupForm(formData);
+
+		if (result) {
+			// handle error then return
+			const { password, passwordConfirm, ...rest } = formData;
+
+			return fail(500, {
+				data: { ...rest, password: '', passwordConfirm: '' },
+				errors: result.errors
+			});
+		}
+
+		// create the user
+		const { name, email, password } = formData as Record<string, string>;
 		try {
 			await auth.createUser({
 				key: {
@@ -30,10 +45,20 @@ export const actions: Actions = {
 					email: email
 				}
 			});
-		} catch (error) {
-			return fail(400, { message: 'Could not register user' });
+		} catch (err: any) {
+			console.error(err);
+			const { password, passwordConfirm, ...rest } = formData;
+			return fail(500, {
+				data: { ...rest, password: '', passwordConfirm: '' },
+				errors: {
+					name: '',
+					email: 'Email already in use',
+					password: '',
+					passwordConfirm: ''
+				}
+			});
 		}
 
-		throw redirect(302, '/login');
+		throw redirect(302, '/login?message=Account created successfully!');
 	}
 };

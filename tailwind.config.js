@@ -23,6 +23,11 @@ export default {
 					50: '#FBFAD0',
 					100: '#F7F5A1',
 					200: '#F1EF63'
+				},
+				error: {
+					50: '#fecaca',
+					100: '#fca5a5',
+					200: '#f87171'
 				}
 			},
 			fontFamily: {
