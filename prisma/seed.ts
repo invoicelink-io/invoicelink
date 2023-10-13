@@ -2,28 +2,13 @@
 
 import { PrismaClient } from '@prisma/client';
 
-const userData = [
-	{
-		author: {
-			name: 'Ratul Maharaj',
-			email: 'ratulmaharaj@gmail.com'
-		}
-	}
-];
 const prisma = new PrismaClient();
 
 async function main() {
 	console.log(`Start seeding ...`);
 
-	for (const p of userData) {
-		const user = await prisma.user.create({
-			data: {
-				name: p.author.name,
-				email: p.author.email
-			}
-		});
-		console.log(`Created user with id: ${user.id}`);
-	}
+	// seed data will go here
+
 	console.log(`Seeding finished.`);
 }
 
