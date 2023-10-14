@@ -3,6 +3,7 @@
 	import type { SubmitFunction } from './$types';
 	import AuthInput from '$lib/components/auth/AuthInput.svelte';
 	import { validateSignupForm } from './validation';
+	import OAuth from '$lib/components/auth/OAuth.svelte';
 	let loading = false;
 
 	let formData = {
@@ -102,6 +103,7 @@
 	{:else}
 		<button class="btn-auth mb-2" type="submit"> Sign up </button>
 	{/if}
+	<OAuth />
 	<a class="text-center font-extralight opacity-70 hover:opacity-100" href="/login"
 		>Already have an account? Login</a
 	>
