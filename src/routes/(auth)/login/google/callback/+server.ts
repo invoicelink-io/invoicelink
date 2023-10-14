@@ -1,5 +1,6 @@
 import { auth, googleAuth } from '$lib/server/lucia';
 import { OAuthRequestError } from '@lucia-auth/oauth';
+import { prisma } from '$lib/server/prisma';
 
 export const GET = async ({ url, cookies, locals }) => {
 	console.log('GET /login/google/callback was called');

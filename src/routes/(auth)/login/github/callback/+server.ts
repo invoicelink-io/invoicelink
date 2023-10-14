@@ -1,5 +1,6 @@
 import { auth, githubAuth } from '$lib/server/lucia';
 import { OAuthRequestError } from '@lucia-auth/oauth';
+import { prisma } from '$lib/server/prisma';
 
 export const GET = async ({ url, cookies, locals }) => {
 	const storedState = cookies.get('github_oauth_state');

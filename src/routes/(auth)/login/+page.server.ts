@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 		throw redirect(302, '/');
 	} else {
 		// get query params
-		let message = url.searchParams.get('message');
+		const message = url.searchParams.get('message');
 		return { message };
 	}
 };
