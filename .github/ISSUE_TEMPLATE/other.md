@@ -1,10 +1,7 @@
 ---
 name: Other
 about: Issues for anything else
-title: "[OTHER]"
+title: 'OTHER: '
 labels: ''
 assignees: ''
-
 ---
-
-
