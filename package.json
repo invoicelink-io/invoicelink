@@ -59,6 +59,7 @@
 		"@lucia-auth/sveltekit": "^0.6.11",
 		"@prisma/client": "^5.4.2",
 		"lucia": "^2.7.1",
+		"svelte-french-toast": "^1.2.0",
 		"zod": "^3.22.4"
 	},
 	"prisma": {

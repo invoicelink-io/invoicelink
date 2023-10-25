@@ -17,8 +17,6 @@ export const GET = async ({ url, cookies, locals }) => {
 		const { getExistingUser, googleUser, createUser, createKey } =
 			await googleAuth.validateCallback(code);
 
-		console.log(googleUser);
-
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
