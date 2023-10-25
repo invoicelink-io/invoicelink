@@ -15,6 +15,10 @@
 		{
 			name: 'yoco',
 			status: 'not connected'
+		},
+		{
+			name: 'paypal',
+			status: 'not connected'
 		}
 	];
 </script>

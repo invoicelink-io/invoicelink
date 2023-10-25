@@ -10,7 +10,7 @@
 >
 <button
 	class="btn-auth my-4 w-max p-2 text-sm"
-	on:click={() => toast.success('It worked! Woohoo 🎉', {})}>Success!</button
+	on:click={() => toast.success('It worked! Woohoo 🎉')}>Success!</button
 >
 <button
 	class="btn-auth my-4 w-max p-2 text-sm"
