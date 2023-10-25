@@ -5,13 +5,13 @@
 		style: `background-color: oklch(var(--color-dark-300)); color: oklch(100% 0 0); font-size: 0.875rem;`,
 		error: {
 			iconTheme: {
-				primary: `oklch(var(--color-error-200))`,
+				primary: `oklch(var(--color-error-100))`,
 				secondary: `oklch(100% 0 0)`
 			}
 		},
 		success: {
 			iconTheme: {
-				primary: `oklch(var(--color-success-200))`,
+				primary: `oklch(var(--color-success-100))`,
 				secondary: `oklch(100% 0 0)`
 			}
 		}
