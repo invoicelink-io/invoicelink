@@ -22,10 +22,10 @@ declare global {
 			name?: string | null;
 			avatar_url?: string | null;
 		};
-		type DatabaseSessionAttributes = {};
+		type DatabaseSessionAttributes = object;
 	}
 
-	var prisma: PrismaClient;
+	let prisma: PrismaClient;
 }
 
 export {};

@@ -3,7 +3,7 @@ import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	return { user: locals?.session?.user };
+	return { user: locals?.session?.user, title: 'Home' };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {

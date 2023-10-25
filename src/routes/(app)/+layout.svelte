@@ -1,13 +1,13 @@
 <script>
-	import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import { page } from '$app/stores';
 </script>
 
-<nav>
-	<form method="POST" action="/logout">
-		<button type="submit">Logout</button>
-	</form>
-</nav>
+<svelte:head>
+	<title>{$page.data.title ?? `invoicelink.io`}</title>
+</svelte:head>
 
-<ThemeSwitch />
-
-<slot />
+<Header />
+<main class="p-4">
+	<slot />
+</main>

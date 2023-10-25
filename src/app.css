@@ -51,6 +51,10 @@
 	.btn-auth {
 		@apply flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none bg-primary-200 p-4 text-white transition-all hover:bg-opacity-90;
 	}
+
+	.btn-tertiary {
+		@apply rounded-md bg-dark-50 p-2 hover:bg-primary-200 hover:text-white dark:border-dark-400 dark:bg-dark-400 dark:hover:bg-primary-200 dark:hover:text-white;
+	}
 }
 
 @layer utilities {

@@ -20,7 +20,8 @@ export const auth = lucia({
 	getUserAttributes(databaseUser) {
 		return {
 			name: databaseUser.name,
-			email: databaseUser.email
+			email: databaseUser.email,
+			avatar_url: databaseUser.avatar_url
 		};
 	}
 });
