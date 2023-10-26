@@ -43,22 +43,35 @@
 @layer components {
 	/* auth components */
 	.input-auth {
-		@apply flex w-full items-center justify-center rounded-xl bg-dark-400 px-4 pb-2 pt-6 text-white placeholder-dark-200 outline-none transition-all focus:bg-dark-300 focus:placeholder-dark-100;
+		@apply flex w-full items-center justify-center rounded-xl bg-neutral-400 px-4 pb-2 pt-6 text-white placeholder-neutral-200 outline-none transition-all focus:bg-neutral-300 focus:placeholder-neutral-100;
 	}
 	.input-auth-label {
-		@apply absolute bottom-0 top-0 ml-4 flex items-center text-dark-200 transition-all focus:text-xs group-focus-within:bottom-1/2 group-focus-within:text-[12px] group-focus-within:text-dark-100;
+		@apply absolute bottom-0 top-0 ml-4 flex items-center text-neutral-200 transition-all focus:text-xs group-focus-within:bottom-1/2 group-focus-within:text-[12px] group-focus-within:text-neutral-100;
 	}
 	.btn-auth {
 		@apply flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none bg-primary-200 p-4 text-white transition-all hover:bg-opacity-90;
 	}
 
 	.btn-tertiary {
-		@apply rounded-md bg-dark-50 p-2 hover:bg-primary-200 hover:text-white dark:border-dark-400 dark:bg-dark-400 dark:hover:bg-primary-200 dark:hover:text-white;
+		@apply rounded-md bg-neutral-50 p-2 hover:bg-primary-200 hover:text-white dark:border-neutral-400 dark:bg-neutral-400 dark:hover:bg-primary-200 dark:hover:text-white;
 	}
 }
 
 @layer utilities {
 	.font-wide {
 		font-stretch: 125%;
+	}
+
+	@variants responsive {
+		/* Hide scrollbar for Chrome, Safari and Opera */
+		.no-scrollbar::-webkit-scrollbar {
+			display: none;
+		}
+
+		/* Hide scrollbar for IE, Edge and Firefox */
+		.no-scrollbar {
+			-ms-overflow-style: none; /* IE and Edge */
+			scrollbar-width: none; /* Firefox */
+		}
 	}
 }

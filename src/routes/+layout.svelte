@@ -2,7 +2,7 @@
 	import '../app.css';
 	import { Toaster, type ToastOptions } from 'svelte-french-toast';
 	const toastOptions = {
-		style: `background-color: oklch(var(--color-dark-300)); color: oklch(100% 0 0); font-size: 0.875rem;`,
+		style: `background-color: oklch(var(--color-neutral-300)); color: oklch(var(--color-foreground)); font-size: 0.875rem;`,
 		error: {
 			iconTheme: {
 				primary: `oklch(var(--color-error-100))`,

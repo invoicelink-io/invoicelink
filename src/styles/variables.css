@@ -1,12 +1,16 @@
 @layer base {
 	:root {
-		/* dark colors */
-		--color-dark-50: 96% 0 0;
-		--color-dark-100: 71.15% 0.02 265.93;
-		--color-dark-200: 49.55% 0.026 265.57;
-		--color-dark-300: 30.49% 0.031 263.95;
-		--color-dark-400: 23% 0.02 264.28;
-		--color-dark-500: 15.4% 0 264.28;
+		/* background colors */
+		--color-background: 100% 0 0;
+		/* foreground colors */
+		--color-foreground: 15.4% 0 264.28;
+		/* neutral colors */
+		--color-neutral-50: 96% 0 0;
+		--color-neutral-100: 71.15% 0.02 265.93;
+		--color-neutral-200: 49.55% 0.026 265.57;
+		--color-neutral-300: 30.49% 0.031 263.95;
+		--color-neutral-400: 23% 0.02 264.28;
+		--color-neutral-500: 15.4% 0 264.28;
 		/* primary colors */
 		--color-primary-50: 94.69% 0.017 286.06;
 		--color-primary-100: 87.31% 0.056 284.06;
@@ -34,10 +38,13 @@
 	}
 
 	[data-theme='light'] {
-		@apply bg-white text-dark-500;
+		--color-neutral-300: var(--color-neutral-50);
+		@apply text-foreground bg-background;
 	}
 
 	[data-theme='dark'] {
-		@apply bg-dark-500 text-white;
+		--color-background: 15.4% 0 264.28;
+		--color-foreground: 100% 0 0;
+		@apply text-foreground bg-background;
 	}
 }

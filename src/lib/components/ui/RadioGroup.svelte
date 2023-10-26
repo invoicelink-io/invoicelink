@@ -31,8 +31,8 @@
 		<div class="flex items-center gap-3">
 			<button
 				use:melt={$item(option)}
-				class="grid h-6 w-6 cursor-default place-items-center rounded-full bg-dark-50 shadow-sm hover:bg-primary-100
-      dark:bg-dark-300"
+				class="grid h-6 w-6 cursor-default place-items-center rounded-full bg-neutral-50 shadow-sm hover:bg-primary-100
+      dark:bg-neutral-300"
 				id={option}
 				aria-labelledby="{option}-label"
 			>

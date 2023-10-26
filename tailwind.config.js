@@ -8,13 +8,15 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				dark: {
-					50: 'oklch(var(--color-dark-50) / <alpha-value>)',
-					100: 'oklch(var(--color-dark-100) / <alpha-value>)',
-					200: 'oklch(var(--color-dark-200) / <alpha-value>)',
-					300: 'oklch(var(--color-dark-300) / <alpha-value>)',
-					400: 'oklch(var(--color-dark-400) / <alpha-value>)',
-					500: 'oklch(var(--color-dark-500) / <alpha-value>)'
+				background: 'oklch(var(--color-background) / <alpha-value>)',
+				foreground: 'oklch(var(--color-foreground) / <alpha-value>)',
+				neutral: {
+					50: 'oklch(var(--color-neutral-50) / <alpha-value>)',
+					100: 'oklch(var(--color-neutral-100) / <alpha-value>)',
+					200: 'oklch(var(--color-neutral-200) / <alpha-value>)',
+					300: 'oklch(var(--color-neutral-300) / <alpha-value>)',
+					400: 'oklch(var(--color-neutral-400) / <alpha-value>)',
+					500: 'oklch(var(--color-neutral-500) / <alpha-value>)'
 				},
 				primary: {
 					50: 'oklch(var(--color-primary-50) / <alpha-value> )',

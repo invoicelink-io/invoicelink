@@ -1,5 +1,7 @@
-<nav class="hidden w-full flex-row items-center justify-between pb-1 pt-4 sm:flex">
-	<ul class="hidden w-full flex-row gap-2 transition-all sm:flex">
+<nav class="flex w-full max-w-7xl flex-row items-center justify-between py-1">
+	<ul
+		class="no-scrollbar flex h-full w-full flex-row gap-2 overflow-y-hidden overflow-x-scroll pb-2 pt-4 transition-all"
+	>
 		<li>
 			<a class="btn-tertiary" href="/">Home</a>
 		</li>

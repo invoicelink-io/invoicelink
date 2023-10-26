@@ -23,14 +23,21 @@
 	];
 </script>
 
-<div class="flex items-center justify-center gap-4">
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-2">
 	{#each integrations as { name, status }}
 		<a
 			href="/integrations/{name}"
-			class="flex h-24 w-60 flex-col items-center justify-center whitespace-nowrap rounded-lg border border-dark-400 bg-dark-400 bg-opacity-10 p-4 hover:bg-opacity-40"
+			class:connected={status === 'connected'}
+			class="flex h-40 w-full flex-col items-center justify-center rounded-lg border border-neutral-400 bg-opacity-10 p-4 text-center text-sm capitalize hover:bg-opacity-40 dark:bg-neutral-400"
 		>
 			<span>{name}</span>
 			<p class="text-xs">{status}</p>
 		</a>
 	{/each}
 </div>
+
+<style lang="postcss">
+	.connected {
+		@apply border border-success-200 bg-opacity-40 dark:border-success-50;
+	}
+</style>

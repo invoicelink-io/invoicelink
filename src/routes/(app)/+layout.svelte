@@ -8,6 +8,6 @@
 </svelte:head>
 
 <Header />
-<main class="p-4">
+<main class="w-full max-w-7xl p-4">
 	<slot />
 </main>
