@@ -42,7 +42,8 @@ export default {
 					50: 'oklch(var(--color-success-50) / <alpha-value> )',
 					100: 'oklch(var(--color-success-100) / <alpha-value> )',
 					200: 'oklch(var(--color-success-200) / <alpha-value> )'
-				}
+				},
+				toast: 'oklch(var(--color-toast) / <alpha-value>)'
 			},
 			fontFamily: {
 				sans: ['Mona Sans', ...defaultTheme.fontFamily.sans]

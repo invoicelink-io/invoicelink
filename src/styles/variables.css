@@ -31,6 +31,8 @@
 		--color-success-50: 94.7% 0.1569 124.2;
 		--color-success-100: 78.51% 0.1569 124.2;
 		--color-success-200: 67.95% 0.1569 124.2;
+		/* toast background color */
+		--color-toast: var(--color-neutral-50);
 	}
 
 	[data-theme] {
@@ -38,13 +40,13 @@
 	}
 
 	[data-theme='light'] {
-		--color-neutral-300: var(--color-neutral-50);
-		@apply text-foreground bg-background;
+		@apply bg-background text-foreground;
 	}
 
 	[data-theme='dark'] {
 		--color-background: 15.4% 0 264.28;
 		--color-foreground: 100% 0 0;
-		@apply text-foreground bg-background;
+		--color-toast: var(--color-neutral-300);
+		@apply bg-background text-foreground;
 	}
 }
