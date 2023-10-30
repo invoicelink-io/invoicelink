@@ -10,14 +10,15 @@ datasource db {
 }
 
 model User {
-  id                String              @id @unique @default(cuid())
-  name              String?
-  email             String?             @unique
-  username          String?             @unique
-  avatar_url        String?
-  auth_session      Session[]
-  key               Key[]
-  VerificationToken VerificationToken[]
+  id                 String              @id @unique @default(cuid())
+  name               String?
+  email              String?             @unique
+  username           String?             @unique
+  avatar_url         String?
+  auth_session       Session[]
+  key                Key[]
+  verification_token VerificationToken[]
+  Integration        Integration[]
 }
 
 model Session {
@@ -51,4 +52,31 @@ model VerificationToken {
 enum Token {
   EMAIL
   PASSWORD
+}
+
+enum Gateway {
+  PAYFAST
+}
+
+model Integration {
+  id         String    @id @unique @default(cuid())
+  gateway    Gateway
+  url        String
+  active     Boolean   @default(true)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  payfast    Payfast[]
+  user_id    String
+  user       User      @relation(references: [id], fields: [user_id], onDelete: Cascade)
+}
+
+model Payfast {
+  id             String      @id @unique @default(cuid())
+  integration_id String
+  integration    Integration @relation(fields: [integration_id], references: [id], onDelete: Cascade)
+  merchant_id    String
+  merchant_key   String
+  passphrase     String
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @updatedAt
 }
