@@ -37,7 +37,7 @@ export const actions: Actions = {
 				attributes: {}
 			});
 			locals.auth.setSession(session);
-		} catch (e: any) {
+		} catch (e) {
 			console.error(e);
 			if (e instanceof LuciaError && e.message === 'AUTH_INVALID_KEY_ID') {
 				// invalid key
