@@ -33,7 +33,7 @@
 	}
 
 	* {
-		@apply font-wide font-normal;
+		@apply font-wide font-normal shadow-neutral-500 dark:shadow-neutral-50;
 	}
 
 	p {
@@ -55,6 +55,54 @@
 
 	.btn-tertiary {
 		@apply rounded-md bg-neutral-50 p-2 hover:bg-primary-200 hover:text-white dark:border-neutral-400 dark:bg-neutral-400 dark:hover:bg-primary-200 dark:hover:text-white;
+	}
+
+	/* card components */
+	.card {
+		@apply rounded-md bg-neutral-50 p-4 shadow-md transition-all duration-200 ease-in-out hover:scale-95 hover:shadow-xl dark:bg-neutral-400;
+	}
+
+	.card-disabled {
+		@apply rounded-md border border-neutral-100 bg-transparent p-4 opacity-50 grayscale dark:border-neutral-200;
+	}
+
+	/* form components */
+	.form-primary {
+		@apply flex w-full max-w-xl flex-col items-start justify-center gap-2 pb-2 pt-6 text-white placeholder-neutral-200 outline-none transition-all focus:bg-neutral-300 focus:placeholder-neutral-100;
+
+		label {
+			@apply flex gap-1 text-xs text-neutral-500 dark:text-white;
+		}
+
+		label:has(+ input[required])::after {
+			@apply text-sm text-error-100 content-["*"];
+		}
+
+		input {
+			@apply mb-2;
+		}
+
+		.error {
+			@apply border-error-200;
+		}
+	}
+
+	/* button components */
+	.btn-primary {
+		@apply rounded-md border border-primary-200 bg-primary-200 px-2 py-1 text-sm transition-all duration-300 hover:bg-opacity-80;
+	}
+
+	.btn-secondary {
+		@apply rounded-md border border-primary-200 bg-transparent px-2 py-1 text-sm text-primary-200 transition-all duration-300 hover:bg-primary-200 hover:text-white;
+	}
+
+	.btn-error {
+		@apply rounded-md border border-error-200 bg-error-200 px-2 py-1 text-sm transition-all duration-300 hover:bg-opacity-80;
+	}
+
+	/* input components */
+	.input-primary {
+		@apply flex w-full items-center justify-center rounded-md bg-neutral-50 px-4 py-2 text-neutral-500 placeholder-neutral-200 outline-none transition-all focus:bg-neutral-100 focus:placeholder-neutral-200 dark:bg-neutral-400 dark:text-white dark:focus:placeholder-neutral-100;
 	}
 }
 

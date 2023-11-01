@@ -1,43 +1,27 @@
-<script>
-	const integrations = [
-		{
-			name: 'payfast',
-			status: 'connected'
-		},
-		{
-			name: 'paygate',
-			status: 'not connected'
-		},
-		{
-			name: 'peach payments',
-			status: 'not connected'
-		},
-		{
-			name: 'yoco',
-			status: 'not connected'
-		},
-		{
-			name: 'paypal',
-			status: 'not connected'
-		}
-	];
+<script lang="ts">
+	import Icon from '$lib/components/Icon.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
-<div class="grid grid-cols-2 gap-4 sm:grid-cols-2">
-	{#each integrations as { name, status }}
+<h1 class="h3 my-4 w-full text-center sm:my-8">Configure payment integrations</h1>
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+	{#each Object.keys(data.integrationStatus) as name}
 		<a
-			href="/integrations/{name}"
-			class:connected={status === 'connected'}
-			class="flex h-40 w-full flex-col items-center justify-center rounded-lg border border-neutral-400 bg-opacity-10 p-4 text-center text-sm capitalize hover:bg-opacity-40 dark:bg-neutral-400"
+			href="/integrations/{name.toLowerCase()}"
+			class="{data.integrationStatus[name] === 'coming soon'
+				? 'card-disabled cursor-not-allowed'
+				: 'card'} flex h-28 w-full flex-col items-center justify-center text-center text-sm capitalize"
 		>
-			<span>{name}</span>
-			<p class="text-xs">{status}</p>
+			<Icon {name} />
+			<p
+				class="text-xs font-medium {data.integrationStatus[name] === `enabled`
+					? `text-success-200`
+					: `text-neutral-200`}"
+			>
+				{data.integrationStatus[name]}
+			</p>
 		</a>
 	{/each}
 </div>
-
-<style lang="postcss">
-	.connected {
-		@apply border border-success-200 bg-opacity-40 dark:border-success-50;
-	}
-</style>

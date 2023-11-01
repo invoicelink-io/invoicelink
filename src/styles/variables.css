@@ -6,10 +6,10 @@
 		--color-foreground: 15.4% 0 264.28;
 		/* neutral colors */
 		--color-neutral-50: 96% 0 0;
-		--color-neutral-100: 71.15% 0.02 265.93;
+		--color-neutral-100: 90% 0 277.12;
 		--color-neutral-200: 49.55% 0.026 265.57;
 		--color-neutral-300: 30.49% 0.031 263.95;
-		--color-neutral-400: 23% 0.02 264.28;
+		--color-neutral-400: 24.31% 0.0096 264.28;
 		--color-neutral-500: 15.4% 0 264.28;
 		/* primary colors */
 		--color-primary-50: 94.69% 0.017 286.06;
@@ -44,6 +44,7 @@
 	}
 
 	[data-theme='dark'] {
+		--color-neutral-100: 71.15% 0.02 265.93;
 		--color-background: 15.4% 0 264.28;
 		--color-foreground: 100% 0 0;
 		--color-toast: var(--color-neutral-300);

@@ -25,7 +25,8 @@ declare global {
 		type DatabaseSessionAttributes = object;
 	}
 
-	let prisma: PrismaClient;
+	// eslint-disable-next-line no-var
+	var prisma: PrismaClient;
 }
 
 export {};

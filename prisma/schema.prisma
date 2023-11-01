@@ -54,20 +54,13 @@ enum Token {
   PASSWORD
 }
 
-enum Gateway {
-  PAYFAST
-}
-
 model Integration {
   id         String    @id @unique @default(cuid())
-  gateway    Gateway
-  url        String
-  active     Boolean   @default(true)
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
-  payfast    Payfast[]
   user_id    String
   user       User      @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  payfast    Payfast[]
 }
 
 model Payfast {
@@ -79,4 +72,5 @@ model Payfast {
   passphrase     String
   created_at     DateTime    @default(now())
   updated_at     DateTime    @updatedAt
+  active         Boolean     @default(true)
 }
