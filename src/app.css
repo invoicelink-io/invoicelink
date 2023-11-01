@@ -6,6 +6,11 @@
 @tailwind utilities;
 
 @layer base {
+	/* selection styles */
+	::selection {
+		@apply bg-primary-200 text-white;
+	}
+
 	/* Autocomplete styles */
 	input:-webkit-autofill,
 	input:-webkit-autofill:hover,
