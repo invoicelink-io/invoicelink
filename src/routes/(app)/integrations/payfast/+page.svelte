@@ -90,7 +90,7 @@
 								payfastTestForm.removeChild(signatureInput);
 							}
 						}
-						if ($form.passphrase) {
+						if ($form.passphrase && requireSecurity) {
 							fetch('/api/payfast/generate_signature', {
 								method: 'POST',
 								body: JSON.stringify({
