@@ -10,7 +10,7 @@ export const authHandle: Handle = async ({ event, resolve }) => {
 };
 
 export const routeProtectionHandler: Handle = async ({ resolve, event }) => {
-	const protectedRoutes = ['/', '/dashboard'];
+	const protectedRoutes = ['/', '/clients', '/invoices', '/integrations', '/'];
 
 	if (protectedRoutes.includes(event.url.pathname.toLowerCase())) {
 		if (!event.locals.session) {
@@ -38,7 +38,7 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 			transformPageChunk: ({ html }) => html.replace(`data-theme=""`, `data-theme="${theme}"`)
 		});
 	}
-	
+
 	return await resolve(event);
 };
 
