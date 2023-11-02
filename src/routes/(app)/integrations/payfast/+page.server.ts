@@ -1,6 +1,7 @@
-import { fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
+import { schema } from './validation';
+import { superValidate, message } from 'sveltekit-superforms/server';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -15,42 +16,49 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
+	const form = await superValidate(userIntegrations?.payfast[0], schema);
+
 	return {
 		user: locals?.session?.user,
 		title: 'Integrations',
-		integrations: userIntegrations
+		form
 	};
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	create: async ({ request, locals }) => {
 		const userId = locals.session.user.userId;
-		const formData = Object.fromEntries(await request.formData()) as Record<string, string>;
+		const form = await superValidate(request, schema);
 
-		// check if the user has an integration already
-		const userIntegration = await prisma.integration.findFirst({
-			where: {
-				user_id: userId
-			}
-		});
+		if (!form.valid) {
+			return message(form, 'Invalid integration details!');
+		}
 
 		try {
+			// check if the user has an integration already
+			const userIntegration = await prisma.integration.findFirst({
+				where: {
+					user_id: userId
+				}
+			});
+
 			if (userIntegration) {
-				// create the payfast integration
-				await prisma.payfast.create({
+				const res = await prisma.payfast.create({
 					data: {
 						integration: {
 							connect: {
 								id: userIntegration.id
 							}
 						},
-						merchant_id: formData.merchant_id,
-						merchant_key: formData.merchant_key,
-						passphrase: formData.passphrase
+						merchant_id: form.data.merchant_id,
+						merchant_key: form.data.merchant_key,
+						passphrase: form.data.passphrase || ''
 					}
 				});
+				form.data.id = res.id;
+				return message(form, 'Payfast integration created!');
 			} else {
-				await prisma.integration.create({
+				const res = await prisma.integration.create({
 					data: {
 						user: {
 							connect: {
@@ -59,79 +67,71 @@ export const actions: Actions = {
 						},
 						payfast: {
 							create: {
-								merchant_id: formData.merchant_id,
-								merchant_key: formData.merchant_key,
-								passphrase: formData.passphrase
+								merchant_id: form.data.merchant_id,
+								merchant_key: form.data.merchant_key,
+								passphrase: form.data.passphrase ?? ''
 							}
 						}
 					}
 				});
+				form.data.id = res.id;
+				return message(form, 'Payfast integration created!');
 			}
-			return {
-				success: true
-			};
 		} catch (error) {
 			console.error(error);
-			return fail(400, {
-				data: formData,
-				errors: { message: 'Failed to create integration' }
+			return message(form, 'Failed to create integration', {
+				status: 400
 			});
 		}
 	},
-	delete: async ({ request, url }) => {
-		const formData = Object.fromEntries(await request.formData()) as Record<string, string>;
-		const payfastId = url.searchParams.get('id');
-		if (payfastId) {
+	delete: async ({ request }) => {
+		const form = await superValidate(request, schema);
+		if (form.data.id) {
 			try {
 				await prisma.payfast.delete({
 					where: {
-						id: payfastId
+						id: form.data.id
 					}
 				});
+
+				form.data.id = undefined;
+				form.data.merchant_id = '';
+				form.data.merchant_key = '';
+				form.data.passphrase = undefined;
+				return message(form, 'Integration deleted!');
 			} catch (error) {
 				console.error(error);
-				return fail(400, {
-					data: formData,
-					errors: { message: 'Failed to delete integration' }
+				return message(form, 'Failed to delete integration', {
+					status: 400
 				});
 			}
 		}
-
-		return {
-			success: true
-		};
 	},
-	update: async ({ request, url }) => {
-		const formData = Object.fromEntries(await request.formData()) as Record<string, string>;
-		const payfastId = url.searchParams.get('id');
-		if (payfastId) {
-			try {
-				const res = await prisma.payfast.update({
+	update: async ({ request }) => {
+		const form = await superValidate(request, schema);
+		if (!form.valid) {
+			return message(form, 'Invalid integration details!');
+		}
+
+		try {
+			if (form.data.id) {
+				await prisma.payfast.update({
 					where: {
-						id: payfastId
+						id: form.data.id
 					},
 					data: {
-						merchant_id: formData.merchant_id,
-						merchant_key: formData.merchant_key,
-						passphrase: formData.passphrase
+						merchant_id: form.data.merchant_id,
+						merchant_key: form.data.merchant_key,
+						passphrase: form.data.passphrase
 					}
-				});
-
-				return {
-					success: true,
-					data: {
-						merchant_id: res.merchant_id,
-						merchant_key: res.merchant_key,
-						passphrase: res.passphrase
-					}
-				};
-			} catch (error) {
-				console.error(error);
-				return fail(400, {
-					data: formData,
-					errors: { message: 'Failed to update integration' }
 				});
 			}
+			return message(form, 'Integration updated!');
+		} catch (error) {
+			console.error(error);
+			return message(form, 'Failed to update integration', {
+				status: 400
+			});
 		}
 	}
 };

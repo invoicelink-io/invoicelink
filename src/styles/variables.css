@@ -47,7 +47,7 @@
 		--color-neutral-100: 71.15% 0.02 265.93;
 		--color-background: 15.4% 0 264.28;
 		--color-foreground: 100% 0 0;
-		--color-toast: var(--color-neutral-300);
+		--color-toast: var(--color-neutral-400);
 		@apply bg-background text-foreground;
 	}
 }

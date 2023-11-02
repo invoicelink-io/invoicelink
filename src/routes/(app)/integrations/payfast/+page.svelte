@@ -1,72 +1,56 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import toast from 'svelte-french-toast';
-	import type { PageData, SubmitFunction } from './$types';
+	import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms/client';
+
 	export let data: PageData;
-	let loading = false;
 
-	$: payfast = data.integrations?.payfast[0];
-	let payfastFormData = {
-		merchant_id: payfast?.merchant_id ?? '',
-		merchant_key: payfast?.merchant_key ?? '',
-		passphrase: payfast?.passphrase ?? ''
-	};
-
-	const handleSubmit: SubmitFunction = ({ cancel, action }) => {
-		let actionType = 'create';
-		let reset = false;
-		if (action.search.includes('update')) {
-			actionType = 'update';
-		} else if (action.search.includes('delete')) {
-			actionType = 'delete';
-		}
-
-		loading = true;
-		return async ({ result, update }) => {
-			switch (result.type) {
-				case 'success':
-					toast.success(`Payfast integration ${actionType}d!`);
-					if (actionType === 'delete') {
-						reset = true;
-					}
-					break;
-				case 'error':
-					toast.error(result.error.message);
-					break;
-				default:
-					break;
+	const { form, enhance, message, submitting, errors } = superForm(data.form, {
+		onUpdated: ({ form }) => {
+			if (form.valid) {
+				toast.success($message);
+			} else {
+				toast.error($message ?? 'Invalid integration');
 			}
-			await update({
-				reset
-			});
-			loading = false;
-		};
-	};
+		},
+		onError: () => {
+			toast.error($message ?? 'Something went wrong');
+		}
+	});
 </script>
 
 <h1 class="h3 my-4 w-full text-center capitalize sm:my-8">Payfast integration settings</h1>
 <div class="flex justify-center">
-	<form class="form-primary" method="POST" use:enhance={handleSubmit}>
-		<label for="merchant_id">Merchant ID</label>
+	<form class="form-primary" method="POST" use:enhance>
+		<input name="id" type="hidden" bind:value={$form.id} />
+		<label for="merchant_id">
+			Merchant ID
+			{#if $errors.merchant_id}
+				<span class="text-error-100">{$errors.merchant_id}</span>
+			{/if}
+		</label>
 		<input
 			name="merchant_id"
 			class="input-primary"
 			type="text"
 			placeholder="Merchant ID"
-			bind:value={payfastFormData.merchant_id}
-			disabled={loading}
+			bind:value={$form.merchant_id}
 			required
 		/>
 
-		<label for="merchant_key">Merchant Key</label>
+		<label for="merchant_key">
+			Merchant Key
+			{#if $errors.merchant_key}
+				<span class="text-error-100">{$errors.merchant_key}</span>
+			{/if}
+		</label>
 		<input
 			name="merchant_key"
 			class="input-primary"
 			type="text"
 			placeholder="Merchant Key"
-			bind:value={payfastFormData.merchant_key}
+			bind:value={$form.merchant_key}
 			required
-			disabled={loading}
 		/>
 
 		<label for="passphrase">Security Passphrase</label>
@@ -75,22 +59,76 @@
 			class="input-primary"
 			type="text"
 			placeholder="Passphrase"
-			disabled={loading}
-			bind:value={payfastFormData.passphrase}
+			bind:value={$form.passphrase}
 		/>
 
-		<div class="mt-4 flex w-full justify-end gap-2">
-			{#if payfast?.id}
-				<button type="submit" class="btn-error" formaction="?/delete&id={payfast.id}">Delete</button
-				>
-				<button type="submit" class="btn-primary" formaction="?/update&id={payfast.id}"
-					>Update</button
-				>
+		<div class="mt-4 flex w-full justify-between gap-2">
+			<button
+				type="button"
+				class="btn-secondary"
+				on:click|preventDefault={() => {
+					const payfastTestForm = document.forms.namedItem('payfast_test');
+					if (payfastTestForm) {
+						const signatureInputs = payfastTestForm.querySelectorAll('input[name="signature"]');
+						if (signatureInputs) {
+							for (const signatureInput of signatureInputs) {
+								payfastTestForm.removeChild(signatureInput);
+							}
+						}
+						if ($form.passphrase) {
+							fetch('/api/payfast/generate_signature', {
+								method: 'POST',
+								body: JSON.stringify({
+									data: Object.fromEntries(new FormData(payfastTestForm)),
+									passphrase: $form.passphrase
+								})
+							})
+								.then((res) => {
+									return res.json();
+								})
+								.then((signature) => {
+									// add signature to form
+									payfastTestForm.appendChild(
+										Object.assign(document.createElement('input'), {
+											type: 'hidden',
+											name: 'signature',
+											value: signature
+										})
+									);
+									payfastTestForm.submit();
+								});
+						} else {
+							payfastTestForm.submit();
+						}
+					}
+				}}>Test integration</button
+			>
+			{#if $form.id}
+				<span class="flex items-center justify-center gap-2">
+					<button type="submit" class="btn-error" formaction="?/delete"
+						>{$submitting ? `Deleting` : `Delete`}</button
+					>
+					<button type="submit" class="btn-primary" formaction="?/update"
+						>{$submitting ? `Updating` : `Update`}</button
+					>
+				</span>
 			{:else}
-				<button type="submit" class="btn-primary" formaction="?/create" disabled={loading}
-					>Save</button
+				<button type="submit" class="btn-primary" formaction="?/create"
+					>{$submitting ? `Saving` : `Save`}</button
 				>
 			{/if}
 		</div>
 	</form>
 </div>
+
+<form
+	target="_blank"
+	name="payfast_test"
+	action="https://www.payfast.co.za/eng/process"
+	method="POST"
+>
+	<input type="hidden" name="merchant_id" value={$form.merchant_id} />
+	<input type="hidden" name="merchant_key" value={$form.merchant_key} />
+	<input type="hidden" name="amount" value="10.00" />
+	<input type="hidden" name="item_name" value="Invoicelink integration successful" />
+</form>
