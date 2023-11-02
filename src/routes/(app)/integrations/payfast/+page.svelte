@@ -1,11 +1,13 @@
 <script lang="ts">
+	export let data: PageData;
+
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { isAppleMobile } from '$lib/utils/platform';
 	import { browser } from '$app/environment';
-	export let data: PageData;
+	import Switch from '$lib/components/ui/Switch.svelte';
 
 	let testInCurrentWindow = false;
 	if (browser) {
@@ -24,6 +26,8 @@
 			toast.error($message ?? 'Something went wrong');
 		}
 	});
+
+	let requireSecurity = $form.passphrase ? true : false;
 </script>
 
 <h1 class="h3 my-4 w-full text-center capitalize sm:my-8">Payfast integration settings</h1>
@@ -59,15 +63,19 @@
 			bind:value={$form.merchant_key}
 			required
 		/>
-
-		<label for="passphrase">Security Passphrase</label>
-		<input
-			name="passphrase"
-			class="input-primary"
-			type="text"
-			placeholder="Passphrase"
-			bind:value={$form.passphrase}
-		/>
+		<div class="flex w-full justify-end">
+			<Switch name="Require security" bind:isChecked={requireSecurity} />
+		</div>
+		{#if requireSecurity}
+			<label for="passphrase">Security Passphrase</label>
+			<input
+				name="passphrase"
+				class="input-primary"
+				type="text"
+				placeholder="Passphrase"
+				bind:value={$form.passphrase}
+			/>
+		{/if}
 
 		<div class="mt-4 flex w-full justify-between gap-2">
 			<button

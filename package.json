@@ -22,7 +22,7 @@
 	},
 	"devDependencies": {
 		"@melt-ui/pp": "^0.1.2",
-		"@melt-ui/svelte": "^0.57.2",
+		"@melt-ui/svelte": "^0.57.3",
 		"@playwright/test": "^1.39.0",
 		"@sveltejs/adapter-auto": "^2.1.0",
 		"@sveltejs/adapter-vercel": "^3.0.3",
