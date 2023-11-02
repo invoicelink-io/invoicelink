@@ -1,9 +1,16 @@
 <script lang="ts">
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
+	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
-
+	import { isAppleMobile } from '$lib/utils/platform';
+	import { browser } from '$app/environment';
 	export let data: PageData;
+
+	let testInCurrentWindow = false;
+	if (browser) {
+		testInCurrentWindow = isAppleMobile(navigator.userAgent);
+	}
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		onUpdated: ({ form }) => {
@@ -122,13 +129,15 @@
 </div>
 
 <form
-	target="_blank"
+	target={testInCurrentWindow ? `_self` : `_blank`}
 	name="payfast_test"
 	action="https://www.payfast.co.za/eng/process"
 	method="POST"
 >
 	<input type="hidden" name="merchant_id" value={$form.merchant_id} />
 	<input type="hidden" name="merchant_key" value={$form.merchant_key} />
+	<input type="hidden" name="return_url" value={$page.url.href} />
+	<input type="hidden" name="cancel_url" value={$page.url.href} />
 	<input type="hidden" name="amount" value="10.00" />
 	<input type="hidden" name="item_name" value="Invoicelink integration successful" />
 </form>

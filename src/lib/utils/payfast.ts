@@ -21,7 +21,5 @@ export const generateSignature = (
 	}
 
 	const signature = crypto.createHash('md5').update(getString).digest('hex');
-	console.log(signature);
-	console.log(getString + '&signature=' + signature);
 	return signature;
 };
