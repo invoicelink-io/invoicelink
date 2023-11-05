@@ -11,7 +11,7 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	const profileMenu: PopupSettings = {
-		event: 'focus-click',
+		event: 'click',
 		target: 'profileMenu',
 		placement: 'bottom-end'
 	};
@@ -22,7 +22,7 @@
 		<div class="flex items-center">
 			<a href="/" class="text-sm font-medium">invoicelink.io</a>
 			<hr
-				class="mx-4 hidden h-[75%] rotate-[20deg] border-r !border-primary-500 border-opacity-100 sm:flex"
+				class="mx-4 !hidden h-[75%] rotate-[20deg] border-r !border-primary-500 border-opacity-100 sm:!flex"
 			/>
 			<div class="hidden h-full items-center sm:flex">Personal Account</div>
 		</div>
@@ -30,7 +30,7 @@
 			<button class="ml-2" use:popup={profileMenu}>
 				<Avatar src={avatar_url} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
 			</button>
-			<div class="card w-max p-4 shadow-xl" data-popup="profileMenu">
+			<div class="card w-max p-3 shadow-xl" data-popup="profileMenu">
 				<div class="mb-2">
 					<p class="text-right text-sm font-medium">{name}</p>
 					{#if email}
