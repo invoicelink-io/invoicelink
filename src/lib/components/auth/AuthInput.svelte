@@ -8,7 +8,7 @@
 	{#if label}
 		<label
 			class="input-auth-label flex items-center {active || error
-				? 'bottom-1/2 text-[12px] text-neutral-100'
+				? 'bottom-1/2 text-[12px] text-surface-100'
 				: ''}"
 			for="name"
 		>

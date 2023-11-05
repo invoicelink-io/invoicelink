@@ -1,51 +1,55 @@
 <script lang="ts">
-	import Navigation from './Navigation.svelte';
-	import Avatar from './ui/Avatar.svelte';
 	import { page } from '$app/stores';
-	const { avatar_url: src, name } = $page.data.user;
+	import { getInitials } from '$lib/utils/stringHelpers';
+	const { avatar_url, name, email } = $page.data.user;
 
-	import { createDropdownMenu, melt } from '@melt-ui/svelte';
+	import Navigation from './Navigation.svelte';
 	import Icon from './Icon.svelte';
-	const {
-		elements: { menu, item, trigger }
-	} = createDropdownMenu();
+
+	import { popup } from '@skeletonlabs/skeleton';
+	import type { PopupSettings } from '@skeletonlabs/skeleton';
+	import { Avatar } from '@skeletonlabs/skeleton';
+
+	const profileMenu: PopupSettings = {
+		event: 'focus-click',
+		target: 'profileMenu',
+		placement: 'bottom-end'
+	};
 </script>
 
-<header
-	class="flex w-full flex-col items-center border-t-2 border-primary-200 p-4 text-xs shadow shadow-neutral-50 dark:shadow-neutral-400"
->
+<header class="flex w-full flex-col items-center border-t-2 border-primary-500 p-4 text-xs shadow">
 	<div class="flex w-full max-w-7xl justify-between">
 		<div class="flex items-center">
 			<a href="/" class="text-sm font-medium">invoicelink.io</a>
-			<hr class="mx-4 hidden h-[75%] rotate-[20deg] border-r border-primary-200 sm:flex" />
+			<hr
+				class="mx-4 hidden h-[75%] rotate-[20deg] border-r !border-primary-500 border-opacity-100 sm:flex"
+			/>
 			<div class="hidden h-full items-center sm:flex">Personal Account</div>
 		</div>
 		<div class="flex items-center">
-			<button use:melt={$trigger}>
-				<Avatar {src} {name} />
+			<button class="ml-2" use:popup={profileMenu}>
+				<Avatar src={avatar_url} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
 			</button>
-			<div
-				class="w-max min-w-[10rem] rounded-lg border border-neutral-50 bg-white py-4 text-xs shadow-lg shadow-neutral-50 dark:border-neutral-500 dark:bg-neutral-400 dark:shadow-neutral-500"
-				use:melt={$menu}
-			>
-				<ul class="flex flex-col">
-					<li use:melt={$item}>
-						<a
-							class="flex w-full items-center justify-between px-2 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-300"
-							href="/settings"
-							><span>Settings</span>
-							<Icon name="settings" />
-						</a>
-					</li>
-					<li use:melt={$item}>
-						<form class="m-0 h-auto w-full p-0" method="POST" action="/logout">
-							<button
-								class="flex w-full items-center justify-between px-2 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-300"
-								type="submit">Logout</button
-							>
-						</form>
-					</li>
-				</ul>
+			<div class="card w-max p-4 shadow-xl" data-popup="profileMenu">
+				<div class="mb-2">
+					<p class="text-right text-sm font-medium">{name}</p>
+					{#if email}
+						<p class="text-right text-xs">{email}</p>
+					{/if}
+					<hr class="mt-2" />
+				</div>
+				<a class="variant-soft-surface btn btn-sm mb-2 w-full justify-between" href="/settings">
+					<span>Settings</span>
+					<Icon name="settings" />
+				</a>
+				<form class="m-0 h-auto w-full p-0" method="POST" action="/logout">
+					<button class="variant-soft-surface btn btn-sm w-full justify-between" type="submit">
+						<span>Logout</span>
+						<Icon name="logout" />
+					</button>
+				</form>
+				<hr class="my-2" />
+				<button class="variant-filled-primary btn btn-sm w-full" type="button">Upgrade</button>
 			</div>
 		</div>
 	</div>

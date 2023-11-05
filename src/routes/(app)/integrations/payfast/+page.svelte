@@ -7,7 +7,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { isAppleMobile } from '$lib/utils/platform';
 	import { browser } from '$app/environment';
-	import Switch from '$lib/components/ui/Switch.svelte';
+	import { SlideToggle } from '@skeletonlabs/skeleton';
 
 	let testInCurrentWindow = false;
 	if (browser) {
@@ -28,51 +28,58 @@
 	});
 
 	let requireSecurity = $form.passphrase ? true : false;
+
+	$: {
+		if (!requireSecurity) {
+			form.set({ ...$form, passphrase: '' });
+		}
+	}
 </script>
 
 <h1 class="h3 my-4 w-full text-center capitalize sm:my-8">Payfast integration settings</h1>
 <div class="flex justify-center">
-	<form class="form-primary" method="POST" use:enhance>
+	<form class="flex w-full max-w-xl flex-col" method="POST" use:enhance>
 		<input name="id" type="hidden" bind:value={$form.id} />
-		<label for="merchant_id">
+		<label class="label mb-1 text-xs" for="merchant_id">
 			Merchant ID
 			{#if $errors.merchant_id}
-				<span class="text-error-100">{$errors.merchant_id}</span>
+				<span class="text-error-400">{$errors.merchant_id}</span>
 			{/if}
 		</label>
 		<input
 			name="merchant_id"
-			class="input-primary"
+			class="input variant-soft-surface mb-4 border-none"
 			type="text"
-			placeholder="Merchant ID"
+			placeholder="Payfast Merchant ID"
 			bind:value={$form.merchant_id}
 			required
 		/>
 
-		<label for="merchant_key">
+		<label class="label mb-1 text-xs" for="merchant_key">
 			Merchant Key
 			{#if $errors.merchant_key}
-				<span class="text-error-100">{$errors.merchant_key}</span>
+				<span class="text-error-400">{$errors.merchant_key}</span>
 			{/if}
 		</label>
 		<input
 			name="merchant_key"
-			class="input-primary"
+			class="input variant-soft-surface mb-4 border-none"
 			type="text"
-			placeholder="Merchant Key"
+			placeholder="Payfast Merchant Key"
 			bind:value={$form.merchant_key}
 			required
 		/>
-		<div class="flex w-full justify-end">
-			<Switch name="Require security" bind:isChecked={requireSecurity} />
+		<div class="mb-4 flex w-full items-center justify-end gap-2">
+			<span class="text-xs">Require security</span>
+			<SlideToggle size="sm" active="bg-primary-500" name="slide" bind:checked={requireSecurity} />
 		</div>
 		{#if requireSecurity}
-			<label for="passphrase">Security Passphrase</label>
+			<label class="label mb-1 text-xs" for="passphrase">Security Passphrase</label>
 			<input
 				name="passphrase"
-				class="input-primary"
+				class="input variant-soft-surface mb-4 border-none"
 				type="text"
-				placeholder="Passphrase"
+				placeholder="Payfast Passphrase"
 				bind:value={$form.passphrase}
 			/>
 		{/if}
@@ -80,7 +87,7 @@
 		<div class="mt-4 flex w-full justify-between gap-2">
 			<button
 				type="button"
-				class="btn-secondary"
+				class="variant-ghost-primary btn btn-sm text-primary-500"
 				on:click|preventDefault={() => {
 					const payfastTestForm = document.forms.namedItem('payfast_test');
 					if (payfastTestForm) {
@@ -120,15 +127,15 @@
 			>
 			{#if $form.id}
 				<span class="flex items-center justify-center gap-2">
-					<button type="submit" class="btn-error" formaction="?/delete"
+					<button type="submit" class="variant-filled-error btn btn-sm" formaction="?/delete"
 						>{$submitting ? `Deleting` : `Delete`}</button
 					>
-					<button type="submit" class="btn-primary" formaction="?/update"
+					<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/update"
 						>{$submitting ? `Updating` : `Update`}</button
 					>
 				</span>
 			{:else}
-				<button type="submit" class="btn-primary" formaction="?/create"
+				<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/create"
 					>{$submitting ? `Saving` : `Save`}</button
 				>
 			{/if}

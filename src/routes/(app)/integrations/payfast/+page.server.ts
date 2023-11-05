@@ -72,9 +72,12 @@ export const actions: Actions = {
 								passphrase: form.data.passphrase ?? ''
 							}
 						}
+					},
+					include: {
+						payfast: true
 					}
 				});
-				form.data.id = res.id;
+				form.data.id = res.payfast[0].id;
 				return message(form, 'Payfast integration created!');
 			}
 		} catch (error) {
@@ -122,7 +125,7 @@ export const actions: Actions = {
 					data: {
 						merchant_id: form.data.merchant_id,
 						merchant_key: form.data.merchant_key,
-						passphrase: form.data.passphrase
+						passphrase: form.data.passphrase || ''
 					}
 				});
 			}

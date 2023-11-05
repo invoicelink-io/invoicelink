@@ -2,6 +2,10 @@
 	import Header from '$lib/components/Header.svelte';
 	import { page } from '$app/stores';
 	import { shortcut } from '@svelte-put/shortcut';
+	// Floating UI
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 </script>
 
 <svelte:head>
@@ -14,8 +18,8 @@
 			key: '†',
 			modifier: 'alt',
 			callback: () => {
-				const theme = document.documentElement.getAttribute('data-theme');
-				document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
+				const theme = document.documentElement.className;
+				document.documentElement.className = theme === 'dark' ? 'light' : 'dark';
 			}
 		}
 	}}

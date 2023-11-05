@@ -69,7 +69,7 @@ model Payfast {
   integration    Integration @relation(fields: [integration_id], references: [id], onDelete: Cascade)
   merchant_id    String
   merchant_key   String
-  passphrase     String
+  passphrase     String?
   created_at     DateTime    @default(now())
   updated_at     DateTime    @updatedAt
   active         Boolean     @default(true)

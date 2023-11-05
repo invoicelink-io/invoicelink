@@ -49,7 +49,7 @@
 	<p class="mb-2 text-center">Enter your credentials to access your account</p>
 
 	{#if data?.message}
-		<div class="w-full rounded-xl border border-primary-200 p-4 text-center">
+		<div class="w-full rounded-xl border border-primary-500 p-4 text-center">
 			{data.message}
 		</div>
 	{/if}

@@ -2,17 +2,17 @@
 	import '../app.css';
 	import { Toaster, type ToastOptions } from 'svelte-french-toast';
 	const toastOptions = {
-		style: `background-color: oklch(var(--color-toast)); color: oklch(var(--color-foreground)); font-size: 0.875rem;`,
+		className: `!bg-surface-100 dark:!bg-surface-800 !text-surface-900 dark:!text-white !text-sm`,
 		error: {
 			iconTheme: {
-				primary: `oklch(var(--color-error-100))`,
-				secondary: `oklch(100% 0 0)`
+				primary: `rgb(var(--color-error-500))`,
+				secondary: `rgb(255 255 255)`
 			}
 		},
 		success: {
 			iconTheme: {
-				primary: `oklch(var(--color-success-100))`,
-				secondary: `oklch(100% 0 0)`
+				primary: `rgb(var(--color-success-500))`,
+				secondary: `rgb(255 255 255)`
 			}
 		}
 	} as ToastOptions;

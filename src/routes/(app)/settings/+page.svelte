@@ -1,9 +1,9 @@
 <script>
-	import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 	import toast from 'svelte-french-toast';
 </script>
 
-<ThemeSwitch />
+<LightSwitch />
 <button
 	class="btn-auth my-4 w-max p-2 text-sm"
 	on:click={() => toast.error('Integration created!', {})}>Error!</button
