@@ -4,8 +4,28 @@
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { SlideToggle } from '@skeletonlabs/skeleton';
+	import { SlideToggle, type ModalSettings } from '@skeletonlabs/skeleton';
 	import TestIntegration from './Integration.svelte';
+
+	import { getModalStore } from '@skeletonlabs/skeleton';
+
+	const modalStore = getModalStore();
+	const modal: ModalSettings = {
+		type: 'component',
+		component: 'ModalDeleteConfirm',
+		title: 'Delete Integration',
+		body: 'Are you sure you want to delete this integration?',
+		response: (r: boolean) => {
+			if (r) {
+				// submit the form to delete the integration
+				const form = document.forms.namedItem('integration-setup');
+				if (form) {
+					form.action = '?/delete';
+					form.submit();
+				}
+			}
+		}
+	};
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		onUpdated: ({ form }) => {
@@ -29,9 +49,9 @@
 	}
 </script>
 
-<h1 class="h3 my-4 w-full text-center capitalize sm:my-8">Payfast integration settings</h1>
+<h1 class="h4 mb-8 w-full text-center capitalize">Payfast integration settings</h1>
 <div class="flex justify-center">
-	<form class="flex w-full max-w-xl flex-col" method="POST" use:enhance>
+	<form name="integration-setup" class="flex w-full max-w-xl flex-col" method="POST" use:enhance>
 		<input name="id" type="hidden" bind:value={$form.id} />
 		<label class="label mb-1 text-xs" for="merchant_id">
 			Merchant ID
@@ -81,7 +101,11 @@
 			<TestIntegration {form} {requireSecurity} />
 			{#if $form.id}
 				<span class="flex items-center justify-center gap-2">
-					<button type="submit" class="variant-filled-error btn btn-sm" formaction="?/delete"
+					<button
+						type="submit"
+						formaction="?/delete"
+						class="variant-filled-error btn btn-sm"
+						on:click|preventDefault={() => modalStore.trigger(modal)}
 						>{$submitting ? `Deleting` : `Delete`}</button
 					>
 					<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/update"
