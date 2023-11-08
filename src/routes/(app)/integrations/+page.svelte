@@ -5,7 +5,7 @@
 	export let data: PageData;
 </script>
 
-<h1 class="my-4 w-full text-center sm:my-8">Configure payment integrations</h1>
+<h1 class="h5 mb-8 w-full text-center capitalize">Configure payment integrations</h1>
 <div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
 	{#each Object.keys(data.integrationStatus) as name}
 		<a

@@ -19,6 +19,7 @@ model User {
   key                Key[]
   verification_token VerificationToken[]
   Integration        Integration[]
+  QuickLink          QuickLink[]
 }
 
 model Session {
@@ -73,4 +74,21 @@ model Payfast {
   created_at     DateTime    @default(now())
   updated_at     DateTime    @updatedAt
   active         Boolean     @default(true)
+}
+
+model QuickLink {
+  id         String   @id @unique @default(cuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id    String
+  user       User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  amount     Float
+  status     Status   @default(PENDING)
+}
+
+enum Status {
+  PENDING
+  PAID
+  EXPIRED
+  OVERDUE
 }

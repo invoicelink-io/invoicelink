@@ -49,7 +49,7 @@
 	}
 </script>
 
-<h1 class="h4 mb-8 w-full text-center capitalize">Payfast integration settings</h1>
+<h1 class="h5 mb-8 w-full text-center capitalize">Payfast integration settings</h1>
 <div class="flex justify-center">
 	<form name="integration-setup" class="flex w-full max-w-xl flex-col" method="POST" use:enhance>
 		<input name="id" type="hidden" bind:value={$form.id} />

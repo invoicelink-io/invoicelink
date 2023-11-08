@@ -19,5 +19,5 @@ export const schema = z.object({
 		.max(13, {
 			message: 'Merchant Key must be 13 characters'
 		}),
-	passphrase: z.string().optional()
+	passphrase: z.string().optional().nullable()
 });

@@ -64,6 +64,7 @@
 		"@lucia-auth/oauth": "^3.4.0",
 		"@prisma/client": "^5.5.2",
 		"@svelte-put/shortcut": "^3.0.0",
+		"javascript-time-ago": "^2.5.9",
 		"lucia": "^2.7.3",
 		"svelte-french-toast": "^1.2.0"
 	},
