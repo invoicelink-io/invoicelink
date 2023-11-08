@@ -12,7 +12,7 @@
 			href="/integrations/{name.toLowerCase()}"
 			class="{data.integrationStatus[name] === 'coming soon'
 				? 'cursor-not-allowed'
-				: 'cursor-pointer'} card variant-filled-surface bg-surface-200-700-token card-hover flex h-28 w-full flex-col items-center justify-center p-4 text-center text-sm capitalize"
+				: 'cursor-pointer'} card variant-filled-surface bg-surface-100-800-token card-hover flex h-28 w-full flex-col items-center justify-center p-4 text-center text-sm capitalize"
 		>
 			<Icon {name} />
 			<p

@@ -31,13 +31,16 @@
 				<Avatar src={avatar_url} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
 			</button>
 			<div class="card w-max p-3 shadow-xl" data-popup="profileMenu">
-				<div class="mb-2">
-					<p class="text-right text-sm font-medium">{name}</p>
-					{#if email}
-						<p class="text-right text-xs">{email}</p>
-					{/if}
-					<hr class="mt-2" />
+				<div class="mb-4 flex items-center">
+					<Avatar src={avatar_url} initials={getInitials(name)} width="w-10" rounded="rounded-lg" />
+					<div class="ml-2 flex h-full flex-col justify-center">
+						<p class="text-left text-sm font-medium">{name}</p>
+						{#if email}
+							<p class="text-left text-xs">{email}</p>
+						{/if}
+					</div>
 				</div>
+
 				<a class="variant-soft-surface btn btn-sm mb-2 w-full justify-between" href="/settings">
 					<span>Settings</span>
 					<Icon name="settings" />
