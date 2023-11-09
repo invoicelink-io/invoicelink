@@ -28,7 +28,7 @@
 	const modal: ModalSettings = {
 		type: 'component',
 		component: 'ModalDeleteConfirm',
-		title: 'Delete Quick Link',
+		title: 'Delete quick link',
 		body: 'Are you sure you want to delete this quick link?',
 		response: (r: boolean) => {
 			if (r) {
@@ -42,8 +42,6 @@
 			}
 		}
 	};
-
-	console.log(data.links);
 </script>
 
 <h1 class="h5 w-full text-center capitalize">Quick links</h1>
@@ -125,7 +123,9 @@
 					>
 						{link.status}
 					</div>
-					<Icon name="arrow-right" />
+					<a target="_blank" href="https://pay.invoicelink.io/{link.id}">
+						<Icon name="launch" />
+					</a>
 				</li>
 			{/each}
 		{:else}
