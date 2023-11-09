@@ -1,6 +1,7 @@
 import type { Actions, PageServerLoad } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
 import { schema } from './validation';
+import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
