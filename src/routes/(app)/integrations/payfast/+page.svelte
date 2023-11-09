@@ -8,7 +8,6 @@
 	import TestIntegration from './Integration.svelte';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
-
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',
