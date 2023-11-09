@@ -85,7 +85,12 @@
 					<div class="min-w-0 flex-auto">
 						<div class="flex items-center gap-x-3">
 							<h2 class="min-w-0 text-sm font-semibold leading-6">
-								<div class="flex items-center gap-x-2">
+								<form
+									class="flex items-center gap-x-2"
+									name="delete-{link.id}"
+									method="POST"
+									action="?/delete&id={link.id}"
+								>
 									<span
 										>{Number(link.amount).toLocaleString('en-ZA', {
 											style: 'currency',
@@ -93,18 +98,16 @@
 										})}</span
 									>
 									<CopyToClipboard text={`https://pay.invoicelink.io/${link.id}`} />
-									<form name="delete-{link.id}" method="POST" action="?/delete&id={link.id}">
-										<button
-											type="submit"
-											on:click|preventDefault={() => {
-												deleteId = link.id;
-												modalStore.trigger(modal);
-											}}
-										>
-											<Icon name="trash" />
-										</button>
-									</form>
-								</div>
+									<button
+										type="submit"
+										on:click|preventDefault={() => {
+											deleteId = link.id;
+											modalStore.trigger(modal);
+										}}
+									>
+										<Icon name="trash" />
+									</button>
+								</form>
 							</h2>
 						</div>
 						<div class="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
