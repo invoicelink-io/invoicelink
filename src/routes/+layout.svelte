@@ -11,7 +11,7 @@
 		},
 		success: {
 			iconTheme: {
-				primary: `rgb(var(--color-success-500))`,
+				primary: `rgb(var(--color-success-600))`,
 				secondary: `rgb(255 255 255)`
 			}
 		}

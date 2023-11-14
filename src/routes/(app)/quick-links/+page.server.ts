@@ -7,8 +7,8 @@ export const load = (async ({ parent, locals }) => {
 	await parent();
 	// fetch users integrations
 	const quickLink = {
-		id: '123',
-		amount: 250
+		id: '',
+		amount: 100
 	};
 
 	const form = await superValidate(quickLink, schema);
@@ -64,7 +64,7 @@ export const actions: Actions = {
 					user_id: userId
 				}
 			});
-			console.log(userIntegration);
+
 			form.data.id = res.id;
 			return message(form, 'Quick link created!');
 		} catch (error) {
@@ -76,7 +76,6 @@ export const actions: Actions = {
 	},
 	delete: async ({ request, url }) => {
 		const form = await superValidate(request, schema);
-		console.log(url);
 		const quickLinkId = url.searchParams.get('id');
 		if (quickLinkId) {
 			try {

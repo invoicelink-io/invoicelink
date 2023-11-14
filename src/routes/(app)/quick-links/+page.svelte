@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let data: PageData;
-
+	import { page } from '$app/stores';
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
@@ -72,7 +72,7 @@
 				required
 			/>
 			<button type="submit" class="variant-filled-primary btn btn-sm"
-				>{$submitting ? `Creating` : `Create`}</button
+				>{$submitting ? `busy` : `create`}</button
 			>
 		</span>
 	</form>
@@ -95,7 +95,6 @@
 											currency: 'ZAR'
 										})}</span
 									>
-									<CopyToClipboard text={`https://pay.invoicelink.io/${link.id}`} />
 									<button
 										type="submit"
 										on:click|preventDefault={() => {
@@ -123,9 +122,10 @@
 					>
 						{link.status}
 					</div>
-					<a target="_blank" href="https://pay.invoicelink.io/{link.id}">
+					<a target="_blank" href="/pay?id={link.id}">
 						<Icon name="launch" />
 					</a>
+					<CopyToClipboard text={`${$page.url.origin}/pay?id=${link.id}`} />
 				</li>
 			{/each}
 		{:else}
