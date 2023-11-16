@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
+	import { Avatar, ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '../(app)/integrations/payfast/PayfastIntegration.svelte';
 	const payfast = data.pay?.user.Integration[0].payfast[0];
@@ -39,14 +39,14 @@
 </svelte:head>
 
 <div
-	class="flex h-screen w-full flex-col items-center justify-between border-t-8 border-primary-500 bg-surface-50 pb-10 text-surface-900"
+	class="flex h-screen w-full flex-col items-center justify-between bg-surface-50 pb-20 text-surface-900"
 >
 	{#if data.pay}
 		<div
-			class="relative flex h-[30vh] w-full flex-col items-center justify-center bg-surface-100 text-center"
+			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-surface-100 text-center"
 		>
 			<div
-				class="absolute bottom-0 mx-auto -mb-20 max-w-xl rounded-xl bg-surface-50 px-8 py-16 shadow-lg"
+				class="absolute bottom-0 -mb-[10vh] flex h-auto w-full max-w-sm flex-col items-center justify-center gap-4 rounded-xl bg-surface-50 p-10 shadow-lg sm:mx-auto sm:max-w-xl"
 			>
 				<div class="flex flex-col">
 					<span class="text-sm font-semibold uppercase">{data.pay?.user.name}</span>
@@ -69,10 +69,11 @@
 					amount={data.pay?.amount}
 					item_name={data.pay.user.name || 'Payment request'}
 					requireSecurity={payfast.passphrase !== ''}
+					demo={data?.pay.id === 'demo'}
 				/>
 			{/if}
 		</div>
-		<div class="flex w-full flex-col items-center justify-start gap-y-2 py-4">
+		<div class="flex w-full flex-col items-center justify-start gap-y-2 py-20">
 			<p class="text-sm">Change payment option</p>
 			<button class="variant-glass-surface btn w-48 justify-between" use:popup={popupCombobox}>
 				<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
@@ -95,3 +96,9 @@
 		<a href="https://invoicelink.io" target="_blank">invoicelink.io</a>
 	</div>
 </div>
+
+<style>
+	.bg-pattern {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2355575e' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+	}
+</style>

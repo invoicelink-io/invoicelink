@@ -14,6 +14,11 @@
 	export let endpoint: string = 'https://www.payfast.co.za/eng/process';
 	export let button_label: string = 'Pay now';
 	export let button_class: string = 'variant-filled bg-surface-800 text-surface-50 btn';
+	export let demo = false;
+
+	if (demo) {
+		endpoint = 'https://sandbox.payfast.co.za/eng/process';
+	}
 
 	let testInCurrentWindow = false;
 	if (browser) {

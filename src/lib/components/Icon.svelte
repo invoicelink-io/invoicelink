@@ -78,3 +78,32 @@
 		/></svg
 	>
 {/if}
+
+{#if name === 'invoicelink'}
+	<svg
+		width="150"
+		height="155"
+		viewBox="0 0 150 155"
+		fill="none"
+		class="h-5 w-5"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<rect
+			x="28.4816"
+			y="53.5203"
+			width="107.041"
+			height="57.6372"
+			rx="28.8186"
+			transform="rotate(-30 28.4816 53.5203)"
+			stroke="#6366F1"
+			stroke-width="16"
+			stroke-linejoin="round"
+		/>
+		<path
+			d="M110.785 86.2895C116.046 95.401 107.575 109.271 96.5608 115.63L53.7763 140.332C39.9925 148.29 22.3673 143.567 14.4093 129.783C6.45126 116 11.1739 98.3744 24.9576 90.4164L67.7422 65.7147C76.3454 60.7477 93.1737 55.7857 98.8917 65.6895"
+			stroke="white"
+			stroke-width="16"
+			stroke-linejoin="round"
+		/>
+	</svg>
+{/if}
