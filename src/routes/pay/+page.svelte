@@ -4,11 +4,7 @@
 	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '../(app)/integrations/payfast/PayfastIntegration.svelte';
-	import { readable } from 'svelte/store';
-	// create a readable store for the page data
-	// get payment integrations
 	const payfast = data.pay?.user.Integration[0].payfast[0];
-	console.log(payfast);
 
 	let selectedGateway: string = 'payfast';
 	const popupCombobox: PopupSettings = {
@@ -21,6 +17,24 @@
 
 <svelte:head>
 	<title>Pay Now</title>
+	<meta charset="UTF-8" />
+	<meta name="description" content="{data.pay?.user.name} is requesting a payment." />
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<!-- open graph tags -->
+	<meta property="og:title" content="Pay now" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://invoicelink.io" />
+	<meta property="og:image" content="https://invoicelink.io/og-image.png" />
+	<!-- optional open graph tags -->
+	<meta property="og:description" content="Pay now" />
+	<meta property="og:site_name" content="InvoiceLink" />
+	<meta property="og:locale" content="en_ZA" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<!-- twitter content -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@invoicelink" />
 </svelte:head>
 
 <div

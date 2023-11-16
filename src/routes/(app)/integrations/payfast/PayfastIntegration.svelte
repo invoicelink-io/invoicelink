@@ -13,7 +13,7 @@
 	export let cancel_url: string = $page.url.href;
 	export let endpoint: string = 'https://www.payfast.co.za/eng/process';
 	export let button_label: string = 'Pay now';
-	export let button_class: string = 'variant-filled-surface bg-surface-800-100-token btn';
+	export let button_class: string = 'variant-filled-surface bg-surface-800 btn';
 
 	let testInCurrentWindow = false;
 	if (browser) {
