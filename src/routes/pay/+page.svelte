@@ -1,33 +1,82 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-
 	export let data: PageData;
-	console.log(data);
+	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
+	import type { PopupSettings } from '@skeletonlabs/skeleton';
+	import PayfastIntegration from '../(app)/integrations/payfast/PayfastIntegration.svelte';
+	import { readable } from 'svelte/store';
+	// create a readable store for the page data
 	// get payment integrations
-	const payfast = data.pay.user.Integration.payfast;
+	const payfast = data.pay?.user.Integration[0].payfast[0];
 	console.log(payfast);
+
+	let selectedGateway: string = 'payfast';
+	const popupCombobox: PopupSettings = {
+		event: 'click',
+		target: 'popupCombobox',
+		placement: 'top',
+		closeQuery: '.listbox-item'
+	};
 </script>
 
 <svelte:head>
-	<title>Payments</title>
+	<title>Pay Now</title>
 </svelte:head>
 
 <div
-	class="flex h-screen w-full flex-col items-center justify-between border-t-8 border-primary-500 bg-surface-50 py-8 text-surface-900"
+	class="flex h-screen w-full flex-col items-center justify-between border-t-8 border-primary-500 bg-surface-50 pb-10 text-surface-900"
 >
-	<div class="my-8 flex w-full flex-col items-center text-center">
-		<span class="text-sm font-semibold uppercase">{data.pay.user.name}</span>
-		<span class="text-sm">requested a payment of</span>
-		<p class="h1 w-full py-20 text-center font-bold">
-			{Number(data.pay.amount).toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' })}
-		</p>
-	</div>
-	<div class="flex h-full w-full flex-col items-center justify-center bg-purple-200">
-		{#if payfast}
-			<div>Payfast enabled</div>
-		{/if}
-	</div>
+	{#if data.pay}
+		<div
+			class="relative flex h-[30vh] w-full flex-col items-center justify-center bg-surface-100 text-center"
+		>
+			<div
+				class="absolute bottom-0 mx-auto -mb-20 max-w-xl rounded-xl bg-surface-50 px-8 py-16 shadow-lg"
+			>
+				<div class="flex flex-col">
+					<span class="text-sm font-semibold uppercase">{data.pay?.user.name}</span>
+					<span class="text-sm">requested a payment of</span>
+				</div>
+				<p class="w-full text-center text-5xl font-bold md:text-7xl">
+					{Number(data.pay?.amount).toLocaleString('en-ZA', {
+						style: 'currency',
+						currency: 'ZAR'
+					})}
+				</p>
+			</div>
+		</div>
+		<div class="flex w-full flex-grow items-center justify-center">
+			{#if payfast && selectedGateway === 'payfast'}
+				<PayfastIntegration
+					merchant_id={payfast.merchant_id}
+					merchant_key={payfast.merchant_key}
+					passphrase={payfast.passphrase}
+					amount={data.pay?.amount}
+					item_name={data.pay.user.name || 'Payment request'}
+					requireSecurity={payfast.passphrase !== ''}
+				/>
+			{/if}
+		</div>
+		<div class="flex w-full flex-col items-center justify-start gap-y-2 py-4">
+			<p class="text-sm">Change payment option</p>
+			<button class="variant-glass-surface btn w-48 justify-between" use:popup={popupCombobox}>
+				<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
+			</button>
+			<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
+				<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
+					<ListBoxItem bind:group={selectedGateway} name="payfast" value="payfast">
+						Payfast
+					</ListBoxItem>
+				</ListBox>
+			</div>
+		</div>
+	{:else}
+		<div class="flex h-full flex-col items-center justify-center text-center">
+			<p>This payment link is invalid or no longer available.</p>
+			<a href="https://invoicelink.io">Go to home page</a>
+		</div>
+	{/if}
 	<div class="text-xs">
-		Powered by <a href="https://invoicelink.io" target="_blank">invoicelink.io</a>
+		<a href="https://invoicelink.io" target="_blank">invoicelink.io</a>
 	</div>
 </div>

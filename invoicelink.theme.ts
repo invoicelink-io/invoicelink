@@ -86,7 +86,7 @@ export const invoicelinkTheme: CustomThemeConfig = {
 		'--color-error-700': '158 29 45', // #9e1d2d
 		'--color-error-800': '127 23 36', // #7f1724
 		'--color-error-900': '103 19 29', // #67131d
-		// surface | #191919
+		// surface | #55575e
 		'--color-surface-50': '255 255 255', // #ffffff
 		'--color-surface-100': '242 242 242', // #f2f2f2
 		'--color-surface-200': '222 222 222', // ##dedede

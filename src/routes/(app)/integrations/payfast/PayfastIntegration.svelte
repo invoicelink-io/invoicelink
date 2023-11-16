@@ -1,10 +1,19 @@
 <script lang="ts">
-	export let form: any;
-	export let requireSecurity: boolean;
-
 	import { isAppleMobile } from '$lib/utils/platform';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
+	// props
+	export let merchant_id: string;
+	export let merchant_key: string;
+	export let amount: number;
+	export let item_name: string;
+	export let requireSecurity: boolean = false;
+	export let passphrase: string | null = null;
+	export let return_url: string = $page.url.href;
+	export let cancel_url: string = $page.url.href;
+	export let endpoint: string = 'https://www.payfast.co.za/eng/process';
+	export let button_label: string = 'Pay now';
+	export let button_class: string = 'variant-filled-surface bg-surface-800-100-token btn';
 
 	let testInCurrentWindow = false;
 	if (browser) {
@@ -15,20 +24,20 @@
 <form
 	target={testInCurrentWindow ? `_self` : `_blank`}
 	name="payfast_test"
-	action="https://www.payfast.co.za/eng/process"
+	action={endpoint}
 	method="POST"
 	class="hidden"
 >
-	<input type="hidden" name="merchant_id" value={$form.merchant_id} />
-	<input type="hidden" name="merchant_key" value={$form.merchant_key} />
-	<input type="hidden" name="return_url" value={$page.url.href} />
-	<input type="hidden" name="cancel_url" value={$page.url.href} />
-	<input type="hidden" name="amount" value="10.00" />
-	<input type="hidden" name="item_name" value="Invoicelink integration successful" />
+	<input type="hidden" name="merchant_id" value={merchant_id} />
+	<input type="hidden" name="merchant_key" value={merchant_key} />
+	<input type="hidden" name="return_url" value={return_url} />
+	<input type="hidden" name="cancel_url" value={cancel_url} />
+	<input type="hidden" name="amount" value={amount} />
+	<input type="hidden" name="item_name" value={item_name} />
 </form>
 <button
 	type="button"
-	class="variant-ghost-primary btn btn-sm text-primary-500"
+	class={button_class}
 	on:click|preventDefault={() => {
 		const payfastTestForm = document.forms.namedItem('payfast_test');
 		if (payfastTestForm) {
@@ -38,12 +47,12 @@
 					payfastTestForm.removeChild(signatureInput);
 				}
 			}
-			if ($form.passphrase && requireSecurity) {
+			if (passphrase && requireSecurity) {
 				fetch('/api/payfast/generate_signature', {
 					method: 'POST',
 					body: JSON.stringify({
 						data: Object.fromEntries(new FormData(payfastTestForm)),
-						passphrase: $form.passphrase
+						passphrase
 					})
 				})
 					.then((res) => {
@@ -64,5 +73,5 @@
 				payfastTestForm.submit();
 			}
 		}
-	}}>Test integration</button
+	}}>{button_label}</button
 >

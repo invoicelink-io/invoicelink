@@ -5,7 +5,7 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { SlideToggle, type ModalSettings } from '@skeletonlabs/skeleton';
-	import TestIntegration from './Integration.svelte';
+	import PayfastIntegration from './PayfastIntegration.svelte';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	const modalStore = getModalStore();
@@ -97,7 +97,16 @@
 		{/if}
 
 		<div class="mt-4 flex w-full justify-between gap-2">
-			<TestIntegration {form} {requireSecurity} />
+			<PayfastIntegration
+				merchant_id={$form.merchant_id}
+				merchant_key={$form.merchant_key}
+				passphrase={$form.passphrase}
+				amount={10}
+				item_name={'Integration setup successful'}
+				button_label={'Test integration'}
+				button_class="btn btn-sm variant-filled"
+				{requireSecurity}
+			/>
 			{#if $form.id}
 				<span class="flex items-center justify-center gap-2">
 					<button

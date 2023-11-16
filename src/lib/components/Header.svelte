@@ -51,8 +51,8 @@
 						<Icon name="logout" />
 					</button>
 				</form>
-				<hr class="my-2" />
-				<button class="variant-filled-primary btn btn-sm w-full" type="button">Upgrade</button>
+
+				<button class="variant-filled-primary btn btn-sm mt-2 w-full" type="button">Upgrade</button>
 			</div>
 		</div>
 	</div>

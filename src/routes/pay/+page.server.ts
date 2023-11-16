@@ -26,6 +26,8 @@ export const load: PageServerLoad = async ({ url }) => {
 		}
 	});
 
+	console.log('payfast', pay?.user.Integration[0].payfast);
+
 	return {
 		pay
 	};

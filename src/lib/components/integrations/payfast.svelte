@@ -2,7 +2,7 @@
 	width="1504"
 	height="643"
 	viewBox="0 0 1504 643"
-	class="w-full text-[#022D2D] dark:text-[#fff]"
+	class="h-20 w-full text-[#022D2D] dark:text-[#fff]"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"
 >
