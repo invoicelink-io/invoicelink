@@ -38,9 +38,7 @@
 	<meta name="twitter:image" content="https://invoicelink.io/og-image.png" />
 </svelte:head>
 
-<div
-	class="flex h-screen w-full flex-col items-center justify-between bg-surface-50 pb-20 text-surface-900"
->
+<div class="h-svh flex w-full flex-col pb-20 text-surface-900">
 	{#if data.pay}
 		<div
 			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-surface-100 text-center"
@@ -60,8 +58,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="h-[10vh] w-full"></div>
-		<div class="flex w-full flex-grow items-center justify-center gap-2">
+		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
 			<button type="button" class="variant-glass-surface btn w-36">Save invoice</button>
 			{#if payfast && selectedGateway === 'payfast'}
 				<PayfastIntegration
@@ -77,7 +74,7 @@
 				/>
 			{/if}
 		</div>
-		<div class="flex w-full flex-col items-center justify-start gap-y-2 py-20">
+		<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
 			<p class="text-sm">Change payment option</p>
 			<button class="variant-outline-surface btn w-48 justify-between" use:popup={popupCombobox}>
 				<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
@@ -96,7 +93,7 @@
 			<a href="https://invoicelink.io">Go to home page</a>
 		</div>
 	{/if}
-	<div class="text-xs">
+	<div class="w-full py-10 text-center text-xs">
 		<a href="https://invoicelink.io" target="_blank">invoicelink.io</a>
 	</div>
 </div>

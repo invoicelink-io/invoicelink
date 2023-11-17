@@ -95,4 +95,35 @@
 		-ms-overflow-style: none; /* IE and Edge */
 		scrollbar-width: none; /* Firefox */
 	}
+
+	/* dynamic viewport */
+	.min-h-dvh {
+		min-height: 100vh;
+		min-height: 100dvh;
+	}
+
+	.min-h-svh {
+		min-height: 100vh;
+		min-height: 100svh;
+	}
+
+	.min-h-lvh {
+		min-height: 100vh;
+		min-height: 100lvh;
+	}
+
+	.h-dvh {
+		height: 100vh;
+		height: 100dvh;
+	}
+
+	.h-svh {
+		height: 100vh;
+		height: 100svh;
+	}
+
+	.h-lvh {
+		height: 100vh;
+		height: 100lvh;
+	}
 }
