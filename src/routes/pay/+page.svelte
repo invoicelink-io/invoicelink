@@ -4,6 +4,7 @@
 	import { Avatar, ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '../(app)/integrations/payfast/PayfastIntegration.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 	const payfast = data.pay?.user.Integration[0].payfast[0];
 
 	let selectedGateway: string = 'payfast';
@@ -60,7 +61,9 @@
 				</p>
 			</div>
 		</div>
-		<div class="flex w-full flex-grow items-center justify-center">
+		<div class="h-[10vh] w-full"></div>
+		<div class="flex w-full flex-grow items-center justify-center gap-2">
+			<button type="button" class="variant-glass-surface btn w-36">Save invoice</button>
 			{#if payfast && selectedGateway === 'payfast'}
 				<PayfastIntegration
 					merchant_id={payfast.merchant_id}
@@ -70,12 +73,14 @@
 					item_name={data.pay.user.name || 'Payment request'}
 					requireSecurity={payfast.passphrase !== ''}
 					demo={data?.pay.id === 'demo'}
+					button_class="variant-filled-surface btn bg-surface-800-100-token w-36"
+					button_label="Pay now"
 				/>
 			{/if}
 		</div>
 		<div class="flex w-full flex-col items-center justify-start gap-y-2 py-20">
 			<p class="text-sm">Change payment option</p>
-			<button class="variant-glass-surface btn w-48 justify-between" use:popup={popupCombobox}>
+			<button class="variant-outline-surface btn w-48 justify-between" use:popup={popupCombobox}>
 				<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
 			</button>
 			<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
