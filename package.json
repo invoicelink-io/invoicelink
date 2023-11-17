@@ -67,6 +67,7 @@
 		"atropos": "^2.0.2",
 		"javascript-time-ago": "^2.5.9",
 		"lucia": "^2.7.4",
+		"puppeteer": "^21.5.2",
 		"svelte-french-toast": "^1.2.0"
 	},
 	"prisma": {

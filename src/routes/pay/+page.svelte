@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { Avatar, ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
+	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '../(app)/integrations/payfast/PayfastIntegration.svelte';
-	import Icon from '$lib/components/Icon.svelte';
 	const payfast = data.pay?.user.Integration[0].payfast[0];
 
 	let selectedGateway: string = 'payfast';
