@@ -33,6 +33,11 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 		theme = cookieTheme;
 	}
 
+	// always force light theme for these routes
+	if (['/pay', '/invoice'].includes(event.url.pathname)) {
+		theme = 'light';
+	}
+
 	if (theme) {
 		return await resolve(event, {
 			transformPageChunk: ({ html }) => html.replace(`class=""`, `class="${theme}"`)
