@@ -59,7 +59,10 @@
 			</div>
 		</div>
 		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
-			<button type="button" class="variant-glass-surface btn w-36">Save invoice</button>
+			<a
+				href="/api/invoice?id={data?.pay.id}&type=quick&download=true"
+				class="variant-glass-surface btn w-36">Save invoice</a
+			>
 			{#if payfast && selectedGateway === 'payfast'}
 				<PayfastIntegration
 					merchant_id={payfast.merchant_id}

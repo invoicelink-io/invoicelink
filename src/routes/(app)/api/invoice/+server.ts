@@ -16,6 +16,7 @@ const getBrowser = () =>
 export async function GET({ url }) {
 	const origin = url.origin;
 	const search = url.search;
+	const download = url.searchParams.get('download');
 
 	let browser = null;
 
@@ -24,14 +25,15 @@ export async function GET({ url }) {
 		const page = await browser.newPage();
 
 		await page.goto(`${origin}/invoice${search}`);
-		const screenshot = await page.pdf({
+		const pdf = await page.pdf({
 			format: 'A4',
 			printBackground: true
 		});
 
-		return new Response(screenshot, {
+		return new Response(pdf, {
 			headers: {
-				'Content-Type': 'application/pdf'
+				'Content-Type': 'application/pdf',
+				'Content-Disposition': download ? `attachment; filename="invoice.pdf"` : `inline`
 			}
 		});
 	} catch (error: unknown) {
