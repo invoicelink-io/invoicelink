@@ -17,7 +17,9 @@
 	};
 </script>
 
-<header class="flex w-full flex-col items-center border-t-2 border-primary-500 p-4 text-xs shadow">
+<header
+	class="bg-surface-50-900-token sticky top-0 z-50 flex w-full flex-col items-center border-t-2 border-primary-500 p-4 text-xs shadow"
+>
 	<div class="flex w-full max-w-7xl justify-between">
 		<div class="flex items-center">
 			<a href="/" class="text-sm font-medium">invoicelink.io</a>
