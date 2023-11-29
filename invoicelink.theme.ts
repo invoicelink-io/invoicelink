@@ -89,7 +89,7 @@ export const invoicelinkTheme: CustomThemeConfig = {
 		// surface | #55575e
 		'--color-surface-50': '255 255 255', // #ffffff
 		'--color-surface-100': '242 242 242', // #f2f2f2
-		'--color-surface-200': '222 222 222', // ##dedede
+		'--color-surface-200': '222 222 222', // #dedede
 		'--color-surface-300': '163 163 163', // #a3a3a3
 		'--color-surface-400': '128 128 128', // #808080
 		'--color-surface-500': '85 87 94', // #55575e
