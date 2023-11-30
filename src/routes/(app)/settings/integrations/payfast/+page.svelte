@@ -111,37 +111,35 @@
 				/>
 			</li>
 		{/if}
-		<li>
-			<div class="flex w-full items-center justify-between">
-				<PayfastIntegration
-					merchant_id={$form.merchant_id}
-					merchant_key={$form.merchant_key}
-					passphrase={$form.passphrase}
-					amount={10}
-					item_name={'Integration setup successful'}
-					button_label={'Test integration'}
-					button_class="btn btn-sm variant-filled"
-					{requireSecurity}
-				/>
-				{#if $form.id}
-					<span class="flex items-center justify-center gap-2">
-						<button
-							type="submit"
-							formaction="?/delete"
-							class="variant-filled-error btn btn-sm"
-							on:click|preventDefault={() => modalStore.trigger(modal)}
-							>{$submitting ? `Deleting` : `Delete`}</button
-						>
-						<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/update"
-							>{$submitting ? `Updating` : `Update`}</button
-						>
-					</span>
-				{:else}
-					<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/create"
-						>{$submitting ? `Saving` : `Save`}</button
-					>
-				{/if}
-			</div>
-		</li>
 	</ul>
+	<div class="flex w-full items-center justify-between py-6">
+		<PayfastIntegration
+			merchant_id={$form.merchant_id}
+			merchant_key={$form.merchant_key}
+			passphrase={$form.passphrase}
+			amount={10}
+			item_name={'Integration setup successful'}
+			button_label={'Test integration'}
+			button_class="btn btn-sm variant-filled"
+			{requireSecurity}
+		/>
+		{#if $form.id}
+			<span class="flex items-center justify-center gap-2">
+				<button
+					type="submit"
+					formaction="?/delete"
+					class="variant-filled-error btn btn-sm"
+					on:click|preventDefault={() => modalStore.trigger(modal)}
+					>{$submitting ? `Deleting` : `Delete`}</button
+				>
+				<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/update"
+					>{$submitting ? `Updating` : `Update`}</button
+				>
+			</span>
+		{:else}
+			<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/create"
+				>{$submitting ? `Saving` : `Save`}</button
+			>
+		{/if}
+	</div>
 </form>
