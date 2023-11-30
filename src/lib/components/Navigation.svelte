@@ -17,8 +17,8 @@
 			text: 'Clients'
 		},
 		{
-			href: '/integrations',
-			text: 'Integrations'
+			href: '/settings',
+			text: 'Settings'
 		}
 	];
 </script>

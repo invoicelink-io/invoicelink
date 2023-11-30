@@ -27,7 +27,7 @@ export const load = (async ({ parent, locals }) => {
 
 	return {
 		user: locals?.session?.user,
-		title: 'Integrations',
+		title: 'Integration Settings',
 		integrationStatus
 	};
 }) satisfies PageServerLoad;

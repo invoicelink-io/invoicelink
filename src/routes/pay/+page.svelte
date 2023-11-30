@@ -3,7 +3,7 @@
 	export let data: PageData;
 	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
-	import PayfastIntegration from '../(app)/integrations/payfast/PayfastIntegration.svelte';
+	import PayfastIntegration from '../../lib/components/PayfastIntegration.svelte';
 	const payfast = data.pay?.user.Integration[0].payfast[0];
 
 	let selectedGateway: string = 'payfast';

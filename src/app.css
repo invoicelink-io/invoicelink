@@ -78,6 +78,14 @@
 	.btn-auth {
 		@apply flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none bg-primary-500 p-4 text-white transition-all hover:bg-opacity-90;
 	}
+
+	.settings-list {
+		@apply border-surface-100-800-token mt-6 divide-y border-y text-sm leading-6;
+	}
+
+	.settings-list li {
+		@apply border-surface-100-800-token flex flex-col items-start justify-between gap-x-6 gap-y-2 py-6 sm:flex-row sm:items-center;
+	}
 }
 
 @layer utilities {

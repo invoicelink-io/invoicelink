@@ -7,7 +7,8 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { formatTimeAgo } from '$lib/utils/time';
-	import CopyToClipboard from '$lib/components/ui/modals/CopyToClipboard.svelte';
+	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
+	import PageHeading from '$lib/components/PageHeading.svelte';
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		onUpdated: ({ form }) => {
@@ -44,11 +45,8 @@
 	};
 </script>
 
-<div
-	class="border-surface-100-800-token mb-8 flex w-full flex-row items-center justify-center border-b py-4"
->
-	<h1 class="h4 w-full text-left">Quick Links</h1>
-</div>
+<PageHeading heading="Quick Links" />
+
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:gap-x-8">
 	<section>
 		<h2 class="mb-4 w-full text-center">Create a new link</h2>
@@ -76,7 +74,7 @@
 				required
 			/>
 			<button type="submit" class="variant-filled-primary btn btn-sm mt-4 w-max self-end"
-				>{$submitting ? `busy` : `create`}</button
+				>{$submitting ? `Busy` : `Create`}</button
 			>
 		</form>
 	</section>
