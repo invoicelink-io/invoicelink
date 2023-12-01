@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
-import { githubAuth } from "$lib/server/auth";
-import { generateState } from "arctic";
+import { githubAuth } from '$lib/server/auth';
+import { generateState } from 'arctic';
 
 export const GET = async ({ cookies }) => {
 	const state = generateState();

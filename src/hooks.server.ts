@@ -1,5 +1,5 @@
 // src/hooks.server.ts
-import { lucia } from "$lib/server/auth";
+import { lucia } from '$lib/server/auth';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 

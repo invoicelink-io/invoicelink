@@ -40,7 +40,7 @@ export const actions: Actions = {
 			// check if the user has an active integration
 			const userIntegration = await prisma.integration.findFirst({
 				where: {
-					userId: user?.id,
+					userId: user?.id
 				},
 				include: {
 					payfast: true
@@ -59,7 +59,7 @@ export const actions: Actions = {
 			}
 
 			// create the quick link
-			if (user?.id){
+			if (user?.id) {
 				const res = await prisma.quickLink.create({
 					data: {
 						amount: form.data.amount,
@@ -68,9 +68,9 @@ export const actions: Actions = {
 								id: user?.id
 							}
 						}
-					},
+					}
 				});
-				
+
 				form.data.id = res.id;
 				return message(form, 'Quick link created!');
 			}

@@ -1,7 +1,6 @@
 import { dev } from '$app/environment';
-import { googleAuth } from "$lib/server/auth";
-import { generateState } from "arctic";
-
+import { googleAuth } from '$lib/server/auth';
+import { generateState } from 'arctic';
 
 export const GET = async ({ cookies }) => {
 	const state = generateState();

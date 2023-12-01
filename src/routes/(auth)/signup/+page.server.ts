@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { validateSignupForm } from './validation';
 import type { PageServerLoad, Actions } from './$types';
-import { Argon2id } from "oslo/password";
+import { Argon2id } from 'oslo/password';
 import { lucia } from '$lib/server/auth';
 
 export const load = (async ({ locals }) => {
@@ -47,8 +47,7 @@ export const actions: Actions = {
 						}
 					}
 				}
-			})
-
+			});
 		} catch (err: any) {
 			console.error(err);
 			const { password, passwordConfirm, ...rest } = formData;

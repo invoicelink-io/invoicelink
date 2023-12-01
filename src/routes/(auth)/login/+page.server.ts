@@ -2,12 +2,12 @@ import { lucia } from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { validateSignupForm } from './validation';
-import { Argon2id } from "oslo/password";
+import { Argon2id } from 'oslo/password';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const { session } = await locals?.lucia.validate();
 	if (session) {
-		console.log('login page: redirect to: /')
+		console.log('login page: redirect to: /');
 		throw redirect(302, '/');
 	} else {
 		// get query params
@@ -26,7 +26,7 @@ export const actions: Actions = {
 		const result = validateSignupForm({ email, password });
 
 		if (result) {
-			console.log({result})
+			console.log({ result });
 			return fail(500, {
 				data: { email, password: '' },
 				errors: result.errors
@@ -41,8 +41,8 @@ export const actions: Actions = {
 				include: {
 					passwords: true
 				}
-			})
-			if (user){
+			});
+			if (user) {
 				const hashedPassword = user.passwords[0]?.hashedPassword;
 				if (!hashedPassword) {
 					throw new Error('AUTH_MISSING_PASSWORD');
@@ -56,7 +56,6 @@ export const actions: Actions = {
 				// create session
 				const session = await lucia.createSession(user.id, {});
 				locals.lucia.setSessionCookie(session.id);
-
 			} else {
 				throw new Error('AUTH_INVALID_KEY_ID');
 			}
@@ -90,7 +89,6 @@ export const actions: Actions = {
 					},
 					errors: { email: '', password: 'No password login for this account.' }
 				});
-
 			}
 			return fail(400, {
 				data: {

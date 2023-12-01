@@ -1,14 +1,13 @@
 import { lucia, googleAuth } from '$lib/server/auth';
-import { OAuth2RequestError } from "arctic";
+import { OAuth2RequestError } from 'arctic';
 import { prisma } from '$lib/server/prisma';
-
 
 export const GET = async ({ url, cookies, locals }) => {
 	const stateCookie = cookies.get('github_oauth_state') ?? null;
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
 
-		// validate state
+	// validate state
 	if (!state || !stateCookie || !code || stateCookie !== state) {
 		return new Response(null, {
 			status: 400
@@ -24,16 +23,17 @@ export const GET = async ({ url, cookies, locals }) => {
 			where: {
 				email: googleUser.email
 			},
-			 include: {
+			include: {
 				oauthAccounts: true
-			 }
-		})
+			}
+		});
 
 		// if user exists, log in
 		if (existingUser) {
-
 			// check if they have a google oauth account
-			const googleOauthAccount = existingUser.oauthAccounts.find(oauthAccount => oauthAccount.providerId === 'google')
+			const googleOauthAccount = existingUser.oauthAccounts.find(
+				(oauthAccount) => oauthAccount.providerId === 'google'
+			);
 
 			// if not, link it to their account
 			if (!googleOauthAccount) {
@@ -46,22 +46,21 @@ export const GET = async ({ url, cookies, locals }) => {
 								id: existingUser.id
 							}
 						}
-					}, 
-				})
+					}
+				});
 			}
 
 			// create session
 			const session = await lucia.createSession(existingUser.id, {});
-			const sessionCookie =  lucia.createSessionCookie(session.id);
-					
+			const sessionCookie = lucia.createSessionCookie(session.id);
+
 			return new Response(null, {
 				status: 302,
 				headers: {
-					Location: "/",
-					"Set-Cookie": sessionCookie.serialize()
+					Location: '/',
+					'Set-Cookie': sessionCookie.serialize()
 				}
 			});
-
 		}
 
 		// create user
@@ -74,11 +73,11 @@ export const GET = async ({ url, cookies, locals }) => {
 				oauthAccounts: {
 					create: {
 						providerId: 'google',
-						providerUserId: googleUser.sub,
+						providerUserId: googleUser.sub
 					}
 				}
 			}
-		})
+		});
 
 		// create session
 		const session = await lucia.createSession(user.id, {});
@@ -88,7 +87,7 @@ export const GET = async ({ url, cookies, locals }) => {
 			status: 302,
 			headers: {
 				Location: '/',
-				"Set-Cookie": sessionCookie.serialize()
+				'Set-Cookie': sessionCookie.serialize()
 			}
 		});
 	} catch (e) {

@@ -1,5 +1,5 @@
 import { lucia, githubAuth } from '$lib/server/auth';
-import { OAuth2RequestError } from "arctic";
+import { OAuth2RequestError } from 'arctic';
 import { prisma } from '$lib/server/prisma';
 import type { OauthAccount, User } from '@prisma/client';
 
@@ -7,7 +7,7 @@ export const GET = async ({ url, cookies, locals }) => {
 	const stateCookie = cookies.get('github_oauth_state') ?? null;
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
-	
+
 	// validate state
 	if (!state || !stateCookie || !code || stateCookie !== state) {
 		return new Response(null, {
@@ -25,17 +25,19 @@ export const GET = async ({ url, cookies, locals }) => {
 				headers: {
 					Authorization: `token ${tokens.accessToken}`
 				}
-			})
+			});
 			const emails = await res.json();
-			const primaryEmail = emails.find((item: {email: string, primary: boolean}) => item.primary);
-			githubUser.email = primaryEmail.email
+			const primaryEmail = emails.find((item: { email: string; primary: boolean }) => item.primary);
+			githubUser.email = primaryEmail.email;
 		}
 
 		// check if user exists with oauth account
-		let existingUser: User & {
-			oauthAccounts: OauthAccount[]
-		} | null = null;
-		
+		let existingUser:
+			| (User & {
+					oauthAccounts: OauthAccount[];
+			  })
+			| null = null;
+
 		// check if we can see the user's email
 		if (githubUser.email) {
 			// if so, check if they already have an account with that email
@@ -43,10 +45,10 @@ export const GET = async ({ url, cookies, locals }) => {
 				where: {
 					email: githubUser.email
 				},
-				 include: {
+				include: {
 					oauthAccounts: true
-				 }
-			})
+				}
+			});
 		} else {
 			// if not, check if they already have a github oauth account
 			existingUser = await prisma.user.findFirst({
@@ -57,16 +59,19 @@ export const GET = async ({ url, cookies, locals }) => {
 							providerUserId: String(githubUser.id)
 						}
 					}
-				}, include: {
+				},
+				include: {
 					oauthAccounts: true
 				}
-			})
+			});
 		}
 
 		// if user exists, log in
 		if (existingUser) {
 			// check if they have a github oauth account
-			const githubOauthAccount = existingUser.oauthAccounts.find(oauthAccount => oauthAccount.providerId === 'github')
+			const githubOauthAccount = existingUser.oauthAccounts.find(
+				(oauthAccount) => oauthAccount.providerId === 'github'
+			);
 
 			// if not, link it to their account
 			if (!githubOauthAccount) {
@@ -79,21 +84,20 @@ export const GET = async ({ url, cookies, locals }) => {
 								id: existingUser.id
 							}
 						}
-					}, 
-				})
+					}
+				});
 			}
 			// create session
 			const session = await lucia.createSession(existingUser.id, {});
-			const sessionCookie =  lucia.createSessionCookie(session.id);
-					
+			const sessionCookie = lucia.createSessionCookie(session.id);
+
 			return new Response(null, {
 				status: 302,
 				headers: {
-					Location: "/",
-					"Set-Cookie": sessionCookie.serialize()
+					Location: '/',
+					'Set-Cookie': sessionCookie.serialize()
 				}
 			});
-
 		}
 
 		// create user
@@ -106,11 +110,11 @@ export const GET = async ({ url, cookies, locals }) => {
 				oauthAccounts: {
 					create: {
 						providerId: 'github',
-						providerUserId: String(githubUser.id),
+						providerUserId: String(githubUser.id)
 					}
 				}
 			}
-		})
+		});
 
 		// create session
 		const session = await lucia.createSession(user.id, {});
@@ -120,7 +124,7 @@ export const GET = async ({ url, cookies, locals }) => {
 			status: 302,
 			headers: {
 				Location: '/',
-				"Set-Cookie": sessionCookie.serialize()
+				'Set-Cookie': sessionCookie.serialize()
 			}
 		});
 	} catch (e) {

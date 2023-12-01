@@ -1,9 +1,9 @@
-import { Lucia, TimeSpan } from "lucia";
+import { Lucia, TimeSpan } from 'lucia';
 import { sveltekit } from 'lucia/middleware';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 import { dev } from '$app/environment';
 import { prisma as client } from '$lib/server/prisma';
-import { GitHub, Google } from "arctic";
+import { GitHub, Google } from 'arctic';
 import {
 	GITHUB_CLIENT_ID,
 	GITHUB_CLIENT_SECRET,
@@ -12,14 +12,13 @@ import {
 	GOOGLE_CLIENT_SECRET
 } from '$env/static/private';
 
-
 const adapter = new PrismaAdapter(client.session, client.user);
 
 export const lucia = new Lucia(adapter, {
-	sessionExpiresIn: new TimeSpan(30, "d"),
+	sessionExpiresIn: new TimeSpan(30, 'd'),
 	sessionCookie: {
 		attributes: {
-			secure: !dev,
+			secure: !dev
 		}
 	},
 	middleware: sveltekit(),
@@ -33,8 +32,7 @@ export const lucia = new Lucia(adapter, {
 	}
 });
 
-
-declare module "lucia" {
+declare module 'lucia' {
 	interface Register {
 		Lucia: typeof lucia;
 		DatabaseUserAttributes: {
@@ -43,10 +41,8 @@ declare module "lucia" {
 			avatarUrl: string;
 			username: string;
 		};
-
 	}
 }
-
 
 // OAuth providers
 
@@ -59,4 +55,4 @@ export const googleAuth = new Google(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOO
 		'https://www.googleapis.com/auth/userinfo.profile',
 		'https://www.googleapis.com/auth/userinfo.email'
 	]
-})
+});
