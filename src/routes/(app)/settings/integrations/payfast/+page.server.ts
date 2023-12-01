@@ -5,11 +5,12 @@ import { superValidate, message } from 'sveltekit-superforms/server';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
+	const { user } = await locals?.lucia.validate();
 
 	// fetch users integrations
 	const userIntegrations = await prisma.integration.findFirst({
 		where: {
-			user_id: locals?.session?.user?.id
+			userId: user?.id
 		},
 		include: {
 			payfast: true
@@ -19,7 +20,7 @@ export const load = (async ({ parent, locals }) => {
 	const form = await superValidate(userIntegrations?.payfast[0], schema);
 
 	return {
-		user: locals?.session?.user,
+		user,
 		title: 'Integrations',
 		form
 	};
@@ -27,7 +28,7 @@ export const load = (async ({ parent, locals }) => {
 
 export const actions: Actions = {
 	create: async ({ request, locals }) => {
-		const userId = locals.session.user.userId;
+		const { user } = await locals?.lucia.validate();
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
@@ -38,7 +39,7 @@ export const actions: Actions = {
 			// check if the user has an integration already
 			const userIntegration = await prisma.integration.findFirst({
 				where: {
-					user_id: userId
+					userId: user?.id
 				}
 			});
 
@@ -50,8 +51,8 @@ export const actions: Actions = {
 								id: userIntegration.id
 							}
 						},
-						merchant_id: form.data.merchant_id,
-						merchant_key: form.data.merchant_key,
+						merchantId: form.data.merchantId,
+						merchantKey: form.data.merchantKey,
 						passphrase: form.data.passphrase || ''
 					}
 				});
@@ -62,13 +63,13 @@ export const actions: Actions = {
 					data: {
 						user: {
 							connect: {
-								id: userId
+								id: user?.id
 							}
 						},
 						payfast: {
 							create: {
-								merchant_id: form.data.merchant_id,
-								merchant_key: form.data.merchant_key,
+								merchantId: form.data.merchantId,
+								merchantKey: form.data.merchantKey,
 								passphrase: form.data.passphrase ?? ''
 							}
 						}
@@ -98,8 +99,8 @@ export const actions: Actions = {
 				});
 
 				form.data.id = undefined;
-				form.data.merchant_id = '';
-				form.data.merchant_key = '';
+				form.data.merchantId = '';
+				form.data.merchantKey = '';
 				form.data.passphrase = undefined;
 				return message(form, 'Integration deleted!');
 			} catch (error) {
@@ -123,8 +124,8 @@ export const actions: Actions = {
 						id: form.data.id
 					},
 					data: {
-						merchant_id: form.data.merchant_id,
-						merchant_key: form.data.merchant_key,
+						merchantId: form.data.merchantId,
+						merchantKey: form.data.merchantKey,
 						passphrase: form.data.passphrase || ''
 					}
 				});

@@ -16,7 +16,7 @@
 				{label}
 			</span>
 			{#if error}
-				<span class="whitespace-nowrap text-[12px] text-error-200">
+				<span class="whitespace-nowrap text-[12px] text-error-400">
 					{error}
 				</span>
 			{/if}

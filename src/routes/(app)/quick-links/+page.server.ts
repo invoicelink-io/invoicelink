@@ -5,6 +5,7 @@ import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
+	const { user } = await locals?.lucia.validate();
 	// fetch users integrations
 	const quickLink = {
 		id: '',
@@ -15,19 +16,19 @@ export const load = (async ({ parent, locals }) => {
 
 	const links = await prisma.quickLink.findMany({
 		where: {
-			user_id: locals?.session?.user?.id
+			userId: user?.id
 		},
 		orderBy: {
-			created_at: 'desc'
+			createdAt: 'desc'
 		}
 	});
 
-	return { user: locals?.session?.user, title: 'Quick Links', form, links };
+	return { user, title: 'Quick Links', form, links };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	create: async ({ request, locals }) => {
-		const userId = locals.session.user.userId;
+		const { user } = await locals?.lucia.validate();
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
@@ -39,7 +40,7 @@ export const actions: Actions = {
 			// check if the user has an active integration
 			const userIntegration = await prisma.integration.findFirst({
 				where: {
-					user_id: userId
+					userId: user?.id,
 				},
 				include: {
 					payfast: true
@@ -58,15 +59,21 @@ export const actions: Actions = {
 			}
 
 			// create the quick link
-			const res = await prisma.quickLink.create({
-				data: {
-					amount: form.data.amount,
-					user_id: userId
-				}
-			});
-
-			form.data.id = res.id;
-			return message(form, 'Quick link created!');
+			if (user?.id){
+				const res = await prisma.quickLink.create({
+					data: {
+						amount: form.data.amount,
+						user: {
+							connect: {
+								id: user?.id
+							}
+						}
+					},
+				});
+				
+				form.data.id = res.id;
+				return message(form, 'Quick link created!');
+			}
 		} catch (error) {
 			console.error(error);
 			return message(form, 'Failed to create quick link', {

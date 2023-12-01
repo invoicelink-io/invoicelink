@@ -3,17 +3,17 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	// props
-	export let merchant_id: string;
-	export let merchant_key: string;
+	export let merchantId: string;
+	export let merchantKey: string;
 	export let amount: number;
-	export let item_name: string;
+	export let itemName: string;
 	export let requireSecurity: boolean = false;
 	export let passphrase: string | null = null;
-	export let return_url: string = $page.url.href;
-	export let cancel_url: string = $page.url.href;
+	export let returnUrl: string = $page.url.href;
+	export let cancelUrl: string = $page.url.href;
 	export let endpoint: string = 'https://www.payfast.co.za/eng/process';
-	export let button_label: string = 'Pay now';
-	export let button_class: string = 'variant-filled bg-surface-800 text-surface-50 btn';
+	export let buttonLabel: string = 'Pay now';
+	export let buttonClass: string = 'variant-filled bg-surface-800 text-surface-50 btn';
 	export let demo = false;
 
 	if (demo) {
@@ -33,16 +33,16 @@
 	method="POST"
 	class="hidden"
 >
-	<input type="hidden" name="merchant_id" value={merchant_id} />
-	<input type="hidden" name="merchant_key" value={merchant_key} />
-	<input type="hidden" name="return_url" value={return_url} />
-	<input type="hidden" name="cancel_url" value={cancel_url} />
+	<input type="hidden" name="merchant_id" value={merchantId} />
+	<input type="hidden" name="merchant_key" value={merchantKey} />
+	<input type="hidden" name="return_url" value={returnUrl} />
+	<input type="hidden" name="cancel_url" value={cancelUrl} />
 	<input type="hidden" name="amount" value={amount} />
-	<input type="hidden" name="item_name" value={item_name} />
+	<input type="hidden" name="item_name" value={itemName} />
 </form>
 <button
 	type="button"
-	class={button_class}
+	class={buttonClass}
 	on:click|preventDefault={() => {
 		const payfastTestForm = document.forms.namedItem('payfast_test');
 		if (payfastTestForm) {
@@ -78,5 +78,5 @@
 				payfastTestForm.submit();
 			}
 		}
-	}}>{button_label}</button
+	}}>{buttonLabel}</button
 >

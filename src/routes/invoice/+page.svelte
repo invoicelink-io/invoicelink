@@ -17,8 +17,8 @@
 		<div class="sm:pr-4">
 			<dt class="inline text-gray-500">Issued on</dt>
 			<dd class="inline text-gray-700">
-				<time datetime={data.data?.created_at.toDateString()}
-					>{data.data?.created_at.toLocaleDateString('en-ZA', {
+				<time datetime={data.data?.createdAt.toDateString()}
+					>{data.data?.createdAt.toLocaleDateString('en-ZA', {
 						month: 'long',
 						day: 'numeric',
 						year: 'numeric'

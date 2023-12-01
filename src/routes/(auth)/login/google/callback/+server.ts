@@ -1,66 +1,99 @@
-import { auth, googleAuth } from '$lib/server/lucia';
-import { OAuthRequestError } from '@lucia-auth/oauth';
+import { lucia, googleAuth } from '$lib/server/auth';
+import { OAuth2RequestError } from "arctic";
 import { prisma } from '$lib/server/prisma';
 
+
 export const GET = async ({ url, cookies, locals }) => {
-	console.log('GET /login/google/callback was called');
-	const storedState = cookies.get('google_oauth_state');
+	const stateCookie = cookies.get('github_oauth_state') ?? null;
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
-	// validate state
-	if (!storedState || !state || storedState !== state || !code) {
+
+		// validate state
+	if (!state || !stateCookie || !code || stateCookie !== state) {
 		return new Response(null, {
 			status: 400
 		});
 	}
+
 	try {
-		const { getExistingUser, googleUser, createUser, createKey } =
-			await googleAuth.validateCallback(code);
+		const tokens = await googleAuth.validateAuthorizationCode(code);
+		const googleUser = await googleAuth.getUser(tokens.accessToken);
 
-		const getUser = async () => {
-			const existingUser = await getExistingUser();
-			if (existingUser) return existingUser;
+		// check if user exists with oauth account
+		const existingUser = await prisma.user.findUnique({
+			where: {
+				email: googleUser.email
+			},
+			 include: {
+				oauthAccounts: true
+			 }
+		})
 
-			// check if user exists with email
-			const userWithEmail = await prisma.user.findUnique({
-				where: {
-					email: googleUser.email
-				}
-			});
+		// if user exists, log in
+		if (existingUser) {
 
-			if (userWithEmail) {
-				// transform `UserSchema` to `User`
-				const user = auth.transformDatabaseUser(userWithEmail);
-				await createKey(user.userId);
-				return user;
+			// check if they have a google oauth account
+			const googleOauthAccount = existingUser.oauthAccounts.find(oauthAccount => oauthAccount.providerId === 'google')
+
+			// if not, link it to their account
+			if (!googleOauthAccount) {
+				await prisma.oauthAccount.create({
+					data: {
+						providerId: 'google',
+						providerUserId: String(googleUser.email),
+						user: {
+							connect: {
+								id: existingUser.id
+							}
+						}
+					}, 
+				})
 			}
 
-			const user = await createUser({
-				attributes: {
-					name: googleUser.name,
-					email: googleUser.email,
-					avatar_url: googleUser.picture
+			// create session
+			const session = await lucia.createSession(existingUser.id, {});
+			const sessionCookie =  lucia.createSessionCookie(session.id);
+					
+			return new Response(null, {
+				status: 302,
+				headers: {
+					Location: "/",
+					"Set-Cookie": sessionCookie.serialize()
 				}
 			});
-			return user;
-		};
 
-		const user = await getUser();
-		const session = await auth.createSession({
-			userId: user.userId,
-			attributes: {}
-		});
-		locals.auth.setSession(session);
+		}
+
+		// create user
+		const user = await prisma.user.create({
+			data: {
+				name: googleUser.name,
+				email: googleUser.email,
+				username: googleUser.email,
+				avatarUrl: googleUser.picture,
+				oauthAccounts: {
+					create: {
+						providerId: 'google',
+						providerUserId: googleUser.sub,
+					}
+				}
+			}
+		})
+
+		// create session
+		const session = await lucia.createSession(user.id, {});
+		const sessionCookie = lucia.createSessionCookie(session.id);
 
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/'
+				Location: '/',
+				"Set-Cookie": sessionCookie.serialize()
 			}
 		});
 	} catch (e) {
 		console.log(e);
-		if (e instanceof OAuthRequestError) {
+		if (e instanceof OAuth2RequestError) {
 			// invalid code
 			return new Response(null, {
 				status: 400

@@ -10,35 +10,43 @@ datasource db {
 }
 
 model User {
-  id                 String              @id @unique @default(cuid())
-  name               String?
-  email              String?             @unique
-  username           String?             @unique
-  avatar_url         String?
-  auth_session       Session[]
-  key                Key[]
-  verification_token VerificationToken[]
-  Integration        Integration[]
-  QuickLink          QuickLink[]
+  id            String         @id @unique @default(cuid())
+  name          String?
+  email         String?        @unique
+  username      String?        @unique
+  avatarUrl     String?
+  sessions      Session[]
+  passwords     Password[]
+  oauthAccounts OauthAccount[]
+
+  verificationTokens VerificationToken[]
+  integrations       Integration[]
+  quickLinks         QuickLink[]
 }
 
 model Session {
-  id             String @id @unique @default(cuid())
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  id        String   @id @unique @default(cuid())
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 
-  @@index([user_id])
+  @@index([userId])
 }
 
-model Key {
-  id              String  @id @unique @default(cuid())
-  hashed_password String?
-  user_id         String
-  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+model OauthAccount {
+  providerId     String
+  providerUserId String
+  userId         String
+  user           User   @relation(references: [id], fields: [userId], onDelete: Cascade)
 
-  @@index([user_id])
+  @@id([providerId, providerUserId])
+}
+
+model Password {
+  id             String @id @unique @default(cuid())
+  hashedPassword String
+  userId         String
+  user           User   @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model VerificationToken {
@@ -46,8 +54,8 @@ model VerificationToken {
   type    Token
   expires BigInt
   token   String
-  user_id String
-  user    User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  userId  String
+  user    User   @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 enum Token {
@@ -56,34 +64,34 @@ enum Token {
 }
 
 model Integration {
-  id         String    @id @unique @default(cuid())
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  user_id    String
-  user       User      @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  payfast    Payfast[]
+  id        String    @id @unique @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String
+  user      User      @relation(references: [id], fields: [userId], onDelete: Cascade)
+  payfast   Payfast[]
 }
 
 model Payfast {
-  id             String      @id @unique @default(cuid())
-  integration_id String
-  integration    Integration @relation(fields: [integration_id], references: [id], onDelete: Cascade)
-  merchant_id    String
-  merchant_key   String
-  passphrase     String?
-  created_at     DateTime    @default(now())
-  updated_at     DateTime    @updatedAt
-  active         Boolean     @default(true)
+  id            String      @id @unique @default(cuid())
+  integrationId String
+  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  merchantId    String
+  merchantKey   String
+  passphrase    String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  active        Boolean     @default(true)
 }
 
 model QuickLink {
-  id         String   @id @unique @default(cuid())
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user_id    String
-  user       User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
-  amount     Float
-  status     Status   @default(PENDING)
+  id        String   @id @unique @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  amount    Float
+  status    Status   @default(PENDING)
 }
 
 enum Status {

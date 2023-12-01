@@ -3,6 +3,7 @@ import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
+	const { user } = await locals?.lucia.validate();
 
 	const integrationStatus: Record<string, 'disabled' | 'enabled' | 'coming soon'> = {
 		payfast: 'disabled'
@@ -11,7 +12,7 @@ export const load = (async ({ parent, locals }) => {
 	// fetch users integrations
 	const userIntegrations = await prisma.integration.findFirst({
 		where: {
-			user_id: locals?.session?.user?.id
+			userId: user?.id
 		},
 		include: {
 			payfast: true
@@ -26,7 +27,7 @@ export const load = (async ({ parent, locals }) => {
 	}
 
 	return {
-		user: locals?.session?.user,
+		user,
 		title: 'Integration Settings',
 		integrationStatus
 	};

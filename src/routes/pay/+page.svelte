@@ -4,7 +4,7 @@
 	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '../../lib/components/PayfastIntegration.svelte';
-	const payfast = data.pay?.user.Integration[0].payfast[0];
+	const payfast = data.pay?.user.integrations[0].payfast[0];
 
 	let selectedGateway: string = 'payfast';
 	const popupCombobox: PopupSettings = {
@@ -65,15 +65,15 @@
 			>
 			{#if payfast && selectedGateway === 'payfast'}
 				<PayfastIntegration
-					merchant_id={payfast.merchant_id}
-					merchant_key={payfast.merchant_key}
+					merchantId={payfast.merchantId}
+					merchantKey={payfast.merchantKey}
 					passphrase={payfast.passphrase}
 					amount={data.pay?.amount}
-					item_name={data.pay.user.name || 'Payment request'}
+					itemName={data.pay.user.name || 'Payment request'}
 					requireSecurity={payfast.passphrase !== ''}
 					demo={data?.pay.id === 'demo'}
-					button_class="variant-filled-surface btn bg-surface-800-100-token w-36"
-					button_label="Pay now"
+					buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
+					buttonLabel="Pay now"
 				/>
 			{/if}
 		</div>

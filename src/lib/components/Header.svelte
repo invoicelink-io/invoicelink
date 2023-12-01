@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getInitials } from '$lib/utils/stringHelpers';
-	const { avatar_url, name, email } = $page.data.user;
+	const user = $page.data.user;
+	const avatarUrl = user?.avatarUrl;
+	const name = user?.name || user?.username || 'No name';
+	const email = user?.email;
 
 	import Navigation from './Navigation.svelte';
 	import Icon from './Icon.svelte';
@@ -30,11 +33,11 @@
 		</div>
 		<div class="flex items-center">
 			<button class="ml-2" use:popup={profileMenu}>
-				<Avatar src={avatar_url} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
+				<Avatar src={avatarUrl} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
 			</button>
 			<div class="card w-max p-3 shadow-xl" data-popup="profileMenu">
 				<div class="mb-4 flex items-center">
-					<Avatar src={avatar_url} initials={getInitials(name)} width="w-10" rounded="rounded-lg" />
+					<Avatar src={avatarUrl} initials={getInitials(name)} width="w-10" rounded="rounded-lg" />
 					<div class="ml-2 flex h-full flex-col justify-center">
 						<p class="text-left text-sm font-medium">{name}</p>
 						{#if email}
