@@ -8,7 +8,7 @@ export const GET = async ({ url, cookies }) => {
 	const code = url.searchParams.get('code');
 
 	// validate state
-	if (!state || !stateCookie || !code || stateCookie !== state) {
+	if (!state || !stateCookie || !code) {
 		return new Response(null, {
 			status: 400
 		});
