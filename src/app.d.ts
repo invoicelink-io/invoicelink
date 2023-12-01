@@ -5,24 +5,13 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			auth: AuthRequest;
+			lucia: import("lucia").AuthRequest;
 			session: Session | null;
 		}
 		interface PageData {
 			user?: User;
 		}
 		// interface Platform {}
-	}
-
-	namespace Lucia {
-		type Auth = import('$lib/server/lucia').Auth;
-		type DatabaseUserAttributes = {
-			email?: string | null;
-			username?: string | null;
-			name?: string | null;
-			avatar_url?: string | null;
-		};
-		type DatabaseSessionAttributes = object;
 	}
 
 	// eslint-disable-next-line no-var

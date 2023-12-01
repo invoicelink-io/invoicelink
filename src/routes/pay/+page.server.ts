@@ -18,12 +18,12 @@ export const load: PageServerLoad = async ({ url }) => {
 				id: 'demo',
 				name: 'Demo User',
 				avatar_url: 'https://i.pravatar.cc/300',
-				Integration: [
+				integrations: [
 					{
 						payfast: [
 							{
-								merchant_id: '10020305',
-								merchant_key: 'woyd110xtf4j3',
+								merchantId: '10020305',
+								merchantKey: 'woyd110xtf4j3',
 								passphrase: 'SuperSecretPassphrase'
 							}
 						]
@@ -40,7 +40,7 @@ export const load: PageServerLoad = async ({ url }) => {
 		include: {
 			user: {
 				include: {
-					Integration: {
+					integrations: {
 						include: {
 							payfast: true
 						}

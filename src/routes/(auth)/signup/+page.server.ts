@@ -1,17 +1,18 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { validateSignupForm } from './validation';
 import type { PageServerLoad, Actions } from './$types';
-import { auth } from '$lib/server/lucia';
+import { Argon2id } from "oslo/password";
+import { lucia } from '$lib/server/auth';
 
 export const load = (async ({ locals }) => {
-	const session = await locals.auth.validate();
+	const { session } = await locals.lucia.validate();
 	if (session) {
 		throw redirect(302, '/');
 	}
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const formData = Object.fromEntries(await request.formData()) as {
 			name: string;
 			email: string;
@@ -34,17 +35,20 @@ export const actions: Actions = {
 		// create the user
 		const { name, email, password } = formData as Record<string, string>;
 		try {
-			await auth.createUser({
-				key: {
-					providerId: 'email',
-					providerUserId: email,
-					password: password
-				},
-				attributes: {
-					name: name,
-					email: email
+			const argon2id = new Argon2id();
+			const hash = await argon2id.hash(password);
+			await prisma.user.create({
+				data: {
+					name,
+					email,
+					passwords: {
+						create: {
+							hashedPassword: hash
+						}
+					}
 				}
-			});
+			})
+
 		} catch (err: any) {
 			console.error(err);
 			const { password, passwordConfirm, ...rest } = formData;

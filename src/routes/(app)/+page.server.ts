@@ -3,7 +3,8 @@ import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	return { user: locals?.session?.user, title: 'Home' };
+	const { session, user } = await locals?.lucia.validate();
+	return { session, user, title: 'Home' };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {

@@ -56,34 +56,34 @@
 	<input name="id" type="hidden" bind:value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="merchant_id">
+			<label class="label whitespace-nowrap text-xs" for="merchantId">
 				Merchant ID
-				{#if $errors.merchant_id}
-					<span class="text-error-400">{$errors.merchant_id}</span>
+				{#if $errors.merchantId}
+					<span class="text-error-400">{$errors.merchantId}</span>
 				{/if}
 			</label>
 			<input
-				name="merchant_id"
+				name="merchantId"
 				class="input variant-soft-surface max-w-xl border-none"
 				type="text"
 				placeholder="Payfast Merchant ID"
-				bind:value={$form.merchant_id}
+				bind:value={$form.merchantId}
 				required
 			/>
 		</li>
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="merchant_key">
+			<label class="label whitespace-nowrap text-xs" for="merchantKey">
 				Merchant Key
-				{#if $errors.merchant_key}
-					<span class="text-error-400">{$errors.merchant_key}</span>
+				{#if $errors.merchantKey}
+					<span class="text-error-400">{$errors.merchantKey}</span>
 				{/if}
 			</label>
 			<input
-				name="merchant_key"
+				name="merchantKey"
 				class="input variant-soft-surface max-w-xl border-none"
 				type="text"
 				placeholder="Payfast Merchant Key"
-				bind:value={$form.merchant_key}
+				bind:value={$form.merchantKey}
 				required
 			/>
 		</li>
@@ -114,13 +114,13 @@
 	</ul>
 	<div class="flex w-full items-center justify-between py-6">
 		<PayfastIntegration
-			merchant_id={$form.merchant_id}
-			merchant_key={$form.merchant_key}
+			merchantId={$form.merchantId}
+			merchantKey={$form.merchantKey}
 			passphrase={$form.passphrase}
 			amount={10}
-			item_name={'Integration setup successful'}
-			button_label={'Test integration'}
-			button_class="btn btn-sm variant-filled"
+			itemName={'Integration setup successful'}
+			buttonLabel={'Test integration'}
+			buttonClass="btn btn-sm variant-filled"
 			{requireSecurity}
 		/>
 		{#if $form.id}

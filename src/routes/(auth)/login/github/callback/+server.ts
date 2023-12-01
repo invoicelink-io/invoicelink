@@ -1,68 +1,131 @@
-import { auth, githubAuth } from '$lib/server/lucia';
-import { OAuthRequestError } from '@lucia-auth/oauth';
+import { lucia, githubAuth } from '$lib/server/auth';
+import { OAuth2RequestError } from "arctic";
 import { prisma } from '$lib/server/prisma';
+import type { OauthAccount, User } from '@prisma/client';
 
 export const GET = async ({ url, cookies, locals }) => {
-	const storedState = cookies.get('github_oauth_state');
+	const stateCookie = cookies.get('github_oauth_state') ?? null;
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
+	
 	// validate state
-	if (!storedState || !state || storedState !== state || !code) {
+	if (!state || !stateCookie || !code || stateCookie !== state) {
 		return new Response(null, {
 			status: 400
 		});
 	}
+
 	try {
-		const { getExistingUser, githubUser, createUser, createKey } =
-			await githubAuth.validateCallback(code);
+		const tokens = await githubAuth.validateAuthorizationCode(code);
+		const githubUser = await githubAuth.getUser(tokens.accessToken);
 
-		const getUser = async () => {
-			const existingUser = await getExistingUser();
-			if (existingUser) return existingUser;
+		// fetch github users emails
+		if (!githubUser.email) {
+			const res = await fetch('https://api.github.com/user/emails', {
+				headers: {
+					Authorization: `token ${tokens.accessToken}`
+				}
+			})
+			const emails = await res.json();
+			const primaryEmail = emails.find((item: {email: string, primary: boolean}) => item.primary);
+			githubUser.email = primaryEmail.email
+		}
 
-			// check if user exists with email
-			const userWithEmail =
-				githubUser?.email &&
-				(await prisma.user.findUnique({
-					where: {
-						email: githubUser?.email
+		// check if user exists with oauth account
+		let existingUser: User & {
+			oauthAccounts: OauthAccount[]
+		} | null = null;
+		
+		// check if we can see the user's email
+		if (githubUser.email) {
+			// if so, check if they already have an account with that email
+			existingUser = await prisma.user.findUnique({
+				where: {
+					email: githubUser.email
+				},
+				 include: {
+					oauthAccounts: true
+				 }
+			})
+		} else {
+			// if not, check if they already have a github oauth account
+			existingUser = await prisma.user.findFirst({
+				where: {
+					oauthAccounts: {
+						some: {
+							providerId: 'github',
+							providerUserId: String(githubUser.id)
+						}
 					}
-				}));
+				}, include: {
+					oauthAccounts: true
+				}
+			})
+		}
 
-			if (userWithEmail) {
-				// transform `UserSchema` to `User`
-				const user = auth.transformDatabaseUser(userWithEmail);
-				await createKey(user.userId);
-				return user;
+		// if user exists, log in
+		if (existingUser) {
+			// check if they have a github oauth account
+			const githubOauthAccount = existingUser.oauthAccounts.find(oauthAccount => oauthAccount.providerId === 'github')
+
+			// if not, link it to their account
+			if (!githubOauthAccount) {
+				await prisma.oauthAccount.create({
+					data: {
+						providerId: 'github',
+						providerUserId: String(githubUser.id),
+						user: {
+							connect: {
+								id: existingUser.id
+							}
+						}
+					}, 
+				})
 			}
-
-			const user = await createUser({
-				attributes: {
-					name: githubUser.name,
-					username: githubUser.login,
-					email: githubUser.email,
-					avatar_url: githubUser.avatar_url
+			// create session
+			const session = await lucia.createSession(existingUser.id, {});
+			const sessionCookie =  lucia.createSessionCookie(session.id);
+					
+			return new Response(null, {
+				status: 302,
+				headers: {
+					Location: "/",
+					"Set-Cookie": sessionCookie.serialize()
 				}
 			});
-			return user;
-		};
 
-		const user = await getUser();
-		const session = await auth.createSession({
-			userId: user.userId,
-			attributes: {}
-		});
-		locals.auth.setSession(session);
+		}
+
+		// create user
+		const user = await prisma.user.create({
+			data: {
+				name: githubUser.name,
+				email: githubUser.email,
+				username: githubUser.login,
+				avatarUrl: githubUser.avatar_url,
+				oauthAccounts: {
+					create: {
+						providerId: 'github',
+						providerUserId: String(githubUser.id),
+					}
+				}
+			}
+		})
+
+		// create session
+		const session = await lucia.createSession(user.id, {});
+		const sessionCookie = lucia.createSessionCookie(session.id);
 
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/'
+				Location: '/',
+				"Set-Cookie": sessionCookie.serialize()
 			}
 		});
 	} catch (e) {
 		console.log(e);
-		if (e instanceof OAuthRequestError) {
+		if (e instanceof OAuth2RequestError) {
 			// invalid code
 			return new Response(null, {
 				status: 400

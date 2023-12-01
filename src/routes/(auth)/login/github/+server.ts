@@ -1,8 +1,11 @@
 import { dev } from '$app/environment';
-import { githubAuth } from '$lib/server/lucia';
+import { githubAuth } from "$lib/server/auth";
+import { generateState } from "arctic";
 
 export const GET = async ({ cookies }) => {
-	const [url, state] = await githubAuth.getAuthorizationUrl();
+	const state = generateState();
+	const url = await githubAuth.createAuthorizationURL(state);
+
 	// store state
 	cookies.set('github_oauth_state', state, {
 		httpOnly: true,
@@ -10,6 +13,7 @@ export const GET = async ({ cookies }) => {
 		path: '/',
 		maxAge: 60 * 60
 	});
+
 	return new Response(null, {
 		status: 302,
 		headers: {

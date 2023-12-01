@@ -122,7 +122,7 @@
 										<circle cx="1" cy="1" r="1" />
 									</svg>
 									<p class="whitespace-nowrap">
-										Created {formatTimeAgo(new Date(link.created_at))}
+										Created {formatTimeAgo(new Date(link.createdAt))}
 									</p>
 								</div>
 							</div>

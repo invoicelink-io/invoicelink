@@ -1,11 +1,13 @@
-import { auth } from '$lib/server/lucia';
+import { lucia } from '$lib/server/auth';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { LuciaError } from 'lucia';
 import { validateSignupForm } from './validation';
+import { Argon2id } from "oslo/password";
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-	if (locals.session) {
+	const { session } = await locals?.lucia.validate();
+	if (session) {
+		console.log('login page: redirect to: /')
 		throw redirect(302, '/');
 	} else {
 		// get query params
@@ -24,6 +26,7 @@ export const actions: Actions = {
 		const result = validateSignupForm({ email, password });
 
 		if (result) {
+			console.log({result})
 			return fail(500, {
 				data: { email, password: '' },
 				errors: result.errors
@@ -31,15 +34,34 @@ export const actions: Actions = {
 		}
 
 		try {
-			const key = await auth.useKey('email', email, password);
-			const session = await auth.createSession({
-				userId: key.userId,
-				attributes: {}
-			});
-			locals.auth.setSession(session);
+			const user = await prisma.user.findUnique({
+				where: {
+					email
+				},
+				include: {
+					passwords: true
+				}
+			})
+			if (user){
+				const hashedPassword = user.passwords[0]?.hashedPassword;
+				if (!hashedPassword) {
+					throw new Error('AUTH_MISSING_PASSWORD');
+				}
+				const argon2id = new Argon2id();
+				const valid = await argon2id.verify(hashedPassword, password);
+				if (!valid) {
+					throw new Error('AUTH_INVALID_PASSWORD');
+				}
+
+				// create session
+				const session = await lucia.createSession(user.id, {});
+				locals.lucia.setSessionCookie(session.id);
+
+			} else {
+				throw new Error('AUTH_INVALID_KEY_ID');
+			}
 		} catch (e) {
-			console.error(e);
-			if (e instanceof LuciaError && e.message === 'AUTH_INVALID_KEY_ID') {
+			if (e instanceof Error && e.message === 'AUTH_INVALID_KEY_ID') {
 				// invalid key
 				return fail(400, {
 					data: {
@@ -49,7 +71,7 @@ export const actions: Actions = {
 					errors: { email: 'User does not exist', password: '' }
 				});
 			}
-			if (e instanceof LuciaError && e.message === 'AUTH_INVALID_PASSWORD') {
+			if (e instanceof Error && e.message === 'AUTH_INVALID_PASSWORD') {
 				// incorrect password
 				return fail(400, {
 					data: {
@@ -59,12 +81,23 @@ export const actions: Actions = {
 					errors: { email: '', password: 'Incorrect password' }
 				});
 			}
+
+			if (e instanceof Error && e.message === 'AUTH_MISSING_PASSWORD') {
+				return fail(400, {
+					data: {
+						email,
+						password: ''
+					},
+					errors: { email: '', password: 'No password login for this account.' }
+				});
+
+			}
 			return fail(400, {
 				data: {
 					email,
 					password: ''
 				},
-				errors: { email: '', password: 'Could not log you in' }
+				errors: { email: 'Could not log you in', password: 'Could not log you in' }
 			});
 		}
 		throw redirect(302, '/');

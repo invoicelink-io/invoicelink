@@ -1,15 +1,15 @@
-import { auth } from '$lib/server/lucia';
+import { lucia } from '$lib/server/auth';
 import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ locals }) => {
-	const session = await locals.auth.validate();
+	const { session } = await locals.lucia.validate();
 	if (!session) {
 		throw redirect(302, '/login?message=You are not logged in');
 	}
 
-	await auth.invalidateSession(session.sessionId);
-	locals.auth.setSession(null);
+	await lucia.invalidateSession(session.id);
+	locals.lucia.deleteSessionCookie();
 
 	throw redirect(302, '/login?message=You have been logged out');
 };
