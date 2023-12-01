@@ -5,7 +5,7 @@ import { superValidate, message } from 'sveltekit-superforms/server';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	const { user } = await locals?.lucia.validate();
+	const { user } = await locals.lucia.validate();
 
 	// fetch users integrations
 	const userIntegrations = await prisma.integration.findFirst({
@@ -28,7 +28,7 @@ export const load = (async ({ parent, locals }) => {
 
 export const actions: Actions = {
 	create: async ({ request, locals }) => {
-		const { user } = await locals?.lucia.validate();
+		const { user } = await locals.lucia.validate();
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {

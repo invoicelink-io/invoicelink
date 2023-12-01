@@ -5,7 +5,7 @@ import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	const { user } = await locals?.lucia.validate();
+	const { user } = await locals.lucia.validate();
 	// fetch users integrations
 	const quickLink = {
 		id: '',
@@ -28,7 +28,7 @@ export const load = (async ({ parent, locals }) => {
 
 export const actions: Actions = {
 	create: async ({ request, locals }) => {
-		const { user } = await locals?.lucia.validate();
+		const { user } = await locals.lucia.validate();
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {

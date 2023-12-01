@@ -5,7 +5,7 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			lucia: import('lucia').AuthRequest;
+			lucia: AuthRequest;
 			session: Session | null;
 		}
 		interface PageData {

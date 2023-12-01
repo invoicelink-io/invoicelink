@@ -3,7 +3,7 @@ import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	const { user } = await locals?.lucia.validate();
+	const { user } = await locals.lucia.validate();
 
 	const integrationStatus: Record<string, 'disabled' | 'enabled' | 'coming soon'> = {
 		payfast: 'disabled'

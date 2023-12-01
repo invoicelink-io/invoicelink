@@ -2,7 +2,7 @@ import { lucia, googleAuth } from '$lib/server/auth';
 import { OAuth2RequestError } from 'arctic';
 import { prisma } from '$lib/server/prisma';
 
-export const GET = async ({ url, cookies, locals }) => {
+export const GET = async ({ url, cookies }) => {
 	const stateCookie = cookies.get('github_oauth_state') ?? null;
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');

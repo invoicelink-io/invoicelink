@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { validateSignupForm } from './validation';
 import type { PageServerLoad, Actions } from './$types';
 import { Argon2id } from 'oslo/password';
-import { lucia } from '$lib/server/auth';
+import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ locals }) => {
 	const { session } = await locals.lucia.validate();
@@ -12,7 +12,7 @@ export const load = (async ({ locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request }) => {
 		const formData = Object.fromEntries(await request.formData()) as {
 			name: string;
 			email: string;

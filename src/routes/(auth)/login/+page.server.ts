@@ -5,7 +5,7 @@ import { validateSignupForm } from './validation';
 import { Argon2id } from 'oslo/password';
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-	const { session } = await locals?.lucia.validate();
+	const { session } = await locals.lucia.validate();
 	if (session) {
 		console.log('login page: redirect to: /');
 		throw redirect(302, '/');
