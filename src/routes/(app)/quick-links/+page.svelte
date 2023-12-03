@@ -23,6 +23,19 @@
 		}
 	});
 
+	const { message: deleteMessage } = superForm(data.deleteForm, {
+		onUpdated: ({ form }) => {
+			if (form.valid) {
+				toast.success($deleteMessage);
+			} else {
+				toast.error($deleteMessage ?? 'Invalid integration');
+			}
+		},
+		onError: () => {
+			toast.error($deleteMessage ?? 'Something went wrong');
+		}
+	});
+
 	let deleteId = '';
 
 	const modalStore = getModalStore();
@@ -35,7 +48,6 @@
 			if (r) {
 				// submit the form to delete the integration
 				const form = document.forms.namedItem(`delete-${deleteId}`);
-				console.log(form);
 				if (form) {
 					form.submit();
 					deleteId = '';
@@ -64,6 +76,7 @@
 				{/if}
 			</label>
 			<input name="id" type="hidden" bind:value={$form.id} />
+			<input name="serial" type="hidden" bind:value={$form.serial} />
 			<input
 				name="amount"
 				class="input variant-soft-surface mb-4 border-none text-right"
@@ -71,6 +84,20 @@
 				placeholder="Amount in rands"
 				bind:value={$form.amount}
 				min={5}
+				required
+			/>
+			<label class="label mb-1 mt-4 text-xs" for="amount">
+				Description
+				{#if $errors.description}
+					<span class="ml-2 text-error-400">{$errors.description}</span>
+				{/if}
+			</label>
+			<input
+				name="description"
+				class="input variant-soft-surface mb-4 border-none text-right"
+				type="text"
+				placeholder="Services rendered"
+				bind:value={$form.description}
 				required
 			/>
 			<button type="submit" class="variant-filled-primary btn btn-sm mt-4 w-max self-end"
@@ -117,7 +144,7 @@
 									</h2>
 								</div>
 								<div class="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
-									<p class="truncate">Quick Link</p>
+									<p class="truncate">{link.serial}</p>
 									<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 flex-none fill-gray-300">
 										<circle cx="1" cy="1" r="1" />
 									</svg>

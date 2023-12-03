@@ -11,7 +11,11 @@ export const load = (async ({ url }) => {
 				id
 			},
 			include: {
-				user: true
+				user: {
+					include: {
+						address: true
+					}
+				}
 			}
 		});
 		return { type, data };

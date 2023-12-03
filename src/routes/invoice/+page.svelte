@@ -11,7 +11,7 @@
 	</div>
 	<div class="flex justify-between">
 		<p class="text-xs font-medium">powered by invoicelink.io</p>
-		<p class="text-xs font-medium">QL-00001</p>
+		<p class="text-xs font-medium">{data.data?.serial}</p>
 	</div>
 	<dl class="mt-6 grid grid-cols-1 text-sm leading-6">
 		<div class="sm:pr-4">
@@ -30,11 +30,13 @@
 		<div class="mt-8 text-right sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6">
 			<span class="font-medium text-gray-900">{data.data?.user.name}</span>
 			<br />
-			886 Walter Street
+			{data.data?.user.address[0].line1}
 			<br />
-			New York, NY
+			{data.data?.user.address[0].line2}
 			<br />
-			12345
+			{data.data?.user.address[0].line3}
+			<br />
+			{data.data?.user.address[0].postalCode}
 		</div>
 	</dl>
 	<table class="mt-16 w-full whitespace-nowrap text-left text-sm leading-6">
@@ -57,8 +59,7 @@
 		<tbody>
 			<tr class="border-b border-gray-100">
 				<td class="max-w-0 px-0 py-5 align-top">
-					<div class="truncate font-medium text-gray-900">Quick link payment</div>
-					<div class="truncate text-gray-500">Description of services rendered</div>
+					<div class="truncate text-gray-500">{data.data?.description ?? 'Services rendered'}</div>
 				</td>
 				<td
 					class="hidden py-5 pl-8 pr-0 text-right align-top tabular-nums text-gray-700 sm:table-cell"

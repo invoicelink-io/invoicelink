@@ -1,8 +1,8 @@
 import { pad } from './stringHelpers';
+import { SerialType } from '@prisma/client';
 
-
-export function initializeSerialNumber(type: 'invoice' | 'quick-link'): string {
-	const prefix = type === 'invoice' ? 'INV' : 'QL';
+export function initializeSerialNumber(type: SerialType): string {
+	const prefix = type === SerialType.INVOICE ? 'INV' : 'QL';
 	const year = new Date().getFullYear();
 	const serial = `${prefix}-${year}-${pad('1', '0', 5)}`;
 	return serial;
