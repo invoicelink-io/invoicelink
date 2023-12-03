@@ -14,3 +14,10 @@ export function getInitials(name: string) {
 export function capitalizeFirstLetter(string: string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function pad(stringToPad: string, padCharacter: string, finalLength = 5, before = true) {
+	const padLength = finalLength - stringToPad.length;
+	if (padLength <= 0) return stringToPad;
+	const padString = padCharacter.repeat(padLength);
+	return before ? `${padString}${stringToPad}`.trim() : `${stringToPad}${padString}`.trim();
+}
