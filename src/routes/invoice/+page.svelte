@@ -32,9 +32,9 @@
 			<br />
 			{data.data?.user.address[0].line1}
 			<br />
-			{data.data?.user.address[0].line2}
+			{data.data?.user.address[0].line2 ?? ''}
 			<br />
-			{data.data?.user.address[0].line3}
+			{data.data?.user.address[0].line3 ?? ''}
 			<br />
 			{data.data?.user.address[0].postalCode}
 		</div>
