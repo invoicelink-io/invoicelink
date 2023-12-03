@@ -23,6 +23,22 @@ model User {
   verificationTokens VerificationToken[]
   integrations       Integration[]
   quickLinks         QuickLink[]
+  lastUsedSerial     LastUsedSerial[]
+}
+
+model LastUsedSerial {
+  id     String     @id @unique @default(cuid())
+  serial String
+  type   SerialType
+  user   User       @relation(fields: [userId], references: [id])
+  userId String
+
+  @@unique([userId, type])
+}
+
+enum SerialType {
+  QUICK_LINK
+  INVOICE
 }
 
 model Address {
