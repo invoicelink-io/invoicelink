@@ -1,8 +1,8 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	export let data: PageData;
 	import { page } from '$app/stores';
 	import toast from 'svelte-french-toast';
-	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Icon from '$lib/components/Icon.svelte';
 	import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';

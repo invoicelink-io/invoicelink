@@ -50,7 +50,7 @@
 
 <h2 class="text-base font-normal">Payfast Integration</h2>
 <p class="text-surface-700-200-token mt-1 text-sm">
-	Link your payfast account to accept digital payments
+	Capture your payfast account details below to start accepting payments online
 </p>
 <form name="integration-setup" method="POST" use:enhance>
 	<input name="id" type="hidden" bind:value={$form.id} />

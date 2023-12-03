@@ -21,7 +21,7 @@ export const load = (async ({ parent, locals }) => {
 
 	return {
 		user,
-		title: 'Integrations',
+		title: 'Payfast Settings',
 		form
 	};
 }) satisfies PageServerLoad;

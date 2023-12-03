@@ -2,25 +2,23 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 
-	const integrations = [
+	const gateways = [
 		{
 			name: 'payfast',
-			href: '/settings/integrations/payfast'
+			href: '/settings/gateway/payfast'
 		}
 		// {
 		// 	name: 'yoco',
-		// 	href: '/settings/integrations/yoco'
+		// 	href: '/settings/gateway/yoco'
 		// }
 	];
 </script>
 
-<h2 class="text-base font-normal">Integrations</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">
-	Setup an integration with your payment gateway of choice
-</p>
+<h2 class="text-base font-normal">Payment Integration</h2>
+<p class="text-surface-700-200-token mt-1 text-sm">Integrate with your payment gateway of choice</p>
 
 <ul role="list" class="settings-list">
-	{#each integrations as { name, href }}
+	{#each gateways as { name, href }}
 		<li>
 			<div class="flex w-full items-center justify-between">
 				<div class="capitalize">{name}</div>

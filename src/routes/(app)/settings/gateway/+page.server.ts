@@ -28,7 +28,7 @@ export const load = (async ({ parent, locals }) => {
 
 	return {
 		user,
-		title: 'Integration Settings',
+		title: 'Payment Gateway Settings',
 		integrationStatus
 	};
 }) satisfies PageServerLoad;

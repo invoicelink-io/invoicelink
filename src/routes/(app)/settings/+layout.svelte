@@ -6,8 +6,8 @@
 			href: '/settings'
 		},
 		{
-			name: 'Integrations',
-			href: '/settings/integrations'
+			name: 'Payment Gateway',
+			href: '/settings/gateway'
 		},
 		{
 			name: 'Billing',
@@ -19,7 +19,7 @@
 <PageHeading heading="Settings" />
 <div class="-mt-8 flex w-full flex-col gap-4 md:mt-0 md:flex-row">
 	<aside
-		class="no-scrollbar border-surface-100-800-token flex overflow-x-scroll border-b py-4 lg:block lg:w-64 lg:flex-none lg:border-0"
+		class="no-scrollbar border-surface-100-800-token flex overflow-x-scroll border-b py-4 md:block md:w-64 md:flex-none md:border-0"
 	>
 		<nav class="no-scrollbar flex-none overflow-x-scroll">
 			<ul role="list" class="flex gap-x-3 gap-y-1 whitespace-nowrap md:flex-col">
