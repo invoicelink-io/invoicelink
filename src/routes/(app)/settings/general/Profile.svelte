@@ -5,7 +5,6 @@
 
 	const { form, enhance, message, submitting } = superForm($page.data.form, {
 		onUpdated: ({ form }) => {
-			console.log('Updated', form);
 			if (form.valid) {
 				toast.success($message);
 			} else {
@@ -21,7 +20,7 @@
 <h2 class="text-base font-normal">Profile</h2>
 <p class="text-surface-700-200-token mt-1 text-sm">Update your profile information</p>
 
-<form method="POST" action="?/updateName" use:enhance>
+<form method="POST" action="?/updateProfile" use:enhance>
 	<ul role="list" class="settings-list">
 		<li>
 			<label for="name" class="whitespace-nowrap capitalize">Full Name</label>
@@ -45,7 +44,7 @@
 		</li>
 	</ul>
 	<div class="flex justify-end py-4">
-		<button type="submit" class="variant-filled-primary btn btn-sm"
+		<button disabled={$submitting} type="submit" class="variant-filled-primary btn btn-sm"
 			>{$submitting ? `Updating` : `Update`}</button
 		>
 	</div>

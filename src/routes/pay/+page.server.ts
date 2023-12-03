@@ -17,7 +17,8 @@ export const load: PageServerLoad = async ({ url }) => {
 			user: {
 				id: 'demo',
 				name: 'Demo User',
-				avatar_url: 'https://i.pravatar.cc/300',
+				email: 'demo@invoicelink.io',
+				avatarUrl: 'https://i.pravatar.cc/300',
 				integrations: [
 					{
 						payfast: [
@@ -39,9 +40,13 @@ export const load: PageServerLoad = async ({ url }) => {
 		},
 		include: {
 			user: {
-				include: {
+				select: {
+					id: true,
+					avatarUrl: true,
+					email: true,
+					name: true,
 					integrations: {
-						include: {
+						select: {
 							payfast: true
 						}
 					}

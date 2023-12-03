@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
+	import { ListBox, ListBoxItem, popup, Avatar } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '../../lib/components/PayfastIntegration.svelte';
+	import { getInitials } from '$lib/utils/stringHelpers';
 	const payfast = data.pay?.user.integrations[0].payfast[0];
 
 	let selectedGateway: string = 'payfast';
@@ -12,6 +13,12 @@
 		target: 'popupCombobox',
 		placement: 'top',
 		closeQuery: '.listbox-item'
+	};
+
+	const popupHover: PopupSettings = {
+		event: 'hover',
+		target: 'popupHover',
+		placement: 'top'
 	};
 </script>
 
@@ -46,9 +53,18 @@
 			<div
 				class="absolute bottom-0 -mb-[10vh] flex h-auto w-full max-w-sm flex-col items-center justify-center gap-4 rounded-xl bg-surface-50 p-10 shadow-lg sm:mx-auto sm:max-w-xl"
 			>
-				<div class="flex flex-col">
+				<div class="flex flex-col items-center">
+					<div class="-mt-4 mb-4">
+						<Avatar
+							src={data.pay?.user.avatarUrl ?? undefined}
+							initials={getInitials(data.pay?.user.name || 'No username')}
+							width="w-12"
+							rounded="rounded-lg"
+						/>
+					</div>
+
 					<span class="text-sm font-semibold uppercase">{data.pay?.user.name}</span>
-					<span class="text-sm">requested a payment of</span>
+					<span class="text-sm leading-none">requested a payment of</span>
 				</div>
 				<p class="w-full text-center text-5xl font-bold md:text-7xl">
 					{Number(data.pay?.amount).toLocaleString('en-ZA', {

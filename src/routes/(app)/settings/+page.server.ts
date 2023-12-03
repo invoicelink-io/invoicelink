@@ -16,14 +16,12 @@ export const load = (async ({ parent, locals, cookies }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	updateName: async ({ request, locals }) => {
+	updateProfile: async ({ request, locals }) => {
 		const { user } = await locals.lucia.validate();
-		console.log({ request });
 		const form = await superValidate(request, schema);
-		console.log({ form });
 
 		if (!form.valid) {
-			return message(form, 'Invalid name');
+			return message(form, 'Invalid profile');
 		}
 
 		await prisma.user.update({
@@ -35,6 +33,6 @@ export const actions: Actions = {
 			}
 		});
 
-		return message(form, 'Name updated');
+		return message(form, 'Profile updated');
 	}
 };
