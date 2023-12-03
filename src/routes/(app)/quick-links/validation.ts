@@ -2,6 +2,6 @@ import { z } from 'zod';
 
 export const schema = z.object({
 	id: z.string().optional(),
-	// TODO: Link max to tier level
-	amount: z.number().min(5).max(10_000).default(100)
+	// Max amount capped abridged invoice limit
+	amount: z.number().min(50).max(5_000).default(100)
 });

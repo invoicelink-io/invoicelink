@@ -13,7 +13,7 @@
 		<p class="text-xs font-medium">powered by invoicelink.io</p>
 		<p class="text-xs font-medium">QL-00001</p>
 	</div>
-	<dl class="mt-6 grid grid-cols-1 text-sm leading-6 sm:grid-cols-2">
+	<dl class="mt-6 grid grid-cols-1 text-sm leading-6">
 		<div class="sm:pr-4">
 			<dt class="inline text-gray-500">Issued on</dt>
 			<dd class="inline text-gray-700">
@@ -27,19 +27,14 @@
 			</dd>
 		</div>
 		<div class="mt-2 sm:mt-0 sm:pl-4"></div>
-		<div class="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4">
-			<dt class="font-semibold text-gray-900">From</dt>
-			<dd class="mt-2 text-gray-500">
-				<span class="font-medium text-gray-900">{data.data?.user.name}</span><br />7363 Cynthia Pass<br
-				/>Toronto, ON N3Y 4H8
-			</dd>
-		</div>
-		<div class="mt-8 sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6 sm:text-right">
-			<dt class="font-semibold text-gray-900">To</dt>
-			<dd class="mt-2 text-gray-500">
-				<span class="font-medium text-gray-900">Tuple, Inc</span><br />886 Walter Street<br />New
-				York, NY 12345
-			</dd>
+		<div class="mt-8 text-right sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6">
+			<span class="font-medium text-gray-900">{data.data?.user.name}</span>
+			<br />
+			886 Walter Street
+			<br />
+			New York, NY
+			<br />
+			12345
 		</div>
 	</dl>
 	<table class="mt-16 w-full whitespace-nowrap text-left text-sm leading-6">
