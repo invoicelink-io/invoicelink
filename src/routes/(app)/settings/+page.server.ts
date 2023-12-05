@@ -77,6 +77,6 @@ export const actions: Actions = {
 				userId: user?.id
 			}
 		});
-		return message(addressForm, 'Address updated');
+		return message(addressForm, 'Address updated!');
 	}
 };
