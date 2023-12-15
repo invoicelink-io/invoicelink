@@ -15,7 +15,8 @@ export const load = (async ({ parent, locals }) => {
 			userId: user?.id
 		},
 		include: {
-			payfast: true
+			payfast: true,
+			yoco: true
 		}
 	});
 
@@ -23,6 +24,10 @@ export const load = (async ({ parent, locals }) => {
 	if (userIntegrations?.payfast[0]) {
 		if (userIntegrations.payfast[0].active) {
 			integrationStatus.payfast = 'enabled';
+		}
+	} else if (userIntegrations?.yoco[0]) {
+		if (userIntegrations.yoco[0].active) {
+			integrationStatus.yoco = 'enabled';
 		}
 	}
 

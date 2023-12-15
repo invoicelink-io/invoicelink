@@ -6,11 +6,11 @@
 		{
 			name: 'payfast',
 			href: '/settings/gateway/payfast'
+		},
+		{
+			name: 'yoco',
+			href: '/settings/gateway/yoco'
 		}
-		// {
-		// 	name: 'yoco',
-		// 	href: '/settings/gateway/yoco'
-		// }
 	];
 </script>
 

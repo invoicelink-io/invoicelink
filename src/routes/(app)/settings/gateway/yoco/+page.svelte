@@ -4,10 +4,10 @@
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { SlideToggle, type ModalSettings } from '@skeletonlabs/skeleton';
-	import PayfastIntegration from '$lib/components/PayfastIntegration.svelte';
+	import type { ModalSettings } from '@skeletonlabs/skeleton';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
+	import YocoIntegration from '$lib/components/YocoIntegration.svelte';
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',
@@ -38,90 +38,56 @@
 			toast.error($message ?? 'Something went wrong');
 		}
 	});
-
-	let requireSecurity = $form.passphrase ? true : false;
-
-	$: {
-		if (!requireSecurity) {
-			form.set({ ...$form, passphrase: '' });
-		}
-	}
 </script>
 
-<h2 class="text-base font-normal">Payfast Integration</h2>
+<h2 class="text-base font-normal">Yoco Integration</h2>
 <p class="text-surface-700-200-token mt-1 text-sm">
-	Capture your payfast gateway details below to start accepting payments online
+	Capture your yoco gateway details below to start accepting payments online
 </p>
 <form name="integration-setup" method="POST" use:enhance>
 	<input name="id" type="hidden" bind:value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="merchantId">
-				Merchant ID
-				{#if $errors.merchantId}
-					<span class="text-error-400">{$errors.merchantId}</span>
+			<label class="label whitespace-nowrap text-xs" for="publicKey">
+				Live Public Key
+				{#if $errors.publicKey}
+					<span class="text-error-400">{$errors.publicKey}</span>
 				{/if}
 			</label>
 			<input
-				name="merchantId"
+				name="publicKey"
 				class="input variant-soft-surface max-w-xl border-none"
 				type="text"
-				placeholder="Payfast Merchant ID"
-				bind:value={$form.merchantId}
+				placeholder="Yoco Public Key"
+				bind:value={$form.publicKey}
 				required
 			/>
 		</li>
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="merchantKey">
-				Merchant Key
-				{#if $errors.merchantKey}
-					<span class="text-error-400">{$errors.merchantKey}</span>
+			<label class="label whitespace-nowrap text-xs" for="secretKey">
+				Live Secret Key
+				{#if $errors.secretKey}
+					<span class="text-error-400">{$errors.secretKey}</span>
 				{/if}
 			</label>
 			<input
-				name="merchantKey"
+				name="secretKey"
 				class="input variant-soft-surface max-w-xl border-none"
 				type="text"
-				placeholder="Payfast Merchant Key"
-				bind:value={$form.merchantKey}
+				placeholder="Yoco Secret Key"
+				bind:value={$form.secretKey}
 				required
 			/>
 		</li>
-
-		<li>
-			<div class="flex w-full items-center justify-between">
-				<span class="text-xs">Require security</span>
-				<SlideToggle
-					size="sm"
-					active="bg-primary-500"
-					name="slide"
-					bind:checked={requireSecurity}
-				/>
-			</div>
-		</li>
-		{#if requireSecurity}
-			<li>
-				<label class="label whitespace-nowrap text-xs" for="passphrase">Security Passphrase</label>
-				<input
-					name="passphrase"
-					class="input variant-soft-surface max-w-xl border-none"
-					type="text"
-					placeholder="Payfast Passphrase"
-					bind:value={$form.passphrase}
-				/>
-			</li>
-		{/if}
 	</ul>
 	<div class="flex w-full items-center justify-between py-6">
-		<PayfastIntegration
-			merchantId={$form.merchantId}
-			merchantKey={$form.merchantKey}
-			passphrase={$form.passphrase}
+		<YocoIntegration
+			publicKey={$form.publicKey}
+			secretKey={$form.secretKey}
 			amount={10}
 			itemName={'Integration setup successful'}
 			buttonLabel={'Test integration'}
 			buttonClass="btn btn-sm variant-filled"
-			{requireSecurity}
 		/>
 		{#if $form.id}
 			<span class="flex items-center justify-center gap-2">

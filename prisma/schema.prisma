@@ -97,6 +97,7 @@ model Integration {
   userId    String
   user      User      @relation(references: [id], fields: [userId], onDelete: Cascade)
   payfast   Payfast[]
+  yoco      Yoco[]
 }
 
 model Payfast {
@@ -106,6 +107,17 @@ model Payfast {
   merchantId    String
   merchantKey   String
   passphrase    String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  active        Boolean     @default(true)
+}
+
+model Yoco {
+  id            String      @id @unique @default(cuid())
+  integrationId String
+  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  publicKey     String
+  secretKey     String
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   active        Boolean     @default(true)
