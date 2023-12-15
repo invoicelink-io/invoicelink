@@ -2,12 +2,12 @@ import { expect, test } from 'vitest';
 import { initializeSerialNumber, incrementSerialNumber } from './serialNumbers';
 
 test('initializeSerialNumber should return a string with the correct format for invoice type', () => {
-	const result = initializeSerialNumber('invoice');
+	const result = initializeSerialNumber('INVOICE');
 	expect(result).toMatch(/^INV-\d{4}-\d{5}$/);
 });
 
 test('initializeSerialNumber should return a string with the correct format for quick-link type', () => {
-	const result = initializeSerialNumber('quick-link');
+	const result = initializeSerialNumber('QUICK_LINK');
 	expect(result).toMatch(/^QL-\d{4}-\d{5}$/);
 });
 

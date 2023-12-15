@@ -4,6 +4,7 @@ import { schema, deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 import { SerialType } from '@prisma/client';
 import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
+import { createCheckout } from '$lib/utils/yoco';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -48,7 +49,7 @@ export const load = (async ({ parent, locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	create: async ({ request, locals }) => {
+	create: async ({ request, locals, url }) => {
 		const { user } = await locals.lucia.validate();
 		const form = await superValidate(request, schema);
 
@@ -64,7 +65,8 @@ export const actions: Actions = {
 					userId: user?.id
 				},
 				include: {
-					payfast: true
+					payfast: true,
+					yoco: true
 				}
 			});
 
@@ -73,15 +75,15 @@ export const actions: Actions = {
 				return message(form, 'No active integration found!', {
 					status: 400
 				});
-			} else if (userIntegration.payfast.length === 0) {
-				return message(form, 'No active integration found!', {
+			} else if (userIntegration.payfast.length === 0 && userIntegration.yoco.length === 0) {
+				return message(form, 'No active gateway found!', {
 					status: 400
 				});
 			}
 
 			// create the quick link
 			if (user?.id) {
-				const res = await prisma.quickLink.create({
+				let quickLink = await prisma.quickLink.create({
 					data: {
 						amount: form.data.amount,
 						serial: form.data.serial,
@@ -93,6 +95,41 @@ export const actions: Actions = {
 						}
 					}
 				});
+
+				// If the user has a yoco integration, create and store a checkout
+				if (userIntegration.yoco.length > 0) {
+					const yocoIntegration = userIntegration.yoco[0];
+					const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
+						secretKey: yocoIntegration.secretKey,
+						amount: form.data.amount,
+						cancelUrl: `${url.origin}/pay?id=${quickLink.id}`,
+						failureUrl: `${url.origin}/pay?id=${quickLink.id}`,
+						successUrl: `${url.origin}/pay?id=${quickLink.id}`
+					});
+
+					if (yocoErrors) {
+						// delete the quick link
+						await prisma.quickLink.delete({
+							where: {
+								id: quickLink.id
+							}
+						});
+
+						return message(form, 'Failed to create yoco checkout', {
+							status: 400
+						});
+					}
+
+					// update the quick link with the yoco checkout
+					quickLink = await prisma.quickLink.update({
+						where: {
+							id: quickLink.id
+						},
+						data: {
+							yocoCheckout
+						}
+					});
+				}
 
 				await prisma.lastUsedSerial.upsert({
 					create: {
@@ -111,8 +148,8 @@ export const actions: Actions = {
 					}
 				});
 
-				form.data.id = res.id;
-				form.data.serial = incrementSerialNumber(res.serial);
+				form.data.id = quickLink.id;
+				form.data.serial = incrementSerialNumber(quickLink.serial);
 				form.data.amount;
 				form.data.description = '';
 				return message(form, 'Quick link created!');
