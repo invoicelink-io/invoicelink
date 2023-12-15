@@ -3,7 +3,7 @@
 	export let data: PageData;
 	import { ListBox, ListBoxItem, popup, Avatar } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
-	import PayfastIntegration from '../../lib/components/PayfastIntegration.svelte';
+	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 	import { getInitials } from '$lib/utils/stringHelpers';
 	const payfast = data.pay?.user.integrations[0].payfast[0];
 

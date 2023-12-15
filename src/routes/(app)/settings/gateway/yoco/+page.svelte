@@ -7,7 +7,7 @@
 	import type { ModalSettings } from '@skeletonlabs/skeleton';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
-	import YocoIntegration from '$lib/components/YocoIntegration.svelte';
+	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',

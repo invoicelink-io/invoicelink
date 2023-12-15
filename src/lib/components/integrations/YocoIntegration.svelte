@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { redirect } from '@sveltejs/kit';
 	import toast from 'svelte-french-toast';
 	import { openInNewTab } from '$lib/utils/platform';
 	// props
@@ -26,7 +25,7 @@
 			body: JSON.stringify({
 				publicKey,
 				secretKey,
-				amountInCents: amount,
+				amount,
 				itemName,
 				returnUrl,
 				cancelUrl

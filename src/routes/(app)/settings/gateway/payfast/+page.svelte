@@ -5,7 +5,7 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { SlideToggle, type ModalSettings } from '@skeletonlabs/skeleton';
-	import PayfastIntegration from '$lib/components/PayfastIntegration.svelte';
+	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	const modalStore = getModalStore();
