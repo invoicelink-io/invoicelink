@@ -105,9 +105,13 @@
 						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
 						buttonLabel="Pay now"
 					/>
-				{:else if integrations.yoco && selectedGateway === 'yoco' && data.pay?.yocoCheckoutId}
+				{:else if integrations.yoco && selectedGateway === 'yoco'}
 					<YocoIntegration
-						checkoutId={data.pay?.yocoCheckoutId}
+						checkoutId={data.pay?.yocoCheckoutId ?? undefined}
+						publicKey={data.pay?.user.integrations[0].yoco[0].publicKey}
+						secretKey={data.pay?.user.integrations[0].yoco[0].secretKey}
+						amount={data.pay?.amount}
+						itemName={data.pay.user.name || 'Payment request'}
 						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
 						buttonLabel="Pay now"
 						openInNewTab={false}
