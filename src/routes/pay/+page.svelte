@@ -7,6 +7,8 @@
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	import { getInitials } from '$lib/utils/stringHelpers';
 
+	const isPaid = data.pay?.status === 'PAID' ?? false;
+
 	const integrations: {
 		[key: string]: any;
 	} = {
@@ -51,7 +53,9 @@
 <div class="h-svh flex w-full flex-col pb-20 text-surface-900">
 	{#if data.pay}
 		<div
-			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-surface-100 text-center"
+			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center {isPaid
+				? `bg-success-200`
+				: `bg-surface-100`}  text-center"
 		>
 			<div
 				class="absolute bottom-0 -mb-[10vh] flex h-auto w-full max-w-sm flex-col items-center justify-center gap-4 rounded-xl bg-surface-50 p-10 shadow-lg sm:mx-auto sm:max-w-xl"
@@ -67,7 +71,11 @@
 					</div>
 
 					<span class="text-sm font-semibold uppercase">{data.pay?.user.name}</span>
-					<span class="text-sm leading-none">requested a payment of</span>
+					{#if isPaid}
+						<span class="text-sm leading-none">has been paid</span>
+					{:else}
+						<span class="text-sm leading-none">requested a payment of</span>
+					{/if}
 				</div>
 				<p class="w-full text-center text-5xl font-bold md:text-7xl">
 					{Number(data.pay?.amount).toLocaleString('en-ZA', {
@@ -82,51 +90,55 @@
 				href="/api/invoice?id={data?.pay.id}&type=quick&download=true"
 				class="variant-glass-surface btn w-36">Save invoice</a
 			>
-			{#if integrations.payfast && selectedGateway === 'payfast'}
-				<PayfastIntegration
-					userId={data.pay.user?.id}
-					merchantId={integrations.payfast.merchantId}
-					merchantKey={integrations.payfast.merchantKey}
-					passphrase={integrations.payfast.passphrase}
-					amount={data.pay?.amount}
-					paymentId={data.pay?.id}
-					itemName={data.pay.user.name || 'Payment request'}
-					requireSecurity={integrations.payfast.passphrase !== ''}
-					demo={data?.pay.id === 'demo'}
-					buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
-					buttonLabel="Pay now"
-				/>
-			{:else if integrations.yoco && selectedGateway === 'yoco' && data.pay?.yocoCheckoutId}
-				<YocoIntegration
-					checkoutId={data.pay?.yocoCheckoutId}
-					buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
-					buttonLabel="Pay now"
-					openInNewTab={false}
-				/>
+			{#if !isPaid}
+				{#if integrations.payfast && selectedGateway === 'payfast'}
+					<PayfastIntegration
+						userId={data.pay.user?.id}
+						merchantId={integrations.payfast.merchantId}
+						merchantKey={integrations.payfast.merchantKey}
+						passphrase={integrations.payfast.passphrase}
+						amount={data.pay?.amount}
+						paymentId={data.pay?.id}
+						itemName={data.pay.user.name || 'Payment request'}
+						requireSecurity={integrations.payfast.passphrase !== ''}
+						demo={data?.pay.id === 'demo'}
+						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
+						buttonLabel="Pay now"
+					/>
+				{:else if integrations.yoco && selectedGateway === 'yoco' && data.pay?.yocoCheckoutId}
+					<YocoIntegration
+						checkoutId={data.pay?.yocoCheckoutId}
+						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
+						buttonLabel="Pay now"
+						openInNewTab={false}
+					/>
+				{/if}
 			{/if}
 		</div>
-		<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
-			<p class="text-sm">Change payment option</p>
-			<button class="variant-outline-surface btn w-48 justify-between" use:popup={popupCombobox}>
-				<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
-			</button>
-			<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
-				<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
-					{#each Object.keys(integrations) as gateway}
-						{#if integrations[gateway]}
-							<ListBoxItem
-								bind:group={selectedGateway}
-								name={gateway}
-								value={gateway}
-								class="capitalize"
-							>
-								{gateway}
-							</ListBoxItem>
-						{/if}
-					{/each}
-				</ListBox>
+		{#if !isPaid}
+			<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
+				<p class="text-sm">Change payment option</p>
+				<button class="variant-outline-surface btn w-48 justify-between" use:popup={popupCombobox}>
+					<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
+				</button>
+				<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
+					<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
+						{#each Object.keys(integrations) as gateway}
+							{#if integrations[gateway]}
+								<ListBoxItem
+									bind:group={selectedGateway}
+									name={gateway}
+									value={gateway}
+									class="capitalize"
+								>
+									{gateway}
+								</ListBoxItem>
+							{/if}
+						{/each}
+					</ListBox>
+				</div>
 			</div>
-		</div>
+		{/if}
 	{:else}
 		<div class="flex h-full flex-col items-center justify-center text-center">
 			<p>This payment link is invalid or no longer available.</p>
