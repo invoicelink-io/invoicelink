@@ -23,12 +23,6 @@
 		placement: 'top',
 		closeQuery: '.listbox-item'
 	};
-
-	const popupHover: PopupSettings = {
-		event: 'hover',
-		target: 'popupHover',
-		placement: 'top'
-	};
 </script>
 
 <svelte:head>
@@ -90,10 +84,12 @@
 			>
 			{#if integrations.payfast && selectedGateway === 'payfast'}
 				<PayfastIntegration
+					userId={data.pay.user?.id}
 					merchantId={integrations.payfast.merchantId}
 					merchantKey={integrations.payfast.merchantKey}
 					passphrase={integrations.payfast.passphrase}
 					amount={data.pay?.amount}
+					paymentId={data.pay?.id}
 					itemName={data.pay.user.name || 'Payment request'}
 					requireSecurity={integrations.payfast.passphrase !== ''}
 					demo={data?.pay.id === 'demo'}

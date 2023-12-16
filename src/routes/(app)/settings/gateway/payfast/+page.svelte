@@ -114,6 +114,7 @@
 	</ul>
 	<div class="flex w-full items-center justify-between py-6">
 		<PayfastIntegration
+			userId={data.user?.id ?? ''}
 			merchantId={$form.merchantId}
 			merchantKey={$form.merchantKey}
 			passphrase={$form.passphrase}

@@ -131,15 +131,17 @@
 													currency: 'ZAR'
 												})}</span
 											>
-											<button
-												type="submit"
-												on:click|preventDefault={() => {
-													deleteId = link.id;
-													modalStore.trigger(modal);
-												}}
-											>
-												<Icon name="trash" />
-											</button>
+											{#if link.status !== 'PAID'}
+												<button
+													type="submit"
+													on:click|preventDefault={() => {
+														deleteId = link.id;
+														modalStore.trigger(modal);
+													}}
+												>
+													<Icon name="trash" />
+												</button>
+											{/if}
 										</form>
 									</h2>
 								</div>

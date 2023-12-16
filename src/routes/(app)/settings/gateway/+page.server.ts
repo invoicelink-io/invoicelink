@@ -21,14 +21,12 @@ export const load = (async ({ parent, locals }) => {
 	});
 
 	// update integration statuses
-	if (userIntegrations?.payfast[0]) {
-		if (userIntegrations.payfast[0].active) {
-			integrationStatus.payfast = 'enabled';
-		}
-	} else if (userIntegrations?.yoco[0]) {
-		if (userIntegrations.yoco[0].active) {
-			integrationStatus.yoco = 'enabled';
-		}
+	if (userIntegrations?.payfast[0]?.active) {
+		integrationStatus.payfast = 'enabled';
+	}
+
+	if (userIntegrations?.yoco[0]?.active) {
+		integrationStatus.yoco = 'enabled';
 	}
 
 	return {
