@@ -14,6 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
 			id: 'demo',
 			amount: 250,
 			status: 'PENDING',
+			yocoCheckoutId: 'demo',
 			user: {
 				id: 'demo',
 				name: 'Demo User',
@@ -27,7 +28,8 @@ export const load: PageServerLoad = async ({ url }) => {
 								merchantKey: 'woyd110xtf4j3',
 								passphrase: 'SuperSecretPassphrase'
 							}
-						]
+						],
+						yoco: []
 					}
 				]
 			}
@@ -47,7 +49,8 @@ export const load: PageServerLoad = async ({ url }) => {
 					name: true,
 					integrations: {
 						select: {
-							payfast: true
+							payfast: true,
+							yoco: true
 						}
 					}
 				}

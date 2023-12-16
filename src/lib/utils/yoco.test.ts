@@ -18,7 +18,7 @@ test('Should error on invalid params', async () => {
 	expect(errors?.fieldErrors?.secretKey?.at(0)).toContain('Secret Key must start with');
 
 	expect(errors?.fieldErrors.amount).toBeDefined();
-	expect(errors?.fieldErrors?.amount?.at(0)).toContain('Number must be greater than or equal to 1');
+	expect(errors?.fieldErrors?.amount?.at(0)).toContain('Number must be greater than or equal to 2');
 
 	expect(errors?.fieldErrors.cancelUrl).toBeDefined();
 	expect(errors?.fieldErrors?.cancelUrl?.at(0)).toContain('Invalid url');

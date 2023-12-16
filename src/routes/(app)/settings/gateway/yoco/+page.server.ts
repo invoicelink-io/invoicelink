@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { schema } from './validation';
 import { superValidate, message } from 'sveltekit-superforms/server';
+import { deleteAllWebhooks, registerWebhook } from '$lib/utils/yoco';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -27,13 +28,16 @@ export const load = (async ({ parent, locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	create: async ({ request, locals }) => {
+	create: async ({ request, locals, url }) => {
 		const { user } = await locals.lucia.validate();
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
 			return message(form, 'Invalid integration details!');
 		}
+
+		// delete any existing webhooks
+		await deleteAllWebhooks(form.data.secretKey);
 
 		try {
 			// check if the user has an integration already
@@ -42,6 +46,15 @@ export const actions: Actions = {
 					userId: user?.id
 				}
 			});
+
+			// register a new webhook for the user
+			const webhook = await registerWebhook({
+				secretKey: form.data.secretKey,
+				userId: user?.id as string,
+				url: `${url.origin}/api/yoco/notify/${user?.id}`
+			});
+
+			console.log(webhook);
 
 			if (userIntegration) {
 				const res = await prisma.yoco.create({
@@ -52,7 +65,8 @@ export const actions: Actions = {
 							}
 						},
 						publicKey: form.data.publicKey,
-						secretKey: form.data.secretKey
+						secretKey: form.data.secretKey,
+						webhookSecret: webhook.secret
 					}
 				});
 				form.data.id = res.id;
@@ -68,7 +82,8 @@ export const actions: Actions = {
 						yoco: {
 							create: {
 								publicKey: form.data.publicKey,
-								secretKey: form.data.secretKey
+								secretKey: form.data.secretKey,
+								webhookSecret: webhook.secret
 							}
 						}
 					},
@@ -96,6 +111,9 @@ export const actions: Actions = {
 					}
 				});
 
+				// delete any webhooks
+				await deleteAllWebhooks(form.data.secretKey);
+
 				form.data.id = undefined;
 				form.data.publicKey = '';
 				form.data.secretKey = '';
@@ -108,21 +126,33 @@ export const actions: Actions = {
 			}
 		}
 	},
-	update: async ({ request }) => {
+	update: async ({ request, locals, url }) => {
+		const { user } = await locals.lucia.validate();
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
 			return message(form, 'Invalid integration details!');
 		}
 
 		try {
+			// delete any existing webhooks
+			await deleteAllWebhooks(form.data.secretKey);
+
 			if (form.data.id) {
+				// register a new webhook for the user
+				const webhook = await registerWebhook({
+					secretKey: form.data.secretKey,
+					userId: user?.id as string,
+					url: `${url.origin}/api/yoco/notify/${user?.id}`
+				});
+
 				await prisma.yoco.update({
 					where: {
 						id: form.data.id
 					},
 					data: {
 						publicKey: form.data.publicKey,
-						secretKey: form.data.secretKey
+						secretKey: form.data.secretKey,
+						webhookSecret: webhook.secret
 					}
 				});
 			}

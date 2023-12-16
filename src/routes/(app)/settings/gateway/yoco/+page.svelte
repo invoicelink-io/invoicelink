@@ -7,7 +7,7 @@
 	import type { ModalSettings } from '@skeletonlabs/skeleton';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
-	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
+	import YocoTestIntegration from '$lib/components/integrations/YocoTestIntegration.svelte';
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',
@@ -81,7 +81,7 @@
 		</li>
 	</ul>
 	<div class="flex w-full items-center justify-between py-6">
-		<YocoIntegration
+		<YocoTestIntegration
 			publicKey={$form.publicKey}
 			secretKey={$form.secretKey}
 			amount={10}

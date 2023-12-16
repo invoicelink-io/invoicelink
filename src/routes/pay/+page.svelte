@@ -4,10 +4,19 @@
 	import { ListBox, ListBoxItem, popup, Avatar } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
+	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	import { getInitials } from '$lib/utils/stringHelpers';
-	const payfast = data.pay?.user.integrations[0].payfast[0];
 
-	let selectedGateway: string = 'payfast';
+	const integrations: {
+		[key: string]: any;
+	} = {
+		payfast: data.pay?.user.integrations[0].payfast[0] ?? undefined,
+		yoco: data.pay?.user.integrations[0].yoco[0] ?? undefined
+	};
+
+	let selectedGateway: string =
+		Object.keys(integrations).find((key) => integrations[key] !== undefined) || '';
+
 	const popupCombobox: PopupSettings = {
 		event: 'click',
 		target: 'popupCombobox',
@@ -79,17 +88,24 @@
 				href="/api/invoice?id={data?.pay.id}&type=quick&download=true"
 				class="variant-glass-surface btn w-36">Save invoice</a
 			>
-			{#if payfast && selectedGateway === 'payfast'}
+			{#if integrations.payfast && selectedGateway === 'payfast'}
 				<PayfastIntegration
-					merchantId={payfast.merchantId}
-					merchantKey={payfast.merchantKey}
-					passphrase={payfast.passphrase}
+					merchantId={integrations.payfast.merchantId}
+					merchantKey={integrations.payfast.merchantKey}
+					passphrase={integrations.payfast.passphrase}
 					amount={data.pay?.amount}
 					itemName={data.pay.user.name || 'Payment request'}
-					requireSecurity={payfast.passphrase !== ''}
+					requireSecurity={integrations.payfast.passphrase !== ''}
 					demo={data?.pay.id === 'demo'}
 					buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
 					buttonLabel="Pay now"
+				/>
+			{:else if integrations.yoco && selectedGateway === 'yoco' && data.pay?.yocoCheckoutId}
+				<YocoIntegration
+					checkoutId={data.pay?.yocoCheckoutId}
+					buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
+					buttonLabel="Pay now"
+					openInNewTab={false}
 				/>
 			{/if}
 		</div>
@@ -100,9 +116,18 @@
 			</button>
 			<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
 				<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
-					<ListBoxItem bind:group={selectedGateway} name="payfast" value="payfast">
-						Payfast
-					</ListBoxItem>
+					{#each Object.keys(integrations) as gateway}
+						{#if integrations[gateway]}
+							<ListBoxItem
+								bind:group={selectedGateway}
+								name={gateway}
+								value={gateway}
+								class="capitalize"
+							>
+								{gateway}
+							</ListBoxItem>
+						{/if}
+					{/each}
 				</ListBox>
 			</div>
 		</div>

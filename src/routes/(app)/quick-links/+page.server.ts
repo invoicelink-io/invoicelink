@@ -120,13 +120,13 @@ export const actions: Actions = {
 						});
 					}
 
-					// update the quick link with the yoco checkout
+					// update the quick link with the yoco checkoutId
 					quickLink = await prisma.quickLink.update({
 						where: {
 							id: quickLink.id
 						},
 						data: {
-							yocoCheckout
+							yocoCheckoutId: yocoCheckout?.id
 						}
 					});
 				}
