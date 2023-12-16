@@ -118,22 +118,23 @@ model Yoco {
   integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
   publicKey     String
   secretKey     String
+  webhookSecret String?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   active        Boolean     @default(true)
 }
 
 model QuickLink {
-  id           String   @id @unique @default(cuid())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  userId       String
-  user         User     @relation(references: [id], fields: [userId], onDelete: Cascade)
-  amount       Float
-  serial       String
-  description  String?
-  status       Status   @default(PENDING)
-  yocoCheckout Json?
+  id             String   @id @unique @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  userId         String
+  user           User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  amount         Float
+  serial         String
+  description    String?
+  status         Status   @default(PENDING)
+  yocoCheckoutId String?  @unique
 }
 
 enum Status {
