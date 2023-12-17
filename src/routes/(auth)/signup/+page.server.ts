@@ -7,7 +7,7 @@ import { prisma } from '$lib/server/prisma';
 export const load = (async ({ locals }) => {
 	const { session } = await locals.lucia.validate();
 	if (session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 }) satisfies PageServerLoad;
 
@@ -62,6 +62,6 @@ export const actions: Actions = {
 			});
 		}
 
-		throw redirect(302, '/login?message=Account created successfully!');
+		redirect(302, '/login?message=Account created successfully!');
 	}
 };

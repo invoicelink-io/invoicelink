@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ url }) => {
 	const id = url.searchParams.get('id');
 
 	if (!id) {
-		throw error(404, 'Not found');
+		error(404, 'Not found');
 	}
 
 	if (id === 'demo') {

@@ -7,7 +7,7 @@ import { Argon2id } from 'oslo/password';
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const { session } = await locals.lucia.validate();
 	if (session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	} else {
 		// get query params
 		const message = url.searchParams.get('message');
@@ -97,6 +97,6 @@ export const actions: Actions = {
 				errors: { email: 'Could not log you in', password: 'Could not log you in' }
 			});
 		}
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 };

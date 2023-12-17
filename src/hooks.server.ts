@@ -14,7 +14,7 @@ export const routeProtectionHandler: Handle = async ({ resolve, event }) => {
 	if (protectedRoutes.includes(event.url.pathname.toLowerCase())) {
 		const { session } = await event.locals.lucia.validate();
 		if (!session) {
-			throw redirect(303, '/login');
+			redirect(303, '/login');
 		}
 	}
 

@@ -5,7 +5,7 @@ export const load = (async ({ locals }) => {
 	const { user, session } = await locals.lucia.validate();
 
 	if (!session) {
-		throw redirect(303, '/login');
+		redirect(303, '/login');
 	}
 
 	return {
