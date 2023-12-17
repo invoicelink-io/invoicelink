@@ -1,17 +1,31 @@
 import { dev } from '$app/environment';
 import { googleAuth } from '$lib/server/auth';
-import { generateState } from 'arctic';
+import { generateCodeVerifier, generateState } from 'arctic';
 
 export const GET = async ({ cookies }) => {
 	const state = generateState();
-	const url = await googleAuth.createAuthorizationURL(state);
+	const codeVerifier = generateCodeVerifier();
+	const url = await googleAuth.createAuthorizationURL(state, codeVerifier, {
+		scopes: [
+			'https://www.googleapis.com/auth/userinfo.profile',
+			'https://www.googleapis.com/auth/userinfo.email'
+		]
+	});
 
-	// store state
+	// store state verifier as cookie
 	cookies.set('google_oauth_state', state, {
 		httpOnly: true,
 		secure: !dev,
 		path: '/',
-		maxAge: 60 * 60
+		maxAge: 60 * 10
+	});
+
+	// store code verifier as cookie
+	cookies.set('code_verifier', codeVerifier, {
+		httpOnly: true,
+		secure: !dev,
+		path: '/',
+		maxAge: 60 * 10
 	});
 
 	return new Response(null, {

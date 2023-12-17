@@ -5,7 +5,7 @@ import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
-	const { user } = await locals.lucia.validate();
+	const { user } = locals;
 	const profileForm = await superValidate(user, profileSchema);
 
 	const res = await prisma.address.findFirst({
@@ -42,7 +42,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 
 export const actions: Actions = {
 	updateProfile: async ({ request, locals }) => {
-		const { user } = await locals.lucia.validate();
+		const { user } = locals;
 		const profileForm = await superValidate(request, profileSchema);
 
 		if (!profileForm.valid) {
@@ -61,7 +61,7 @@ export const actions: Actions = {
 		return message(profileForm, 'Profile updated');
 	},
 	updateAddress: async ({ request, locals }) => {
-		const { user } = await locals.lucia.validate();
+		const { user } = locals;
 		const addressForm = await superValidate(request, addressSchema);
 
 		if (!addressForm.valid) {

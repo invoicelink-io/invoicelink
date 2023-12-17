@@ -3,7 +3,7 @@ import type { PageServerLoad, Actions } from './$types';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	const { session, user } = await locals.lucia.validate();
+	const { session, user } = locals;
 	return { session, user, title: 'Home' };
 }) satisfies PageServerLoad;
 

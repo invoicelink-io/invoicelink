@@ -1,5 +1,5 @@
 import { lucia, githubAuth } from '$lib/server/auth';
-import { OAuth2RequestError } from 'arctic';
+import { OAuth2RequestError, type GitHubTokens } from 'arctic';
 import { prisma } from '$lib/server/prisma';
 import type { OauthAccount, User } from '@prisma/client';
 
@@ -16,8 +16,13 @@ export const GET = async ({ url, cookies }) => {
 	}
 
 	try {
-		const tokens = await githubAuth.validateAuthorizationCode(code);
-		const githubUser = await githubAuth.getUser(tokens.accessToken);
+		const tokens: GitHubTokens = await githubAuth.validateAuthorizationCode(code);
+		const response = await fetch('https://api.github.com/user', {
+			headers: {
+				Authorization: `Bearer ${tokens.accessToken}`
+			}
+		});
+		const githubUser = await response.json();
 
 		// fetch github users emails
 		if (!githubUser.email) {

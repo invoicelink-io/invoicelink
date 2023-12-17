@@ -4,10 +4,13 @@ import type { Actions, PageServerLoad } from './$types';
 import { validateSignupForm } from './validation';
 import { Argon2id } from 'oslo/password';
 
-export const load: PageServerLoad = async ({ locals, url }) => {
-	const { session } = await locals.lucia.validate();
-	if (session) {
-		redirect(302, '/');
+export const load: PageServerLoad = async ({ url, cookies }) => {
+	const sessionId = cookies.get(lucia.sessionCookieName);
+	if (sessionId) {
+		const { session } = await lucia.validateSession(sessionId);
+		if (session) {
+			redirect(302, '/');
+		}
 	} else {
 		// get query params
 		const message = url.searchParams.get('message');
@@ -16,7 +19,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request }) => {
 		const { email, password } = Object.fromEntries(await request.formData()) as Record<
 			string,
 			string
@@ -54,7 +57,7 @@ export const actions: Actions = {
 
 				// create session
 				const session = await lucia.createSession(user.id, {});
-				locals.lucia.setSessionCookie(session.id);
+				lucia.createSessionCookie(session.id);
 			} else {
 				throw new Error('AUTH_INVALID_KEY_ID');
 			}

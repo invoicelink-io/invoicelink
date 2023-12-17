@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.5.3
     version: 1.5.3
   '@lucia-auth/adapter-prisma':
-    specifier: 4.0.0-beta.5
-    version: 4.0.0-beta.5(@prisma/client@5.7.0)(lucia@3.0.0-beta.10)
+    specifier: 4.0.0-beta.7
+    version: 4.0.0-beta.7(@prisma/client@5.7.0)(lucia@3.0.0-beta.12)
   '@paralleldrive/cuid2':
     specifier: ^2.2.2
     version: 2.2.2
@@ -21,17 +21,17 @@ dependencies:
     specifier: ^3.1.0
     version: 3.1.0
   arctic:
-    specifier: ^0.3.6
-    version: 0.3.6
+    specifier: ^0.10.0
+    version: 0.10.0
   javascript-time-ago:
     specifier: ^2.5.9
     version: 2.5.9
   lucia:
-    specifier: 3.0.0-beta.10
-    version: 3.0.0-beta.10
+    specifier: 3.0.0-beta.12
+    version: 3.0.0-beta.12
   oslo:
-    specifier: ^0.23.2
-    version: 0.23.2
+    specifier: ^0.24.0
+    version: 0.24.0
   puppeteer:
     specifier: ^21.6.1
     version: 21.6.1(typescript@5.3.3)
@@ -703,14 +703,14 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@lucia-auth/adapter-prisma@4.0.0-beta.5(@prisma/client@5.7.0)(lucia@3.0.0-beta.10):
-    resolution: {integrity: sha512-OU0juuEVH+ZRD6v/nb6tuzzBptrmMYc05wb+7OoHfF9TDMzPsLP8ga4vB8En0RdxAXE3puayHyGbv6ZdYnq7pQ==}
+  /@lucia-auth/adapter-prisma@4.0.0-beta.7(@prisma/client@5.7.0)(lucia@3.0.0-beta.12):
+    resolution: {integrity: sha512-iC7xy5wylgzmpQtJwxnshGTx4OTxmPc1yKJcTrp7FnWPSOg6ehvTw2fYBbKb+sHEe8nKVBhQbfAV44ChonPiHQ==}
     peerDependencies:
       '@prisma/client': ^4.2.0 || ^5.0.0
-      lucia: 3.0.0-beta.9
+      lucia: 3.0.0-beta.12
     dependencies:
       '@prisma/client': 5.7.0(prisma@5.7.0)
-      lucia: 3.0.0-beta.10
+      lucia: 3.0.0-beta.12
     dev: false
 
   /@mapbox/node-pre-gyp@1.0.11:
@@ -1667,10 +1667,10 @@ packages:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
     dev: true
 
-  /arctic@0.3.6:
-    resolution: {integrity: sha512-tYAIoYXRgdIYgfzWuqbmmPFML3bo5ruTOWjxvOXQVHh5HdvtqUcIAt6+dolFKnz2yonhmAb6BRHw1hNcrAgj3g==}
+  /arctic@0.10.0:
+    resolution: {integrity: sha512-yMAPbBPQfewJ9gwPt1YoTaNJkWrbtoVkXJip+8qxWwN5Aa0pOnNRYmKpVcvGK3hRMXy+NszgDomt3oa4np6ZGQ==}
     dependencies:
-      oslo: 0.23.1
+      oslo: 0.24.0
     dev: false
 
   /are-we-there-yet@2.0.0:
@@ -2909,10 +2909,10 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /lucia@3.0.0-beta.10:
-    resolution: {integrity: sha512-XE2OXlordQPlhtBroDGem//LKDBfZafYFjfOwwkYzzfwn0XwqBKWsvcDcJf7ugUkSNfRtY4mNjTVga+rqSC6GA==}
+  /lucia@3.0.0-beta.12:
+    resolution: {integrity: sha512-BqazR0IVm5xfURR6G+mjcL77ttDHTdX+qWqaHP121fKIU27rYqUBTAxVYP3252W3gDblFmSYlnhxzkJzI+z/dw==}
     dependencies:
-      oslo: 0.20.0
+      oslo: 0.23.5
     dev: false
 
   /magic-string@0.27.0:
@@ -3158,22 +3158,15 @@ packages:
       type-check: 0.4.0
     dev: true
 
-  /oslo@0.20.0:
-    resolution: {integrity: sha512-C6SYqw86Yj/h49AHiWiTSvdCyDBl0uur0VnSDoScr87E+oVitTSta4HrALew0m0wSxxUFA+VojUCc82meAv3XA==}
+  /oslo@0.23.5:
+    resolution: {integrity: sha512-G+q/MkR0IPaUA1+FpHL0pneAHJzhNpg9P4VXASy4JQy1KGFyfhi30DphVHYNKQC+C05VhDi/sTGdOX+yfcrT3g==}
     dependencies:
       '@node-rs/argon2': 1.5.2
       '@node-rs/bcrypt': 1.7.3
     dev: false
 
-  /oslo@0.23.1:
-    resolution: {integrity: sha512-E2cc4b+MVXiURqpWC4FpWGEGDOEGiH6EbI0Kowo3+m5MCK79hw3wBscfq6c6yRI1oo17OVqTiCLX3rupg2OAEA==}
-    dependencies:
-      '@node-rs/argon2': 1.5.2
-      '@node-rs/bcrypt': 1.7.3
-    dev: false
-
-  /oslo@0.23.2:
-    resolution: {integrity: sha512-7Vp7loHw8CkHwFqrE3bP6pxPqoED89nWSAFt7VQl0A9JLEZygqd3Js6AYKt4a1rHLTpyUau4MJDuTal6r1jn9A==}
+  /oslo@0.24.0:
+    resolution: {integrity: sha512-ALOypmwQXyu7AluDqF/EySx7AjWk85gHKY+3yb2LaZ5vArc2jxxZF6tNwGKQ3Rb968ednCFf3opAOoaetRN9+g==}
     dependencies:
       '@node-rs/argon2': 1.5.2
       '@node-rs/bcrypt': 1.7.3

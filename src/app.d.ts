@@ -1,11 +1,11 @@
-import type { AuthRequest, Session, User } from 'lucia';
+import type { Session, User } from 'lucia';
 import type { PrismaClient } from '@prisma/client';
 
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			lucia: AuthRequest;
+			user: User | null;
 			session: Session | null;
 		}
 		interface PageData {

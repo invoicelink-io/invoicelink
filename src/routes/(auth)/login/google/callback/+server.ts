@@ -1,22 +1,31 @@
 import { lucia, googleAuth } from '$lib/server/auth';
-import { OAuth2RequestError } from 'arctic';
+import { OAuth2RequestError, type GoogleTokens } from 'arctic';
 import { prisma } from '$lib/server/prisma';
 
 export const GET = async ({ url, cookies }) => {
 	const stateCookie = cookies.get('google_oauth_state') ?? null;
+	const storedCodeVerifier = cookies.get('code_verifier') ?? null;
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
 
 	// validate state
-	if (!state || !stateCookie || !code) {
+	if (!state || !stateCookie || !code || !storedCodeVerifier) {
 		return new Response(null, {
 			status: 400
 		});
 	}
 
 	try {
-		const tokens = await googleAuth.validateAuthorizationCode(code);
-		const googleUser = await googleAuth.getUser(tokens.accessToken);
+		const tokens: GoogleTokens = await googleAuth.validateAuthorizationCode(
+			code,
+			storedCodeVerifier
+		);
+		const response = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
+			headers: {
+				Authorization: `Bearer ${tokens.accessToken}`
+			}
+		});
+		const googleUser = await response.json();
 
 		// check if user exists with oauth account
 		const existingUser = await prisma.user.findUnique({

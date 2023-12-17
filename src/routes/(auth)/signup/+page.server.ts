@@ -5,7 +5,7 @@ import { Argon2id } from 'oslo/password';
 import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ locals }) => {
-	const { session } = await locals.lucia.validate();
+	const { session } = locals;
 	if (session) {
 		redirect(302, '/');
 	}
@@ -24,6 +24,7 @@ export const actions: Actions = {
 
 		if (result) {
 			// handle error then return
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { password, passwordConfirm, ...rest } = formData;
 
 			return fail(500, {
@@ -48,9 +49,12 @@ export const actions: Actions = {
 					}
 				}
 			});
-		} catch (err: any) {
+		} catch (err: unknown) {
 			console.error(err);
+
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const { password, passwordConfirm, ...rest } = formData;
+
 			return fail(500, {
 				data: { ...rest, password: '', passwordConfirm: '' },
 				errors: {

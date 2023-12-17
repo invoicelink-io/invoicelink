@@ -4,7 +4,9 @@ import { generateState } from 'arctic';
 
 export const GET = async ({ cookies }) => {
 	const state = generateState();
-	const url = await githubAuth.createAuthorizationURL(state);
+	const url = await githubAuth.createAuthorizationURL(state, {
+		scopes: ['read:user', 'user:email']
+	});
 
 	// store state
 	cookies.set('github_oauth_state', state, {

@@ -8,7 +8,7 @@ import { createCheckout } from '$lib/utils/yoco';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	const { user } = await locals.lucia.validate();
+	const { user } = locals;
 
 	const quickLink = {
 		id: '',
@@ -50,7 +50,7 @@ export const load = (async ({ parent, locals }) => {
 
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
-		const { user } = await locals.lucia.validate();
+		const { user } = locals;
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
