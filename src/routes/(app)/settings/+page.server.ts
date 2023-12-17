@@ -6,7 +6,7 @@ import { prisma } from '$lib/server/prisma';
 export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { user } = await locals.lucia.validate();
-	const profileForm = superValidate(user, profileSchema);
+	const profileForm = await superValidate(user, profileSchema);
 
 	const res = await prisma.address.findFirst({
 		where: {
@@ -30,7 +30,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 		});
 	}
 
-	const addressForm = superValidate(address, addressSchema);
+	const addressForm = await superValidate(address, addressSchema);
 	return {
 		user,
 		title: 'Settings',
