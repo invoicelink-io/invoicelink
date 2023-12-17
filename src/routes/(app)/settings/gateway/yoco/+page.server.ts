@@ -6,7 +6,7 @@ import { deleteAllWebhooks, registerWebhook } from '$lib/utils/yoco';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
-	const { user } = await locals.lucia.validate();
+	const { user } = locals;
 
 	// fetch users integrations
 	const userIntegrations = await prisma.integration.findFirst({
@@ -29,7 +29,7 @@ export const load = (async ({ parent, locals }) => {
 
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
-		const { user } = await locals.lucia.validate();
+		const { user } = locals;
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
@@ -127,7 +127,7 @@ export const actions: Actions = {
 		}
 	},
 	update: async ({ request, locals, url }) => {
-		const { user } = await locals.lucia.validate();
+		const { user } = locals;
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
 			return message(form, 'Invalid integration details!');
