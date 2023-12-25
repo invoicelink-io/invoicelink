@@ -86,6 +86,10 @@
 	.settings-list li {
 		@apply border-surface-100-800-token flex flex-col items-start justify-between gap-x-6 gap-y-2 py-6 sm:flex-row sm:items-center;
 	}
+
+	.input-primary {
+		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none p-2 text-sm read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
+	}
 }
 
 @layer utilities {

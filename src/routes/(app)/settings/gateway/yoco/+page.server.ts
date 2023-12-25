@@ -54,8 +54,6 @@ export const actions: Actions = {
 				url: `${url.origin}/api/yoco/notify/${user?.id}`
 			});
 
-			console.log(webhook);
-
 			if (userIntegration) {
 				const res = await prisma.yoco.create({
 					data: {

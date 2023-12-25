@@ -15,6 +15,7 @@ model User {
   email         String?        @unique
   username      String?        @unique
   avatarUrl     String?
+  vatNumber     String?
   sessions      Session[]
   passwords     Password[]
   oauthAccounts OauthAccount[]
@@ -24,6 +25,9 @@ model User {
   integrations       Integration[]
   quickLinks         QuickLink[]
   lastUsedSerial     LastUsedSerial[]
+  InvoiceStyles      InvoiceStyles[]
+  Invoice            Invoice[]
+  Client             Client[]
 }
 
 model LastUsedSerial {
@@ -42,13 +46,15 @@ enum SerialType {
 }
 
 model Address {
-  id         String  @id @unique @default(cuid())
+  id         String    @id @unique @default(cuid())
   line1      String
   line2      String?
   line3      String?
   postalCode String
-  user       User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String?
+  Client     Client[]
+  Invoice    Invoice[]
 }
 
 model Session {
@@ -137,9 +143,85 @@ model QuickLink {
   yocoCheckoutId String?  @unique
 }
 
+model Invoice {
+  id               String     @id @unique @default(cuid())
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  issueDate        DateTime
+  dueDate          DateTime?
+  userId           String
+  user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
+  subtotal         Float
+  tax              Float
+  total            Float
+  serial           String
+  lineItems        LineItem[]
+  status           Status     @default(PENDING)
+  sendersAddress   Address    @relation(fields: [sendersAddressId], references: [id])
+  sendersAddressId String
+  client           Client     @relation(fields: [clientId], references: [id])
+  clientId         String
+  yocoCheckoutId   String?    @unique
+}
+
+model LineItem {
+  id          String   @id @unique @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  invoiceId   String
+  invoice     Invoice  @relation(references: [id], fields: [invoiceId], onDelete: Cascade)
+  description String
+  quantity    Int
+  amount      Float
+}
+
+model Client {
+  id        String    @id @unique @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String
+  user      User      @relation(references: [id], fields: [userId], onDelete: Cascade)
+  name      String
+  vatNumber String?
+  email     String?
+  phone     String?
+  address   Address   @relation(fields: [addressId], references: [id])
+  addressId String
+  Invoice   Invoice[]
+}
+
 enum Status {
   PENDING
   PAID
   EXPIRED
   OVERDUE
+}
+
+model InvoiceStyles {
+  id                        String   @id @unique @default(cuid())
+  name                      String
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+  userId                    String
+  user                      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  baseFontSize              String
+  baseSpacing               String
+  baseDivider               String
+  baseDividerColor          String
+  issueDateAlign            String
+  senderAddressAlign        String
+  recipientAddressAlign     String
+  invoiceType               String
+  invoiceTypeFontSize       String
+  invoiceTypeColor          String
+  invoiceTypeCasing         String
+  columnHeadingSize         String
+  columnHeadingColor        String
+  columnHeadingCasing       String
+  columnHeadingDivider      String
+  columnHeadingDividerColor String
+  lineItemDivider           String
+  lineItemDividerColor      String
+  logoAlt                   String
+  logoSrc                   String?
 }
