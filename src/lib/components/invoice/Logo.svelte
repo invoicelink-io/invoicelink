@@ -7,8 +7,8 @@
 
 <div class="flex w-full flex-col">
 	{#if data.src}
-		<div class="flex h-20 w-40 items-start justify-start object-contain">
-			<img class="aspect-video object-contain" alt={data.alt} src={data.src} />
+		<div class="flex h-auto w-40 items-start justify-start object-contain">
+			<img class="object-contain" alt={data.alt} src={data.src} />
 		</div>
 	{:else}
 		<h2 class="h4 font-medium">

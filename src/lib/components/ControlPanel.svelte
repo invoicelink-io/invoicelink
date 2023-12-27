@@ -8,6 +8,7 @@
 	import Casing from './radioGroups/Casing.svelte';
 	import Spacing from './radioGroups/Spacing.svelte';
 	import Divider from './radioGroups/Divider.svelte';
+	import ImageUpload from '$lib/components/ImageUpload.svelte';
 </script>
 
 <div class="hide-scrollbar max-h-[70vh] overflow-y-scroll">
@@ -23,7 +24,14 @@
 			/>
 		</div>
 		<div class="mb-4 flex w-full flex-col items-start justify-start gap-2">
-			<label for="template_name" class="text-left text-xs font-normal">Logo</label>
+			<label for="logo" class="text-left text-xs font-normal">Logo</label>
+			<input
+				type="text"
+				placeholder="Logo Alt Text"
+				class="input-primary"
+				bind:value={form.logoAlt}
+			/>
+			<ImageUpload bind:src={form.logoSrc}  />
 		</div>
 		<div class="mb-4 flex w-full flex-col items-start justify-start gap-2">
 			<p class="text-left text-xs font-normal">Invoice Type</p>
