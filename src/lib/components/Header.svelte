@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { getInitials } from '$lib/utils/stringHelpers';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 	const user = $page.data.user;
 	const avatarUrl = user?.avatarUrl;
 	const name = user?.name || user?.username || 'No name';
@@ -45,7 +46,6 @@
 						{/if}
 					</div>
 				</div>
-
 				<a class="variant-soft-surface btn btn-sm mb-2 w-full justify-between" href="/settings">
 					<span>Settings</span>
 					<Icon name="settings" />
@@ -56,7 +56,9 @@
 						<Icon name="logout" />
 					</button>
 				</form>
-
+				<div class="mt-2">
+					<LightSwitch />
+				</div>
 				<button class="variant-filled-primary btn btn-sm mt-2 w-full" type="button">Upgrade</button>
 			</div>
 		</div>
