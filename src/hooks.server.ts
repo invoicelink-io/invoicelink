@@ -1,6 +1,7 @@
 // src/hooks.server.ts
 import { lucia } from '$lib/server/auth';
-import { redirect, type Handle } from '@sveltejs/kit';
+import { redirect, error, json, text, type Handle } from '@sveltejs/kit';
+
 import { sequence } from '@sveltejs/kit/hooks';
 
 // TODO: Remove this if lucia type is updated
@@ -84,4 +85,45 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 	return await resolve(event);
 };
 
-export const handle: Handle = sequence(authHandle, routeProtectionHandler, themeHandler);
+// CSRF protection copied from sveltekit but with the ability to turn it off for specific routes.
+const csrf =
+	(allowedPaths: string[]): Handle =>
+	async ({ event, resolve }) => {
+		const forbidden =
+			event.request.method === 'POST' &&
+			event.request.headers.get('origin') !== event.url.origin &&
+			isFormContentType(event.request) &&
+			!allowedPaths.includes(event.url.pathname);
+
+		if (forbidden) {
+			const csrfError = error(
+				403,
+				`Cross-site ${event.request.method} form submissions are forbidden`
+			) as {
+				body: { message: string };
+				status: number;
+			};
+
+			if (event.request.headers.get('accept') === 'application/json') {
+				return json(csrfError.body, { status: csrfError.status });
+			}
+			return text(csrfError.body.message, { status: csrfError.status });
+		}
+
+		return resolve(event);
+	};
+
+function isContentType(request: Request, ...types: string[]) {
+	const type = request.headers.get('content-type')?.split(';', 1)[0].trim() ?? '';
+	return types.includes(type);
+}
+function isFormContentType(request: Request) {
+	return isContentType(request, 'application/x-www-form-urlencoded', 'multipart/form-data');
+}
+
+export const handle: Handle = sequence(
+	csrf(['/login/apple/callback']),
+	authHandle,
+	routeProtectionHandler,
+	themeHandler
+);

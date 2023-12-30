@@ -12,7 +12,7 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		csrf: {
-			checkOrigin: process.env.NODE_ENV === 'production'
+			checkOrigin: false // added custom hook to handle csrf
 		}
 	}
 };
