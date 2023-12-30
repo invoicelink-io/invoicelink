@@ -73,6 +73,20 @@ export const POST = async ({ request }) => {
 					oauthAccounts: true
 				}
 			});
+		} else if (claims && claims.sub) {
+			existingUser = await prisma.user.findFirst({
+				where: {
+					oauthAccounts: {
+						some: {
+							providerId: 'apple',
+							providerUserId: claims.sub
+						}
+					}
+				},
+				include: {
+					oauthAccounts: true
+				}
+			});
 		}
 
 		// if user exists, log in
