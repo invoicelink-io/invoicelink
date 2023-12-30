@@ -33,7 +33,7 @@
 			<div class="hidden h-full items-center sm:flex">Personal Account</div>
 		</div>
 		<div class="flex items-center">
-			<button class="ml-2" use:popup={profileMenu}>
+			<button class="btn ml-2" use:popup={profileMenu}>
 				<Avatar src={avatarUrl} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
 			</button>
 			<div class="card w-max p-3 shadow-xl" data-popup="profileMenu">

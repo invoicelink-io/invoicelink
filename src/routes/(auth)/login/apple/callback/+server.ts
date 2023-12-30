@@ -12,9 +12,11 @@ export const POST = async ({ request }) => {
 	// on first request, we get the user's info
 	const userJSON = formData.get('user');
 	const appleUser: {
+		id: string;
 		name: string;
 		email: string;
 	} = {
+		id: '',
 		name: '',
 		email: ''
 	};
@@ -54,7 +56,11 @@ export const POST = async ({ request }) => {
 			nonce_supported: boolean;
 		};
 
-		console.log(claims);
+		// populate appleUser with claims
+		appleUser.id = claims.sub;
+		if (appleUser.email === '') {
+			appleUser.email = claims.email;
+		}
 
 		// check if user exists with oauth account
 		let existingUser:
@@ -63,23 +69,23 @@ export const POST = async ({ request }) => {
 			  })
 			| null = null;
 
-		// check if we can find the user's email
-		if (claims && claims.email) {
+		// check if we can find the user by email
+		if (appleUser.email !== '') {
 			existingUser = await prisma.user.findUnique({
 				where: {
-					email: claims.email
+					email: appleUser.email
 				},
 				include: {
 					oauthAccounts: true
 				}
 			});
-		} else if (claims && claims.sub) {
+		} else if (appleUser.id !== '') {
 			existingUser = await prisma.user.findFirst({
 				where: {
 					oauthAccounts: {
 						some: {
 							providerId: 'apple',
-							providerUserId: claims.sub
+							providerUserId: appleUser.id
 						}
 					}
 				},
@@ -89,19 +95,18 @@ export const POST = async ({ request }) => {
 			});
 		}
 
-		// if user exists, log in
 		if (existingUser) {
 			// check if they have a apple oauth account
 			const appleOauthAccount = existingUser.oauthAccounts.find(
 				(oauthAccount) => oauthAccount.providerId === 'apple'
 			);
 
-			// if not, link it to their account
+			// if not, link apple oAuth to their account
 			if (!appleOauthAccount) {
 				await prisma.oauthAccount.create({
 					data: {
 						providerId: 'apple',
-						providerUserId: String(claims.sub),
+						providerUserId: String(appleUser.id),
 						user: {
 							connect: {
 								id: existingUser.id
@@ -111,7 +116,7 @@ export const POST = async ({ request }) => {
 				});
 			}
 
-			// create session
+			// otherwise, create a session
 			const session = await lucia.createSession(existingUser.id, {});
 			const sessionCookie = lucia.createSessionCookie(session.id);
 
@@ -122,35 +127,36 @@ export const POST = async ({ request }) => {
 					'Set-Cookie': sessionCookie.serialize()
 				}
 			});
-		}
-
-		// create user
-		const user = await prisma.user.create({
-			data: {
-				name: appleUser.name,
-				email: appleUser.email,
-				username: appleUser.email,
-				avatarUrl: null,
-				oauthAccounts: {
-					create: {
-						providerId: 'apple',
-						providerUserId: String(claims.sub)
+		} else {
+			// no user found, create one
+			// create user
+			const user = await prisma.user.create({
+				data: {
+					name: appleUser.name,
+					email: appleUser.email,
+					username: appleUser.email,
+					avatarUrl: null,
+					oauthAccounts: {
+						create: {
+							providerId: 'apple',
+							providerUserId: String(appleUser.id)
+						}
 					}
 				}
-			}
-		});
+			});
 
-		// create session
-		const session = await lucia.createSession(user.id, {});
-		const sessionCookie = lucia.createSessionCookie(session.id);
+			// create session
+			const session = await lucia.createSession(user.id, {});
+			const sessionCookie = lucia.createSessionCookie(session.id);
 
-		return new Response(null, {
-			status: 302,
-			headers: {
-				Location: '/',
-				'Set-Cookie': sessionCookie.serialize()
-			}
-		});
+			return new Response(null, {
+				status: 302,
+				headers: {
+					Location: '/',
+					'Set-Cookie': sessionCookie.serialize()
+				}
+			});
+		}
 	} catch (e) {
 		console.log(e);
 		if (e instanceof OAuth2RequestError) {
