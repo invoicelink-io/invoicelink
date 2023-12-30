@@ -2,13 +2,18 @@ import { Lucia, TimeSpan } from 'lucia';
 import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 import { dev } from '$app/environment';
 import { prisma as client } from '$lib/server/prisma';
-import { GitHub, Google } from 'arctic';
+import { GitHub, Google, Apple, type AppleCredentials } from 'arctic';
 import {
 	GITHUB_CLIENT_ID,
 	GITHUB_CLIENT_SECRET,
 	GOOGLE_REDIRECT_URI,
 	GOOGLE_CLIENT_ID,
-	GOOGLE_CLIENT_SECRET
+	GOOGLE_CLIENT_SECRET,
+	APPLE_KEY_ID,
+	APPLE_CLIENT_ID,
+	APPLE_TEAM_ID,
+	APPLE_CERTIFICATE,
+	APPLE_REDIRECT_URI
 } from '$env/static/private';
 
 const adapter = new PrismaAdapter(client.session, client.user);
@@ -50,3 +55,11 @@ declare module 'lucia' {
 export const githubAuth = new GitHub(GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET);
 
 export const googleAuth = new Google(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI);
+
+const credentials: AppleCredentials = {
+	keyId: APPLE_KEY_ID,
+	clientId: APPLE_CLIENT_ID,
+	teamId: APPLE_TEAM_ID,
+	certificate: APPLE_CERTIFICATE
+};
+export const appleAuth = new Apple(credentials, APPLE_REDIRECT_URI);

@@ -46,41 +46,6 @@
 	method="POST"
 	use:enhance={handleSubmit}
 >
-	<p class="mb-2 text-center">Enter your credentials to access your account</p>
-
-	{#if data?.message}
-		<div class="w-full rounded-xl border border-primary-500 p-4 text-center">
-			{data.message}
-		</div>
-	{/if}
-	<AuthInput label="Email" active={!!formData.email} error={errors?.email}>
-		<input
-			class="input-auth"
-			type="text"
-			id="email"
-			name="email"
-			disabled={loading}
-			bind:value={formData.email}
-		/>
-	</AuthInput>
-
-	<AuthInput label="Password" active={!!formData.password} error={errors?.password}>
-		<input
-			class="input-auth"
-			type="password"
-			id="password"
-			name="password"
-			disabled={loading}
-			bind:value={formData.password}
-		/>
-	</AuthInput>
-	{#if loading}
-		<button class="btn-auth mb-2" disabled={loading} type="submit"> Logging in </button>
-	{:else}
-		<button class="btn-auth mb-2" type="submit">Log In</button>
-	{/if}
+	<p class="mb-2 text-center">Select a provider to continue</p>
 	<OAuth />
-	<a class="text-center font-extralight opacity-70 hover:opacity-100" href="/signup"
-		>Sign Up Instead</a
-	>
 </form>
