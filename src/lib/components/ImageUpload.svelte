@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { env } from '$env/dynamic/public';
 	import { onMount } from 'svelte';
-	export let src: string;
+	export let src: string | null | undefined;
 
 	type Widget = {
 		open: () => void;

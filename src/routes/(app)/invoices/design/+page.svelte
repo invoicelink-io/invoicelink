@@ -1,11 +1,27 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+	export let data: PageData;
 	import Invoice from '$lib/components/Invoice.svelte';
 	import ControlPanel from '$lib/components/ControlPanel.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import type { InvoiceStyles } from '@prisma/client';
 	import type { FullInvoice } from '$lib/types';
+	import { superForm } from 'sveltekit-superforms/client';
+	import toast from 'svelte-french-toast';
 
-	let data: FullInvoice = {
+	const { form, message, enhance, submitting } = superForm(data.form, {
+		onUpdated: ({ form }) => {
+			if (form.valid) {
+				toast.success($message);
+			} else {
+				toast.error($message ?? 'Invalid integration');
+			}
+		},
+		onError: () => {
+			toast.error($message ?? 'Something went wrong');
+		}
+	});
+
+	let invoice: FullInvoice = {
 		id: '',
 		userId: '',
 		serial: 'INV-2023-00001',
@@ -67,38 +83,10 @@
 		tax: 0,
 		total: 10_000
 	};
-
-	let styles: InvoiceStyles = {
-		id: 'test',
-		userId: 'test',
-		name: '',
-		createdAt: new Date(),
-		updatedAt: new Date(),
-		baseFontSize: 'text-sm',
-		baseSpacing: 'py-4',
-		baseDivider: 'hidden',
-		baseDividerColor: '#e5e7eb',
-		issueDateAlign: 'text-right',
-		senderAddressAlign: 'text-left',
-		recipientAddressAlign: 'text-right',
-		invoiceType: 'Invoice',
-		invoiceTypeFontSize: 'text-lg',
-		invoiceTypeColor: '#000000',
-		invoiceTypeCasing: 'capitalize',
-		columnHeadingSize: 'text-sm',
-		columnHeadingColor: '#000000',
-		columnHeadingCasing: 'capitalize',
-		columnHeadingDivider: 'hidden',
-		columnHeadingDividerColor: '#e5e7eb',
-		lineItemDivider: 'solid',
-		lineItemDividerColor: '#e5e7eb',
-		logoSrc: '',
-		logoAlt: 'invoicelink.io'
-	};
 </script>
 
-<PageHeading heading="Customise Invoice" />
-<div class="flex h-full w-full flex-col justify-center gap-4 sm:flex-row">
-	<Invoice {styles} {data} />
-	<ControlPanel bind:form={styles} />
+<PageHeading heading="Invoice Design" />
+<div class="flex h-[70vh] w-full flex-col justify-center gap-4 sm:flex-row">
+	<Invoice styles={$form} data={invoice} />
+	<ControlPanel bind:form={$form} {enhance} submitting={$submitting} />
 </div>
