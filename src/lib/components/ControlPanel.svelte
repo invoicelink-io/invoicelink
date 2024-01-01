@@ -81,16 +81,19 @@
 		<p class="text-left text-xs font-normal">Line items</p>
 		<Divider bind:divider={form.lineItemDivider} />
 	</div>
-	<form method="POST" action="?/create" use:enhance>
+	<form method="POST" class="flex justify-end gap-x-2" action="?/create" use:enhance>
 		{#each formKeys as key}
 			<input type="hidden" name={key} value={form[key]} />
 		{/each}
 		{#if form.id}
-			<button type="submit" formaction="?/update" class="variant-filled-primary btn btn-sm"
+			<button type="submit" formaction="?/update" class="variant-filled-primary btn btn-sm w-full"
 				>{submitting ? `Updating` : `Update`}</button
 			>
+			<button type="submit" formaction="?/delete" class="variant-filled-error btn btn-sm w-full"
+				>{submitting ? `Deleting` : `Delete`}</button
+			>
 		{:else}
-			<button type="submit" class="variant-filled-primary btn btn-sm"
+			<button type="submit" class="variant-filled-primary btn btn-sm w-full"
 				>{submitting ? `Saving` : `Save`}</button
 			>
 		{/if}
