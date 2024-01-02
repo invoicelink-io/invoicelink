@@ -12,3 +12,12 @@ export const addressSchema = z.object({
 	line3: z.string().nullable(),
 	postalCode: z.string()
 });
+
+export const bankSchema = z.object({
+	id: z.string(),
+	accountHolder: z.string(),
+	accountNo: z.string(),
+	accountType: z.string(),
+	bankName: z.string(),
+	branchCode: z.string()
+});

@@ -18,7 +18,9 @@
 </script>
 
 <h2 class="text-base font-normal">Address</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">Update your display address</p>
+<p class="text-surface-700-200-token mt-1 text-sm">
+	Update your address to be displayed on invoices.
+</p>
 
 <form method="POST" action="?/updateAddress" use:enhance>
 	<input hidden name="id" value={$form.id} />

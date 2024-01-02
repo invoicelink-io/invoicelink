@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
-import { profileSchema, addressSchema } from './validation';
+import { profileSchema, addressSchema, bankSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals, cookies }) => {
@@ -8,14 +8,14 @@ export const load = (async ({ parent, locals, cookies }) => {
 	const { user } = locals;
 	const profileForm = await superValidate(user, profileSchema);
 
-	const res = await prisma.address.findFirst({
+	const dbAddress = await prisma.address.findFirst({
 		where: {
 			userId: user?.id
 		}
 	});
 
-	let address = res;
-	if (!res) {
+	let address = dbAddress;
+	if (!dbAddress) {
 		// create an address entry
 		address = await prisma.address.create({
 			data: {
@@ -31,12 +31,41 @@ export const load = (async ({ parent, locals, cookies }) => {
 	}
 
 	const addressForm = await superValidate(address, addressSchema);
+
+	const dbBank = await prisma.bankAccount.findFirst({
+		where: {
+			userId: user?.id
+		}
+	});
+
+	let bank = dbBank;
+	if (!dbBank) {
+		// create an address entry
+		bank = await prisma.bankAccount.create({
+			data: {
+				accountHolder: '',
+				bankName: '',
+				accountNo: '',
+				accountType: '',
+				branchCode: '',
+				user: {
+					connect: {
+						id: user?.id
+					}
+				}
+			}
+		});
+	}
+
+	const bankingForm = await superValidate(bank, bankSchema);
+
 	return {
 		user,
 		title: 'Settings',
 		theme: cookies.get('colortheme'),
 		profileForm,
-		addressForm
+		addressForm,
+		bankingForm
 	};
 }) satisfies PageServerLoad;
 
@@ -77,6 +106,25 @@ export const actions: Actions = {
 				userId: user?.id
 			}
 		});
-		return message(addressForm, 'Address updated!');
+		return message(addressForm, 'Address updated');
+	},
+	updateBank: async ({ request, locals }) => {
+		const { user } = locals;
+		const bankForm = await superValidate(request, bankSchema);
+
+		if (!bankForm.valid) {
+			return message(bankForm, 'Invalid banking details');
+		}
+
+		await prisma.bankAccount.update({
+			data: {
+				...bankForm.data
+			},
+			where: {
+				id: bankForm.data.id,
+				userId: user?.id
+			}
+		});
+		return message(bankForm, 'Banking details updated');
 	}
 };

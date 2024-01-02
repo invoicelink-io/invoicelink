@@ -28,6 +28,7 @@ model User {
   InvoiceStyles      InvoiceStyles[]
   Invoice            Invoice[]
   Client             Client[]
+  BankAccount        BankAccount[]
 }
 
 model LastUsedSerial {
@@ -55,6 +56,19 @@ model Address {
   userId     String?
   Client     Client[]
   Invoice    Invoice[]
+}
+
+model BankAccount {
+  id            String   @id @unique @default(cuid())
+  userId        String
+  user          User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  accountHolder String
+  accountNo     String
+  accountType   String
+  bankName      String
+  branchCode    String
 }
 
 model Session {
