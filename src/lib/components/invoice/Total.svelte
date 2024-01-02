@@ -19,7 +19,9 @@
 		>
 	</tr>
 	<tr>
-		<th scope="row" class="pt-4 font-normal sm:hidden">Tax</th>
+		<th scope="row" class="pt-4 font-normal sm:hidden"
+			>{invoiceType === 'VAT Invoice' ? `VAT` : `Tax`}</th
+		>
 		<th scope="row" colspan="3" class="hidden pt-4 text-right font-normal sm:table-cell"
 			>{invoiceType === 'VAT Invoice' ? `VAT` : `Tax`}</th
 		>
