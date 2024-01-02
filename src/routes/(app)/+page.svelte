@@ -16,7 +16,7 @@
 <div class="relative grid grid-cols-3 gap-2">
 	<a
 		href="/"
-		class="card variant-soft-surface bg-surface-50-900-token border-surface-100-800-token flex flex-col items-center justify-center border p-4 hover:bg-surface-100-800-token hover:border-surface-200-700-token"
+		class="card-primary"
 	>
 		<h3>Manage payment gateways</h3>
 		<p class="text-center text-sm font-light">

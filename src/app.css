@@ -90,6 +90,10 @@
 	.input-primary {
 		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none p-2 text-sm read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
 	}
+
+	.card-primary {
+		@apply variant-soft-surface bg-surface-50-900-token flex flex-col items-center justify-center  gap-4 rounded-lg border border-surface-100 p-4 hover:bg-surface-100  dark:border-surface-800 dark:hover:bg-surface-800;
+	}
 }
 
 @layer utilities {
