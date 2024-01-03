@@ -12,8 +12,8 @@
 	const integrations: {
 		[key: string]: any;
 	} = {
-		payfast: data.pay?.user.integrations[0].payfast[0] ?? undefined,
-		yoco: data.pay?.user.integrations[0].yoco[0] ?? undefined
+		payfast: data.pay?.user?.integrations[0]?.payfast?.[0] ?? undefined,
+		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined
 	};
 
 	let selectedGateway: string =
@@ -25,6 +25,8 @@
 		placement: 'top',
 		closeQuery: '.listbox-item'
 	};
+
+	const showPaymentOptions = Object.values(integrations).filter((i) => i !== undefined).length > 0;
 </script>
 
 <svelte:head>
@@ -119,7 +121,7 @@
 				{/if}
 			{/if}
 		</div>
-		{#if Object.keys(integrations).length > 0}
+		{#if showPaymentOptions}
 			{#if !isPaid}
 				<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
 					<p class="text-sm">Change payment option</p>
