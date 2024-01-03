@@ -10,14 +10,14 @@
 		active="bg-primary-500 text-surface-50"
 		display="flex"
 	>
-		<RadioItem bind:group={casing} name="casing" title="uppercase" value={'uppercase'}>
-			<span class="text-xs">uppercase</span>
+		<RadioItem bind:group={casing} name="casing" title="lowercase" value={'lowercase'}>
+			<span class="text-xs">lowercase</span>
 		</RadioItem>
 		<RadioItem bind:group={casing} name="casing" title="capitalize" value={'capitalize'}>
 			<span class="text-xs">capitalize</span>
 		</RadioItem>
-		<RadioItem bind:group={casing} name="casing" title="lowercase" value={'lowercase'}>
-			<span class="text-xs">lowercase</span>
+		<RadioItem bind:group={casing} name="casing" title="uppercase" value={'uppercase'}>
+			<span class="text-xs">uppercase</span>
 		</RadioItem>
 	</RadioGroup>
 </div>
