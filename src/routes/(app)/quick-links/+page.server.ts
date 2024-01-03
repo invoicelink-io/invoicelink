@@ -82,21 +82,22 @@ export const actions: Actions = {
 				}
 			});
 
-			// Check the user has an active integration
-			if (bankDetails) {
-				// skip the remaining checks
-			} else if (!userIntegration) {
-				return message(form, 'Add integration or bank details', {
+			// Check the user has an address
+			if (!userAddress) {
+				return message(form, 'No user address found', {
 					status: 400
 				});
-			} else if (userIntegration.payfast.length === 0 && userIntegration.yoco.length === 0) {
-				return message(form, 'No active gateway found!', {
+			} else if (userAddress && userAddress.line1 === '') {
+				return message(form, 'Please update user address', {
 					status: 400
 				});
 			}
 
-			if (!userAddress) {
-				return message(form, 'No user address found!', {
+			// Check the user has an active integration
+			if (bankDetails?.accountNo !== '') {
+				// skip the remaining checks
+			} else if (userIntegration?.payfast.length === 0 && userIntegration?.yoco.length === 0) {
+				return message(form, 'Payment or bank details required', {
 					status: 400
 				});
 			}
