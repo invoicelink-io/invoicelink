@@ -126,7 +126,7 @@
 											action="?/delete&id={link.id}"
 										>
 											<span
-												>{Number(link.amount).toLocaleString('en-ZA', {
+												>{Number(link.total).toLocaleString('en-ZA', {
 													style: 'currency',
 													currency: 'ZAR'
 												})}</span

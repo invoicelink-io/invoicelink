@@ -12,15 +12,3 @@
 </script>
 
 <PageHeading heading={greeting} />
-
-<div class="relative grid grid-cols-3 gap-2">
-	<a
-		href="/"
-		class="card-primary"
-	>
-		<h3>Manage payment gateways</h3>
-		<p class="text-center text-sm font-light">
-			You can create a new invoice or view your existing invoices below.
-		</p>
-	</a>
-</div>

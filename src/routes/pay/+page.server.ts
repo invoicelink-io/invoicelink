@@ -12,7 +12,9 @@ export const load: PageServerLoad = async ({ url }) => {
 	if (id === 'demo') {
 		const pay = {
 			id: 'demo',
-			amount: 250,
+			subtotal: 250,
+			tax: 0,
+			total: 250,
 			status: 'PENDING',
 			yocoCheckoutId: 'demo',
 			user: {

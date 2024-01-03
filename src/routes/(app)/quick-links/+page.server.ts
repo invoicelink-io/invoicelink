@@ -70,9 +70,23 @@ export const actions: Actions = {
 				}
 			});
 
+			const userAddress = await prisma.address.findFirst({
+				where: {
+					userId: user?.id
+				}
+			});
+
+			const bankDetails = await prisma.bankAccount.findFirst({
+				where: {
+					userId: user?.id
+				}
+			});
+
 			// Check the user has an active integration
-			if (!userIntegration) {
-				return message(form, 'No active integration found!', {
+			if (bankDetails) {
+				// skip the remaining checks
+			} else if (!userIntegration) {
+				return message(form, 'Add integration or bank details', {
 					status: 400
 				});
 			} else if (userIntegration.payfast.length === 0 && userIntegration.yoco.length === 0) {
@@ -81,13 +95,26 @@ export const actions: Actions = {
 				});
 			}
 
+			if (!userAddress) {
+				return message(form, 'No user address found!', {
+					status: 400
+				});
+			}
+
 			// create the quick link
 			if (user?.id) {
 				let quickLink = await prisma.quickLink.create({
 					data: {
-						amount: form.data.amount,
+						subtotal: form.data.amount,
+						tax: 0,
+						total: form.data.amount,
 						serial: form.data.serial,
 						description: form.data.description,
+						sendersAddress: {
+							connect: {
+								id: userAddress.id
+							}
+						},
 						user: {
 							connect: {
 								id: user?.id
@@ -97,7 +124,7 @@ export const actions: Actions = {
 				});
 
 				// If the user has a yoco integration, create and store a checkout
-				if (userIntegration.yoco.length > 0) {
+				if (userIntegration && userIntegration.yoco.length > 0) {
 					const yocoIntegration = userIntegration.yoco[0];
 					const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
 						secretKey: yocoIntegration.secretKey,

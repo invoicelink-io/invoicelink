@@ -50,7 +50,7 @@
 	<meta name="twitter:image" content="https://invoicelink.io/og-image.png" />
 </svelte:head>
 
-<div class="h-svh flex w-full flex-col pb-20 text-surface-900">
+<div class="flex h-svh w-full flex-col pb-20 text-surface-900">
 	{#if data.pay}
 		<div
 			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center {isPaid
@@ -78,7 +78,7 @@
 					{/if}
 				</div>
 				<p class="w-full text-center text-5xl font-bold md:text-7xl">
-					{Number(data.pay?.amount).toLocaleString('en-ZA', {
+					{Number(data.pay?.total).toLocaleString('en-ZA', {
 						style: 'currency',
 						currency: 'ZAR'
 					})}
@@ -97,7 +97,7 @@
 						merchantId={integrations.payfast.merchantId}
 						merchantKey={integrations.payfast.merchantKey}
 						passphrase={integrations.payfast.passphrase}
-						amount={data.pay?.amount}
+						amount={data.pay?.total}
 						paymentId={data.pay?.id}
 						itemName={data.pay.user.name || 'Payment request'}
 						requireSecurity={integrations.payfast.passphrase !== ''}
@@ -110,7 +110,7 @@
 						checkoutId={data.pay?.yocoCheckoutId ?? undefined}
 						publicKey={data.pay?.user.integrations[0].yoco[0].publicKey}
 						secretKey={data.pay?.user.integrations[0].yoco[0].secretKey}
-						amount={data.pay?.amount}
+						amount={data.pay?.total}
 						itemName={data.pay.user.name || 'Payment request'}
 						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
 						buttonLabel="Pay now"
@@ -119,29 +119,34 @@
 				{/if}
 			{/if}
 		</div>
-		{#if !isPaid}
-			<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
-				<p class="text-sm">Change payment option</p>
-				<button class="variant-outline-surface btn w-48 justify-between" use:popup={popupCombobox}>
-					<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
-				</button>
-				<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
-					<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
-						{#each Object.keys(integrations) as gateway}
-							{#if integrations[gateway]}
-								<ListBoxItem
-									bind:group={selectedGateway}
-									name={gateway}
-									value={gateway}
-									class="capitalize"
-								>
-									{gateway}
-								</ListBoxItem>
-							{/if}
-						{/each}
-					</ListBox>
+		{#if Object.keys(integrations).length > 0}
+			{#if !isPaid}
+				<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
+					<p class="text-sm">Change payment option</p>
+					<button
+						class="variant-outline-surface btn w-48 justify-between"
+						use:popup={popupCombobox}
+					>
+						<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
+					</button>
+					<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
+						<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
+							{#each Object.keys(integrations) as gateway}
+								{#if integrations[gateway]}
+									<ListBoxItem
+										bind:group={selectedGateway}
+										name={gateway}
+										value={gateway}
+										class="capitalize"
+									>
+										{gateway}
+									</ListBoxItem>
+								{/if}
+							{/each}
+						</ListBox>
+					</div>
 				</div>
-			</div>
+			{/if}
 		{/if}
 	{:else}
 		<div class="flex h-full flex-col items-center justify-center text-center">

@@ -16,10 +16,7 @@
 	import ImageUpload from '$lib/components/ImageUpload.svelte';
 </script>
 
-<aside
-	id="invoice_controls"
-	class="hide-scrollbar flex h-full w-full flex-col gap-2 px-2 sm:w-max sm:overflow-y-scroll"
->
+<aside id="invoice_controls" class="flex w-full flex-col gap-2 px-2">
 	<div class="mb-4 flex w-full flex-col items-start justify-start gap-2">
 		<label for="template_name" class="text-left text-xs font-normal">Template Name</label>
 		<input
@@ -86,11 +83,11 @@
 			<input type="hidden" name={key} value={form[key]} />
 		{/each}
 		{#if form.id}
-			<button type="submit" formaction="?/update" class="variant-filled-primary btn btn-sm w-full"
-				>{submitting ? `Updating` : `Update`}</button
-			>
 			<button type="submit" formaction="?/delete" class="variant-filled-error btn btn-sm w-full"
 				>{submitting ? `Deleting` : `Delete`}</button
+			>
+			<button type="submit" formaction="?/update" class="variant-filled-primary btn btn-sm w-full"
+				>{submitting ? `Updating` : `Update`}</button
 			>
 		{:else}
 			<button type="submit" class="variant-filled-primary btn btn-sm w-full"

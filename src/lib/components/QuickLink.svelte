@@ -8,11 +8,12 @@
 	import LineItem from '$lib/components/invoice/LineItem.svelte';
 	import Total from '$lib/components/invoice/Total.svelte';
 	import Logo from '$lib/components/invoice/Logo.svelte';
+	import Banking from './invoice/Banking.svelte';
 	import type { InvoiceStyles } from '@prisma/client';
-	import type { FullInvoice } from '$lib/types';
+	import type { FullQuickLink } from '$lib/types';
 
 	export let styles: InvoiceStyles;
-	export let data: FullInvoice;
+	export let data: FullQuickLink;
 </script>
 
 <div
@@ -41,15 +42,11 @@
 				color={styles.baseDividerColor}
 			/>
 			<div class="flex gap-x-4">
+				<Banking data={data.user.bankAccount?.[0]} />
 				<Address
 					name={data.user.name ?? ''}
 					data={data.sendersAddress}
 					align={styles.senderAddressAlign}
-				/>
-				<Address
-					name={data.client.name}
-					data={data.client.address}
-					align={styles.recipientAddressAlign}
 				/>
 			</div>
 		</div>
@@ -67,13 +64,15 @@
 				dividerColor={styles.baseDividerColor}
 			/>
 			<tbody>
-				{#each data.lineItems as lineItem}
-					<LineItem
-						data={lineItem}
-						divider={styles.lineItemDivider}
-						dividerColor={styles.baseDividerColor}
-					/>
-				{/each}
+				<LineItem
+					data={{
+						description: data.description ?? 'Services rendered',
+						quantity: 1,
+						amount: data.total
+					}}
+					divider={styles.lineItemDivider}
+					dividerColor={styles.baseDividerColor}
+				/>
 			</tbody>
 			<Spacer divider={'hidden'} spacing={styles.baseSpacing} color={styles.baseDividerColor} />
 			<Total invoiceType={styles.invoiceType} {data} />

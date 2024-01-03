@@ -3,34 +3,7 @@ import type { InvoiceStyles } from '@prisma/client';
 import type { PageServerLoad, Actions } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { schema } from './validation';
-
-const defaultStyles: InvoiceStyles = {
-	id: '',
-	userId: 'test',
-	name: '',
-	createdAt: new Date(),
-	updatedAt: new Date(),
-	baseFontSize: 'text-sm',
-	baseSpacing: 'py-4',
-	baseDivider: 'hidden',
-	baseDividerColor: '#e5e7eb',
-	issueDateAlign: 'text-right',
-	senderAddressAlign: 'text-left',
-	recipientAddressAlign: 'text-right',
-	invoiceType: 'Invoice',
-	invoiceTypeFontSize: 'text-lg',
-	invoiceTypeColor: '#000000',
-	invoiceTypeCasing: 'capitalize',
-	columnHeadingSize: 'text-sm',
-	columnHeadingColor: '#000000',
-	columnHeadingCasing: 'capitalize',
-	columnHeadingDivider: 'hidden',
-	columnHeadingDividerColor: '#e5e7eb',
-	lineItemDivider: 'solid',
-	lineItemDividerColor: '#e5e7eb',
-	logoSrc: null,
-	logoAlt: 'invoicelink.io'
-};
+import { defaultStyles } from '$lib/utils/defaults';
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();

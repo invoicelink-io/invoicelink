@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Invoice } from '@prisma/client';
+	import type { Invoice, QuickLink } from '@prisma/client';
 
-	export let data: Invoice;
+	export let data: Invoice | QuickLink;
 	export let invoiceType: string = 'Invoice';
 </script>
 
