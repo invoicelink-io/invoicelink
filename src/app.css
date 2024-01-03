@@ -92,7 +92,7 @@
 	}
 
 	.card-primary {
-		@apply variant-soft-surface bg-surface-50-900-token flex flex-col items-center justify-center  gap-4 rounded-lg border border-surface-100 p-4 hover:bg-surface-100  dark:border-surface-800 dark:hover:bg-surface-800;
+		@apply variant-soft-surface bg-surface-50-900-token flex flex-col items-center justify-center rounded-lg border border-surface-100 hover:bg-surface-100 dark:border-surface-800 dark:hover:bg-surface-800;
 	}
 }
 
