@@ -4,6 +4,12 @@ import type { PageServerLoad, Actions } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { schema } from './validation';
 import { defaultStyles } from '$lib/utils/defaults';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Return "https" URLs by setting secure: true
+cloudinary.config({
+	secure: true
+});
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();
@@ -31,7 +37,7 @@ export const load = (async ({ parent, locals, url }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	create: async ({ request, locals }) => {
+	create: async ({ request, locals, url }) => {
 		const { user } = locals;
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
@@ -49,11 +55,29 @@ export const actions: Actions = {
 				}
 			});
 
+			const imageUrl = `${url.origin}/api/templatePreview?styleId=${res.id}`;
+
+			const cloudinaryRes = await cloudinary.uploader.upload(imageUrl, {
+				public_id: `${res.id}`,
+				overwrite: true,
+				invalidate: true,
+				folder: 'invoicelink/template-previews'
+			});
+
+			await prisma.invoiceStyles.update({
+				where: {
+					id: res.id
+				},
+				data: {
+					previewSrc: cloudinaryRes.secure_url
+				}
+			});
+
 			form.data.id = res.id;
 			return message(form, 'Template created');
 		}
 	},
-	update: async ({ request, locals }) => {
+	update: async ({ request, locals, url }) => {
 		const { user } = locals;
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
@@ -62,14 +86,26 @@ export const actions: Actions = {
 			}
 		}
 
+		// create a screenshot of the template
+
 		if (user?.id) {
+			const imageUrl = `${url.origin}/api/templatePreview?styleId=${form.data.id}`;
+
+			const cloudinaryRes = await cloudinary.uploader.upload(imageUrl, {
+				public_id: `${form.data.id}`,
+				overwrite: true,
+				invalidate: true,
+				folder: 'invoicelink/template-previews'
+			});
+
 			const res = await prisma.invoiceStyles.update({
 				where: {
 					id: form.data.id
 				},
 				data: {
 					...form.data,
-					userId: user.id
+					userId: user.id,
+					previewSrc: cloudinaryRes.secure_url
 				}
 			});
 

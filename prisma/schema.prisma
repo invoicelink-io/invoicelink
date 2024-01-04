@@ -244,4 +244,5 @@ model InvoiceStyles {
   lineItemDividerColor      String
   logoAlt                   String
   logoSrc                   String?
+  previewSrc                String?
 }

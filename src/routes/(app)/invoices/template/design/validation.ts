@@ -25,5 +25,6 @@ export const schema = z.object({
 	lineItemDivider: z.string(),
 	lineItemDividerColor: z.string(),
 	logoSrc: z.string().nullable(),
-	logoAlt: z.string()
+	logoAlt: z.string(),
+	previewSrc: z.string().nullable()
 });

@@ -14,11 +14,7 @@
 			href="/invoices/template/design?id={template.id}"
 			class="border-surface-100-800-token flex flex-col justify-between gap-4 rounded-lg border p-2"
 		>
-			<img
-				src="/api/templatePreview?styleId={template.id}"
-				class="rounded-lg"
-				alt={template.name}
-			/>
+			<img src={template.previewSrc} class="rounded-lg" alt={template.name} />
 			<h6 class="h6 w-full text-center">{template.name}</h6>
 		</a>
 	{/each}
