@@ -2,7 +2,7 @@
 	import type { InvoiceStyles } from '@prisma/client';
 	export let form: InvoiceStyles;
 	export let enhance: any;
-	export let submitting: boolean;
+	export let submitting: 'create' | 'update' | 'delete' | null;
 	const formKeys = Object.keys(form) as (keyof typeof form)[];
 
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
@@ -83,25 +83,32 @@
 			<input type="hidden" name={key} value={form[key]} />
 		{/each}
 		{#if form.id}
-			<button type="submit" formaction="?/delete" class="variant-filled-error btn btn-sm w-full"
-				>Delete</button
+			<button
+				type="submit"
+				formaction="?/delete"
+				class="variant-filled-error btn btn-sm w-full gap-2"
 			>
+				{#if submitting === 'delete'}
+					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
+				{/if}
+				{submitting === 'delete' ? `Deleting` : `Delete`}
+			</button>
 			<button
 				type="submit"
 				formaction="?/update"
 				class="variant-filled-primary btn btn-sm w-full gap-2"
 			>
-				{#if submitting}
+				{#if submitting === 'update'}
 					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
 				{/if}
-				{submitting ? `Updating` : `Update`}
+				{submitting === 'update' ? `Updating` : `Update`}
 			</button>
 		{:else}
 			<button type="submit" class="variant-filled-primary btn btn-sm w-full gap-2">
-				{#if submitting}
+				{#if submitting === 'create'}
 					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
 				{/if}
-				{submitting ? `Saving` : `Save`}
+				{submitting === 'create' ? `Saving` : `Save`}
 			</button>
 		{/if}
 	</form>

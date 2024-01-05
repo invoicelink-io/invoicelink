@@ -8,16 +8,31 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 
-	const { form, message, enhance, submitting } = superForm(data.form, {
+	let submitting: 'create' | 'update' | 'delete' | null = null;
+
+	const { form, message, enhance } = superForm(data.form, {
+		onSubmit: ({ action }) => {
+			if (action.search.includes('?/delete')) {
+				submitting = 'delete';
+			} else if (action.search.includes('?/update')) {
+				submitting = 'update';
+			} else {
+				submitting = 'create';
+			}
+			console.log('submitting', action);
+		},
 		onUpdated: ({ form }) => {
 			if (form.valid) {
 				toast.success($message);
 			} else {
 				toast.error($message ?? 'Invalid integration');
 			}
+
+			submitting = null;
 		},
 		onError: () => {
 			toast.error($message ?? 'Something went wrong');
+			submitting = null;
 		}
 	});
 </script>
@@ -30,6 +45,6 @@
 		<Invoice styles={$form} data={defaultInvoice} />
 	</div>
 	<div class="hide-scrollbar pb-8 lg:overflow-y-scroll lg:pb-0">
-		<ControlPanel bind:form={$form} {enhance} submitting={$submitting} />
+		<ControlPanel bind:form={$form} {enhance} {submitting} />
 	</div>
 </div>
