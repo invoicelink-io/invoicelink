@@ -3,9 +3,9 @@
 	export let form: InvoiceStyles;
 	export let enhance: any;
 	export let submitting: boolean;
-
 	const formKeys = Object.keys(form) as (keyof typeof form)[];
 
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import InvoiceType from '$lib/components/radioGroups/InvoiceType.svelte';
 	import Size from '$lib/components/radioGroups/Size.svelte';
 	import Justify from '$lib/components/radioGroups/Justify.svelte';
@@ -84,15 +84,25 @@
 		{/each}
 		{#if form.id}
 			<button type="submit" formaction="?/delete" class="variant-filled-error btn btn-sm w-full"
-				>{submitting ? `Deleting` : `Delete`}</button
+				>Delete</button
 			>
-			<button type="submit" formaction="?/update" class="variant-filled-primary btn btn-sm w-full"
-				>{submitting ? `Updating` : `Update`}</button
+			<button
+				type="submit"
+				formaction="?/update"
+				class="variant-filled-primary btn btn-sm w-full gap-2"
 			>
+				{#if submitting}
+					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
+				{/if}
+				{submitting ? `Updating` : `Update`}
+			</button>
 		{:else}
-			<button type="submit" class="variant-filled-primary btn btn-sm w-full"
-				>{submitting ? `Saving` : `Save`}</button
-			>
+			<button type="submit" class="variant-filled-primary btn btn-sm w-full gap-2">
+				{#if submitting}
+					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
+				{/if}
+				{submitting ? `Saving` : `Save`}
+			</button>
 		{/if}
 	</form>
 </aside>

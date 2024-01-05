@@ -5,6 +5,7 @@ import { message, superValidate } from 'sveltekit-superforms/server';
 import { schema } from './validation';
 import { defaultStyles } from '$lib/utils/defaults';
 import { v2 as cloudinary } from 'cloudinary';
+import { arrayBufferToBase64 } from '$lib/utils/encoding';
 
 // Return "https" URLs by setting secure: true
 cloudinary.config({
@@ -55,9 +56,13 @@ export const actions: Actions = {
 				}
 			});
 
+			// grab the screenshot of the template
 			const imageUrl = `${url.origin}/api/templatePreview?styleId=${res.id}`;
+			const base64image = await fetch(imageUrl)
+				.then((res) => res.arrayBuffer())
+				.then((buf) => arrayBufferToBase64(buf, 'image/webp'));
 
-			const cloudinaryRes = await cloudinary.uploader.upload(imageUrl, {
+			const cloudinaryRes = await cloudinary.uploader.upload(base64image ?? imageUrl, {
 				public_id: `${res.id}`,
 				overwrite: true,
 				invalidate: true,
@@ -69,7 +74,7 @@ export const actions: Actions = {
 					id: res.id
 				},
 				data: {
-					previewSrc: cloudinaryRes.secure_url
+					previewSrc: cloudinaryRes?.secure_url
 				}
 			});
 
@@ -89,23 +94,36 @@ export const actions: Actions = {
 		// create a screenshot of the template
 
 		if (user?.id) {
-			const imageUrl = `${url.origin}/api/templatePreview?styleId=${form.data.id}`;
-
-			const cloudinaryRes = await cloudinary.uploader.upload(imageUrl, {
-				public_id: `${form.data.id}`,
-				overwrite: true,
-				invalidate: true,
-				folder: 'invoicelink/template-previews'
-			});
-
 			const res = await prisma.invoiceStyles.update({
 				where: {
 					id: form.data.id
 				},
 				data: {
 					...form.data,
+					userId: user.id
+				}
+			});
+
+			const imageUrl = `${url.origin}/api/templatePreview?styleId=${form.data.id}`;
+			const base64image = await fetch(imageUrl)
+				.then((res) => res.arrayBuffer())
+				.then((buf) => arrayBufferToBase64(buf, 'image/webp'));
+
+			const cloudinaryRes = await cloudinary.uploader.upload(base64image ?? imageUrl, {
+				public_id: `${form.data.id}`,
+				overwrite: true,
+				invalidate: true,
+				folder: 'invoicelink/template-previews'
+			});
+
+			await prisma.invoiceStyles.update({
+				where: {
+					id: form.data.id
+				},
+				data: {
+					...form.data,
 					userId: user.id,
-					previewSrc: cloudinaryRes.secure_url
+					previewSrc: cloudinaryRes?.secure_url
 				}
 			});
 
@@ -122,6 +140,12 @@ export const actions: Actions = {
 				where: {
 					id: form.data.id
 				}
+			});
+
+			await cloudinary.api.delete_resources([form.data.id], {
+				folder: 'invoicelink/template-previews',
+				type: 'upload',
+				resource_type: 'image'
 			});
 
 			form.data = defaultStyles;
