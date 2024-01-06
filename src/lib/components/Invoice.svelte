@@ -11,8 +11,21 @@
 	import type { InvoiceStyles } from '@prisma/client';
 	import type { FullInvoice } from '$lib/types';
 
+	export let editable: boolean = false;
 	export let styles: InvoiceStyles;
 	export let data: FullInvoice;
+
+	export let tax: number = 0;
+
+	$: {
+		data.subtotal = data.lineItems.reduce((acc, item) => {
+			return acc + item.amount;
+		}, 0);
+
+		data.tax = (data.subtotal * tax) / 100;
+
+		data.total = data.subtotal + data.tax;
+	}
 </script>
 
 <div
@@ -69,9 +82,13 @@
 			<tbody>
 				{#each data.lineItems as lineItem}
 					<LineItem
-						data={lineItem}
+						{editable}
+						bind:amount={lineItem.amount}
+						bind:description={lineItem.description}
+						bind:quantity={lineItem.quantity}
 						divider={styles.lineItemDivider}
 						dividerColor={styles.baseDividerColor}
+						lineItemFontSize={styles.baseFontSize}
 					/>
 				{/each}
 			</tbody>

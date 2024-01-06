@@ -65,13 +65,12 @@
 			/>
 			<tbody>
 				<LineItem
-					data={{
-						description: data.description ?? 'Services rendered',
-						quantity: 1,
-						amount: data.total
-					}}
+					amount={data.total}
+					description={data.description ?? 'Services rendered'}
+					quantity={1}
 					divider={styles.lineItemDivider}
 					dividerColor={styles.baseDividerColor}
+					lineItemFontSize={styles.baseFontSize}
 				/>
 			</tbody>
 			<Spacer divider={'hidden'} spacing={styles.baseSpacing} color={styles.baseDividerColor} />

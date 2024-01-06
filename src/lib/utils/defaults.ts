@@ -1,7 +1,7 @@
 import type { FullInvoice } from '$lib/types';
-import type { InvoiceStyles } from '@prisma/client';
+import type { InvoiceStyles, LineItem } from '@prisma/client';
 
-export const defaultStyles: InvoiceStyles = {
+export const defaultStyles = {
 	id: '',
 	userId: 'test',
 	name: '',
@@ -26,10 +26,21 @@ export const defaultStyles: InvoiceStyles = {
 	lineItemDivider: 'solid',
 	lineItemDividerColor: '#e5e7eb',
 	logoSrc: null,
-	logoAlt: 'invoicelink.io'
-};
+	logoAlt: 'invoicelink.io',
+	previewSrc: null
+} satisfies InvoiceStyles;
 
-export const defaultInvoice: FullInvoice = {
+export const defaultLineItem = {
+	id: '',
+	amount: 100,
+	description: 'Service rendered',
+	quantity: 1,
+	invoiceId: '',
+	createdAt: new Date(),
+	updatedAt: new Date()
+} satisfies LineItem;
+
+export const defaultInvoice = {
 	id: '',
 	userId: '',
 	description: 'Services Rendered',
@@ -72,23 +83,15 @@ export const defaultInvoice: FullInvoice = {
 		email: '',
 		username: '',
 		avatarUrl: '',
-		vatNumber: ''
+		vatNumber: '',
+		bankAccount: []
 	},
-	yocoCheckoutId: '',
+	yocoCheckoutId: null,
+	invoiceStyleId: null,
 	createdAt: new Date(),
 	updatedAt: new Date(),
-	lineItems: [
-		{
-			id: '',
-			invoiceId: '',
-			description: 'Services Rendered',
-			quantity: 1,
-			amount: 10_000,
-			createdAt: new Date(),
-			updatedAt: new Date()
-		}
-	],
-	subtotal: 10_000,
+	lineItems: [defaultLineItem],
+	subtotal: 100,
 	tax: 0,
-	total: 10_000
-};
+	total: 100
+} satisfies FullInvoice;

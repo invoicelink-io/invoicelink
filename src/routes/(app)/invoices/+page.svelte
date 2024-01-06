@@ -3,7 +3,9 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 </script>
 
-<PageHeading heading="Invoices" />
+<PageHeading heading="Invoices">
+	<a href="/invoices/manage/new" class="variant-filled-primary btn btn-sm">New Invoice</a>
+</PageHeading>
 
 <div class="grid w-full gap-4 sm:grid-cols-3">
 	<a class="card-primary gap-2 p-4" href="/invoices/manage">

@@ -1,6 +1,7 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+  binaryTargets   = ["native", "linux-musl"]
 }
 
 generator zod {
@@ -170,25 +171,27 @@ model QuickLink {
 }
 
 model Invoice {
-  id               String     @id @unique @default(cuid())
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  id               String         @id @unique @default(cuid())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
   issueDate        DateTime
   dueDate          DateTime?
   description      String?
   userId           String
-  user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user             User           @relation(references: [id], fields: [userId], onDelete: Cascade)
   subtotal         Float
   tax              Float
   total            Float
   serial           String
   lineItems        LineItem[]
-  status           Status     @default(PENDING)
-  sendersAddress   Address    @relation(fields: [sendersAddressId], references: [id])
+  status           Status         @default(PENDING)
+  sendersAddress   Address        @relation(fields: [sendersAddressId], references: [id])
   sendersAddressId String
-  client           Client     @relation(fields: [clientId], references: [id])
+  client           Client         @relation(fields: [clientId], references: [id])
   clientId         String
-  yocoCheckoutId   String?    @unique
+  yocoCheckoutId   String?        @unique
+  invoiceStyleId   String?
+  invoiceStyle     InvoiceStyles? @relation(fields: [invoiceStyleId], references: [id], onDelete: SetNull)
 }
 
 model LineItem {
@@ -225,12 +228,12 @@ enum Status {
 }
 
 model InvoiceStyles {
-  id                        String   @id @unique @default(cuid())
+  id                        String    @id @unique @default(cuid())
   name                      String
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
   userId                    String
-  user                      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user                      User      @relation(references: [id], fields: [userId], onDelete: Cascade)
   baseFontSize              String
   baseSpacing               String
   baseDivider               String
@@ -252,4 +255,5 @@ model InvoiceStyles {
   logoAlt                   String
   logoSrc                   String?
   previewSrc                String?
+  Invoice                   Invoice[]
 }

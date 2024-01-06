@@ -91,6 +91,14 @@
 		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none p-2 text-sm read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
 	}
 
+	.input-primary-invoice {
+		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none py-2 read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
+	}
+
+	.input-invoice {
+		@apply hover:input-primary-invoice focus:input-primary-invoice m-0 w-36 border-none bg-transparent px-0 text-sm tabular-nums transition-all hover:w-36 hover:px-2 focus:w-36;
+	}
+
 	.card-primary {
 		@apply variant-soft-surface bg-surface-50-900-token flex flex-col items-center justify-center rounded-lg border border-surface-100 hover:bg-surface-100 dark:border-surface-800 dark:hover:bg-surface-800;
 	}

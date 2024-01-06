@@ -9,6 +9,7 @@
 	import { formatTimeAgo } from '$lib/utils/time';
 	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
+	import Empty from '$lib/components/Empty.svelte';
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		onUpdated: ({ form }) => {
@@ -171,12 +172,7 @@
 				</ul>
 			</div>
 		{:else}
-			<div class="flex h-full w-full flex-col items-center justify-center text-center">
-				<h3 class="mt-2 text-sm font-semibold">Nothing to see here</h3>
-				<p class="text-surface-400-500-token mt-1 text-sm">
-					Get started by creating a new quick link
-				</p>
-			</div>
+			<Empty hideBorder subtitle="Get started by creating a new quick link" />
 		{/if}
 	</section>
 </div>
