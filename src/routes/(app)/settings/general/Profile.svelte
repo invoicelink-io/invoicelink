@@ -23,24 +23,18 @@
 <form method="POST" action="?/updateProfile" use:enhance>
 	<ul role="list" class="settings-list">
 		<li>
-			<label for="name" class="whitespace-nowrap capitalize">Full Name</label>
+			<label for="name" class="label-primary">Full Name</label>
 			<input
 				name="name"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				required
 				bind:value={$form.name}
 			/>
 		</li>
 		<li>
-			<label for="email" class="whitespace-nowrap capitalize">Email</label>
-			<input
-				name="email"
-				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
-				value={$form.email}
-				readonly
-			/>
+			<label for="email" class="label-primary">Email</label>
+			<input name="email" type="text" class="input-primary max-w-xl" value={$form.email} readonly />
 		</li>
 	</ul>
 	<div class="flex justify-end py-4">

@@ -40,7 +40,8 @@
 	select:-webkit-autofill:hover,
 	select:-webkit-autofill:focus {
 		background: none;
-		-webkit-text-fill-color: #fff;
+		background-color: inherit;
+		color: inherit !important;
 		-webkit-box-shadow: 0 0 0 0 none inset;
 		transition: background-color 5000s ease-in-out 0s;
 	}
@@ -89,6 +90,10 @@
 
 	.input-primary {
 		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none p-2 text-sm read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
+	}
+
+	.label-primary {
+		@apply label mb-1 whitespace-nowrap text-xs capitalize;
 	}
 
 	.input-primary-invoice {

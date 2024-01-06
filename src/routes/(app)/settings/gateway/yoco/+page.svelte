@@ -48,7 +48,7 @@
 	<input name="id" type="hidden" bind:value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="publicKey">
+			<label class="label-primary" for="publicKey">
 				Live Public Key
 				{#if $errors.publicKey}
 					<span class="text-error-400">{$errors.publicKey}</span>
@@ -56,7 +56,7 @@
 			</label>
 			<input
 				name="publicKey"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				type="text"
 				placeholder="Yoco Public Key"
 				bind:value={$form.publicKey}
@@ -64,7 +64,7 @@
 			/>
 		</li>
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="secretKey">
+			<label class="label-primary" for="secretKey">
 				Live Secret Key
 				{#if $errors.secretKey}
 					<span class="text-error-400">{$errors.secretKey}</span>
@@ -72,7 +72,7 @@
 			</label>
 			<input
 				name="secretKey"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				type="text"
 				placeholder="Yoco Secret Key"
 				bind:value={$form.secretKey}

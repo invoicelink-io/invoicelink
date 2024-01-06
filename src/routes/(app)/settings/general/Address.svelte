@@ -26,11 +26,11 @@
 	<input hidden name="id" value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
-			<label for="line1" class="whitespace-nowrap capitalize">Address line 1</label>
+			<label for="line1" class="label-primary">Address line 1</label>
 			<input
 				name="line1"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="0A Madiba Cir"
 				autocomplete="address-line1"
 				required
@@ -38,33 +38,33 @@
 			/>
 		</li>
 		<li>
-			<label for="line2" class="whitespace-nowrap capitalize">Address line 2</label>
+			<label for="line2" class="label-primary">Address line 2</label>
 			<input
 				name="line2"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="Rondebosch"
 				autocomplete="address-line2"
 				bind:value={$form.line2}
 			/>
 		</li>
 		<li>
-			<label for="line3" class="whitespace-nowrap capitalize">Address line 3</label>
+			<label for="line3" class="label-primary">Address line 3</label>
 			<input
 				name="line3"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="Cape Town"
 				autocomplete="address-line3"
 				bind:value={$form.line3}
 			/>
 		</li>
 		<li>
-			<label for="postalCode" class="whitespace-nowrap capitalize">Postal Code</label>
+			<label for="postalCode" class="label-primary">Postal Code</label>
 			<input
 				name="postalCode"
 				type="number"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				required
 				placeholder="7700"
 				autocomplete="postal-code"

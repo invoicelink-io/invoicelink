@@ -26,55 +26,55 @@
 	<input hidden name="id" value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
-			<label for="accountHolder" class="whitespace-nowrap capitalize">Account Holder</label>
+			<label for="accountHolder" class="label-primary">Account Holder</label>
 			<input
 				name="accountHolder"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="Account holder"
 				required
 				bind:value={$form.accountHolder}
 			/>
 		</li>
 		<li>
-			<label for="accountNo" class="whitespace-nowrap capitalize">Account Number</label>
+			<label for="accountNo" class="label-primary">Account Number</label>
 			<input
 				name="accountNo"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="1234567890"
 				required
 				bind:value={$form.accountNo}
 			/>
 		</li>
 		<li>
-			<label for="accountType" class="whitespace-nowrap capitalize">Account Type</label>
+			<label for="accountType" class="label-primary">Account Type</label>
 			<input
 				name="accountType"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="Current Account"
 				required
 				bind:value={$form.accountType}
 			/>
 		</li>
 		<li>
-			<label for="bankName" class="whitespace-nowrap capitalize">Bank Name</label>
+			<label for="bankName" class="label-primary">Bank Name</label>
 			<input
 				name="bankName"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="Nedbank"
 				required
 				bind:value={$form.bankName}
 			/>
 		</li>
 		<li>
-			<label for="branchCode" class="whitespace-nowrap capitalize">Branch Code</label>
+			<label for="branchCode" class="label-primary">Branch Code</label>
 			<input
 				name="branchCode"
 				type="text"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				placeholder="198765"
 				required
 				bind:value={$form.branchCode}

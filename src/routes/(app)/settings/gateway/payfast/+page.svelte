@@ -56,7 +56,7 @@
 	<input name="id" type="hidden" bind:value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="merchantId">
+			<label class="label-primary" for="merchantId">
 				Merchant ID
 				{#if $errors.merchantId}
 					<span class="text-error-400">{$errors.merchantId}</span>
@@ -64,7 +64,7 @@
 			</label>
 			<input
 				name="merchantId"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				type="text"
 				placeholder="Payfast Merchant ID"
 				bind:value={$form.merchantId}
@@ -72,7 +72,7 @@
 			/>
 		</li>
 		<li>
-			<label class="label whitespace-nowrap text-xs" for="merchantKey">
+			<label class="label-primary" for="merchantKey">
 				Merchant Key
 				{#if $errors.merchantKey}
 					<span class="text-error-400">{$errors.merchantKey}</span>
@@ -80,7 +80,7 @@
 			</label>
 			<input
 				name="merchantKey"
-				class="input variant-soft-surface max-w-xl border-none"
+				class="input-primary max-w-xl"
 				type="text"
 				placeholder="Payfast Merchant Key"
 				bind:value={$form.merchantKey}
@@ -101,10 +101,10 @@
 		</li>
 		{#if requireSecurity}
 			<li>
-				<label class="label whitespace-nowrap text-xs" for="passphrase">Security Passphrase</label>
+				<label class="label-primary" for="passphrase">Security Passphrase</label>
 				<input
 					name="passphrase"
-					class="input variant-soft-surface max-w-xl border-none"
+					class="input-primary max-w-xl"
 					type="text"
 					placeholder="Payfast Passphrase"
 					bind:value={$form.passphrase}

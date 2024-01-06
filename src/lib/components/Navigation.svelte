@@ -13,7 +13,7 @@
 			text: 'Invoices'
 		},
 		{
-			href: '/',
+			href: '/clients',
 			text: 'Clients'
 		},
 		{

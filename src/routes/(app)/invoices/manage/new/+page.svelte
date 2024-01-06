@@ -87,7 +87,7 @@
 			<form method="post" class="relative flex flex-col gap-y-4" action="?/create">
 				<input name="id" type="hidden" value={defaultInvoice.id} />
 				<span>
-					<label class="label mb-1 text-xs" for="description">Description</label>
+					<label class="label-primary" for="description">Description</label>
 					<input
 						name="description"
 						type="text"
@@ -97,7 +97,7 @@
 				</span>
 
 				<span>
-					<label class="label mb-1 text-xs" for="templates">Invoice template</label>
+					<label class="label-primary" for="templates">Invoice template</label>
 					<Dropdown
 						options={templates}
 						placeholder={'Select a template'}
@@ -106,7 +106,7 @@
 				</span>
 
 				<span>
-					<label class="label mb-1 text-xs" for="clients">Client</label>
+					<label class="label-primary" for="clients">Client</label>
 					<Dropdown placeholder={'Select a client'} bind:selected={$form.clientId} />
 				</span>
 

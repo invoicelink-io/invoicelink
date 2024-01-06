@@ -70,7 +70,7 @@
 			use:enhance
 			action="?/create"
 		>
-			<label class="label mb-1 text-xs" for="amount">
+			<label class="label-primary" for="amount">
 				Amount in ZAR
 				{#if $errors.amount}
 					<span class="ml-2 text-error-400">{$errors.amount}</span>
@@ -80,7 +80,7 @@
 			<input name="serial" type="hidden" bind:value={$form.serial} />
 			<input
 				name="amount"
-				class="input variant-soft-surface mb-4 border-none text-right"
+				class="input-primary"
 				type="number"
 				placeholder="Amount in rands"
 				bind:value={$form.amount}
@@ -95,7 +95,7 @@
 			</label>
 			<input
 				name="description"
-				class="input variant-soft-surface mb-4 border-none text-right"
+				class="input-primary"
 				type="text"
 				placeholder="Services rendered"
 				bind:value={$form.description}

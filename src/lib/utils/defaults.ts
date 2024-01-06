@@ -1,5 +1,5 @@
 import type { FullInvoice } from '$lib/types';
-import type { InvoiceStyles, LineItem } from '@prisma/client';
+import type { Address, Client, InvoiceStyles, LineItem } from '@prisma/client';
 
 export const defaultStyles = {
 	id: '',
@@ -95,3 +95,24 @@ export const defaultInvoice = {
 	tax: 0,
 	total: 100
 } satisfies FullInvoice;
+
+export const defaultClient: Client = {
+	id: '',
+	name: '',
+	phone: '',
+	email: '',
+	userId: '',
+	createdAt: new Date(),
+	updatedAt: new Date(),
+	vatNumber: '',
+	addressId: ''
+};
+
+export const defaultAddress: Address = {
+	id: '',
+	line1: '',
+	line2: '',
+	line3: '',
+	postalCode: '',
+	userId: ''
+};
