@@ -11,6 +11,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import type { InvoiceStyles, LineItem } from '@prisma/client';
+	import Alert from '$lib/components/invoice/Alert.svelte';
 
 	const templates = data.user?.invoiceStyles.map((item) => {
 		return { value: item.id, label: item.name };
@@ -42,6 +43,8 @@
 </script>
 
 <PageHeading heading="New Invoice" />
+
+<Alert />
 
 {#if data.user}
 	<div class="relative flex h-[70vh] w-full flex-col gap-4 lg:flex-row">
