@@ -1,7 +1,7 @@
 import type { FullInvoice } from '$lib/types';
 import type { Address, Client, InvoiceStyles, LineItem } from '@prisma/client';
 
-export const defaultStyles = {
+export const defaultStyles: InvoiceStyles = {
 	id: '',
 	userId: 'test',
 	name: '',
@@ -28,7 +28,7 @@ export const defaultStyles = {
 	logoSrc: null,
 	logoAlt: 'invoicelink.io',
 	previewSrc: null
-} satisfies InvoiceStyles;
+};
 
 export const defaultLineItem = {
 	id: '',
@@ -40,7 +40,7 @@ export const defaultLineItem = {
 	updatedAt: new Date()
 } satisfies LineItem;
 
-export const defaultInvoice = {
+export const defaultInvoice: FullInvoice = {
 	id: '',
 	userId: '',
 	description: 'Services Rendered',
@@ -94,7 +94,7 @@ export const defaultInvoice = {
 	subtotal: 100,
 	tax: 0,
 	total: 100
-} satisfies FullInvoice;
+};
 
 export const defaultClient: Client = {
 	id: '',

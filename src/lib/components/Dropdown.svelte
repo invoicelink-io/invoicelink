@@ -2,6 +2,7 @@
 	import { Autocomplete, popup } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption, PopupSettings } from '@skeletonlabs/skeleton';
 
+	export let targetName: string = 'popupAutocomplete';
 	export let placeholder: string = 'Search...';
 	export let options: AutocompleteOption<string>[] = [
 		{ label: 'Vanilla', value: 'vanilla' },
@@ -18,7 +19,7 @@
 	let search: string = '';
 	let popupSettings: PopupSettings = {
 		event: 'focus-click',
-		target: 'popupAutocomplete',
+		target: targetName,
 		placement: 'bottom'
 	};
 	export let selected: string | null = options[0].value ?? null;
@@ -35,7 +36,7 @@
 	use:popup={popupSettings}
 />
 
-<div data-popup="popupAutocomplete" class="w-full sm:-ml-2">
+<div data-popup={targetName} class="w-full sm:-ml-2">
 	<Autocomplete
 		regionEmpty="bg-surface-100-800-token rounded-lg w-full flex flex-col gap-2 p-4 justify-center text-sm"
 		regionList="bg-surface-100-800-token rounded-lg w-full flex flex-col gap-2 p-2"

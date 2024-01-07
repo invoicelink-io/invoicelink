@@ -36,31 +36,64 @@ export const load: PageServerLoad = async ({ url }) => {
 				]
 			}
 		};
-		return { pay };
-	}
-	const pay = await prisma.quickLink.findUnique({
-		where: {
-			id
-		},
-		include: {
-			user: {
-				select: {
-					id: true,
-					avatarUrl: true,
-					email: true,
-					name: true,
-					integrations: {
-						select: {
-							payfast: true,
-							yoco: true
+		return { pay, type: 'quick' };
+	} else {
+		const quickLink = await prisma.quickLink.findUnique({
+			where: {
+				id
+			},
+			include: {
+				user: {
+					select: {
+						id: true,
+						avatarUrl: true,
+						email: true,
+						name: true,
+						integrations: {
+							select: {
+								payfast: true,
+								yoco: true
+							}
 						}
 					}
 				}
 			}
-		}
-	});
+		});
 
-	return {
-		pay
-	};
+		if (quickLink) {
+			return {
+				pay: quickLink,
+				type: 'quick'
+			};
+		} else {
+			const invoice = await prisma.invoice.findUnique({
+				where: {
+					id
+				},
+				include: {
+					user: {
+						select: {
+							id: true,
+							avatarUrl: true,
+							email: true,
+							name: true,
+							integrations: {
+								select: {
+									payfast: true,
+									yoco: true
+								}
+							}
+						}
+					}
+				}
+			});
+
+			console.log(invoice?.user.integrations);
+
+			return {
+				pay: invoice,
+				type: 'invoice'
+			};
+		}
+	}
 };

@@ -35,7 +35,7 @@ export async function POST({ request, url }) {
 		}
 	});
 
-	const cartTotal = quickLink?.amount.toString() || '0.00';
+	const cartTotal = quickLink?.total.toString() || '0.00';
 
 	const pfHost = dev ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
 	const passphrase = quickLink?.user.integrations[0].payfast[0]?.passphrase;

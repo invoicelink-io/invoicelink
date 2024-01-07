@@ -1,14 +1,45 @@
 import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { defaultInvoice } from '$lib/utils/defaults';
-import { InvoiceSchema } from '$lib/zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { createCheckout } from '$lib/utils/yoco';
 import { SerialType } from '@prisma/client';
 import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
+import { schema } from './validation';
+import type { FullInvoice } from '$lib/types';
 
-export const load = (async ({ parent, locals }) => {
+export const load = (async ({ parent, locals, url }) => {
 	await parent();
+	const id = url.searchParams.get('id');
+
+	let invoice = defaultInvoice;
+
+	if (id) {
+		const dbInvoice = await prisma.invoice.findUnique({
+			where: {
+				id
+			},
+			include: {
+				client: {
+					include: {
+						address: true
+					}
+				},
+				invoiceStyle: true,
+				sendersAddress: true,
+				lineItems: true,
+				user: {
+					include: {
+						bankAccount: true
+					}
+				}
+			}
+		});
+
+		if (dbInvoice) {
+			invoice = dbInvoice as FullInvoice;
+		}
+	}
 
 	const user = await prisma.user.findUnique({
 		where: {
@@ -17,12 +48,17 @@ export const load = (async ({ parent, locals }) => {
 		include: {
 			bankAccount: true,
 			address: true,
-			client: true,
+			client: {
+				include: {
+					address: true
+				}
+			},
 			invoiceStyles: true
 		}
 	});
 
 	let serial = initializeSerialNumber(SerialType.INVOICE);
+	let sendersAddressId = '';
 	if (user) {
 		// get last used serial
 		const lastSerial = (
@@ -38,19 +74,30 @@ export const load = (async ({ parent, locals }) => {
 		serial = lastSerial
 			? incrementSerialNumber(lastSerial)
 			: initializeSerialNumber(SerialType.INVOICE);
+
+		if (user.address) {
+			console.log(user.address);
+			sendersAddressId = user.address[0].id;
+		}
 	}
 
-	const form = await superValidate({ ...defaultInvoice, serial }, InvoiceSchema);
+	const form = await superValidate({ ...invoice, serial, sendersAddressId }, schema);
 	return { user, form, title: 'Invoice templates' };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, InvoiceSchema);
+		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
-			return message(form, 'Invalid quick link!');
+			return message(form, 'Invalid invoice');
+		}
+
+		if (form.data.clientId === '') {
+			return message(form, 'Please select a client', {
+				status: 400
+			});
 		}
 
 		try {
@@ -98,22 +145,23 @@ export const actions: Actions = {
 				});
 			}
 
-			// create the quick link
+			// create the invoice
+			console.log(form.data);
 			if (user?.id) {
 				let invoice = await prisma.invoice.create({
 					data: {
-						...form.data,
-						sendersAddress: {
-							connect: {
-								id: userAddress.id
-							}
-						},
-						user: {
-							connect: {
-								id: user?.id
-							}
-						},
-						client: {}
+						issueDate: form.data.issueDate,
+						dueDate: form.data.dueDate,
+						description: form.data.description,
+						status: form.data.status,
+						userId: user?.id,
+						subtotal: form.data.subtotal,
+						tax: form.data.tax,
+						total: form.data.total,
+						serial: form.data.serial,
+						clientId: form.data.clientId,
+						invoiceStyleId: form.data.invoiceStyleId,
+						sendersAddressId: form.data.sendersAddressId
 					}
 				});
 
@@ -129,8 +177,9 @@ export const actions: Actions = {
 					});
 
 					if (yocoErrors) {
+						console.log(yocoErrors);
 						// delete the quick link
-						await prisma.quickLink.delete({
+						await prisma.invoice.delete({
 							where: {
 								id: invoice.id
 							}

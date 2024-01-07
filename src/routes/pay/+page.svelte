@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+
 	import { ListBox, ListBoxItem, popup, Avatar } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
@@ -89,7 +90,7 @@
 		</div>
 		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
 			<a
-				href="/api/invoice?id={data?.pay.id}&type=quick&download=true"
+				href="/api/invoice?id={data?.pay.id}&type={data.type}&download=true"
 				class="variant-glass-surface btn w-36">Save invoice</a
 			>
 			{#if !isPaid}

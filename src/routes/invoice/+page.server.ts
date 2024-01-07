@@ -48,6 +48,7 @@ export const load = (async ({ url }) => {
 				id
 			},
 			include: {
+				invoiceStyle: true,
 				user: {
 					include: {
 						address: true,
@@ -63,6 +64,9 @@ export const load = (async ({ url }) => {
 				lineItems: true
 			}
 		})) as FullInvoice;
+		if (data.invoiceStyleId) {
+			styles = data.invoiceStyle as InvoiceStyles;
+		}
 		return { documentType, data, styles };
 	}
 }) satisfies PageServerLoad;
