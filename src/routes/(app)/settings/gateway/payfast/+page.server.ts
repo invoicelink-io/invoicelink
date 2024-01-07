@@ -32,7 +32,7 @@ export const actions: Actions = {
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
-			return message(form, 'Invalid integration details!');
+			return message(form, 'Invalid integration details');
 		}
 
 		try {
@@ -57,7 +57,7 @@ export const actions: Actions = {
 					}
 				});
 				form.data.id = res.id;
-				return message(form, 'Payfast integration created!');
+				return message(form, 'Payfast integration created');
 			} else {
 				const res = await prisma.integration.create({
 					data: {
@@ -79,7 +79,7 @@ export const actions: Actions = {
 					}
 				});
 				form.data.id = res.payfast[0].id;
-				return message(form, 'Payfast integration created!');
+				return message(form, 'Payfast integration created');
 			}
 		} catch (error) {
 			console.error(error);
@@ -102,7 +102,7 @@ export const actions: Actions = {
 				form.data.merchantId = '';
 				form.data.merchantKey = '';
 				form.data.passphrase = undefined;
-				return message(form, 'Integration deleted!');
+				return message(form, 'Integration deleted');
 			} catch (error) {
 				console.error(error);
 				return message(form, 'Failed to delete integration', {
@@ -114,7 +114,7 @@ export const actions: Actions = {
 	update: async ({ request }) => {
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
-			return message(form, 'Invalid integration details!');
+			return message(form, 'Invalid integration details');
 		}
 
 		try {
@@ -130,7 +130,7 @@ export const actions: Actions = {
 					}
 				});
 			}
-			return message(form, 'Integration updated!');
+			return message(form, 'Integration updated');
 		} catch (error) {
 			console.error(error);
 			return message(form, 'Failed to update integration', {

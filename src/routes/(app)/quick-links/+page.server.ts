@@ -54,7 +54,7 @@ export const actions: Actions = {
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
-			return message(form, 'Invalid quick link!');
+			return message(form, 'Invalid quick link');
 		}
 
 		try {
@@ -180,7 +180,7 @@ export const actions: Actions = {
 				form.data.serial = incrementSerialNumber(quickLink.serial);
 				form.data.amount;
 				form.data.description = '';
-				return message(form, 'Quick link created!');
+				return message(form, 'Quick link created');
 			}
 		} catch (error) {
 			console.error(error);
@@ -200,7 +200,7 @@ export const actions: Actions = {
 					}
 				});
 
-				return message(deleteForm, 'Quick link deleted!');
+				return message(deleteForm, 'Quick link deleted');
 			} catch (error) {
 				console.error(error);
 				return message(deleteForm, 'Failed to delete quick link', {

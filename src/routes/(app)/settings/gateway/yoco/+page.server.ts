@@ -33,7 +33,7 @@ export const actions: Actions = {
 		const form = await superValidate(request, schema);
 
 		if (!form.valid) {
-			return message(form, 'Invalid integration details!');
+			return message(form, 'Invalid integration details');
 		}
 
 		// delete any existing webhooks
@@ -68,7 +68,7 @@ export const actions: Actions = {
 					}
 				});
 				form.data.id = res.id;
-				return message(form, 'Yoco integration created!');
+				return message(form, 'Yoco integration created');
 			} else {
 				const res = await prisma.integration.create({
 					data: {
@@ -90,7 +90,7 @@ export const actions: Actions = {
 					}
 				});
 				form.data.id = res.yoco[0].id;
-				return message(form, 'Yoco integration created!');
+				return message(form, 'Yoco integration created');
 			}
 		} catch (error) {
 			console.error(error);
@@ -115,7 +115,7 @@ export const actions: Actions = {
 				form.data.id = undefined;
 				form.data.publicKey = '';
 				form.data.secretKey = '';
-				return message(form, 'Integration deleted!');
+				return message(form, 'Integration deleted');
 			} catch (error) {
 				console.error(error);
 				return message(form, 'Failed to delete integration', {
@@ -128,7 +128,7 @@ export const actions: Actions = {
 		const { user } = locals;
 		const form = await superValidate(request, schema);
 		if (!form.valid) {
-			return message(form, 'Invalid integration details!');
+			return message(form, 'Invalid integration details');
 		}
 
 		try {
@@ -154,7 +154,7 @@ export const actions: Actions = {
 					}
 				});
 			}
-			return message(form, 'Integration updated!');
+			return message(form, 'Integration updated');
 		} catch (error) {
 			console.error(error);
 			return message(form, 'Failed to update integration', {

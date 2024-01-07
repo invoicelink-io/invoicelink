@@ -86,7 +86,7 @@ export const actions: Actions = {
 
 			form.data.id = createdClient.id;
 			form.data.addressId = createdClient.addressId;
-			return message(form, 'Client created!');
+			return message(form, 'Client created');
 		} catch (error) {
 			console.error(error);
 			return message(form, 'Failed to create client', {
@@ -129,7 +129,7 @@ export const actions: Actions = {
 
 			form.data.id = updatedClient.id;
 			form.data.addressId = updatedClient.addressId;
-			return message(form, 'Client updated!');
+			return message(form, 'Client updated');
 		} catch (error) {
 			console.error(error);
 			return message(form, 'Failed to update client', {
@@ -155,7 +155,15 @@ export const actions: Actions = {
 				};
 				return message(form, 'Client deleted');
 			} catch (error) {
-				console.error(error);
+				if (error instanceof Error) {
+					console.error(error.message);
+					// check if fail is due to foreign key constraint
+					if (error.message.toLowerCase().includes('invoice_clientid_fkey')) {
+						return message(form, 'Client has associated invoices ', {
+							status: 404
+						});
+					}
+				}
 				return message(form, 'Failed to delete client', {
 					status: 400
 				});

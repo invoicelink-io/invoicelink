@@ -55,6 +55,7 @@
 					type="text"
 					class="input-primary"
 					placeholder="John Doe"
+					disabled={$form.id !== ''}
 					required
 					bind:value={$form.name}
 				/>

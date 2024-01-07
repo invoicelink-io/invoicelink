@@ -8,7 +8,7 @@
 
 	function handleClick() {
 		show = false;
-		toast.success('Quick link copied!');
+		toast.success('Quick link copied');
 		setTimeout(() => {
 			show = true;
 		}, 1000);

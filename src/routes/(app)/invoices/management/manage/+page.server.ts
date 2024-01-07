@@ -219,7 +219,7 @@ export const actions: Actions = {
 				});
 
 				form.data.id = invoice.id;
-				return message(form, 'Invoice created!');
+				return message(form, 'Invoice created');
 			}
 		} catch (error) {
 			console.error(error);
