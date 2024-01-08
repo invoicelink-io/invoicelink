@@ -25,8 +25,10 @@
 	} from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
+
 	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
+	import Badge from '$lib/components/Badge.svelte';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -88,13 +90,7 @@
 <PageHeading heading="{$form.id === '' ? `New` : `Manage`} Invoice">
 	{#if $form.id}
 		<div class="flex items-center justify-start gap-2">
-			<span
-				class="{$form.status === Status.PAID
-					? `variant-soft-primary`
-					: `variant-soft-surface`} badge"
-			>
-				{$form.status === Status.PAID ? 'Paid' : 'Unpaid'}
-			</span>
+			<Badge status={$form.status} />
 			<a title="Preview invoicelink" target="_blank" href="/pay?id={$form.id}">
 				<Icon name="launch" />
 			</a>

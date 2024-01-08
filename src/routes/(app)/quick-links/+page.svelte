@@ -10,6 +10,7 @@
 	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Empty from '$lib/components/Empty.svelte';
+	import Badge from '$lib/components/Badge.svelte';
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		onUpdated: ({ form }) => {
@@ -156,13 +157,7 @@
 									</p>
 								</div>
 							</div>
-							<div
-								class="{link.status === 'PAID'
-									? `variant-glass-success bg-success-100-800-token text-success-800-100-token`
-									: `variant-glass-surface bg-surface-100-800-token text-surface-800-100-token`} badge lowercase"
-							>
-								{link.status}
-							</div>
+							<Badge status={link.status} />
 							<a target="_blank" href="/pay?id={link.id}">
 								<Icon name="launch" />
 							</a>

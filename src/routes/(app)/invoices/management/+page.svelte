@@ -4,7 +4,7 @@
 
 	import Empty from '$lib/components/Empty.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import { Status } from '@prisma/client';
+	import Badge from '$lib/components/Badge.svelte';
 </script>
 
 <PageHeading heading="Invoice Management">
@@ -20,13 +20,7 @@
 		<a class="card-primary gap-2 p-4" href="/invoices/management/manage?id={invoice.id}">
 			<div class="flex w-full items-center justify-between">
 				<h6 class="h6">{invoice.client.name}</h6>
-				<span
-					class="{invoice.status === Status.PAID
-						? `variant-soft-primary`
-						: `variant-soft-surface`} badge"
-				>
-					{invoice.status === 'PAID' ? 'Paid' : 'Unpaid'}
-				</span>
+				<Badge status={invoice.status} />
 			</div>
 			<hr />
 			<div class="flex w-full items-center justify-between text-xs">
