@@ -6,44 +6,12 @@ import { createCheckout } from '$lib/utils/yoco';
 import { SerialType } from '@prisma/client';
 import { getNextSerial } from '$lib/utils/serialNumbers';
 import { schema } from './validation';
-import type { FullInvoice } from '$lib/types';
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();
 	const id = url.searchParams.get('id');
 
-	let invoice = defaultInvoice;
-
-	// get the next serial number
-	invoice.serial = await getNextSerial(locals.user?.id, SerialType.INVOICE);
-
-	if (id) {
-		const dbInvoice = await prisma.invoice.findUnique({
-			where: {
-				id
-			},
-			include: {
-				client: {
-					include: {
-						address: true
-					}
-				},
-				invoiceStyle: true,
-				sendersAddress: true,
-				lineItems: true,
-				user: {
-					include: {
-						bankAccount: true
-					}
-				}
-			}
-		});
-
-		if (dbInvoice) {
-			invoice = dbInvoice as FullInvoice;
-		}
-	}
-
+	// get the user
 	const user = await prisma.user.findUnique({
 		where: {
 			id: locals.user?.id
@@ -60,12 +28,59 @@ export const load = (async ({ parent, locals, url }) => {
 		}
 	});
 
-	let sendersAddressId = '';
-	if (user && user.address) {
-		sendersAddressId = user.address[0].id;
+	// set the default invoice
+	let invoice = { ...defaultInvoice };
+
+	// set the default serial
+	invoice.serial = await getNextSerial(locals.user?.id, SerialType.INVOICE);
+
+	// set user based defaults
+	if (user) {
+		invoice.userId = user.id;
+		invoice.user.id = user.id;
+		invoice.user.name = user.name;
+		invoice.user.email = user.email;
+		invoice.user.username = user.username;
+		invoice.user.avatarUrl = user.avatarUrl;
+		invoice.user.vatNumber = user.vatNumber;
+
+		if (user.address) {
+			invoice.sendersAddressId = user.address[0].id;
+			invoice.sendersAddress = user.address[0];
+		}
+
+		if (user.bankAccount) {
+			invoice.user.bankAccount = user.bankAccount;
+		}
 	}
 
-	const form = await superValidate({ ...invoice, sendersAddressId }, schema);
+	if (id) {
+		const dbInvoice = await prisma.invoice.findUnique({
+			where: {
+				id
+			},
+			include: {
+				client: {
+					include: {
+						address: true
+					}
+				},
+				sendersAddress: true,
+				lineItems: true,
+				user: {
+					include: {
+						bankAccount: true
+					}
+				}
+			}
+		});
+
+		if (dbInvoice) {
+			invoice = dbInvoice;
+		}
+	}
+
+	const form = await superValidate(invoice, schema);
 	return { user, form, title: 'Invoice templates' };
 }) satisfies PageServerLoad;
 
@@ -130,7 +145,6 @@ export const actions: Actions = {
 			}
 
 			// create the invoice
-			console.log(form.data);
 			if (user?.id) {
 				let invoice = await prisma.invoice.create({
 					data: {
@@ -145,7 +159,16 @@ export const actions: Actions = {
 						serial: form.data.serial,
 						clientId: form.data.clientId,
 						invoiceStyleId: form.data.invoiceStyleId,
-						sendersAddressId: form.data.sendersAddressId
+						sendersAddressId: form.data.sendersAddressId,
+						lineItems: {
+							create: form.data.lineItems.map((item) => {
+								return {
+									description: item.description,
+									quantity: item.quantity,
+									amount: item.amount
+								};
+							})
+						}
 					}
 				});
 
@@ -239,7 +262,115 @@ export const actions: Actions = {
 			});
 		}
 	},
-	update: async () => {
-		// TODO: update the invoice
+	update: async ({ request, url, locals }) => {
+		const form = await superValidate(request, schema);
+
+		if (!form.valid) {
+			return message(form, 'Invalid invoice');
+		}
+
+		try {
+			const updatedInvoice = await prisma.invoice.update({
+				where: {
+					id: form.data.id
+				},
+				data: {
+					issueDate: form.data.issueDate,
+					dueDate: form.data.dueDate,
+					description: form.data.description,
+					status: form.data.status,
+					userId: form.data.userId,
+					subtotal: form.data.subtotal,
+					tax: form.data.tax,
+					total: form.data.total,
+					serial: form.data.serial,
+					clientId: form.data.clientId,
+					invoiceStyleId: form.data.invoiceStyleId,
+					sendersAddressId: form.data.sendersAddressId,
+					lineItems: {
+						deleteMany: {
+							invoiceId: form.data.id
+						},
+						create: form.data.lineItems.map((item) => {
+							return {
+								description: item.description,
+								quantity: item.quantity,
+								amount: item.amount
+							};
+						})
+					}
+				},
+				include: {
+					client: {
+						include: {
+							address: true
+						}
+					},
+					sendersAddress: true,
+					lineItems: true,
+					user: {
+						include: {
+							bankAccount: true
+						}
+					}
+				}
+			});
+
+			// Update yoco link
+			// NOTE: Update this when adding more payment gateways
+			// check if the user has an active integration
+			const userIntegration = await prisma.integration.findFirst({
+				where: {
+					userId: locals.user?.id
+				},
+				include: {
+					payfast: true,
+					yoco: true
+				}
+			});
+			if (userIntegration && userIntegration.yoco.length > 0) {
+				const yocoIntegration = userIntegration.yoco[0];
+				const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
+					secretKey: yocoIntegration.secretKey,
+					amount: updatedInvoice.total,
+					cancelUrl: `${url.origin}/pay?id=${updatedInvoice.id}`,
+					failureUrl: `${url.origin}/pay?id=${updatedInvoice.id}`,
+					successUrl: `${url.origin}/pay?id=${updatedInvoice.id}`
+				});
+
+				if (yocoErrors) {
+					console.log(yocoErrors);
+					// delete the invoice
+					await prisma.invoice.delete({
+						where: {
+							id: updatedInvoice.id
+						}
+					});
+
+					return message(form, 'Failed to create yoco checkout', {
+						status: 400
+					});
+				}
+
+				// update the invoice with the yoco checkoutId
+				const updatedWithYoco = await prisma.invoice.update({
+					where: {
+						id: updatedInvoice.id
+					},
+					data: {
+						yocoCheckoutId: yocoCheckout?.id
+					}
+				});
+				updatedInvoice.yocoCheckoutId = updatedWithYoco.yocoCheckoutId;
+			}
+
+			form.data = updatedInvoice;
+			return message(form, 'Invoice updated');
+		} catch (error) {
+			console.error(error);
+			return message(form, 'Failed to update invoice', {
+				status: 400
+			});
+		}
 	}
 };

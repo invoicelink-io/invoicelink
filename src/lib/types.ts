@@ -5,28 +5,28 @@ import type {
 	Address,
 	User,
 	QuickLink,
-	BankAccount,
-	InvoiceStyles
+	BankAccount
 } from '@prisma/client';
 
 // place files you want to import through the `$lib` alias in this folder.
 export type PaymentGateways = 'payfast' | 'paypal' | 'yoco';
 
+export type UserWithBankAccount = User & {
+	bankAccount: BankAccount[];
+};
+
+export type ClientWithAddress = Client & {
+	address: Address;
+};
+
 export type FullInvoice = Invoice & {
-	user: User & {
-		bankAccount?: BankAccount[];
-	};
+	user: UserWithBankAccount;
 	sendersAddress: Address;
-	client: Client & {
-		address: Address;
-	};
+	client: ClientWithAddress;
 	lineItems: LineItem[];
-	invoiceStyle?: InvoiceStyles;
 };
 
 export type FullQuickLink = QuickLink & {
-	user: User & {
-		bankAccount?: BankAccount[];
-	};
+	user: UserWithBankAccount;
 	sendersAddress: Address;
 };

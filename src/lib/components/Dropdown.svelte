@@ -36,7 +36,6 @@
 		bind:input={search}
 		{options}
 		on:selection={({ detail }) => {
-			console.log({ detail });
 			search = detail.label;
 			selected = detail.value;
 		}}

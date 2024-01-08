@@ -88,8 +88,6 @@ export const load: PageServerLoad = async ({ url }) => {
 				}
 			});
 
-			console.log(invoice?.user.integrations);
-
 			return {
 				pay: invoice,
 				type: 'invoice'

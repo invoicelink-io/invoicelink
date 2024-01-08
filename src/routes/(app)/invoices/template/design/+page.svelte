@@ -11,6 +11,21 @@
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;
 
+	// Set defaults
+	const invoice = defaultInvoice;
+	const displayAddress = {
+		id: '',
+		line1: 'Address Line 1',
+		line2: 'Address Line 2',
+		line3: 'Address Line 3',
+		postalCode: '4321',
+		userId: ''
+	};
+	invoice.user.name = 'Your Name';
+	invoice.client.name = 'Client Name';
+	invoice.sendersAddress = displayAddress;
+	invoice.client.address = displayAddress;
+
 	const { form, message, enhance } = superForm(data.form, {
 		onSubmit: ({ action }) => {
 			if (action.search.includes('?/delete')) {
@@ -46,7 +61,7 @@
 	<div
 		class="border-surface-100-800-token hide-scrollbar flex-grow rounded-lg border lg:overflow-y-scroll"
 	>
-		<Invoice styles={$form} data={defaultInvoice} />
+		<Invoice styles={$form} data={invoice} />
 	</div>
 	<div class="hide-scrollbar pb-8 lg:overflow-y-scroll lg:pb-0">
 		<ControlPanel bind:form={$form} {enhance} {submitting} />

@@ -16,13 +16,7 @@
 	import Dropdown from '$lib/components/Dropdown.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import {
-		Status,
-		type Address,
-		type Client,
-		type InvoiceStyles,
-		type LineItem
-	} from '@prisma/client';
+	import { Status, type Address, type Client, type InvoiceStyles } from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
 
@@ -58,12 +52,8 @@
 	});
 
 	// default values
-	let tax = 15;
+	let tax = parseInt(((100 * $form.tax) / $form.subtotal).toFixed(0)) ?? 15;
 	let styles: InvoiceStyles = defaultStyles;
-	let client: Client & {
-		address: Address;
-	} = { ...defaultClient, address: defaultAddress };
-	let lineItems = [{ ...defaultLineItem }] satisfies LineItem[];
 
 	// dropdown options
 	const templates = data.user?.invoiceStyles.map((item) => {
@@ -80,7 +70,7 @@
 	}
 
 	$: {
-		client = data.user?.client.find((item) => item.id === $form.clientId) ?? {
+		$form.client = data.user?.client.find((item) => item.id === $form.clientId) ?? {
 			...defaultClient,
 			address: defaultAddress
 		};
@@ -116,29 +106,10 @@
 		<div
 			class="border-surface-100-800-token hide-scrollbar flex-grow rounded-lg border lg:overflow-y-scroll"
 		>
-			<Invoice
-				{styles}
-				{tax}
-				data={{
-					...$form,
-					user: data.user,
-					lineItems,
-					sendersAddress: data.user.address[0],
-					client
-				}}
-				editable
-			/>
+			<Invoice {styles} {tax} bind:data={$form} editable />
 		</div>
 		<div class="hide-scrollbar min-w-[25%] pb-8 lg:overflow-y-scroll lg:pb-0">
 			<form method="post" class="relative flex flex-col gap-y-4" action="?/create" use:enhance>
-				<input name="id" type="hidden" value={$form.id} />
-				<input name="status" type="hidden" value={$form.status} />
-				<input name="issueDate" type="hidden" value={$form.issueDate} />
-				<input name="sendersAddressId" type="hidden" value={$form.sendersAddressId} />
-				<input name="clientId" type="hidden" value={$form.clientId} />
-				<input name="subtotal" type="hidden" value={$form.subtotal} />
-				<input name="tax" type="hidden" value={$form.tax} />
-				<input name="total" type="hidden" value={$form.total} />
 				<span>
 					<label class="label-primary" for="description">Description</label>
 					<input
@@ -178,18 +149,18 @@
 							type="button"
 							class="variant-soft-surface btn btn-sm w-full"
 							on:click={() => {
-								if (lineItems.length > 0) {
+								if ($form.lineItems.length > 0) {
 									// delete the last item
-									lineItems = lineItems.slice(0, -1);
+									$form.lineItems = $form.lineItems.slice(0, -1);
 								} else {
-									lineItems = [{ ...defaultLineItem }];
+									$form.lineItems = [{ ...defaultLineItem }];
 								}
 							}}>Remove line item</button
 						>
 						<button
 							type="button"
 							on:click={() => {
-								lineItems = [...lineItems, { ...defaultLineItem }];
+								$form.lineItems = [...$form.lineItems, { ...defaultLineItem }];
 							}}
 							class="variant-soft-surface btn btn-sm w-full">Add line item</button
 						>

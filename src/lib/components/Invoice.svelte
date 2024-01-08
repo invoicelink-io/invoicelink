@@ -18,13 +18,17 @@
 	export let tax: number = 0;
 
 	$: {
-		data.subtotal = data.lineItems.reduce((acc, item) => {
-			return acc + item.amount;
-		}, 0);
+		data.subtotal = parseFloat(
+			data.lineItems
+				.reduce((acc, item) => {
+					return acc + item.amount;
+				}, 0)
+				.toFixed(2)
+		);
 
-		data.tax = (data.subtotal * tax) / 100;
+		data.tax = parseFloat(((data.subtotal * tax) / 100).toFixed(2));
 
-		data.total = data.subtotal + data.tax;
+		data.total = parseFloat((data.subtotal + data.tax).toFixed(2));
 	}
 </script>
 
