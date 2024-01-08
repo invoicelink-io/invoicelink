@@ -8,10 +8,6 @@
 		{
 			name: 'Payment Gateway',
 			href: '/settings/gateway'
-		},
-		{
-			name: 'Billing',
-			href: '/settings/billing'
 		}
 	];
 </script>
