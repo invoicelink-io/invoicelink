@@ -140,12 +140,20 @@ export const actions: Actions = {
 	delete: async ({ request }) => {
 		const form = await superValidate(request, schema);
 		const clientId = form.data.id;
+		const clientAddressId = form.data.addressId;
 
 		if (clientId) {
 			try {
+				// delete the client and associated address
 				await prisma.client.delete({
 					where: {
 						id: clientId
+					}
+				});
+
+				await prisma.address.delete({
+					where: {
+						id: clientAddressId
 					}
 				});
 
