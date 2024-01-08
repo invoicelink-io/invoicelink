@@ -4,7 +4,7 @@ import { defaultInvoice } from '$lib/utils/defaults';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { createCheckout } from '$lib/utils/yoco';
 import { SerialType } from '@prisma/client';
-import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
+import { getNextSerial } from '$lib/utils/serialNumbers';
 import { schema } from './validation';
 import type { FullInvoice } from '$lib/types';
 
@@ -13,6 +13,9 @@ export const load = (async ({ parent, locals, url }) => {
 	const id = url.searchParams.get('id');
 
 	let invoice = defaultInvoice;
+
+	// get the next serial number
+	invoice.serial = await getNextSerial(locals.user?.id, SerialType.INVOICE);
 
 	if (id) {
 		const dbInvoice = await prisma.invoice.findUnique({
@@ -57,30 +60,12 @@ export const load = (async ({ parent, locals, url }) => {
 		}
 	});
 
-	let serial = initializeSerialNumber(SerialType.INVOICE);
 	let sendersAddressId = '';
-	if (user) {
-		// get last used serial
-		const lastSerial = (
-			await prisma.lastUsedSerial.findUnique({
-				where: {
-					userId_type: {
-						userId: user?.id,
-						type: SerialType.INVOICE
-					}
-				}
-			})
-		)?.serial;
-		serial = lastSerial
-			? incrementSerialNumber(lastSerial)
-			: initializeSerialNumber(SerialType.INVOICE);
-
-		if (user.address) {
-			sendersAddressId = user.address[0].id;
-		}
+	if (user && user.address) {
+		sendersAddressId = user.address[0].id;
 	}
 
-	const form = await superValidate({ ...invoice, serial, sendersAddressId }, schema);
+	const form = await superValidate({ ...invoice, sendersAddressId }, schema);
 	return { user, form, title: 'Invoice templates' };
 }) satisfies PageServerLoad;
 
@@ -226,5 +211,35 @@ export const actions: Actions = {
 				status: 400
 			});
 		}
+	},
+	delete: async ({ request, locals }) => {
+		const { user } = locals;
+		const form = await superValidate(request, schema);
+
+		if (!form.valid) {
+			return message(form, 'Invalid invoice');
+		}
+
+		try {
+			await prisma.invoice.delete({
+				where: {
+					id: form.data.id
+				}
+			});
+
+			// get the next serial number
+			const serial = await getNextSerial(user?.id, SerialType.INVOICE);
+
+			form.data = { ...form, ...defaultInvoice, serial };
+			return message(form, 'Invoice deleted');
+		} catch (error) {
+			console.error(error);
+			return message(form, 'Failed to delete invoice', {
+				status: 400
+			});
+		}
+	},
+	update: async () => {
+		// TODO: update the invoice
 	}
 };
