@@ -71,6 +71,7 @@ export const defaultInvoice: FullInvoice = {
 	description: 'Services Rendered',
 	userId: '',
 	subtotal: 100,
+	taxPercentage: 0,
 	tax: 0,
 	total: 100,
 	serial: 'INV-2023-00001',

@@ -36,7 +36,7 @@ export const YocoScalarFieldEnumSchema = z.enum(['id','integrationId','publicKey
 
 export const QuickLinkScalarFieldEnumSchema = z.enum(['id','createdAt','updatedAt','userId','sendersAddressId','subtotal','tax','total','serial','description','status','yocoCheckoutId']);
 
-export const InvoiceScalarFieldEnumSchema = z.enum(['id','createdAt','updatedAt','issueDate','dueDate','description','userId','subtotal','tax','total','serial','status','sendersAddressId','clientId','yocoCheckoutId','invoiceStyleId']);
+export const InvoiceScalarFieldEnumSchema = z.enum(['id','createdAt','updatedAt','issueDate','dueDate','description','userId','subtotal','taxPercentage','tax','total','serial','status','sendersAddressId','clientId','yocoCheckoutId','invoiceStyleId']);
 
 export const LineItemScalarFieldEnumSchema = z.enum(['id','createdAt','updatedAt','invoiceId','description','quantity','amount']);
 
@@ -449,6 +449,7 @@ export const InvoiceSchema = z.object({
   description: z.string().nullable(),
   userId: z.string(),
   subtotal: z.number(),
+  taxPercentage: z.number().int(),
   tax: z.number(),
   total: z.number(),
   serial: z.string(),

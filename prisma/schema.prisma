@@ -180,6 +180,7 @@ model Invoice {
   userId           String
   user             User           @relation(references: [id], fields: [userId], onDelete: Cascade)
   subtotal         Float
+  taxPercentage    Int            @default(15)
   tax              Float
   total            Float
   serial           String

@@ -76,5 +76,6 @@ export const schema = z.object({
 	),
 	subtotal: z.number(),
 	tax: z.number(),
+	taxPercentage: z.number(),
 	total: z.number()
 });

@@ -15,8 +15,6 @@
 	export let styles: InvoiceStyles;
 	export let data: FullInvoice;
 
-	export let tax: number = 0;
-
 	$: {
 		data.subtotal = parseFloat(
 			data.lineItems
@@ -26,7 +24,7 @@
 				.toFixed(2)
 		);
 
-		data.tax = parseFloat(((data.subtotal * tax) / 100).toFixed(2));
+		data.tax = parseFloat(((data.subtotal * data.taxPercentage) / 100).toFixed(2));
 
 		data.total = parseFloat((data.subtotal + data.tax).toFixed(2));
 	}

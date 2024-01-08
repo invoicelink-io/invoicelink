@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 </script>
 

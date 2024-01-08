@@ -16,7 +16,7 @@
 	import Dropdown from '$lib/components/Dropdown.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import { Status, type Address, type Client, type InvoiceStyles } from '@prisma/client';
+	import { Status, type InvoiceStyles } from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
 
@@ -52,7 +52,6 @@
 	});
 
 	// default values
-	let tax = parseInt(((100 * $form.tax) / $form.subtotal).toFixed(0)) ?? 15;
 	let styles: InvoiceStyles = defaultStyles;
 
 	// dropdown options
@@ -106,7 +105,7 @@
 		<div
 			class="border-surface-100-800-token hide-scrollbar flex-grow rounded-lg border lg:overflow-y-scroll"
 		>
-			<Invoice {styles} {tax} bind:data={$form} editable />
+			<Invoice {styles} bind:data={$form} editable />
 		</div>
 		<div class="hide-scrollbar min-w-[25%] pb-8 lg:overflow-y-scroll lg:pb-0">
 			<form method="post" class="relative flex flex-col gap-y-4" action="?/create" use:enhance>
@@ -166,10 +165,10 @@
 						>
 					</div>
 
-					<RangeSlider name="range-slider" bind:value={tax} max={100} step={1}>
+					<RangeSlider name="range-slider" bind:value={$form.taxPercentage} max={100} step={1}>
 						<div class="flex items-center justify-between">
 							<div class="label text-xs">Tax</div>
-							<div class="text-xs">{tax}%</div>
+							<div class="text-xs">{$form.taxPercentage}%</div>
 						</div>
 					</RangeSlider>
 

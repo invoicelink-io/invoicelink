@@ -79,7 +79,7 @@
 
 		function onIdle() {
 			if (!widget) {
-				// @ts-ignore
+				// @ts-expect-error
 				widget = window.cloudinary.createUploadWidget(cldOptions, cldCallback);
 			}
 		}
