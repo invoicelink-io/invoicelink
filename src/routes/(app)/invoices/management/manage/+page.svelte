@@ -173,12 +173,6 @@
 				</span>
 
 				{#if $form.status !== Status.PAID}
-					<RangeSlider name="range-slider" bind:value={tax} max={100} step={1}>
-						<div class="flex items-center justify-between">
-							<div class="label text-xs">Tax</div>
-							<div class="text-xs">{tax}%</div>
-						</div>
-					</RangeSlider>
 					<div class="flex w-full gap-2">
 						<button
 							type="button"
@@ -200,6 +194,14 @@
 							class="variant-soft-surface btn btn-sm w-full">Add line item</button
 						>
 					</div>
+
+					<RangeSlider name="range-slider" bind:value={tax} max={100} step={1}>
+						<div class="flex items-center justify-between">
+							<div class="label text-xs">Tax</div>
+							<div class="text-xs">{tax}%</div>
+						</div>
+					</RangeSlider>
+
 					<div class="flex w-full gap-2">
 						{#if $form.id}
 							<Button
