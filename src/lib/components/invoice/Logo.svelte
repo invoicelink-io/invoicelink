@@ -3,6 +3,7 @@
 		alt: string;
 		src?: string;
 	};
+	export let hideTagline: boolean = false;
 </script>
 
 <div class="flex w-full flex-col">
@@ -15,5 +16,7 @@
 			{data.alt}
 		</h2>
 	{/if}
-	<p class="text-xs font-medium">powered by invoicelink.io</p>
+	{#if !hideTagline}
+		<p class="text-xs font-medium">powered by invoicelink.io</p>
+	{/if}
 </div>

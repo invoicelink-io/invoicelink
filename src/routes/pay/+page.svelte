@@ -7,8 +7,9 @@
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	import { getInitials } from '$lib/utils/stringHelpers';
+	import { Status } from '@prisma/client';
 
-	const isPaid = data.pay?.status === 'PAID' ?? false;
+	const isPaid = data.pay?.status === Status.PAID;
 
 	const integrations: {
 		[key: string]: any;
@@ -56,12 +57,10 @@
 <div class="flex h-svh w-full flex-col pb-20 text-surface-900">
 	{#if data.pay}
 		<div
-			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center {isPaid
-				? `bg-success-200`
-				: `bg-surface-100`}  text-center"
+			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-surface-100 text-center"
 		>
 			<div
-				class="absolute bottom-0 -mb-[10vh] flex h-auto w-full max-w-sm flex-col items-center justify-center gap-4 rounded-xl bg-surface-50 p-10 shadow-lg sm:mx-auto sm:max-w-xl"
+				class="absolute bottom-0 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl bg-surface-50 p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
 			>
 				<div class="flex flex-col items-center">
 					<div class="-mt-4 mb-4">
@@ -80,7 +79,7 @@
 						<span class="text-sm leading-none">requested a payment of</span>
 					{/if}
 				</div>
-				<p class="w-full text-center text-5xl font-bold md:text-7xl">
+				<p class="w-full text-center text-3xl font-bold sm:text-5xl md:text-7xl">
 					{Number(data.pay?.total).toLocaleString('en-ZA', {
 						style: 'currency',
 						currency: 'ZAR'
