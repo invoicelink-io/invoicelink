@@ -17,7 +17,7 @@
 	});
 </script>
 
-<h2 class="text-base font-normal">Address</h2>
+<h2 id="user-address" class="text-base font-normal">Address</h2>
 <p class="text-surface-700-200-token mt-1 text-sm">
 	Update your address to be displayed on invoices.
 </p>

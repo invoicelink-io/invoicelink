@@ -17,7 +17,7 @@
 	});
 </script>
 
-<h2 class="text-base font-normal">Banking details</h2>
+<h2 id="banking-details" class="text-base font-normal">Banking details</h2>
 <p class="text-surface-700-200-token mt-1 text-sm">
 	Update your banking details to be displayed on invoices.
 </p>
