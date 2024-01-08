@@ -23,7 +23,7 @@ export const load = (async ({ url }) => {
 	}
 
 	let data = defaultInvoice;
-	if (!id) {
+	if (!id || id === 'demo') {
 		return { documentType, styles, data };
 	}
 
@@ -65,7 +65,11 @@ export const load = (async ({ url }) => {
 			}
 		})) as FullInvoice;
 		if (data.invoiceStyleId) {
-			styles = data.invoiceStyle as InvoiceStyles;
+			styles = (await prisma.invoiceStyles.findUnique({
+				where: {
+					id: data.invoiceStyleId
+				}
+			})) as InvoiceStyles;
 		}
 		return { documentType, data, styles };
 	}

@@ -7,7 +7,9 @@
 
 {#if data}
 	<div class={twMerge('w-full', align)}>
-		<span class="font-medium text-gray-900">Bank Details</span>
+		{#if data.accountNo}
+			<span class="font-medium text-gray-900">Bank Details</span>
+		{/if}
 		{#if data.accountHolder}
 			<br />
 			{data.accountHolder}
