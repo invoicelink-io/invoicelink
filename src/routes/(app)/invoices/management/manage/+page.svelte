@@ -25,7 +25,6 @@
 	} from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import Divider from '$lib/components/Divider.svelte';
 	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 
