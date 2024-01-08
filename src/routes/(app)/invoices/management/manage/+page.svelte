@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	import { page } from '$app/stores';
 
 	import Invoice from '$lib/components/Invoice.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
@@ -15,9 +16,18 @@
 	import Dropdown from '$lib/components/Dropdown.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import type { Address, Client, InvoiceStyles, LineItem } from '@prisma/client';
+	import {
+		Status,
+		type Address,
+		type Client,
+		type InvoiceStyles,
+		type LineItem
+	} from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/Divider.svelte';
+	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -76,7 +86,33 @@
 	}
 </script>
 
-<PageHeading heading="New Invoice" />
+<PageHeading heading="{$form.id === '' ? `New` : `Manage`} Invoice">
+	{#if $form.id}
+		<div class="flex items-center justify-start gap-2">
+			<span
+				class="{$form.status === Status.PAID
+					? `variant-soft-primary`
+					: `variant-soft-surface`} badge"
+			>
+				{$form.status === Status.PAID ? 'Paid' : 'Unpaid'}
+			</span>
+			<a title="Preview invoicelink" target="_blank" href="/pay?id={$form.id}">
+				<Icon name="launch" />
+			</a>
+			<a
+				title="Save a copy"
+				target="_blank"
+				href="/api/invoice?id={$form.id}&type=invoice&download=true"
+			>
+				<Icon name="document-download" />
+			</a>
+			<CopyToClipboard
+				text={`${$page.url.origin}/pay?id=${$form.id}`}
+				message="Invoicelink copied"
+			/>
+		</div>
+	{/if}
+</PageHeading>
 
 <Alert />
 
@@ -115,14 +151,16 @@
 						type="text"
 						class="input-primary"
 						placeholder="Invoice description"
+						disabled={$form.status === Status.PAID}
 					/>
 				</span>
 
 				<span>
-					<label class="label-primary" for="templates">Invoice template</label>
+					<label class="label-primary" for="templates">Template</label>
 					<Dropdown
 						targetName="templateDropdown"
 						options={templates}
+						disabled={$form.status === Status.PAID}
 						placeholder={'Select a template'}
 						bind:selected={$form.invoiceStyleId}
 					/>
@@ -134,63 +172,68 @@
 						targetName="clientDropdown"
 						options={clients}
 						placeholder={'Select a client'}
+						disabled={$form.status === Status.PAID}
 						bind:selected={$form.clientId}
 					/>
 				</span>
 
-				<RangeSlider name="range-slider" bind:value={tax} max={100} step={1}>
-					<div class="flex items-center justify-between">
-						<div class="label text-xs">Tax</div>
-						<div class="text-xs">{tax}%</div>
+				{#if $form.status !== Status.PAID}
+					<RangeSlider name="range-slider" bind:value={tax} max={100} step={1}>
+						<div class="flex items-center justify-between">
+							<div class="label text-xs">Tax</div>
+							<div class="text-xs">{tax}%</div>
+						</div>
+					</RangeSlider>
+					<div class="flex w-full gap-2">
+						<button
+							type="button"
+							class="variant-soft-surface btn btn-sm w-full"
+							on:click={() => {
+								if (lineItems.length > 0) {
+									// delete the last item
+									lineItems = lineItems.slice(0, -1);
+								} else {
+									lineItems = [{ ...defaultLineItem }];
+								}
+							}}>Remove line item</button
+						>
+						<button
+							type="button"
+							on:click={() => {
+								lineItems = [...lineItems, { ...defaultLineItem }];
+							}}
+							class="variant-soft-surface btn btn-sm w-full">Add line item</button
+						>
 					</div>
-				</RangeSlider>
-				<div class="flex w-full gap-2">
-					<button
-						type="button"
-						class="variant-soft-surface btn btn-sm w-full"
-						on:click={() => {
-							if (lineItems.length > 0) {
-								// delete the last item
-								lineItems = lineItems.slice(0, -1);
-							} else {
-								lineItems = [{ ...defaultLineItem }];
-							}
-						}}>Remove line item</button
-					>
-					<button
-						type="button"
-						on:click={() => {
-							lineItems = [...lineItems, { ...defaultLineItem }];
-						}}
-						class="variant-soft-surface btn btn-sm w-full">Add line item</button
-					>
-				</div>
-				{#if $form.id}
-					<Button
-						formaction="?/delete"
-						variant="variant-filled-error"
-						loading={submitting === 'delete'}
-						label="Delete"
-						loadingLabel="Deleting"
-						width="w-full"
-					/>
-					<Button
-						formaction="?/update"
-						variant="variant-filled-primary"
-						loading={submitting === 'update'}
-						label="Update"
-						loadingLabel="Updating"
-						width="w-full"
-					/>
-				{:else}
-					<Button
-						formaction="?/create"
-						variant="variant-filled-primary"
-						loading={submitting === 'create'}
-						label="Create"
-						loadingLabel="Creating"
-						width="w-full"
-					/>
+					<div class="flex w-full gap-2">
+						{#if $form.id}
+							<Button
+								formaction="?/delete"
+								variant="variant-filled-error"
+								loading={submitting === 'delete'}
+								label="Delete"
+								loadingLabel="Deleting"
+								width="w-full"
+							/>
+							<Button
+								formaction="?/update"
+								variant="variant-filled-primary"
+								loading={submitting === 'update'}
+								label="Update"
+								loadingLabel="Updating"
+								width="w-full"
+							/>
+						{:else}
+							<Button
+								formaction="?/create"
+								variant="variant-filled-primary"
+								loading={submitting === 'create'}
+								label="Create"
+								loadingLabel="Creating"
+								width="w-full"
+							/>
+						{/if}
+					</div>
 				{/if}
 			</form>
 		</div>

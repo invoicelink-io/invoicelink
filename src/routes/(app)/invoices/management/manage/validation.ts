@@ -15,5 +15,7 @@ export const schema = z.object({
 	sendersAddressId: z.string(),
 	clientId: z.string(),
 	yocoCheckoutId: z.string().nullable(),
-	invoiceStyleId: z.string().nullable()
+	invoiceStyleId: z.string().nullable(),
+	createdAt: z.date(),
+	updatedAt: z.date()
 });

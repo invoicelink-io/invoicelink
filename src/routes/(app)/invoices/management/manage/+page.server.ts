@@ -76,7 +76,6 @@ export const load = (async ({ parent, locals, url }) => {
 			: initializeSerialNumber(SerialType.INVOICE);
 
 		if (user.address) {
-			console.log(user.address);
 			sendersAddressId = user.address[0].id;
 		}
 	}

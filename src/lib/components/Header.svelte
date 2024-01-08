@@ -22,7 +22,7 @@
 </script>
 
 <header
-	class="bg-surface-50-900-token border-surface-100-800-token sticky top-0 z-50 flex w-full flex-col items-center border-b border-t-2 border-primary-500 p-4 text-xs"
+	class="bg-surface-50-900-token border-surface-100-800-token sticky top-0 z-50 flex w-full flex-col items-center border-b border-t-2 p-4 text-xs"
 >
 	<div class="flex w-full max-w-7xl justify-between">
 		<div class="flex items-center">

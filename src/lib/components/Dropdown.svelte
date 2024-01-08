@@ -2,27 +2,18 @@
 	import { Autocomplete, popup } from '@skeletonlabs/skeleton';
 	import type { AutocompleteOption, PopupSettings } from '@skeletonlabs/skeleton';
 
+	export let disabled: boolean = false;
 	export let targetName: string = 'popupAutocomplete';
 	export let placeholder: string = 'Search...';
-	export let options: AutocompleteOption<string>[] = [
-		{ label: 'Vanilla', value: 'vanilla' },
-		{ label: 'Chocolate', value: 'chocolate' },
-		{ label: 'Strawberry', value: 'strawberry' },
-		{
-			label: 'Neapolitan',
-			value: 'neapolitan'
-		},
-		{ label: 'Pineapple', value: 'pineapple' },
-		{ label: 'Peach', value: 'peach' }
-	];
+	export let options: AutocompleteOption<string>[] = [];
 
-	let search: string = '';
 	let popupSettings: PopupSettings = {
 		event: 'focus-click',
 		target: targetName,
 		placement: 'bottom'
 	};
 	export let selected: string | null = options[0].value ?? null;
+	let search: string = selected ? options.find((item) => item.value === selected)?.label ?? '' : '';
 
 	// TODO: Check why -ml-2 is needed in the below div
 </script>
@@ -31,6 +22,7 @@
 	class="autocomplete input-primary"
 	type="search"
 	name="autocomplete-search"
+	{disabled}
 	bind:value={search}
 	{placeholder}
 	use:popup={popupSettings}
