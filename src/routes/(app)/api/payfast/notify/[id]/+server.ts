@@ -16,29 +16,42 @@ export async function POST({ request, url }) {
 	const pfSignature = pfData['signature'];
 	delete pfData['signature'];
 
-	// lookup quick link
-	const quickLink = await prisma.quickLink.findUnique({
+	let cartTotal = '0.00';
+	let paymentType: 'invoice' | 'quickLink' = 'invoice';
+
+	const res = await prisma.user.findUnique({
 		where: {
-			id: paymentId,
-			userId: userId
+			id: userId
 		},
 		include: {
-			user: {
+			invoice: {
+				where: {
+					id: paymentId
+				}
+			},
+			quickLinks: {
+				where: {
+					id: paymentId
+				}
+			},
+			integrations: {
 				include: {
-					integrations: {
-						include: {
-							payfast: true
-						}
-					}
+					payfast: true
 				}
 			}
 		}
 	});
 
-	const cartTotal = quickLink?.total.toString() || '0.00';
+	if (res?.invoice && res?.invoice.length > 0) {
+		paymentType = 'invoice';
+		cartTotal = res?.invoice[0]?.total.toString();
+	} else if (res?.quickLinks && res?.quickLinks.length > 0) {
+		paymentType = 'quickLink';
+		cartTotal = res?.quickLinks[0]?.total.toString();
+	}
 
 	const pfHost = dev ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
-	const passphrase = quickLink?.user.integrations[0].payfast[0]?.passphrase;
+	const passphrase = res?.integrations[0].payfast[0]?.passphrase;
 
 	let pfParamString = '';
 	for (const key in pfData) {
@@ -58,14 +71,25 @@ export async function POST({ request, url }) {
 		// All checks have passed, the payment is successful
 		console.log('Payment check successful');
 		// Update quick link status
-		await prisma.quickLink.update({
-			where: {
-				id: paymentId
-			},
-			data: {
-				status: Status.PAID
-			}
-		});
+		if (paymentType === 'invoice') {
+			await prisma.invoice.update({
+				where: {
+					id: paymentId
+				},
+				data: {
+					status: Status.PAID
+				}
+			});
+		} else {
+			await prisma.quickLink.update({
+				where: {
+					id: paymentId
+				},
+				data: {
+					status: Status.PAID
+				}
+			});
+		}
 		// return 200 response
 		return new Response(null, { status: 200 });
 	} else {

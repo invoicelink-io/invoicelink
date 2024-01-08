@@ -11,20 +11,25 @@ export async function POST({ request, url }) {
 	// extract checkout id
 	const checkoutId = data?.payload.metadata.checkoutId;
 
-	// check for a quick link with this checkoutId
-	const quicklink = await prisma.quickLink.findUnique({
+	// check for a quick link or invoice with this checkoutId
+	const res = await prisma.user.findUnique({
 		where: {
-			yocoCheckoutId: checkoutId,
-			userId
+			id: userId
 		},
 		include: {
-			user: {
+			integrations: {
 				include: {
-					integrations: {
-						include: {
-							yoco: true
-						}
-					}
+					yoco: true
+				}
+			},
+			invoice: {
+				where: {
+					yocoCheckoutId: checkoutId
+				}
+			},
+			quickLinks: {
+				where: {
+					yocoCheckoutId: checkoutId
 				}
 			}
 		}
@@ -34,19 +39,32 @@ export async function POST({ request, url }) {
 	const isValid = validateSignature({
 		headers,
 		body,
-		secretKey: quicklink?.user?.integrations?.[0]?.yoco[0]?.webhookSecret ?? ''
+		secretKey: res?.integrations?.[0]?.yoco[0]?.webhookSecret ?? ''
 	});
 
-	if (isValid && quicklink?.id) {
-		// update the quick link
-		await prisma.quickLink.update({
-			where: {
-				id: quicklink.id
-			},
-			data: {
-				status: Status.PAID
-			}
-		});
+	if (isValid) {
+		if (res?.invoice && res?.invoice.length > 0) {
+			// update the invoice
+			await prisma.invoice.update({
+				where: {
+					id: res.invoice[0].id
+				},
+				data: {
+					status: Status.PAID
+				}
+			});
+		} else if (res?.quickLinks && res?.quickLinks.length > 0) {
+			// update the quick link
+			await prisma.quickLink.update({
+				where: {
+					id: res.quickLinks[0].id
+				},
+				data: {
+					status: Status.PAID
+				}
+			});
+		}
+
 		// process webhook event
 		return new Response('OK', { status: 200 });
 	} else {
