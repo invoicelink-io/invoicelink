@@ -93,10 +93,16 @@ export const actions: Actions = {
 				});
 			}
 
-			// Check the user has an active integration
-			if (bankDetails?.accountNo !== '') {
+			// Check the user has an active integration or bank details
+			const bankDetailsCaptured = !!bankDetails && bankDetails?.accountNo !== '';
+			const userGatewayConfigured = userIntegration ? (userIntegration?.payfast && userIntegration?.payfast.length > 0 || userIntegration?.yoco && userIntegration?.yoco.length > 0) : false;
+
+			if (bankDetailsCaptured) {
 				// skip the remaining checks
-			} else if (userIntegration?.payfast.length === 0 && userIntegration?.yoco.length === 0) {
+				console.log('User has bank details. Skipping remaining checks');
+			} else if (userGatewayConfigured) {
+				console.log('User has gateway configured. Skipping remaining checks');
+			} else {
 				return message(form, 'Payment or bank details required', {
 					status: 400
 				});
