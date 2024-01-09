@@ -7,9 +7,8 @@
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	import { getInitials } from '$lib/utils/stringHelpers';
-	import { Status } from '@prisma/client';
 
-	const isPaid = data.pay?.status === Status.PAID;
+	const isPaid = data.pay?.status === 'PAID';
 
 	const integrations: {
 		[key: string]: any;

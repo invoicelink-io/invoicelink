@@ -16,7 +16,7 @@
 	import Dropdown from '$lib/components/Dropdown.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import { Status, type InvoiceStyles } from '@prisma/client';
+	import { type InvoiceStyles } from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
 
@@ -116,7 +116,7 @@
 						type="text"
 						class="input-primary"
 						placeholder="Invoice description"
-						disabled={$form.status === Status.PAID}
+						disabled={$form.status === 'PAID'}
 					/>
 				</span>
 
@@ -125,7 +125,7 @@
 					<Dropdown
 						targetName="templateDropdown"
 						options={templates}
-						disabled={$form.status === Status.PAID}
+						disabled={$form.status === 'PAID'}
 						placeholder={'Select a template'}
 						bind:selected={$form.invoiceStyleId}
 					/>
@@ -137,12 +137,12 @@
 						targetName="clientDropdown"
 						options={clients}
 						placeholder={'Select a client'}
-						disabled={$form.status === Status.PAID}
+						disabled={$form.status === 'PAID'}
 						bind:selected={$form.clientId}
 					/>
 				</span>
 
-				{#if $form.status !== Status.PAID}
+				{#if $form.status !== 'PAID'}
 					<div class="flex w-full gap-2">
 						<button
 							type="button"
