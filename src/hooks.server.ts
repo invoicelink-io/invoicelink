@@ -122,7 +122,7 @@ function isFormContentType(request: Request) {
 }
 
 export const handle: Handle = sequence(
-	csrf(['/login/apple/callback', '/api/payfast/notify']),
+	csrf(['/login/apple/callback', '/api/payfast/notify', '/api/yoco/notify']),
 	authHandle,
 	routeProtectionHandler,
 	themeHandler
