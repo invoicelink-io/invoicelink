@@ -25,10 +25,10 @@
 		/>
 	</span>
 
-	<div class="grid w-full grid-cols-2 gap-2">
+	<div class="grid w-full grid-cols-2 gap-2 sm:grid-cols-1 lg:grid-cols-2">
 		{#each profileTasks as task}
 			{#if !task.complete}
-				<a href={task.link} class="variant-soft-surface btn btn-sm w-max">{task.title}</a>
+				<a href={task.link} class="variant-soft-surface btn btn-sm">{task.title}</a>
 			{/if}
 		{/each}
 	</div>

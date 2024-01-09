@@ -22,6 +22,7 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
+	const userAddressCaptured = !!userProfile?.address[0] && userProfile?.address?.[0]?.line1 !== '';
 	const bankDetailsCaptured =
 		!!userProfile?.bankAccount[0] && userProfile?.bankAccount?.[0]?.accountNo !== '';
 	const userIntegration = userProfile?.integrations[0];
@@ -33,7 +34,7 @@ export const load = (async ({ parent, locals }) => {
 	const profileTasks = [
 		{
 			title: 'Update Address',
-			complete: !!userProfile?.address,
+			complete: userAddressCaptured,
 			link: '/settings#user-address'
 		},
 		{
