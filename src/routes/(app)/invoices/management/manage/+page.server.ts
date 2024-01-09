@@ -44,7 +44,7 @@ export const load = (async ({ parent, locals, url }) => {
 		invoice.user.avatarUrl = user.avatarUrl;
 		invoice.user.vatNumber = user.vatNumber;
 
-		if (user.address) {
+		if (user.address && user.address[0]) {
 			invoice.sendersAddressId = user.address[0].id;
 			invoice.sendersAddress = user.address[0];
 		}
