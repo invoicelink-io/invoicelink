@@ -17,16 +17,19 @@
 
 <div class="grid w-full gap-4 sm:grid-cols-3">
 	{#each data.clients as client}
-		<a href="/clients/manage?id={client.id}" class="card-primary gap-2 p-4">
-			<span class="flex w-full items-center justify-center gap-1 sm:justify-start">
-				<Icon name="user-circle" />
-			</span>
-			<span class="flex w-full flex-col justify-start">
-				<h6 class="h6 w-full text-center sm:text-left">{client.name}</h6>
-				<p class="w-full text-center text-sm font-light sm:text-left">
-					{client.email}
-				</p>
-			</span>
-		</a>
+		<div class="card-primary gap-2 p-4">
+			<div class="flex w-full justify-between">
+				<h6 class="h6 flex w-full items-center gap-2 text-left">
+					{client.name}
+				</h6>
+				<Icon name="user" />
+			</div>
+			<p class="w-full text-left text-xs">
+				{client.email}
+			</p>
+			<div class="flex w-full justify-end">
+				<a href="/clients/manage?id={client.id}" class="variant-soft-surface btn btn-sm">Manage</a>
+			</div>
+		</div>
 	{/each}
 </div>
