@@ -2,7 +2,7 @@
 	"name": "app.invoicelink.io",
 	"description": "The invoicelink core application",
 	"author": "Ratul Maharaj",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --open",
@@ -18,9 +18,13 @@
 		"db:push": "pnpm dlx prisma db push",
 		"db:deploy": "pnpm dlx prisma migrate deploy",
 		"db:seed": "pnpm dlx prisma db seed",
-		"postinstall": "pnpm dlx prisma generate"
+		"postinstall": "pnpm dlx prisma generate",
+		"changelog": "changeset",
+		"changelog:version": "changeset version",
+		"changelog:publish": "changeset publish"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.27.1",
 		"@playwright/test": "^1.40.1",
 		"@skeletonlabs/skeleton": "^2.7.0",
 		"@skeletonlabs/tw-plugin": "^0.3.1",
