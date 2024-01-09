@@ -93,7 +93,7 @@ const csrf =
 			event.request.method === 'POST' &&
 			event.request.headers.get('origin') !== event.url.origin &&
 			isFormContentType(event.request) &&
-			!allowedPaths.includes(event.url.pathname);
+			!allowedPaths.some((path) => event.url.pathname.startsWith(path));
 
 		if (forbidden) {
 			const csrfError = error(
@@ -122,7 +122,7 @@ function isFormContentType(request: Request) {
 }
 
 export const handle: Handle = sequence(
-	csrf(['/login/apple/callback']),
+	csrf(['/login/apple/callback', '/api/payfast/notify']),
 	authHandle,
 	routeProtectionHandler,
 	themeHandler

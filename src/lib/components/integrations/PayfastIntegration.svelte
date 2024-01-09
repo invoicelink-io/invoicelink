@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { isAppleMobile } from '$lib/utils/platform';
-	import { browser } from '$app/environment';
+	import { browser, dev } from '$app/environment';
 	import { page } from '$app/stores';
 	// props
 	export let userId: string;
@@ -14,7 +14,9 @@
 	export let returnUrl: string = $page.url.href;
 	export let cancelUrl: string = $page.url.href;
 	export let notifyUrl: string = `${$page.url.origin}/api/payfast/notify/${userId}`;
-	export let endpoint: string = 'https://www.payfast.co.za/eng/process';
+	export let endpoint: string = dev
+		? 'https://sandbox.payfast.co.za/eng/process'
+		: 'https://www.payfast.co.za/eng/process';
 	export let buttonLabel: string = 'Pay now';
 	export let buttonClass: string = 'variant-filled bg-surface-800 text-surface-50 btn';
 	export let demo = false;

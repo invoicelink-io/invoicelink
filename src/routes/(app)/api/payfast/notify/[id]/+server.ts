@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { dev } from '$app/environment';
 import {
 	pfValidIP,
@@ -10,7 +11,9 @@ import { Status } from '@prisma/client';
 
 export async function POST({ request, url }) {
 	const userId = url.href.split('/').pop();
-	const body = await request.text();
+	const body = await request.formData();
+	// parse the multipart form body
+	// @ts-expect-error
 	const pfData = Object.fromEntries(new URLSearchParams(body));
 	const paymentId = pfData['m_payment_id'];
 	const pfSignature = pfData['signature'];
