@@ -14,7 +14,9 @@
 <PageHeading heading={greeting} />
 
 <div class="grid w-full gap-4 md:grid-cols-3">
-	<div class="card-primary gap-2 p-4">
+	<ProfileCompletion profileTasks={data.profileTasks} />
+
+	<div class="card-primary order-2 gap-2 p-4 sm:order-1">
 		<h6 class="h6 w-full text-left">New Invoice</h6>
 		<p class="w-full text-left text-xs">Create and send a new invoice to a client</p>
 		<div class="flex w-full justify-end">
@@ -22,7 +24,7 @@
 		</div>
 	</div>
 
-	<div class="card-primary gap-2 p-4">
+	<div class="card-primary order-3 gap-2 p-4 sm:order-2">
 		<h6 class="h6 w-full text-left">Add Client</h6>
 		<p class="w-full text-left text-xs">
 			Add client details for a person or business you will be invoicing
@@ -32,7 +34,7 @@
 		</div>
 	</div>
 
-	<div class="card-primary gap-2 p-4">
+	<div class="card-primary order-4 gap-2 p-4 sm:order-3">
 		<h6 class="h6 w-full text-left">Create Template</h6>
 		<p class="w-full text-left text-xs">
 			Configure an invoice template to match your business or personal brand
@@ -42,7 +44,7 @@
 		</div>
 	</div>
 
-	<div class="card-primary gap-2 p-4">
+	<div class="card-primary order-5 gap-2 p-4 sm:order-4">
 		<h6 class="h6 w-full text-left">New Quick Link</h6>
 		<p class="w-full text-left text-xs">
 			Create a quick shareable link to send to clients for quick payments
@@ -51,6 +53,4 @@
 			<a href="/quick-links" class="variant-soft-surface btn btn-sm">Create</a>
 		</div>
 	</div>
-
-	<ProfileCompletion profileTasks={data.profileTasks} />
 </div>

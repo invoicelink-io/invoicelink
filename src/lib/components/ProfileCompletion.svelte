@@ -9,7 +9,7 @@
 	const profileCompletion = profileTasks.filter((task) => task.complete).length;
 </script>
 
-<div class="card-primary gap-2 p-4">
+<div class="card-primary order-1 gap-2 p-4 sm:order-5">
 	<h6 class="h6 w-full text-left">Profile Completion</h6>
 	{#if profileCompletion === profileTasks.length}
 		<p class="w-full text-left text-xs">Your profile is complete</p>
@@ -28,7 +28,7 @@
 	<div class="grid w-full grid-cols-2 gap-2">
 		{#each profileTasks as task}
 			{#if !task.complete}
-				<a href={task.link} class="variant-soft-surface btn btn-sm">{task.title}</a>
+				<a href={task.link} class="variant-soft-surface btn btn-sm w-max">{task.title}</a>
 			{/if}
 		{/each}
 	</div>
