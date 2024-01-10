@@ -90,7 +90,7 @@
 
 		<li>
 			<div class="flex w-full items-center justify-between">
-				<span class="text-xs">Require security</span>
+				<span class="text-xs">Require Signature</span>
 				<SlideToggle
 					size="sm"
 					active="bg-primary-500"
