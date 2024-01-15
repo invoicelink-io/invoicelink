@@ -1,8 +1,14 @@
 // src/hooks.server.ts
 import { lucia } from '$lib/server/auth';
 import { redirect, error, json, text, type Handle } from '@sveltejs/kit';
+import * as Sentry from '@sentry/sveltekit';
 
 import { sequence } from '@sveltejs/kit/hooks';
+
+Sentry.init({
+	dsn: 'https://83a0ee55052968dcb8b31d9fea069608@o4506575806398464.ingest.sentry.io/4506575811903488',
+	tracesSampleRate: 1
+});
 
 // TODO: Remove this if lucia type is updated
 interface CookieAttributes {
@@ -122,8 +128,11 @@ function isFormContentType(request: Request) {
 }
 
 export const handle: Handle = sequence(
+	Sentry.sentryHandle(),
 	csrf(['/login/apple/callback', '/api/payfast/notify', '/api/yoco/notify']),
 	authHandle,
 	routeProtectionHandler,
 	themeHandler
 );
+
+export const handleError = Sentry.handleErrorWithSentry();
