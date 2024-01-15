@@ -99,7 +99,7 @@ export const GET = async ({ url, cookies }) => {
 			return new Response(null, {
 				status: 302,
 				headers: {
-					Location: '/',
+					Location: '/?signedIn=true',
 					'Set-Cookie': sessionCookie.serialize()
 				}
 			});
@@ -128,7 +128,7 @@ export const GET = async ({ url, cookies }) => {
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/',
+				Location: '/?signedIn=true&newUser=true',
 				'Set-Cookie': sessionCookie.serialize()
 			}
 		});

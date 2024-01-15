@@ -38,6 +38,9 @@ dependencies:
   oslo:
     specifier: ^0.27.0
     version: 0.27.0
+  posthog-js:
+    specifier: ^1.98.2
+    version: 1.98.2
   puppeteer:
     specifier: ^21.7.0
     version: 21.7.0(typescript@5.3.3)
@@ -3582,6 +3585,10 @@ packages:
       pend: 1.2.0
     dev: false
 
+  /fflate@0.4.8:
+    resolution: {integrity: sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==}
+    dev: false
+
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -5030,6 +5037,12 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: true
+
+  /posthog-js@1.98.2:
+    resolution: {integrity: sha512-u0N98I81UV/lTQWBbjdqCcacbhPZHmApc8CNsvk1y9/iqHPShoKcbjRvAjtAw5ujD8kiX1GdrmxN3i6erxJBVg==}
+    dependencies:
+      fflate: 0.4.8
+    dev: false
 
   /preferred-pm@3.1.2:
     resolution: {integrity: sha512-nk7dKrcW8hfCZ4H6klWcdRknBOXWzNQByJ0oJyX97BOupsYD+FzLS4hflgEu/uPUEHZCuRfMxzCBsuWd7OzT8Q==}

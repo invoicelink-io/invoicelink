@@ -76,6 +76,7 @@
 		"jwt-decode": "^4.0.0",
 		"lucia": "3.0.0-beta.12",
 		"oslo": "^0.27.0",
+		"posthog-js": "^1.98.2",
 		"puppeteer": "^21.7.0",
 		"svelte-french-toast": "^1.2.0",
 		"tailwind-merge": "^2.2.0",

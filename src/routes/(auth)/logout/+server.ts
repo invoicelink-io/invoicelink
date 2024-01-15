@@ -7,12 +7,12 @@ export const POST: RequestHandler = async ({ cookies }) => {
 	if (sessionId) {
 		session = (await lucia.validateSession(sessionId)).session;
 	}
-	
+
 	if (!session) {
 		return new Response('You are not logged in', {
 			status: 302,
 			headers: {
-				location: '/login?message=You are not logged in'
+				location: '/login?message=You are not logged in&signedOut=true'
 			}
 		});
 	}
@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ cookies }) => {
 	return new Response('You have been logged out', {
 		status: 302,
 		headers: {
-			location: '/login?message=You have been logged out'
+			location: '/login?message=You have been logged out&signedOut=true'
 		}
 	});
 };
