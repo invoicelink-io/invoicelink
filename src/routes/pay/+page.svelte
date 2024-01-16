@@ -37,8 +37,8 @@
 	<!-- open graph tags -->
 	<meta property="og:title" content="Pay now" />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://invoicelink.io" />
-	<meta property="og:image" content="https://invoicelink.io/og-image.png" />
+	<meta property="og:url" content="https://app.invoicelink.io" />
+	<meta property="og:image" content="https://app.invoicelink.io/og-image.png" />
 	<!-- optional open graph tags -->
 	<meta property="og:description" content={`${data.pay?.user.name} is requesting a payment.`} />
 	<meta property="og:site_name" content="InvoiceLink" />
@@ -50,7 +50,7 @@
 	<meta property="twitter:domain" content="invoicelink.io" />
 	<meta name="twitter:title" content="Pay Now" />
 	<meta name="twitter:description" content={`${data.pay?.user.name} is requesting a payment.`} />
-	<meta name="twitter:image" content="https://invoicelink.io/og-image.png" />
+	<meta name="twitter:image" content="https://app.invoicelink.io/og-image.png" />
 </svelte:head>
 
 <div class="flex h-svh w-full flex-col pb-20 text-surface-900">

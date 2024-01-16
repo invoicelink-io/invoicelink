@@ -10,18 +10,19 @@ export const load: PageServerLoad = async ({ url }) => {
 	}
 
 	if (id === 'demo') {
+		const paid = url.searchParams.get('paid');
 		const pay = {
 			id: 'demo',
 			subtotal: 250,
 			tax: 0,
 			total: 250,
-			status: 'PENDING',
+			status: paid === 'true' ? 'PAID' : 'PENDING',
 			yocoCheckoutId: 'demo',
 			user: {
 				id: 'demo',
-				name: 'Demo User',
+				name: 'Invoicelink Demo',
 				email: 'demo@invoicelink.io',
-				avatarUrl: 'https://i.pravatar.cc/300',
+				avatarUrl: '/apple-touch-icon.png',
 				integrations: [
 					{
 						payfast: [

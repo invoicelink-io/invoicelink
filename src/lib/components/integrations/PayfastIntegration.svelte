@@ -23,6 +23,7 @@
 
 	if (demo) {
 		endpoint = 'https://sandbox.payfast.co.za/eng/process';
+		returnUrl = `${$page.url.href}&paid=true`;
 	}
 
 	let testInCurrentWindow = false;
