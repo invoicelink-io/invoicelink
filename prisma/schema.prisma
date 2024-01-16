@@ -242,6 +242,7 @@ model InvoiceStyles {
   issueDateAlign            String
   senderAddressAlign        String
   recipientAddressAlign     String
+  bankDetailsAlign          String    @default("text-right")
   invoiceType               String
   invoiceTypeFontSize       String
   invoiceTypeColor          String

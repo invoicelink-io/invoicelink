@@ -1,5 +1,5 @@
 import type { FullInvoice } from '$lib/types';
-import type { Address, Client, InvoiceStyles, LineItem } from '@prisma/client';
+import type { Address, BankAccount, Client, InvoiceStyles, LineItem } from '@prisma/client';
 
 export const defaultStyles: InvoiceStyles = {
 	id: '',
@@ -14,6 +14,7 @@ export const defaultStyles: InvoiceStyles = {
 	issueDateAlign: 'text-right',
 	senderAddressAlign: 'text-left',
 	recipientAddressAlign: 'text-right',
+	bankDetailsAlign: 'text-right',
 	invoiceType: 'Invoice',
 	invoiceTypeFontSize: 'text-lg',
 	invoiceTypeColor: '#6466f1',
@@ -61,6 +62,18 @@ export const defaultAddress: Address = {
 	userId: ''
 };
 
+export const defaultBankDetails: BankAccount = {
+	id: '',
+	userId: '',
+	bankName: 'Bank Name',
+	accountHolder: 'Account Holder',
+	accountNo: 'Account Number',
+	accountType: 'Account Type',
+	branchCode: 'Branch Code',
+	createdAt: new Date(),
+	updatedAt: new Date()
+};
+
 export const defaultInvoice: FullInvoice = {
 	// base invoice data
 	id: '',
@@ -88,7 +101,7 @@ export const defaultInvoice: FullInvoice = {
 		username: '',
 		avatarUrl: '',
 		vatNumber: '',
-		bankAccount: []
+		bankAccount: [defaultBankDetails]
 	},
 	sendersAddress: {
 		id: '',

@@ -6,29 +6,37 @@
 </script>
 
 {#if data}
-	<div class={twMerge('w-full', align)}>
+	<div class={twMerge('w-full leading-6', align)}>
 		{#if data.accountNo}
 			<span class="font-medium text-gray-900">Bank Details</span>
 		{/if}
 		{#if data.accountHolder}
 			<br />
-			{data.accountHolder}
+			<span>{data.accountHolder}</span>
 		{/if}
 		{#if data.accountNo}
 			<br />
-			{data.accountNo}
+			<span>
+				{data.accountNo}
+			</span>
 		{/if}
 		{#if data.accountType}
 			<br />
-			{data.accountType}
+			<span>
+				{data.accountType}
+			</span>
 		{/if}
 		{#if data.bankName}
 			<br />
-			{data.bankName}
+			<span>
+				{data.bankName}
+			</span>
 		{/if}
 		{#if data.branchCode}
 			<br />
-			{data.branchCode}
+			<span>
+				{data.branchCode}
+			</span>
 		{/if}
 	</div>
 {/if}

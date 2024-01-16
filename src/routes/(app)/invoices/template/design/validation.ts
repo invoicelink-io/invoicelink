@@ -13,6 +13,7 @@ export const schema = z.object({
 	issueDateAlign: z.string(),
 	senderAddressAlign: z.string(),
 	recipientAddressAlign: z.string(),
+	bankDetailsAlign: z.string(),
 	invoiceType: z.string(),
 	invoiceTypeFontSize: z.string(),
 	invoiceTypeColor: z.string(),

@@ -10,6 +10,7 @@
 	import Logo from '$lib/components/invoice/Logo.svelte';
 	import type { InvoiceStyles } from '@prisma/client';
 	import type { FullInvoice } from '$lib/types';
+	import Banking from './invoice/Banking.svelte';
 
 	export let editable: boolean = false;
 	export let styles: InvoiceStyles;
@@ -97,5 +98,11 @@
 			<Spacer divider={'hidden'} spacing={styles.baseSpacing} color={styles.baseDividerColor} />
 			<Total invoiceType={styles.invoiceType} {data} />
 		</table>
+		<Spacer
+			divider={styles.baseDivider}
+			spacing={styles.baseSpacing}
+			color={styles.baseDividerColor}
+		/>
+		<Banking data={data.user.bankAccount[0]} align={styles.bankDetailsAlign} />
 	</div>
 </div>

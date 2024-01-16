@@ -14,6 +14,8 @@ export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCo
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','email','username','avatarUrl','vatNumber']);
 
+export const RelationLoadStrategySchema = z.enum(['query','join']);
+
 export const LastUsedSerialScalarFieldEnumSchema = z.enum(['id','serial','type','userId']);
 
 export const AddressScalarFieldEnumSchema = z.enum(['id','line1','line2','line3','postalCode','userId']);
@@ -42,7 +44,7 @@ export const LineItemScalarFieldEnumSchema = z.enum(['id','createdAt','updatedAt
 
 export const ClientScalarFieldEnumSchema = z.enum(['id','createdAt','updatedAt','userId','name','vatNumber','email','phone','addressId']);
 
-export const InvoiceStylesScalarFieldEnumSchema = z.enum(['id','name','createdAt','updatedAt','userId','baseFontSize','baseSpacing','baseDivider','baseDividerColor','issueDateAlign','senderAddressAlign','recipientAddressAlign','invoiceType','invoiceTypeFontSize','invoiceTypeColor','invoiceTypeCasing','columnHeadingSize','columnHeadingColor','columnHeadingCasing','columnHeadingDivider','columnHeadingDividerColor','lineItemDivider','lineItemDividerColor','logoAlt','logoSrc','previewSrc']);
+export const InvoiceStylesScalarFieldEnumSchema = z.enum(['id','name','createdAt','updatedAt','userId','baseFontSize','baseSpacing','baseDivider','baseDividerColor','issueDateAlign','senderAddressAlign','recipientAddressAlign','bankDetailsAlign','invoiceType','invoiceTypeFontSize','invoiceTypeColor','invoiceTypeCasing','columnHeadingSize','columnHeadingColor','columnHeadingCasing','columnHeadingDivider','columnHeadingDividerColor','lineItemDivider','lineItemDividerColor','logoAlt','logoSrc','previewSrc']);
 
 export const SortOrderSchema = z.enum(['asc','desc']);
 
@@ -563,6 +565,7 @@ export const InvoiceStylesSchema = z.object({
   issueDateAlign: z.string(),
   senderAddressAlign: z.string(),
   recipientAddressAlign: z.string(),
+  bankDetailsAlign: z.string(),
   invoiceType: z.string(),
   invoiceTypeFontSize: z.string(),
   invoiceTypeColor: z.string(),

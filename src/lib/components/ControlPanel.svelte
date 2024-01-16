@@ -78,6 +78,10 @@
 		<p class="text-left text-xs font-normal">Line items</p>
 		<Divider bind:divider={form.lineItemDivider} />
 	</div>
+	<div class="mb-4 flex w-full flex-col items-start justify-start gap-2">
+		<p class="text-left text-xs font-normal">Bank Details</p>
+		<Justify disableCenter bind:align={form.bankDetailsAlign} />
+	</div>
 	<form method="POST" class="flex justify-end gap-x-2" action="?/create" use:enhance>
 		{#each formKeys as key}
 			<input type="hidden" name={key} value={form[key]} />
