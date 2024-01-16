@@ -35,19 +35,19 @@
 	<meta name="description" content={`${data.pay?.user.name} is requesting a payment.`} />
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<!-- open graph tags -->
-	<meta property="og:title" content="Pay now" />
+	<meta property="og:title" content="Pay Now" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://app.invoicelink.io" />
+	<meta property="og:description" content={`${data.pay?.user.name} is requesting a payment.`} />
 	<meta property="og:image" content="https://app.invoicelink.io/og-image.png" />
 	<!-- optional open graph tags -->
-	<meta property="og:description" content={`${data.pay?.user.name} is requesting a payment.`} />
-	<meta property="og:site_name" content="InvoiceLink" />
+	<meta property="og:site_name" content="invoicelink" />
 	<meta property="og:locale" content="en_ZA" />
 	<meta property="og:image:width" content="1200" />
 	<meta property="og:image:height" content="630" />
 	<!-- twitter content -->
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta property="twitter:domain" content="invoicelink.io" />
+	<meta property="twitter:domain" content="app.invoicelink.io" />
 	<meta name="twitter:title" content="Pay Now" />
 	<meta name="twitter:description" content={`${data.pay?.user.name} is requesting a payment.`} />
 	<meta name="twitter:image" content="https://app.invoicelink.io/og-image.png" />
