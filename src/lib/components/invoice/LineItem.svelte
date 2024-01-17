@@ -11,18 +11,20 @@
 	export let amount: number = 10;
 </script>
 
-<tr class="group" style="border-bottom: 1px {divider} {dividerColor}">
-	<td class="max-w-0 py-2 align-top">
+<div
+	class="group grid grid-cols-3 items-center gap-x-4 sm:grid-cols-4"
+	style="border-bottom: 1px {divider} {dividerColor}"
+>
+	<div class="w-full py-2 sm:col-span-2">
 		<input
-			class={twMerge('input-invoice w-full text-left', lineItemFontSize, 'w-60 hover:w-60')}
+			class={twMerge('input-invoice w-full text-left', lineItemFontSize)}
 			type="text"
 			placeholder="Description"
 			disabled={!editable}
 			bind:value={description}
 		/>
-	</td>
-	<td class="hidden py-2 pl-8 pr-0 text-right align-top tabular-nums sm:table-cell"></td>
-	<td class="hidden py-2 pl-8 pr-0 text-right align-top tabular-nums sm:table-cell">
+	</div>
+	<div class="py-2 text-right tabular-nums">
 		<input
 			class={twMerge('input-invoice text-right', lineItemFontSize)}
 			type="number"
@@ -31,8 +33,8 @@
 			placeholder="Quantity"
 			bind:value={quantity}
 		/>
-	</td>
-	<td class="table-cell py-2 pl-8 pr-0 text-right align-top tabular-nums group-hover:hidden">
+	</div>
+	<div class="py-2 text-right tabular-nums group-hover:hidden">
 		<input
 			class={twMerge('input-invoice text-right', lineItemFontSize)}
 			type="text"
@@ -41,8 +43,8 @@
 				currency: 'ZAR'
 			})}
 		/>
-	</td>
-	<td class="hidden py-2 pl-8 pr-0 text-right align-top tabular-nums group-hover:table-cell">
+	</div>
+	<div class="hidden py-2 text-right tabular-nums group-hover:table-cell">
 		<input
 			class={twMerge('input-invoice text-right', lineItemFontSize)}
 			type="number"
@@ -52,5 +54,5 @@
 			disabled={!editable}
 			bind:value={amount}
 		/>
-	</td>
-</tr>
+	</div>
+</div>

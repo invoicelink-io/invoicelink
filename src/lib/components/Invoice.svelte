@@ -35,7 +35,7 @@
 	id="invoice_template"
 	class={twMerge('bg-surface-50-900-token h-max w-full flex-grow rounded-lg', styles.baseFontSize)}
 >
-	<div class="w-full p-10">
+	<div class="w-full p-4 sm:p-10">
 		<div class="flex justify-between leading-6">
 			<Logo data={{ alt: styles.logoAlt, src: styles.logoSrc ?? undefined }} />
 			<Heading
@@ -74,7 +74,7 @@
 			spacing={styles.baseSpacing}
 			color={styles.baseDividerColor}
 		/>
-		<table class="w-full whitespace-nowrap text-left leading-6">
+		<div id="table" class="whitespace-nowrap text-left leading-6">
 			<ColumnHeadings
 				size={styles.columnHeadingSize}
 				color={styles.columnHeadingColor}
@@ -82,7 +82,7 @@
 				casing={styles.columnHeadingCasing}
 				dividerColor={styles.baseDividerColor}
 			/>
-			<tbody>
+			<div id="table-body" class="flex w-full flex-col">
 				{#each data.lineItems as lineItem}
 					<LineItem
 						{editable}
@@ -94,10 +94,10 @@
 						lineItemFontSize={styles.baseFontSize}
 					/>
 				{/each}
-			</tbody>
+			</div>
 			<Spacer divider={'hidden'} spacing={styles.baseSpacing} color={styles.baseDividerColor} />
 			<Total invoiceType={styles.invoiceType} {data} />
-		</table>
+		</div>
 		<Spacer
 			divider={styles.baseDivider}
 			spacing={styles.baseSpacing}

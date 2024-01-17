@@ -7,23 +7,16 @@
 	export let dividerColor = '#e5e7eb';
 </script>
 
-<thead style="border-bottom: 1px {divider} {dividerColor};">
-	<tr>
-		<th scope="col" class={twMerge('px-0 py-3 font-semibold', size, casing)} style="color: {color};"
-			>Description</th
+<div id="table-header" style="border-bottom: 1px {divider} {dividerColor};">
+	<div class="grid grid-cols-3 sm:grid-cols-4">
+		<span class={twMerge('py-3 font-semibold sm:col-span-2', size, casing)} style="color: {color};"
+			>Description</span
 		>
-		<th scope="col" class="hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell" />
-		<th
-			scope="col"
-			class={twMerge('hidden py-3 pl-8 pr-0 text-right font-semibold sm:table-cell', size, casing)}
-			style="color: {color};"
-		>
+		<span class={twMerge('py-3 text-right font-semibold', size, casing)} style="color: {color};">
 			Quantity
-		</th>
-		<th
-			scope="col"
-			class={twMerge('py-3 pl-8 pr-0 text-right font-semibold', size, casing)}
-			style="color: {color};">Amount</th
+		</span>
+		<span class={twMerge('py-3 text-right font-semibold', size, casing)} style="color: {color};"
+			>Amount</span
 		>
-	</tr>
-</thead>
+	</div>
+</div>

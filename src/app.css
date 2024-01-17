@@ -101,7 +101,7 @@
 	}
 
 	.input-invoice {
-		@apply hover:input-primary-invoice focus:input-primary-invoice m-0 w-36 border-none bg-transparent px-0 text-sm tabular-nums transition-all hover:w-36 hover:px-2 focus:w-36;
+		@apply hover:input-primary-invoice focus:input-primary-invoice m-0 w-full truncate border-none bg-transparent px-0 text-sm tabular-nums transition-all hover:px-2 focus:px-2;
 	}
 
 	.card-primary {

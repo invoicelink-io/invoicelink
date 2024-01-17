@@ -5,39 +5,27 @@
 	export let invoiceType: string = 'Invoice';
 </script>
 
-<tfoot>
-	<tr>
-		<th scope="row" class="px-0 pb-0 pt-6 font-normal sm:hidden">Subtotal</th>
-		<th scope="row" colspan="3" class="hidden px-0 pb-0 pt-6 text-right font-normal sm:table-cell"
-			>Subtotal</th
-		>
-		<td class="pb-0 pl-8 pr-0 pt-6 text-right tabular-nums"
+<div id="table-footer" class="grid grid-cols-3 sm:grid-cols-4">
+	<div class="col-span-2 flex flex-col items-end gap-y-2 sm:col-span-3">
+		<span class="font-normal">Subtotal</span>
+		<span class="font-normal">{invoiceType === 'VAT Invoice' ? `VAT` : `Tax`}</span>
+		<span class="font-semibold">Total</span>
+	</div>
+	<div class="flex flex-col gap-y-2">
+		<span class="truncate text-right tabular-nums"
 			>{data?.subtotal.toLocaleString('en-ZA', {
 				style: 'currency',
 				currency: 'ZAR'
-			})}</td
+			})}</span
 		>
-	</tr>
-	<tr>
-		<th scope="row" class="pt-4 font-normal sm:hidden"
-			>{invoiceType === 'VAT Invoice' ? `VAT` : `Tax`}</th
+		<span class="truncate text-right tabular-nums"
+			>{data?.tax.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' })}</span
 		>
-		<th scope="row" colspan="3" class="hidden pt-4 text-right font-normal sm:table-cell"
-			>{invoiceType === 'VAT Invoice' ? `VAT` : `Tax`}</th
-		>
-		<td class="pb-0 pl-8 pr-0 pt-4 text-right tabular-nums"
-			>{data?.tax.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' })}</td
-		>
-	</tr>
-	<tr>
-		<th scope="row" class="pt-4 font-semibold sm:hidden">Total</th>
-		<th scope="row" colspan="3" class="hidden pt-4 text-right font-semibold sm:table-cell">Total</th
-		>
-		<td class="pb-0 pl-8 pr-0 pt-4 text-right font-semibold tabular-nums"
+		<span class="truncate text-right font-semibold tabular-nums"
 			>{data?.total.toLocaleString('en-ZA', {
 				style: 'currency',
 				currency: 'ZAR'
-			})}</td
+			})}</span
 		>
-	</tr>
-</tfoot>
+	</div>
+</div>
