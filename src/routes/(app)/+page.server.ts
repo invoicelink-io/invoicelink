@@ -33,17 +33,17 @@ export const load = (async ({ parent, locals }) => {
 
 	const profileTasks = [
 		{
-			title: 'Update Address',
+			title: 'Address',
 			complete: userAddressCaptured,
 			link: '/settings#user-address'
 		},
 		{
-			title: 'Configure Gateway',
+			title: 'Payment Gateway',
 			complete: userGatewayConfigured,
 			link: '/settings/gateway'
 		},
 		{
-			title: 'Add Banking Details',
+			title: 'Banking Details',
 			complete: bankDetailsCaptured,
 			link: '/settings#banking-details'
 		}
