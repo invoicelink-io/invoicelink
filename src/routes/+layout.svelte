@@ -5,15 +5,25 @@
 	import posthog from 'posthog-js';
 	import { Toaster, type ToastOptions } from 'svelte-french-toast';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-	import { initializeStores, Modal, type ModalComponent } from '@skeletonlabs/skeleton';
+	import {
+		storePopup,
+		initializeStores,
+		Modal,
+		Drawer,
+		getDrawerStore
+	} from '@skeletonlabs/skeleton';
+	import type { ModalComponent } from '@skeletonlabs/skeleton';
+	import ModalDeleteConfirm from '$lib/components/ui/modals/ModalDeleteConfirm.svelte';
+	import { browser } from '$app/environment';
+	import FirstStep from '$lib/components/tour/FirstStep.svelte';
+	import SecondStep from '$lib/components/tour/SecondStep.svelte';
+	import ThirdStep from '$lib/components/tour/ThirdStep.svelte';
+	import FourthStep from '$lib/components/tour/FourthStep.svelte';
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	initializeStores();
-
-	import ModalDeleteConfirm from '$lib/components/ui/modals/ModalDeleteConfirm.svelte';
-	import { browser } from '$app/environment';
+	const drawerStore = getDrawerStore();
 
 	const modalRegistry: Record<string, ModalComponent> = {
 		ModalDeleteConfirm: { ref: ModalDeleteConfirm }
@@ -100,5 +110,26 @@
 	buttonNeutral="btn btn-sm variant-soft-surface"
 	components={modalRegistry}
 />
+<Drawer
+	bgDrawer="bg-surface-50-900-token text-surface-900-50-token max-w-3xl sm:mx-auto"
+	bgBackdrop="bg-gradient-to-br from-[#984EF0]/50 via-primary-500/50 to-[#3976EA]/50 z-[500]"
+	border="border border-surface-200-700-token"
+	padding="p-4"
+	position="bottom"
+	rounded="rounded-xl"
+	regionDrawer="text-center text-sm sm:text-base p-4 sm:p-8 flex flex-col gap-y-4 h-max"
+>
+	{#if $drawerStore.id === 'tour-1'}
+		<FirstStep />
+	{:else if $drawerStore.id === 'tour-2'}
+		<SecondStep />
+	{:else if $drawerStore.id === 'tour-3'}
+		<ThirdStep />
+	{:else if $drawerStore.id === 'tour-4'}
+		<FourthStep />
+	{:else}
+		Nothing to show. Tour complete.
+	{/if}
+</Drawer>
 <slot />
 <Toaster {toastOptions} />

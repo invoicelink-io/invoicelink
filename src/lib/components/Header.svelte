@@ -10,9 +10,11 @@
 	import Navigation from './Navigation.svelte';
 	import Icon from './Icon.svelte';
 
-	import { popup } from '@skeletonlabs/skeleton';
+	import { popup, getDrawerStore } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import { Avatar } from '@skeletonlabs/skeleton';
+
+	const drawerStore = getDrawerStore();
 
 	const profileMenu: PopupSettings = {
 		event: 'click',
@@ -33,7 +35,7 @@
 			<div class="hidden h-full items-center sm:flex">Personal Account</div>
 		</div>
 		<div class="flex items-center">
-			<button class="btn ml-2" use:popup={profileMenu}>
+			<button class="btn ml-2 mr-0 pr-0" use:popup={profileMenu}>
 				<Avatar src={avatarUrl} initials={getInitials(name)} width="w-8" rounded="rounded-lg" />
 			</button>
 			<div class="card w-max p-3 shadow-xl" data-popup="profileMenu">
@@ -49,6 +51,18 @@
 				<a class="variant-soft-surface btn btn-sm mb-2 w-full justify-between" href="/settings">
 					<span>Settings</span>
 					<Icon name="settings" />
+				</a>
+				<a
+					class="variant-soft-surface btn btn-sm mb-2 w-full justify-between"
+					href="/?tour=1"
+					on:click={() => {
+						drawerStore.open({
+							id: 'tour-1'
+						});
+					}}
+				>
+					<span>Take tour</span>
+					<Icon name="rocket-launch" />
 				</a>
 				<form class="m-0 h-auto w-full p-0" method="POST" action="/logout">
 					<button class="variant-soft-surface btn btn-sm w-full justify-between" type="submit">

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import PageHeading from '$lib/components/PageHeading.svelte';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	import { page } from '$app/stores';
 	const settingsPages = [
 		{
 			name: 'General',
@@ -10,6 +12,17 @@
 			href: '/settings/gateway'
 		}
 	];
+	// check if tour is present in query params
+	const params = $page.url.searchParams;
+	const tour = params.get('tour');
+
+	const drawerStore = getDrawerStore();
+	if (tour && tour === '2') {
+		drawerStore.open({
+			id: 'tour-2',
+			position: 'top'
+		});
+	}
 </script>
 
 <PageHeading heading="Settings" />

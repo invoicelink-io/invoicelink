@@ -1,13 +1,26 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	import { page } from '$app/stores';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	const drawerStore = getDrawerStore();
 
 	const name = data.user?.name || data?.user?.username;
 	let greeting = 'Welcome back';
 	if (name && name?.trim() !== '') {
 		greeting += `, ${name.trim().split(' ').at(0)}`;
+	}
+
+	// check if tour is present in query params
+	const params = $page.url.searchParams;
+	const tour = params.get('tour');
+
+	if (tour && tour === '1') {
+		drawerStore.open({
+			id: 'tour-1'
+		});
 	}
 </script>
 

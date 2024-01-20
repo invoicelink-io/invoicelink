@@ -5,7 +5,7 @@
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Icon from '$lib/components/Icon.svelte';
-	import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { getModalStore, getDrawerStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { formatTimeAgo } from '$lib/utils/time';
 	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
@@ -57,6 +57,17 @@
 			}
 		}
 	};
+
+	// check if tour is present in query params
+	const params = $page.url.searchParams;
+	const tour = params.get('tour');
+
+	const drawerStore = getDrawerStore();
+	if (tour && tour === '4') {
+		drawerStore.open({
+			id: 'tour-4'
+		});
+	}
 </script>
 
 <PageHeading heading="Quick Links" />

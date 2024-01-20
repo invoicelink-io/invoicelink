@@ -152,7 +152,7 @@ export const POST = async ({ request }) => {
 			return new Response(null, {
 				status: 302,
 				headers: {
-					Location: '/?signedIn=true&newUser=true',
+					Location: '/?signedIn=true&newUser=true&tour=1',
 					'Set-Cookie': sessionCookie.serialize()
 				}
 			});

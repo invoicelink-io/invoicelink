@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	import { page } from '$app/stores';
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
 
 	const gateways = [
 		{
@@ -12,6 +14,17 @@
 			href: '/settings/gateway/yoco'
 		}
 	];
+
+	// check if tour is present in query params
+	const params = $page.url.searchParams;
+	const tour = params.get('tour');
+
+	const drawerStore = getDrawerStore();
+	if (tour && tour === '3') {
+		drawerStore.open({
+			id: 'tour-3'
+		});
+	}
 </script>
 
 <h2 class="text-base font-normal">Payment Integration</h2>
