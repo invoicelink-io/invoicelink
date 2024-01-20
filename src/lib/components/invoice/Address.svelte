@@ -7,7 +7,7 @@
 </script>
 
 <div class={twMerge('w-full', align)}>
-	<span class="font-medium text-gray-900">{name}</span>
+	<span class="font-medium text-gray-900 dark:text-white">{name}</span>
 	<br />
 	{data.line1}
 	<br />

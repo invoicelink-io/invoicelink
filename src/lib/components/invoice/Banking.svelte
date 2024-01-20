@@ -8,7 +8,7 @@
 {#if data}
 	<div class={twMerge('w-full leading-6', align)}>
 		{#if data.accountNo}
-			<span class="font-medium text-gray-900">Bank Details</span>
+			<span class="font-medium text-gray-900 dark:text-white">Bank Details</span>
 		{/if}
 		{#if data.accountHolder}
 			<br />

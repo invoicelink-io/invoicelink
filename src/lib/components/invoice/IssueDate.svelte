@@ -5,8 +5,8 @@
 </script>
 
 <div class={twMerge('inline', align)}>
-	<div class="inline text-gray-500">Issued on</div>
-	<div class="inline text-gray-700">
+	<div class="inline text-gray-500 dark:text-white">Issued on</div>
+	<div class="inline text-gray-700 dark:text-white">
 		<time datetime={date.toDateString()}
 			>{date.toLocaleDateString('en-ZA', {
 				month: 'long',
