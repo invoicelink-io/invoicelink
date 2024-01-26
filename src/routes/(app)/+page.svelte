@@ -5,12 +5,17 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	import { getFirstWord } from '$lib/utils/stringHelpers';
 	const drawerStore = getDrawerStore();
 
+	// get user's first name
 	const name = data.user?.name || data?.user?.username;
+	const firstname = getFirstWord(name ?? '');
+
+	// set greeting
 	let greeting = 'Welcome back';
-	if (name && name?.trim() !== '') {
-		greeting += `, ${name.trim().split(' ').at(0)}`;
+	if (firstname != '') {
+		greeting += `, ${firstname}`;
 	}
 
 	// check if tour is present in query params

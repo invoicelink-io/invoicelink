@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { getInitials, capitalizeFirstLetter, pad } from './stringHelpers';
+import { getInitials, capitalizeFirstLetter, pad, getFirstWord } from './stringHelpers';
 
 test('Get initials from names', () => {
 	expect(getInitials(`John Mayer`)).toBe('JM');
@@ -45,4 +45,11 @@ test('Pad string before with empty pad character', () => {
 
 test('Pad string after with empty pad character', () => {
 	expect(pad('hello', '', 10, false)).toBe('hello');
+});
+
+test('Get first word from string', () => {
+	expect(getFirstWord('Hello World')).toBe('Hello');
+	expect(getFirstWord('   Hello   World   ')).toBe('Hello');
+	expect(getFirstWord('Hello')).toBe('Hello');
+	expect(getFirstWord('')).toBe('');
 });

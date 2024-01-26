@@ -21,3 +21,9 @@ export function pad(stringToPad: string, padCharacter: string, finalLength = 5, 
 	const padString = padCharacter.repeat(padLength);
 	return before ? `${padString}${stringToPad}`.trim() : `${stringToPad}${padString}`.trim();
 }
+
+export function getFirstWord(string: string) {
+	// trim any whitespace
+	const words = String(string).trim().split(' ');
+	return words[0];
+}
