@@ -14,7 +14,8 @@
 		on:click={() => {
 			// open the drawer
 			drawerStore.open({
-				id: `tour-${tour}`
+				id: `tour-${tour}`,
+				position: tour === '2' ? 'top' : 'bottom'
 			});
 		}}>🚀</button
 	>

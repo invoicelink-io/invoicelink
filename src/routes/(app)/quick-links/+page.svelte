@@ -74,7 +74,6 @@
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:gap-x-8">
 	<section>
-		<h2 class="mb-4 w-full text-center">Create a new link</h2>
 		<form
 			name="create-quick-link"
 			class="flex w-full flex-col"

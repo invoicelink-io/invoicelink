@@ -16,6 +16,7 @@
 <p>
 	If not, or if you're unsure about how what this means, consider <a
 		class="underline"
+		target="_blank"
 		href="https://docs.invoicelink.io/guides/payfast-integration/"
 		>reading our guide on how to create a merchant account and setup up an integration.</a
 	>
