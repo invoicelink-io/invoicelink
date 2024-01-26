@@ -1,7 +1,8 @@
 // src/routes/+layout.js
 import posthog from 'posthog-js';
 import { browser } from '$app/environment';
-import { PUBLIC_POSTHOG_API_KEY } from '$env/static/public';
+import { env } from '$env/dynamic/public';
+const { PUBLIC_POSTHOG_API_KEY } = env;
 
 export const load = async () => {
 	if (browser) {
