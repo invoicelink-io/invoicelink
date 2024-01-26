@@ -7,7 +7,7 @@ export default defineConfig({
 		sentrySvelteKit({
 			sourceMapsUploadOptions: {
 				org: 'invoicelinkio',
-				project: 'javascript-sveltekit'
+				project: 'invoicelink-app'
 			}
 		}),
 		sveltekit()
