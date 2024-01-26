@@ -1,6 +1,8 @@
 import { json } from '@sveltejs/kit';
 import puppeteer from 'puppeteer';
-import { BROWSERLESS_API_TOKEN, NODE_ENV } from '$env/static/private';
+import { NODE_ENV } from '$env/static/private';
+import { env } from '$env/dynamic/private';
+const { BROWSERLESS_API_TOKEN } = env;
 
 const getBrowser = () =>
 	NODE_ENV === 'production'

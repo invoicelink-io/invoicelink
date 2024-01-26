@@ -3,7 +3,8 @@ import { PrismaAdapter } from '@lucia-auth/adapter-prisma';
 import { dev } from '$app/environment';
 import { prisma as client } from '$lib/server/prisma';
 import { GitHub, Google, Apple, type AppleCredentials } from 'arctic';
-import {
+import { env } from '$env/dynamic/private';
+const {
 	GITHUB_CLIENT_ID,
 	GITHUB_CLIENT_SECRET,
 	GOOGLE_REDIRECT_URI,
@@ -14,7 +15,7 @@ import {
 	APPLE_TEAM_ID,
 	APPLE_CERTIFICATE,
 	APPLE_REDIRECT_URI
-} from '$env/static/private';
+} = env;
 
 const adapter = new PrismaAdapter(client.session, client.user);
 
