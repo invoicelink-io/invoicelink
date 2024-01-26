@@ -5,13 +5,13 @@ import { BROWSERLESS_API_TOKEN, NODE_ENV } from '$env/static/private';
 const getBrowser = () =>
 	NODE_ENV === 'production'
 		? // Connect to browserless so we don't run Chrome on the same hardware in production
-		  puppeteer.connect({
+			puppeteer.connect({
 				browserWSEndpoint: `wss://chrome.browserless.io?token=${BROWSERLESS_API_TOKEN}`
-		  })
+			})
 		: // Run the browser locally while in development
-		  puppeteer.launch({
+			puppeteer.launch({
 				headless: 'new'
-		  });
+			});
 
 export async function GET({ url }) {
 	const origin = url.origin;

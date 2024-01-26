@@ -9,5 +9,5 @@
 >
 	<h1 class="h4 w-full text-left">{heading}</h1>
 	<slot />
-	<ResumeTourButton  />
+	<ResumeTourButton />
 </div>

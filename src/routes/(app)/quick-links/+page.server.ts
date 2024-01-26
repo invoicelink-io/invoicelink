@@ -95,7 +95,10 @@ export const actions: Actions = {
 
 			// Check the user has an active integration or bank details
 			const bankDetailsCaptured = !!bankDetails && bankDetails?.accountNo !== '';
-			const userGatewayConfigured = userIntegration ? (userIntegration?.payfast && userIntegration?.payfast.length > 0 || userIntegration?.yoco && userIntegration?.yoco.length > 0) : false;
+			const userGatewayConfigured = userIntegration
+				? (userIntegration?.payfast && userIntegration?.payfast.length > 0) ||
+					(userIntegration?.yoco && userIntegration?.yoco.length > 0)
+				: false;
 
 			if (bankDetailsCaptured) {
 				// skip the remaining checks
