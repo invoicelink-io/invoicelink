@@ -4,13 +4,6 @@ generator client {
   binaryTargets   = ["native", "linux-musl"]
 }
 
-generator zod {
-  provider                  = "pnpm dlx zod-prisma-types"
-  output                    = "../src/lib/zod"
-  createInputTypes          = false
-  createRelationValuesTypes = true
-}
-
 datasource db {
   provider  = "postgresql"
   url       = env("POSTGRES_PRISMA_URL")

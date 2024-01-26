@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { StatusSchema } from '$lib/zod';
+const StatusSchema = z.enum(['PENDING', 'PAID', 'EXPIRED', 'OVERDUE']);
 
 export const schema = z.object({
 	id: z.string(),
