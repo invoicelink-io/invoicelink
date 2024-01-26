@@ -79,8 +79,7 @@
 
 		function onIdle() {
 			if (!widget) {
-				// @ts-expect-error
-				widget = window.cloudinary.createUploadWidget(cldOptions, cldCallback);
+				widget = window?.cloudinary?.createUploadWidget(cldOptions, cldCallback);
 			}
 		}
 
@@ -93,10 +92,6 @@
 		}
 	}
 </script>
-
-<svelte:head>
-	<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-</svelte:head>
 
 <button class="variant-filled btn btn-sm" on:click|preventDefault={handleClick}>
 	Upload image

@@ -11,6 +11,19 @@ declare global {
 		// interface Platform {}
 	}
 
+	interface Window {
+		// Cloudinary types
+		cloudinary: {
+			createUploadWidget: (
+				cldOptions,
+				cldCallback
+			) => {
+				open: () => void;
+				close: () => void;
+			};
+		};
+	}
+
 	// eslint-disable-next-line no-var
 	var prisma: import('@prisma/client').PrismaClient;
 }

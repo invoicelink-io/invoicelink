@@ -6,6 +6,7 @@
 
 <svelte:head>
 	<title>{$page.data.title ?? `invoicelink.io`}</title>
+	<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
 </svelte:head>
 
 <svelte:window
