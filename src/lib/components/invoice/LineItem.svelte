@@ -38,10 +38,16 @@
 		<input
 			class={twMerge('input-invoice text-right', lineItemFontSize)}
 			type="text"
-			value={amount.toLocaleString('en-ZA', {
-				style: 'currency',
-				currency: 'ZAR'
-			})}
+			placeholder="Amount"
+			value={amount
+				? amount.toLocaleString('en-ZA', {
+						style: 'currency',
+						currency: 'ZAR'
+					})
+				: Number(0).toLocaleString('en-ZA', {
+						style: 'currency',
+						currency: 'ZAR'
+					})}
 		/>
 	</div>
 	<div class="hidden py-2 text-right tabular-nums group-hover:table-cell">
@@ -50,7 +56,7 @@
 			type="number"
 			step="0.01"
 			min="1"
-			placeholder="Quantity"
+			placeholder="Amount"
 			disabled={!editable}
 			bind:value={amount}
 		/>
