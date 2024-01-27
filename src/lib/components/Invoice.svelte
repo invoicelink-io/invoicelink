@@ -50,7 +50,7 @@
 		</div>
 		<Spacer divider={'hidden'} spacing={styles.baseSpacing} color={styles.baseDividerColor} />
 		<div class="grid grid-cols-1 leading-6">
-			<IssueDate align={styles.issueDateAlign} date={new Date()} />
+			<IssueDate align={styles.issueDateAlign} date={data.issueDate} />
 			<Spacer
 				divider={styles.baseDivider}
 				spacing={styles.baseSpacing}
