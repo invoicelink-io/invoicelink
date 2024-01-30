@@ -1,6 +1,7 @@
 import { lucia, googleAuth } from '$lib/server/auth';
 import { OAuth2RequestError, type GoogleTokens } from 'arctic';
 import { prisma } from '$lib/server/prisma';
+import { addUserToMailingList } from '$lib/utils/signup';
 
 export const GET = async ({ url, cookies }) => {
 	const stateCookie = cookies.get('google_oauth_state') ?? null;
@@ -86,6 +87,12 @@ export const GET = async ({ url, cookies }) => {
 					}
 				}
 			}
+		});
+
+		// add user to mailing list
+		await addUserToMailingList({
+			email: googleUser.email,
+			name: googleUser.name
 		});
 
 		// create session

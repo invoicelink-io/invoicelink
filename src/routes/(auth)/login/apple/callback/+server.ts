@@ -3,6 +3,7 @@ import { OAuth2RequestError, type AppleTokens } from 'arctic';
 import { prisma } from '$lib/server/prisma';
 import type { OauthAccount, User } from '@prisma/client';
 import { jwtDecode } from 'jwt-decode';
+import { addUserToMailingList } from '$lib/utils/signup';
 
 export const POST = async ({ request }) => {
 	const formData = await request.formData();
@@ -143,6 +144,12 @@ export const POST = async ({ request }) => {
 						}
 					}
 				}
+			});
+
+			// add user to mailing list
+			await addUserToMailingList({
+				email: appleUser.email,
+				name: appleUser.name
 			});
 
 			// create session

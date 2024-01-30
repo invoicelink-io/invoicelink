@@ -2,6 +2,7 @@ import { lucia, githubAuth } from '$lib/server/auth';
 import { OAuth2RequestError, type GitHubTokens } from 'arctic';
 import { prisma } from '$lib/server/prisma';
 import type { OauthAccount, User } from '@prisma/client';
+import { addUserToMailingList } from '$lib/utils/signup';
 
 export const GET = async ({ url, cookies }) => {
 	const stateCookie = cookies.get('github_oauth_state') ?? null;
@@ -119,6 +120,12 @@ export const GET = async ({ url, cookies }) => {
 					}
 				}
 			}
+		});
+
+		// add user to mailing list
+		await addUserToMailingList({
+			email: githubUser.email,
+			name: githubUser.name
 		});
 
 		// create session
