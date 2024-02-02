@@ -6,14 +6,10 @@
 	export let align = 'text-left';
 </script>
 
-<div class={twMerge('w-full', align)}>
+<div class={twMerge('flex w-full flex-col leading-5', align)}>
 	<span class="font-medium text-gray-900 dark:text-white">{name}</span>
-	<br />
-	{data.line1}
-	<br />
-	{data.line2 ?? ''}
-	<br />
-	{data.line3 ?? ''}
-	<br />
-	{data.postalCode}
+	<span>{data.line1}</span>
+	<span>{data.line2 ?? ''}</span>
+	<span>{data.line3 ?? ''}</span>
+	<span>{data.postalCode}</span>
 </div>
