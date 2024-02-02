@@ -12,7 +12,7 @@
 			<img class="object-contain" alt={data.alt} src={data.src} />
 		</div>
 	{:else}
-		<h2 class="h4 font-medium">
+		<h2 class="h5 font-medium">
 			{data.alt}
 		</h2>
 	{/if}
