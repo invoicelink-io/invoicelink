@@ -39,16 +39,15 @@ export const lucia = new Lucia(adapter, {
 declare module 'lucia' {
 	interface Register {
 		Lucia: typeof lucia;
+		DatabaseUserAttributes: DatabaseUserAttributes;
 	}
-	// interface DatabaseSessionAttributes {
-	// 	country: string;
-	// }
-	interface DatabaseUserAttributes {
-		name: string;
-		email: string;
-		avatarUrl: string;
-		username: string;
-	}
+}
+
+interface DatabaseUserAttributes {
+	name: string;
+	email: string;
+	avatarUrl: string;
+	username: string;
 }
 
 // OAuth providers
