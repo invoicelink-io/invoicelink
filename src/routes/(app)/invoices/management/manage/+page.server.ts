@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { defaultInvoice } from '$lib/utils/defaults';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { createCheckout } from '$lib/utils/yoco';
 import { SerialType } from '@prisma/client';
 import { getNextSerial } from '$lib/utils/serialNumbers';
@@ -80,14 +81,14 @@ export const load = (async ({ parent, locals, url }) => {
 		}
 	}
 
-	const form = await superValidate(invoice, schema);
+	const form = await superValidate(invoice, zod(schema));
 	return { user, form, title: 'Invoice templates' };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid invoice');
@@ -238,7 +239,7 @@ export const actions: Actions = {
 	},
 	delete: async ({ request, locals }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid invoice');
@@ -264,7 +265,7 @@ export const actions: Actions = {
 		}
 	},
 	update: async ({ request, url, locals }) => {
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid invoice');

@@ -27,6 +27,7 @@
 	invoice.client.address = displayAddress;
 
 	const { form, message, enhance } = superForm(data.form, {
+		resetForm: false,
 		onSubmit: ({ action }) => {
 			if (action.search.includes('?/delete')) {
 				submitting = 'delete';

@@ -1,12 +1,13 @@
 import type { PageServerLoad, Actions } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { profileSchema, addressSchema, bankSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { user } = locals;
-	const profileForm = await superValidate(user, profileSchema);
+	const profileForm = await superValidate(user, zod(profileSchema));
 
 	const dbAddress = await prisma.address.findFirst({
 		where: {
@@ -30,7 +31,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 		});
 	}
 
-	const addressForm = await superValidate(address, addressSchema);
+	const addressForm = await superValidate(address, zod(addressSchema));
 
 	const dbBank = await prisma.bankAccount.findFirst({
 		where: {
@@ -57,7 +58,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 		});
 	}
 
-	const bankingForm = await superValidate(bank, bankSchema);
+	const bankingForm = await superValidate(bank, zod(bankSchema));
 
 	return {
 		user,
@@ -72,7 +73,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 export const actions: Actions = {
 	updateProfile: async ({ request, locals }) => {
 		const { user } = locals;
-		const profileForm = await superValidate(request, profileSchema);
+		const profileForm = await superValidate(request, zod(profileSchema));
 
 		if (!profileForm.valid) {
 			return message(profileForm, 'Invalid profile');
@@ -91,7 +92,7 @@ export const actions: Actions = {
 	},
 	updateAddress: async ({ request, locals }) => {
 		const { user } = locals;
-		const addressForm = await superValidate(request, addressSchema);
+		const addressForm = await superValidate(request, zod(addressSchema));
 
 		if (!addressForm.valid) {
 			return message(addressForm, 'Invalid address');
@@ -110,7 +111,7 @@ export const actions: Actions = {
 	},
 	updateBank: async ({ request, locals }) => {
 		const { user } = locals;
-		const bankForm = await superValidate(request, bankSchema);
+		const bankForm = await superValidate(request, zod(bankSchema));
 
 		if (!bankForm.valid) {
 			return message(bankForm, 'Invalid banking details');

@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { schema } from './validation';
 import { superValidate, message } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -17,7 +18,7 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
-	const form = await superValidate(userIntegrations?.payfast[0], schema);
+	const form = await superValidate(userIntegrations?.payfast[0], zod(schema));
 
 	return {
 		user,
@@ -29,7 +30,7 @@ export const load = (async ({ parent, locals }) => {
 export const actions: Actions = {
 	create: async ({ request, locals }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid integration details');
@@ -89,7 +90,7 @@ export const actions: Actions = {
 		}
 	},
 	delete: async ({ request }) => {
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		if (form.data.id) {
 			try {
 				await prisma.payfast.delete({
@@ -112,7 +113,7 @@ export const actions: Actions = {
 		}
 	},
 	update: async ({ request }) => {
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
 			return message(form, 'Invalid integration details');
 		}

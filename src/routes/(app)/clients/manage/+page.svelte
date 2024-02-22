@@ -10,6 +10,7 @@
 	let submitting: 'create' | 'update' | 'delete' | null = null;
 
 	const { form, enhance, message } = superForm(data.form, {
+		resetForm: false,
 		onSubmit: ({ action }) => {
 			if (action.search.includes('?/delete')) {
 				submitting = 'delete';

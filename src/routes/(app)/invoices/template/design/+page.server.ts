@@ -2,6 +2,7 @@ import { prisma } from '$lib/server/prisma';
 import type { InvoiceStyles } from '@prisma/client';
 import type { PageServerLoad, Actions } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from './validation';
 import { defaultStyles } from '$lib/utils/defaults';
 import { v2 as cloudinary } from 'cloudinary';
@@ -32,7 +33,7 @@ export const load = (async ({ parent, locals, url }) => {
 		}
 	}
 
-	const form = await superValidate(styles, schema);
+	const form = await superValidate(styles, zod(schema));
 
 	return { user, form, title: 'Design Template' };
 }) satisfies PageServerLoad;
@@ -40,7 +41,7 @@ export const load = (async ({ parent, locals, url }) => {
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
 			if (form.errors.name) {
 				return message(form, 'Longer template name required');
@@ -84,7 +85,7 @@ export const actions: Actions = {
 	},
 	update: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
 			if (form.errors.name) {
 				return message(form, 'Longer template name required');
@@ -133,7 +134,7 @@ export const actions: Actions = {
 	},
 	delete: async ({ request, locals }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (user?.id) {
 			await prisma.invoiceStyles.delete({

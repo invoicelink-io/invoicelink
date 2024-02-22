@@ -1,5 +1,6 @@
 import { schema } from './validation';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad, Actions } from './$types';
 import { defaultAddress, defaultClient } from '$lib/utils/defaults';
 import { prisma } from '$lib/server/prisma';
@@ -43,7 +44,7 @@ export const load = (async ({ parent, locals, url }) => {
 		}
 	}
 
-	const form = await superValidate(client, schema);
+	const form = await superValidate(client, zod(schema));
 
 	return { session, user, form, title: 'Clients' };
 }) satisfies PageServerLoad;
@@ -51,7 +52,7 @@ export const load = (async ({ parent, locals, url }) => {
 export const actions: Actions = {
 	create: async ({ locals, request }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid contact details');
@@ -96,7 +97,7 @@ export const actions: Actions = {
 	},
 	update: async ({ locals, request }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid contact details');
@@ -138,7 +139,7 @@ export const actions: Actions = {
 		}
 	},
 	delete: async ({ request }) => {
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		const clientId = form.data.id;
 		const clientAddressId = form.data.addressId;
 

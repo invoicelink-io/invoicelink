@@ -27,6 +27,7 @@
 	};
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
+		resetForm: false,
 		onUpdated: ({ form }) => {
 			if (form.valid) {
 				toast.success($message);

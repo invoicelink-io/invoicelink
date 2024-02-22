@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { schema } from './validation';
 import { superValidate, message } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters'; 
 import { deleteAllWebhooks, registerWebhook } from '$lib/utils/yoco';
 
 export const load = (async ({ parent, locals }) => {
@@ -18,7 +19,7 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
-	const form = await superValidate(userIntegrations?.yoco[0], schema);
+	const form = await superValidate(userIntegrations?.yoco[0], zod(schema));
 
 	return {
 		user,
@@ -30,7 +31,7 @@ export const load = (async ({ parent, locals }) => {
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid integration details');
@@ -100,7 +101,7 @@ export const actions: Actions = {
 		}
 	},
 	delete: async ({ request }) => {
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		if (form.data.id) {
 			try {
 				await prisma.yoco.delete({
@@ -126,7 +127,7 @@ export const actions: Actions = {
 	},
 	update: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
 			return message(form, 'Invalid integration details');
 		}

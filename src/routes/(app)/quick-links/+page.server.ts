@@ -1,5 +1,6 @@
 import type { Actions, PageServerLoad } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 import { schema, deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 import { SerialType } from '@prisma/client';
@@ -33,8 +34,8 @@ export const load = (async ({ parent, locals }) => {
 			: initializeSerialNumber(SerialType.QUICK_LINK);
 	}
 
-	const form = await superValidate(quickLink, schema);
-	const deleteForm = await superValidate({ id: '' }, deleteSchema);
+	const form = await superValidate(quickLink, zod(schema));
+	const deleteForm = await superValidate({ id: '' }, zod(deleteSchema));
 
 	const links = await prisma.quickLink.findMany({
 		where: {
@@ -51,7 +52,7 @@ export const load = (async ({ parent, locals }) => {
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, schema);
+		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid quick link');
@@ -199,7 +200,7 @@ export const actions: Actions = {
 		}
 	},
 	delete: async ({ request, url }) => {
-		const deleteForm = await superValidate(request, deleteSchema);
+		const deleteForm = await superValidate(request, zod(deleteSchema));
 		const quickLinkId = url.searchParams.get('id');
 		if (quickLinkId) {
 			try {

@@ -13,6 +13,7 @@
 	import Badge from '$lib/components/Badge.svelte';
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
+		resetForm: false,
 		onUpdated: ({ form }) => {
 			if (form.valid) {
 				toast.success($message);
@@ -26,6 +27,7 @@
 	});
 
 	const { message: deleteMessage } = superForm(data.deleteForm, {
+		resetForm: false,
 		onUpdated: ({ form }) => {
 			if (form.valid) {
 				toast.success($deleteMessage);

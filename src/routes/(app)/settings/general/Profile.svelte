@@ -4,6 +4,7 @@
 	import toast from 'svelte-french-toast';
 
 	const { form, enhance, message, submitting } = superForm($page.data.profileForm, {
+		resetForm: false,
 		onUpdated: ({ form }) => {
 			if (form.valid) {
 				toast.success($message);
