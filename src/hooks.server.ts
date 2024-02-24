@@ -2,11 +2,12 @@
 import { lucia } from '$lib/server/auth';
 import { redirect, error, json, text, type Handle } from '@sveltejs/kit';
 import * as Sentry from '@sentry/sveltekit';
-
+import { env } from '$env/dynamic/public';
+const { PUBLIC_SENTRY_DSN } = env;
 import { sequence } from '@sveltejs/kit/hooks';
 
 Sentry.init({
-	dsn: 'https://83a0ee55052968dcb8b31d9fea069608@o4506575806398464.ingest.sentry.io/4506575811903488',
+	dsn: PUBLIC_SENTRY_DSN,
 	tracesSampleRate: 1
 });
 
