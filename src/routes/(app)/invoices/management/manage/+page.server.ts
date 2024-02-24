@@ -82,7 +82,7 @@ export const load = (async ({ parent, locals, url }) => {
 	}
 
 	const form = await superValidate(invoice, zod(schema));
-	return { user, form, title: 'Invoice templates' };
+	return { user, form, title: 'Invoice management' };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -147,6 +147,7 @@ export const actions: Actions = {
 
 			// create the invoice
 			if (user?.id) {
+				console.log(form.data)
 				let invoice = await prisma.invoice.create({
 					data: {
 						issueDate: form.data.issueDate,
