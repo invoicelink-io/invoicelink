@@ -2,4 +2,4 @@
 "app.invoicelink.io": minor
 ---
 
-- Upgrade application auth system
+- Improved stability of authentication system
