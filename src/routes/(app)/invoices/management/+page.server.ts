@@ -17,5 +17,5 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
-	return { user, invoices, title: 'Invoices' };
+	return { user, invoices, title: 'Invoice management' };
 }) satisfies PageServerLoad;
