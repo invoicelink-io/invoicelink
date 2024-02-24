@@ -116,6 +116,7 @@
 						name="description"
 						type="text"
 						class="input-primary"
+						bind:value={$form.description}
 						placeholder="Invoice description"
 						disabled={$form.status === 'PAID'}
 					/>
