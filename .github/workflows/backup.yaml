@@ -9,7 +9,7 @@ jobs:
   scheduled:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Get current date
         id: date
@@ -24,7 +24,7 @@ jobs:
           options: '-Fc -v -O'
 
       - name: Archive artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: invoicelink-db-backup
           retention-days: 90

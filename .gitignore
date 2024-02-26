@@ -13,3 +13,4 @@ vite.config.ts.timestamp-*
 test-results/
 # Sentry Config File
 .sentryclirc
+*.bak
