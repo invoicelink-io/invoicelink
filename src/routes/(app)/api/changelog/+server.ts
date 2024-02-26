@@ -1,7 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary';
 import { json } from '@sveltejs/kit';
 import fs from 'fs';
-
 
 export async function GET() {
 	// read in the contents of the changelog file
