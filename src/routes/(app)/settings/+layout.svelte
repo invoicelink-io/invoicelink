@@ -2,7 +2,8 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
-	const settingsPages = [
+
+	let settingsPages = [
 		{
 			name: 'General',
 			href: '/settings'
@@ -12,6 +13,7 @@
 			href: '/settings/gateway'
 		}
 	];
+
 	// check if tour is present in query params
 	const params = $page.url.searchParams;
 	const tour = params.get('tour');
@@ -36,7 +38,8 @@
 					<li>
 						<a
 							{href}
-							class="group flex w-full items-center justify-start gap-2 rounded-lg bg-transparent p-2 text-left text-sm font-medium hover:bg-surface-100-800-token"
+							class:active={$page.url.pathname.toLowerCase() === href}
+							class="group flex w-full items-center justify-start gap-2 rounded-lg bg-transparent p-2 text-left text-xs font-medium hover:bg-surface-100-800-token sm:text-sm"
 						>
 							{name}
 						</a>
@@ -49,3 +52,9 @@
 		<slot />
 	</section>
 </div>
+
+<style lang="postcss">
+	a.active {
+		@apply bg-surface-100-800-token;
+	}
+</style>
