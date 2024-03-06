@@ -58,6 +58,10 @@
 		margin: 0;
 	}
 
+	.dark input[type='date'] {
+		color-scheme: dark;
+	}
+
 	* {
 		@apply font-wide font-normal;
 	}

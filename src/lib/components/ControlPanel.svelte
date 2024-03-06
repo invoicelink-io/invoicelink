@@ -57,7 +57,7 @@
 
 	<div class="mb-4 flex w-full flex-col items-start justify-start gap-2">
 		<p class="text-left text-xs font-normal">Issue Date</p>
-		<Justify bind:align={form.issueDateAlign} />
+		<Justify disableCenter bind:align={form.issueDateAlign} />
 	</div>
 	<div class="mb-4 flex w-full flex-col items-start justify-start gap-2">
 		<p class="text-left text-xs font-normal">Sender Address</p>
