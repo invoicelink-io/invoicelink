@@ -2,7 +2,7 @@
 	"name": "app.invoicelink.io",
 	"description": "The invoicelink core application",
 	"author": "Ratul Maharaj",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --open",

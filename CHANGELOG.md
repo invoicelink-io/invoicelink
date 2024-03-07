@@ -1,6 +1,15 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+## 1.1.0
+
+### Minor Changes
+
+- Make issue date on invoices editable.
+- Improve consistency of button loading styles.
+- Improved stability of authentication system.
+- Make settings menu buttons more visible.
+- Fixed bug causing invoice description to go missing on created and paid invoices.
+- Improved page titles.
 
 ## 1.0.0
 
