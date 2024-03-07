@@ -8,6 +8,7 @@
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
+	import Button from '$lib/components/Button.svelte';
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',
@@ -134,14 +135,24 @@
 					on:click|preventDefault={() => modalStore.trigger(modal)}
 					>{$submitting ? `Deleting` : `Delete`}</button
 				>
-				<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/update"
-					>{$submitting ? `Updating` : `Update`}</button
-				>
+				<Button
+					formaction="?/update"
+					label="Update"
+					loadingLabel="Updating"
+					loading={$submitting}
+					type="submit"
+					variant="variant-filled-primary"
+				/>
 			</span>
 		{:else}
-			<button type="submit" class="variant-filled-primary btn btn-sm" formaction="?/create"
-				>{$submitting ? `Saving` : `Save`}</button
-			>
+			<Button
+				formaction="?/create"
+				label="Save"
+				loadingLabel="Saving"
+				loading={$submitting}
+				type="submit"
+				variant="variant-filled-primary"
+			/>
 		{/if}
 	</div>
 </form>

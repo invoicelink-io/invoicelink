@@ -11,6 +11,7 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Empty from '$lib/components/Empty.svelte';
 	import Badge from '$lib/components/Badge.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		resetForm: false,
@@ -114,9 +115,15 @@
 				bind:value={$form.description}
 				required
 			/>
-			<button type="submit" class="variant-filled-primary btn btn-sm mt-4 w-max self-end"
-				>{$submitting ? `Busy` : `Create`}</button
-			>
+			<span class="flex w-full justify-end pt-4">
+				<Button
+					formaction="?/create"
+					variant="variant-filled-primary"
+					loading={$submitting}
+					label="Create"
+					loadingLabel="Creating"
+				/>
+			</span>
 		</form>
 	</section>
 	<section
