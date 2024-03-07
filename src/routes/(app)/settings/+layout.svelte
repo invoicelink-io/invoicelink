@@ -54,7 +54,7 @@
 </div>
 
 <style lang="postcss">
-	a.active {
-		@apply bg-surface-100-800-token;
+	.active {
+		@apply variant-filled-primary;
 	}
 </style>
