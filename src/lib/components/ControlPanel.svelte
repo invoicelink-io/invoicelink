@@ -14,6 +14,7 @@
 	import Spacing from './radioGroups/Spacing.svelte';
 	import Divider from './radioGroups/Divider.svelte';
 	import ImageUpload from '$lib/components/ImageUpload.svelte';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
 <aside id="invoice_controls" class="flex w-full flex-col gap-2 px-2">
@@ -87,33 +88,31 @@
 			<input type="hidden" name={key} value={form[key]} />
 		{/each}
 		{#if form.id}
-			<button
-				type="submit"
+			<Button
 				formaction="?/delete"
-				class="variant-filled-error btn btn-sm w-full gap-2"
-			>
-				{#if submitting === 'delete'}
-					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
-				{/if}
-				{submitting === 'delete' ? `Deleting` : `Delete`}
-			</button>
-			<button
-				type="submit"
+				variant="variant-filled-error"
+				width="w-full"
+				loading={submitting === 'delete'}
+				label="Delete"
+				loadingLabel="Deleting"
+			/>
+			<Button
 				formaction="?/update"
-				class="variant-filled-primary btn btn-sm w-full gap-2"
-			>
-				{#if submitting === 'update'}
-					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
-				{/if}
-				{submitting === 'update' ? `Updating` : `Update`}
-			</button>
+				variant="variant-filled-primary"
+				width="w-full"
+				loading={submitting === 'update'}
+				label="Update"
+				loadingLabel="Updating"
+			/>
 		{:else}
-			<button type="submit" class="variant-filled-primary btn btn-sm w-full gap-2">
-				{#if submitting === 'create'}
-					<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
-				{/if}
-				{submitting === 'create' ? `Saving` : `Save`}
-			</button>
+			<Button
+				formaction="?/create"
+				variant="variant-filled-primary"
+				width="w-full"
+				loading={submitting === 'create'}
+				label="Create"
+				loadingLabel="Creating"
+			/>
 		{/if}
 	</form>
 </aside>

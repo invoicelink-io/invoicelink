@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
+	import Button from '$lib/components/Button.svelte';
 
 	const { form, enhance, message, submitting } = superForm($page.data.addressForm, {
 		resetForm: false,
@@ -74,8 +75,13 @@
 		</li>
 	</ul>
 	<div class="flex justify-end py-4">
-		<button disabled={$submitting} type="submit" class="variant-filled-primary btn btn-sm"
-			>{$submitting ? `Updating` : `Update`}</button
-		>
+		<Button
+			formaction="?/updateAddress"
+			label="Update"
+			loadingLabel="Updating"
+			loading={$submitting}
+			type="submit"
+			variant="variant-filled-primary"
+		/>
 	</div>
 </form>
