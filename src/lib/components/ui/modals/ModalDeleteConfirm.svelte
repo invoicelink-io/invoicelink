@@ -17,8 +17,10 @@
 			<button
 				class="{parent.buttonPositive} variant-filled-error"
 				on:click={() => {
-					if ($modalStore[0].response) $modalStore[0].response(true);
-					modalStore.close();
+					if ($modalStore[0].response) {
+						$modalStore[0].response(true);
+						modalStore.close();
+					}
 				}}>Delete</button
 			>
 		</div>

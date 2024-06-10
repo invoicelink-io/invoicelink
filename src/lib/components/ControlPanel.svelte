@@ -5,7 +5,6 @@
 	export let submitting: 'create' | 'update' | 'delete' | null;
 	const formKeys = Object.keys(form) as (keyof typeof form)[];
 
-	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import InvoiceType from '$lib/components/radioGroups/InvoiceType.svelte';
 	import Size from '$lib/components/radioGroups/Size.svelte';
 	import Justify from '$lib/components/radioGroups/Justify.svelte';

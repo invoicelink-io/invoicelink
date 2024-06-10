@@ -12,7 +12,6 @@ export async function POST({ request }) {
 	return json(public_id);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const uploadImage = async (imagePath: string) => {
 	try {
 		// Upload the image

@@ -2,7 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { schema } from './validation';
 import { superValidate, message } from 'sveltekit-superforms/server';
-import { zod } from 'sveltekit-superforms/adapters'; 
+import { zod } from 'sveltekit-superforms/adapters';
 import { deleteAllWebhooks, registerWebhook } from '$lib/utils/yoco';
 
 export const load = (async ({ parent, locals }) => {

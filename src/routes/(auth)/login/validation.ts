@@ -16,6 +16,7 @@ export function validateSignupForm(data: loginFormData): null | {
 		return null;
 	} catch (err: any) {
 		const { fieldErrors: errors } = err.flatten();
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { password, ...rest } = data;
 
 		// extract the first error message for each field
