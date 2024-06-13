@@ -6,20 +6,17 @@
 	import Invoice from '$lib/components/Invoice.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 
-	import { RangeSlider } from '@skeletonlabs/skeleton';
 	import {
 		defaultAddress,
 		defaultClient,
 		defaultLineItem,
 		defaultStyles
 	} from '$lib/utils/defaults';
-	import Dropdown from '$lib/components/Dropdown.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import { type InvoiceStyles } from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
-
 	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Badge from '$lib/components/Badge.svelte';
@@ -77,7 +74,7 @@
 	}
 </script>
 
-<PageHeading heading="{$form.id === '' ? `New` : `Manage`} Invoice">
+<PageHeading>
 	{#if $form.id}
 		<div class="flex items-center justify-start gap-2">
 			<Badge status={$form.status} />
@@ -108,47 +105,66 @@
 		>
 			<Invoice {styles} bind:data={$form} editable />
 		</div>
-		<div class="hide-scrollbar min-w-[25%] pb-8 lg:overflow-y-scroll lg:pb-0">
-			<form method="post" class="relative flex flex-col gap-y-4" action="?/create" use:enhance>
-				<span>
-					<label class="label-primary" for="description">Description</label>
-					<input
-						name="description"
-						type="text"
-						class="input-primary"
-						bind:value={$form.description}
-						placeholder="Invoice description"
-						disabled={$form.status === 'PAID'}
-					/>
-				</span>
+		<div class="hide-scrollbar min-w-[25%] p-2 pb-8 lg:overflow-y-scroll lg:pb-0">
+			<form method="post" class="relative flex flex-col gap-y-2" action="?/create" use:enhance>
+				<input
+					name="description"
+					type="text"
+					class="input-primary"
+					bind:value={$form.description}
+					placeholder="Invoice description"
+					disabled={$form.status === 'PAID'}
+				/>
 
-				<span>
-					<label class="label-primary" for="templates">Template</label>
-					<Dropdown
-						targetName="templateDropdown"
-						options={templates}
-						disabled={$form.status === 'PAID'}
-						placeholder={'Select a template'}
-						bind:selected={$form.invoiceStyleId}
-					/>
-				</span>
+				<details class="dropdown w-full">
+					<summary class="btn btn-block m-1">Select a template</summary>
+					<ul class="menu dropdown-content z-[1] w-full rounded-box bg-base-100 p-2 shadow">
+						{#if templates.length === 0}
+							<li>
+								<p>No templates found</p>
+							</li>
+						{:else}
+							{#each templates as template}
+								<li>
+									<button
+										type="button"
+										on:click={() => {
+											$form.invoiceStyleId = template.value;
+										}}>{template.label}</button
+									>
+								</li>
+							{/each}
+						{/if}
+					</ul>
+				</details>
 
-				<span>
-					<label class="label-primary" for="clients">Client</label>
-					<Dropdown
-						targetName="clientDropdown"
-						options={clients}
-						placeholder={'Select a client'}
-						disabled={$form.status === 'PAID'}
-						bind:selected={$form.clientId}
-					/>
-				</span>
+				<details class="dropdown w-full">
+					<summary class="btn btn-block m-1">Select a client</summary>
+					<ul class="menu dropdown-content z-[1] w-full rounded-box bg-base-100 p-2 shadow">
+						{#if clients.length === 0}
+							<li>
+								<p>No clients found</p>
+							</li>
+						{:else}
+							{#each clients as client}
+								<li>
+									<button
+										type="button"
+										on:click={() => {
+											$form.clientId = client.value;
+										}}>{client.label}</button
+									>
+								</li>
+							{/each}
+						{/if}
+					</ul>
+				</details>
 
 				{#if $form.status !== 'PAID'}
-					<div class="flex w-full gap-2">
+					<div class="flex w-full flex-col justify-between gap-y-2">
 						<button
 							type="button"
-							class="variant-soft-surface btn btn-sm w-full"
+							class="btn btn-sm btn-block"
 							on:click={() => {
 								if ($form.lineItems.length > 0) {
 									// delete the last item
@@ -163,39 +179,46 @@
 							on:click={() => {
 								$form.lineItems = [...$form.lineItems, { ...defaultLineItem }];
 							}}
-							class="variant-soft-surface btn btn-sm w-full">Add line item</button
+							class="btn btn-sm btn-block">Add line item</button
 						>
 					</div>
 
-					<RangeSlider name="range-slider" bind:value={$form.taxPercentage} max={100} step={1}>
-						<div class="flex items-center justify-between">
-							<div class="label text-xs">Tax</div>
-							<div class="text-xs">{$form.taxPercentage}%</div>
+					<label class="form-control w-full max-w-xs">
+						<div class="label">
+							<span class="label-text-alt">Tax</span>
+							<span class="label-text-alt">{$form.taxPercentage}%</span>
 						</div>
-					</RangeSlider>
+						<input
+							type="range"
+							min="0"
+							max="100"
+							bind:value={$form.taxPercentage}
+							class="range range-accent range-xs"
+						/>
+					</label>
 
-					<div class="flex w-full gap-2">
+					<div class="flex w-full flex-col gap-2">
 						{#if $form.id}
 							<Button
-								formaction="?/delete"
-								variant="variant-filled-error"
-								loading={submitting === 'delete'}
-								label="Delete"
-								loadingLabel="Deleting"
-								width="w-full"
-							/>
-							<Button
 								formaction="?/update"
-								variant="variant-filled-primary"
+								variant="btn-primary"
 								loading={submitting === 'update'}
 								label="Update"
 								loadingLabel="Updating"
 								width="w-full"
 							/>
+							<Button
+								formaction="?/delete"
+								variant="btn-error"
+								loading={submitting === 'delete'}
+								label="Delete"
+								loadingLabel="Deleting"
+								width="w-full"
+							/>
 						{:else}
 							<Button
 								formaction="?/create"
-								variant="variant-filled-primary"
+								variant="btn-primary"
 								loading={submitting === 'create'}
 								label="Create"
 								loadingLabel="Creating"

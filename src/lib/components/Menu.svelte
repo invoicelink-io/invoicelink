@@ -1,0 +1,49 @@
+<script>
+	import { page } from '$app/stores';
+	import { getInitials } from '$lib/utils/stringHelpers';
+	const user = $page.data.user;
+	const avatarUrl = user?.avatarUrl;
+	const name = user?.name || user?.username || 'No name';
+	const email = user?.email;
+
+	import Icon from './Icon.svelte';
+	import Avatar from './Avatar.svelte';
+	import ThemeSelector from './ThemeSelector.svelte';
+
+	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	const drawerStore = getDrawerStore();
+</script>
+
+<div class="dropdown dropdown-end">
+	<div tabindex="0" role="button">
+		<Avatar {avatarUrl} placeholder={getInitials(name)} />
+	</div>
+	<form method="POST">
+		<ul class="menu dropdown-content z-10 w-64 rounded-box bg-base-200 p-4 shadow">
+			<div class="py-2">
+				<div class="flex flex-row justify-between">
+					<span class="font-medium">{name}</span>
+					<span class="badge badge-accent badge-outline text-xs">Pro</span>
+				</div>
+				{#if email}
+					<p class="text-left text-xs">{email}</p>
+				{/if}
+			</div>
+			<hr class="my-4 border border-base-300" />
+			<li>
+				<a class="w-full justify-between" href="/settings">
+					<span>Settings</span>
+					<Icon name="settings" />
+				</a>
+			</li>
+			<li>
+				<button formaction="/logout" class="w-full justify-between" type="submit">
+					<span>Logout</span>
+					<Icon name="logout" />
+				</button>
+			</li>
+			<hr class="my-4 border border-base-300" />
+			<li><ThemeSelector /></li>
+		</ul>
+	</form>
+</div>

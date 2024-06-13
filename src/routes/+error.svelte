@@ -17,5 +17,5 @@
 		{$page.status} - {$page.error?.message}
 	</p>
 	<br />
-	<a href="/" class="variant-soft-surface btn btn-sm">Back Home</a>
+	<a href="/" class="btn btn-sm">Back Home</a>
 </div>

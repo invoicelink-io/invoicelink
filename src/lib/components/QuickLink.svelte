@@ -17,8 +17,9 @@
 </script>
 
 <div
+	data-theme="light"
 	id="invoice_template"
-	class={twMerge('bg-surface-50-900-token h-max w-full flex-grow rounded-lg', styles.baseFontSize)}
+	class={twMerge('h-max w-full flex-grow rounded-lg bg-base-100', styles.baseFontSize)}
 >
 	<div class="w-full p-10">
 		<div class="flex justify-between leading-6">

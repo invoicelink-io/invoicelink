@@ -1,60 +1,34 @@
 <script lang="ts">
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
-
-	let settingsPages = [
-		{
-			name: 'General',
-			href: '/settings'
-		},
-		{
-			name: 'Payment Gateway',
-			href: '/settings/gateway'
-		}
-	];
-
-	// check if tour is present in query params
-	const params = $page.url.searchParams;
-	const tour = params.get('tour');
-
-	const drawerStore = getDrawerStore();
-	if (tour && tour === '2') {
-		drawerStore.open({
-			id: 'tour-2',
-			position: 'top'
-		});
-	}
 </script>
 
-<PageHeading heading="Settings" />
+<PageHeading />
 <div class="-mt-8 flex w-full flex-col gap-4 md:mt-0 md:flex-row">
-	<aside
-		class="no-scrollbar border-surface-100-800-token flex overflow-x-scroll border-b py-4 md:block md:w-64 md:flex-none md:border-0"
-	>
-		<nav class="no-scrollbar flex-none overflow-x-scroll">
-			<ul role="list" class="flex gap-x-3 gap-y-1 whitespace-nowrap md:flex-col">
-				{#each settingsPages as { name, href }}
-					<li>
-						<a
-							{href}
-							class:active={$page.url.pathname.toLowerCase() === href}
-							class="group flex w-full items-center justify-start gap-2 rounded-lg bg-transparent p-2 text-left text-xs font-medium hover:bg-surface-100-800-token sm:text-sm"
-						>
-							{name}
-						</a>
-					</li>
-				{/each}
+	<ul class="menu rounded-box bg-base-200 lg:min-w-max">
+		<li>
+			<a href="/settings/general">General</a>
+			<ul>
+				<li>
+					<a href="/settings/general">Profile</a>
+				</li>
+				<li>
+					<a href="/settings/general/invoicing">Invoicing</a>
+				</li>
 			</ul>
-		</nav>
-	</aside>
-	<section class="w-full py-4 lg:flex-auto">
+		</li>
+		<li>
+			<a href="/settings/gateway">Payment Gateway</a>
+			<ul>
+				<li>
+					<a href="/settings/gateway/payfast">Payfast</a>
+				</li>
+				<li>
+					<a href="/settings/gateway/yoco">Yoco</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<section class="w-full sm:px-4 lg:flex-auto">
 		<slot />
 	</section>
 </div>
-
-<style lang="postcss">
-	.active {
-		@apply variant-filled-primary;
-	}
-</style>

@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import type { PageData } from './$types';
+	export let data: PageData;
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/settings/Divider.svelte';
 
-	const { form, enhance, message, submitting } = superForm($page.data.profileForm, {
+	const { form, enhance, message, submitting } = superForm(data.profileForm, {
 		resetForm: false,
 		onUpdated: ({ form }) => {
 			if (form.valid) {
@@ -19,24 +21,23 @@
 	});
 </script>
 
-<h2 class="text-base font-normal">Profile</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">Update your profile information</p>
+<Divider>Update your profile information</Divider>
 
-<form method="POST" action="?/updateProfile" use:enhance>
+<form id="profile-settings" method="POST" action="?/updateProfile" use:enhance>
 	<ul role="list" class="settings-list">
 		<li>
-			<label for="name" class="label-primary">Full Name</label>
-			<input
-				name="name"
-				type="text"
-				class="input-primary max-w-xl"
-				required
-				bind:value={$form.name}
-			/>
+			<label for="name" class="label-primary">Name</label>
+			<input name="name" type="text" class="input-primary" required bind:value={$form.name} />
 		</li>
 		<li>
 			<label for="email" class="label-primary">Email</label>
-			<input name="email" type="text" class="input-primary max-w-xl" value={$form.email} readonly />
+			<input
+				name="email"
+				type="text"
+				class="input input-md input-bordered input-disabled w-full max-w-lg"
+				bind:value={$form.email}
+				readonly
+			/>
 		</li>
 	</ul>
 	<div class="flex justify-end py-4">
@@ -46,7 +47,7 @@
 			loadingLabel="Updating"
 			loading={$submitting}
 			type="submit"
-			variant="variant-filled-primary"
+			variant="btn-primary"
 		/>
 	</div>
 </form>

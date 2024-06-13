@@ -7,8 +7,8 @@
 	import Badge from '$lib/components/Badge.svelte';
 </script>
 
-<PageHeading heading="Invoice Management">
-	<a href="/invoices/management/manage" class="variant-filled-primary btn btn-sm">New Invoice</a>
+<PageHeading>
+	<a href="/invoices/management/manage" class="btn btn-accent btn-sm text-xs">New Invoice</a>
 </PageHeading>
 
 {#if data.invoices.length === 0}
@@ -17,9 +17,9 @@
 
 <div class="grid w-full gap-4 sm:grid-cols-3">
 	{#each data.invoices as invoice}
-		<a class="card-primary gap-2 p-4" href="/invoices/management/manage?id={invoice.id}">
+		<a class="card card-bordered gap-2 p-4" href="/invoices/management/manage?id={invoice.id}">
 			<div class="flex w-full items-center justify-between">
-				<h6 class="h6">{invoice.client.name}</h6>
+				<h2 class="card-title">{invoice.client.name}</h2>
 				<Badge status={invoice.status} />
 			</div>
 			<hr />

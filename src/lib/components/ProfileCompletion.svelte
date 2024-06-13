@@ -1,35 +1,21 @@
 <script lang="ts">
-	import { ProgressBar } from '@skeletonlabs/skeleton';
-
 	export let profileTasks: {
 		title: string;
 		link: string;
 		complete: boolean;
 	}[];
-	const profileCompletion = profileTasks.filter((task) => task.complete).length;
 </script>
 
-<div class="card-primary order-1 gap-2 p-4 sm:order-5">
-	<h6 class="h6 w-full text-left">Profile Completion</h6>
-	{#if profileCompletion === profileTasks.length}
-		<p class="w-full text-left text-xs">Your profile is complete</p>
-	{:else}
-		<p class="w-full text-left text-xs">Complete your profile for an optimal experience</p>
-	{/if}
-	<span class="my-2 w-full">
-		<ProgressBar
-			meter="bg-primary-500"
-			label="Progress Bar"
-			value={profileCompletion}
-			max={profileTasks.length}
-		/>
-	</span>
-
-	<div class="grid w-full grid-cols-2 gap-2 sm:grid-cols-1 lg:grid-cols-2">
-		{#each profileTasks as task}
-			{#if !task.complete}
-				<a href={task.link} class="variant-soft-surface btn btn-sm">{task.title}</a>
-			{/if}
-		{/each}
+<div class="card card-bordered w-full bg-base-200">
+	<div class="card-body">
+		<h2 class="card-title">Profile Completion</h2>
+		<p>Capture your details for an optimal experience.</p>
+		<ul class="steps steps-vertical">
+			{#each profileTasks as task}
+				<li class="step text-xs" class:step-accent={task.complete}>
+					<a href={task.link}>{task.title}</a>
+				</li>
+			{/each}
+		</ul>
 	</div>
 </div>

@@ -93,6 +93,6 @@
 	}
 </script>
 
-<button class="variant-filled btn btn-sm" on:click|preventDefault={handleClick}>
+<button class="btn btn-primary btn-sm text-xs" on:click|preventDefault={handleClick}>
 	Upload image
 </button>

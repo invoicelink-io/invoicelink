@@ -7,10 +7,10 @@
 
 <div
 	class={twMerge(
-		`flex h-full min-h-[10rem] w-full flex-col items-center justify-center rounded-lg bg-transparent p-4 text-center`,
-		`${hideBorder ? '' : 'border-surface-200-700-token border border-dashed'}`
+		`flex h-full min-h-[10rem] w-full flex-col items-center justify-center rounded-[var(--rounded-box)] bg-transparent p-4 text-center`,
+		`${hideBorder ? '' : 'border border-dashed border-accent'}`
 	)}
 >
 	<h3 class="mt-2 text-sm font-semibold">{title}</h3>
-	<p class="text-surface-400-500-token mt-1 text-sm">{subtitle}</p>
+	<p class="mt-1 text-sm">{subtitle}</p>
 </div>

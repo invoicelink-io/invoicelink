@@ -6,8 +6,8 @@
 	import { twMerge } from 'tailwind-merge';
 </script>
 
-<PageHeading heading="Invoice Templates">
-	<a href="/invoices/template/design" class="variant-filled-primary btn btn-sm">New Template</a>
+<PageHeading>
+	<a href="/invoices/template/design" class="btn btn-accent btn-sm text-xs">New Template</a>
 </PageHeading>
 
 <div
@@ -20,12 +20,11 @@
 		<Empty title="No Templates" subtitle="Click new template to get started" />
 	{:else}
 		{#each data.templates as template}
-			<a
-				href="/invoices/template/design?id={template.id}"
-				class="border-surface-100-800-token flex flex-col justify-between gap-4 rounded-lg border p-2"
-			>
-				<img src={template.previewSrc} class="rounded-lg" alt={template.name} />
-				<h6 class="h6 w-full text-center">{template.name}</h6>
+			<a href="/invoices/template/design?id={template.id}" class="card card-bordered card-compact">
+				<div class="card-body">
+					<img src={template.previewSrc} class="rounded-[var(--rounded-box)]" alt={template.name} />
+					<h2 class="card-title justify-center text-sm">{template.name}</h2>
+				</div>
 			</a>
 		{/each}
 	{/if}

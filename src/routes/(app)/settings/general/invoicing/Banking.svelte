@@ -3,6 +3,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/settings/Divider.svelte';
 
 	const { form, enhance, message, submitting } = superForm($page.data.bankingForm, {
 		resetForm: false,
@@ -19,12 +20,9 @@
 	});
 </script>
 
-<h2 id="banking-details" class="text-base font-normal">Banking details</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">
-	Update your banking details to be displayed on invoices.
-</p>
+<Divider>Banking details to be displayed on invoices</Divider>
 
-<form method="POST" action="?/updateBank" use:enhance>
+<form id="banking-settings" method="POST" action="?/updateBank" use:enhance>
 	<input hidden name="id" value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
@@ -32,7 +30,7 @@
 			<input
 				name="accountHolder"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="Account holder"
 				required
 				bind:value={$form.accountHolder}
@@ -43,7 +41,7 @@
 			<input
 				name="accountNo"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="1234567890"
 				required
 				bind:value={$form.accountNo}
@@ -54,7 +52,7 @@
 			<input
 				name="accountType"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="Current Account"
 				required
 				bind:value={$form.accountType}
@@ -65,7 +63,7 @@
 			<input
 				name="bankName"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="Nedbank"
 				required
 				bind:value={$form.bankName}
@@ -76,7 +74,7 @@
 			<input
 				name="branchCode"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="198765"
 				required
 				bind:value={$form.branchCode}
@@ -90,7 +88,7 @@
 			loadingLabel="Updating"
 			loading={$submitting}
 			type="submit"
-			variant="variant-filled-primary"
+			variant="btn-primary"
 		/>
 	</div>
 </form>

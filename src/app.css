@@ -21,12 +21,12 @@
 	}
 	/* selection styles */
 	::selection {
-		@apply bg-primary-500/50;
+		@apply bg-primary text-primary-content;
 	}
 
 	/* smoothly transition between theme modes */
-	[data-theme='invoicelink'] {
-		@apply bg-white transition-all duration-300 ease-in-out dark:bg-surface-900;
+	[data-theme='*'] {
+		@apply transition-all duration-300 ease-in-out;
 	}
 
 	/* Autocomplete styles */
@@ -72,44 +72,24 @@
 }
 
 @layer components {
-	/* auth components */
-	.input-auth {
-		@apply flex w-full items-center justify-center rounded-xl border-none bg-surface-800 bg-opacity-80 px-4 pb-2 pt-6 text-white placeholder-surface-800 outline-none ring-0 transition-all focus:border-primary-500 focus:bg-opacity-100 focus:placeholder-surface-100 focus:ring-0;
-	}
-
-	.input-auth-label {
-		@apply absolute bottom-0 top-0 ml-4 flex items-center text-surface-200 transition-all focus:text-xs group-focus-within:bottom-1/2 group-focus-within:text-[12px] group-focus-within:text-surface-100;
-	}
-	.btn-auth {
-		@apply flex w-full items-center justify-center whitespace-nowrap rounded-xl border-none bg-primary-500 p-4 text-white transition-all hover:bg-opacity-90;
+	.input-primary {
+		@apply input-md input-bordered input w-full max-w-lg;
 	}
 
 	.settings-list {
-		@apply border-surface-100-800-token mt-6 divide-y border-y text-sm leading-6;
+		@apply mt-4 text-sm leading-6;
 	}
 
 	.settings-list li {
-		@apply border-surface-100-800-token flex flex-col items-start justify-between gap-x-6 gap-y-2 py-6 sm:flex-row sm:items-center;
-	}
-
-	.input-primary {
-		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none p-2 text-sm read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
-	}
-
-	.label-primary {
-		@apply label mb-1 whitespace-nowrap text-xs capitalize;
+		@apply flex flex-col items-start justify-between gap-x-6 py-2 sm:flex-row sm:items-center;
 	}
 
 	.input-primary-invoice {
-		@apply variant-soft bg-surface-100-800-token border-surface-100-800-token w-full rounded-lg border-none py-2 read-only:text-surface-500-400-token disabled:text-surface-500-400-token read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
+		@apply bg-base-100 disabled:text-base-content w-full rounded-lg border-none py-2 read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
 	}
 
 	.input-invoice {
 		@apply hover:input-primary-invoice focus:input-primary-invoice m-0 w-full truncate border-none bg-transparent px-0 text-sm tabular-nums transition-all hover:px-2 focus:px-2;
-	}
-
-	.card-primary {
-		@apply variant-soft-surface bg-surface-50-900-token flex flex-col items-center justify-center rounded-lg border border-surface-100 hover:bg-surface-100 dark:border-surface-800 dark:hover:bg-surface-800;
 	}
 }
 

@@ -7,8 +7,8 @@
 	import Icon from '$lib/components/Icon.svelte';
 </script>
 
-<PageHeading heading="Clients">
-	<a href="/clients/manage" class="variant-filled-primary btn btn-sm">New Client</a>
+<PageHeading>
+	<a href="/clients/manage" class="btn btn-accent btn-sm text-xs">New Client</a>
 </PageHeading>
 
 {#if data.clients.length === 0}
@@ -17,18 +17,20 @@
 
 <div class="grid w-full gap-4 sm:grid-cols-3">
 	{#each data.clients as client}
-		<div class="card-primary gap-2 p-4">
-			<div class="flex w-full justify-between">
-				<h6 class="h6 flex w-full items-center gap-2 text-left">
-					{client.name}
-				</h6>
-				<Icon name="user" />
-			</div>
-			<p class="w-full text-left text-xs">
-				{client.email}
-			</p>
-			<div class="flex w-full justify-end">
-				<a href="/clients/manage?id={client.id}" class="variant-soft-surface btn btn-sm">Manage</a>
+		<div class="card card-bordered">
+			<div class="card-body">
+				<div class="flex w-full justify-between">
+					<h2 class="card-title">
+						{client.name}
+					</h2>
+					<Icon name="user" />
+				</div>
+				<p class="w-full text-left text-xs">
+					{client.email}
+				</p>
+				<div class="card-actions justify-end">
+					<a href="/clients/manage?id={client.id}" class="btn btn-primary btn-sm text-xs">Manage</a>
+				</div>
 			</div>
 		</div>
 	{/each}

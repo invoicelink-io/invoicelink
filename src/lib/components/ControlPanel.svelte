@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { InvoiceStyles } from '@prisma/client';
 	export let form: InvoiceStyles;
+	console.log(form);
 	export let enhance: any;
 	export let submitting: 'create' | 'update' | 'delete' | null;
 	const formKeys = Object.keys(form) as (keyof typeof form)[];
@@ -89,7 +90,7 @@
 		{#if form.id}
 			<Button
 				formaction="?/delete"
-				variant="variant-filled-error"
+				variant="btn-error"
 				width="w-full"
 				loading={submitting === 'delete'}
 				label="Delete"
@@ -97,7 +98,7 @@
 			/>
 			<Button
 				formaction="?/update"
-				variant="variant-filled-primary"
+				variant="btn-primary"
 				width="w-full"
 				loading={submitting === 'update'}
 				label="Update"
@@ -106,7 +107,7 @@
 		{:else}
 			<Button
 				formaction="?/create"
-				variant="variant-filled-primary"
+				variant="btn-primary"
 				width="w-full"
 				loading={submitting === 'create'}
 				label="Create"

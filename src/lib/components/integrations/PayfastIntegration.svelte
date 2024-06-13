@@ -18,7 +18,7 @@
 		? 'https://sandbox.payfast.co.za/eng/process'
 		: 'https://www.payfast.co.za/eng/process';
 	export let buttonLabel: string = 'Pay now';
-	export let buttonClass: string = 'variant-filled bg-surface-800 text-surface-50 btn';
+	export let buttonClass: string = 'btn btn-sm text-xs';
 	export let demo = false;
 
 	if (demo) {

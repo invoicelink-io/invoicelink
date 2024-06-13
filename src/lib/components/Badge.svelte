@@ -3,6 +3,6 @@
 	export let status: Status;
 </script>
 
-<span class="{status === 'PAID' ? `variant-soft-primary` : `variant-soft-surface`} badge">
+<span class="{status === 'PAID' ? `` : ` badge-outline`} badge badge-accent text-xs">
 	{status === 'PAID' ? 'Paid' : 'Unpaid'}
 </span>

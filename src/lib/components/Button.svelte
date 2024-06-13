@@ -1,20 +1,23 @@
 <script lang="ts">
-	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import { twMerge } from 'tailwind-merge';
 
 	export let loading: boolean = false;
 	export let formaction: string;
-	export let variant: 'variant-filled-primary' | 'variant-filled-surface' | 'variant-filled-error' =
-		'variant-filled-primary';
+	export let variant: 'btn-primary' | 'btn-ghost' | 'btn-error' = 'btn-primary';
 	export let label: string = 'Create';
 	export let loadingLabel: string = 'Creating';
 	export let type: 'submit' | 'button' = 'submit';
 	export let width: 'w-full' | 'w-max' = 'w-max';
 </script>
 
-<button disabled={loading} {type} {formaction} class={twMerge('btn btn-sm gap-2', variant, width)}>
+<button
+	disabled={loading}
+	{type}
+	{formaction}
+	class={twMerge('btn btn-sm gap-2 text-xs', variant, width)}
+>
 	{#if loading}
-		<ProgressRadial class="h-4 w-4" meter="stroke-surface-50" track="stroke-surface-200/30" />
+		<span class="loading loading-spinner loading-xs"></span>
 	{/if}
 	{loading ? loadingLabel : label}
 </button>

@@ -3,6 +3,7 @@
 	export let data: PageData;
 	import { page } from '$app/stores';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	import Divider from '$lib/components/settings/Divider.svelte';
 
 	const gateways = [
 		{
@@ -14,28 +15,15 @@
 			href: '/settings/gateway/yoco'
 		}
 	];
-
-	// check if tour is present in query params
-	const params = $page.url.searchParams;
-	const tour = params.get('tour');
-
-	const drawerStore = getDrawerStore();
-	if (tour && tour === '3') {
-		drawerStore.open({
-			id: 'tour-3'
-		});
-	}
 </script>
 
-<h2 class="text-base font-normal">Payment Integration</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">Integrate with your payment gateway of choice</p>
-
+<Divider>Connect an existing payment gateway account</Divider>
 <ul role="list" class="settings-list">
 	{#each gateways as { name, href }}
 		<li>
 			<div class="flex w-full items-center justify-between">
 				<div class="capitalize">{name}</div>
-				<a {href} class="variant-soft-surface btn btn-sm"
+				<a {href} class="btn btn-sm"
 					>{data.integrationStatus[name] === `enabled` ? `Connected` : `Connect`}</a
 				>
 			</div>

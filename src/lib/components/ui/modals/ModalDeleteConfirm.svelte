@@ -15,7 +15,7 @@
 				{parent.buttonTextCancel}
 			</button>
 			<button
-				class="{parent.buttonPositive} variant-filled-error"
+				class="{parent.buttonPositive} btn-error"
 				on:click={() => {
 					if ($modalStore[0].response) {
 						$modalStore[0].response(true);

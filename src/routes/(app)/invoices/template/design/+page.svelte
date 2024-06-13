@@ -54,14 +54,12 @@
 	});
 </script>
 
-<PageHeading heading="Template Design" />
+<PageHeading />
 
 <Alert />
 
-<div class="relative flex h-[70vh] w-full flex-col gap-4 lg:flex-row">
-	<div
-		class="border-surface-100-800-token hide-scrollbar flex-grow rounded-lg border lg:overflow-y-scroll"
-	>
+<div class="relative flex h-[70vh] max-h-[70vh] w-full flex-col gap-4 lg:flex-row">
+	<div class="hide-scrollbar flex-grow rounded-lg border lg:overflow-y-scroll">
 		<Invoice styles={$form} data={invoice} />
 	</div>
 	<div class="hide-scrollbar pb-8 lg:overflow-y-scroll lg:pb-0">

@@ -3,6 +3,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/settings/Divider.svelte';
 
 	const { form, enhance, message, submitting } = superForm($page.data.addressForm, {
 		resetForm: false,
@@ -19,12 +20,9 @@
 	});
 </script>
 
-<h2 id="user-address" class="text-base font-normal">Address</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">
-	Update your address to be displayed on invoices.
-</p>
+<Divider>Address to be displayed on invoices</Divider>
 
-<form method="POST" action="?/updateAddress" use:enhance>
+<form method="POST" id="address-settings" action="?/updateAddress" use:enhance>
 	<input hidden name="id" value={$form.id} />
 	<ul role="list" class="settings-list">
 		<li>
@@ -32,7 +30,7 @@
 			<input
 				name="line1"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="0A Madiba Cir"
 				autocomplete="address-line1"
 				required
@@ -44,7 +42,7 @@
 			<input
 				name="line2"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="Rondebosch"
 				autocomplete="address-line2"
 				bind:value={$form.line2}
@@ -55,7 +53,7 @@
 			<input
 				name="line3"
 				type="text"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				placeholder="Cape Town"
 				autocomplete="address-line3"
 				bind:value={$form.line3}
@@ -66,7 +64,7 @@
 			<input
 				name="postalCode"
 				type="number"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				required
 				placeholder="7700"
 				autocomplete="postal-code"
@@ -81,7 +79,7 @@
 			loadingLabel="Updating"
 			loading={$submitting}
 			type="submit"
-			variant="variant-filled-primary"
+			variant="btn-primary"
 		/>
 	</div>
 </form>

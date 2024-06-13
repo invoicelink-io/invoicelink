@@ -70,7 +70,7 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 	let theme: string | null = null;
 
 	const newTheme = event.url.searchParams.get('theme');
-	const cookieTheme = event.cookies.get('colortheme');
+	const cookieTheme = event.cookies.get('colortheme') ?? 'invoicelink';
 
 	if (newTheme) {
 		theme = newTheme;
@@ -85,7 +85,7 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 
 	if (theme) {
 		return await resolve(event, {
-			transformPageChunk: ({ html }) => html.replace(`class=""`, `class="${theme}"`)
+			transformPageChunk: ({ html }) => html.replace(`data-theme=""`, `data-theme="${theme}"`)
 		});
 	}
 

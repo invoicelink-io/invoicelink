@@ -1,13 +1,35 @@
 <script lang="ts">
-	import ResumeTourButton from './ResumeTourButton.svelte';
+	export let greeting: string | undefined = undefined;
+	import { page } from '$app/stores';
 
-	export let heading: string;
+	$: breadcrumbs = $page.url.pathname.split('/').filter(Boolean);
+
+	function generateBreadcrumbLinks(breadcrumbs: string[]) {
+		const links: string[] = [];
+		breadcrumbs.reduce((acc: string, breadcrumb: string) => {
+			acc = `${acc}/${breadcrumb}`;
+			links.push(acc);
+			return acc;
+		}, '');
+		return links;
+	}
+
+	$: breadcrumbLinks = generateBreadcrumbLinks(breadcrumbs);
 </script>
 
 <div
-	class="border-surface-100-800-token mb-8 flex w-full flex-row items-center justify-center gap-x-2 border-b py-2"
+	class="mb-8 flex w-full flex-row items-center justify-between gap-x-2 border-b border-base-200 py-2"
 >
-	<h1 class="h4 w-full text-left">{heading}</h1>
+	<div class="breadcrumbs text-sm capitalize">
+		{#if greeting}
+			<h1>{greeting}</h1>
+		{:else}
+			<ul>
+				{#each breadcrumbs as breadcrumb, i}
+					<li><a href={breadcrumbLinks.at(i)}>{breadcrumb}</a></li>
+				{/each}
+			</ul>
+		{/if}
+	</div>
 	<slot />
-	<ResumeTourButton />
 </div>

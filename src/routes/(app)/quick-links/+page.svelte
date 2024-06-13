@@ -60,20 +60,9 @@
 			}
 		}
 	};
-
-	// check if tour is present in query params
-	const params = $page.url.searchParams;
-	const tour = params.get('tour');
-
-	const drawerStore = getDrawerStore();
-	if (tour && tour === '4') {
-		drawerStore.open({
-			id: 'tour-4'
-		});
-	}
 </script>
 
-<PageHeading heading="Quick Links" />
+<PageHeading />
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:gap-x-8">
 	<section>
@@ -84,41 +73,45 @@
 			use:enhance
 			action="?/create"
 		>
-			<label class="label-primary" for="amount">
-				Amount in ZAR
-				{#if $errors.amount}
-					<span class="ml-2 text-error-400">{$errors.amount}</span>
-				{/if}
-			</label>
 			<input name="id" type="hidden" bind:value={$form.id} />
 			<input name="serial" type="hidden" bind:value={$form.serial} />
-			<input
-				name="amount"
-				class="input-primary"
-				type="number"
-				placeholder="Amount in rands"
-				bind:value={$form.amount}
-				min={5}
-				required
-			/>
-			<label class="label mb-1 mt-4 text-xs" for="amount">
-				Description
-				{#if $errors.description}
-					<span class="ml-2 text-error-400">{$errors.description}</span>
-				{/if}
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text">Amount in ZAR</span>
+					{#if $errors.amount}
+						<span class="label-text-alt text-error">{$errors.amount}</span>
+					{/if}
+				</div>
+				<input
+					name="amount"
+					class="input input-md input-bordered w-full"
+					type="number"
+					placeholder="Amount in rands"
+					bind:value={$form.amount}
+					min={5}
+					required
+				/>
 			</label>
-			<input
-				name="description"
-				class="input-primary"
-				type="text"
-				placeholder="Services rendered"
-				bind:value={$form.description}
-				required
-			/>
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text">Description</span>
+					{#if $errors.description}
+						<span class="label-text-alt text-error">{$errors.description}</span>
+					{/if}
+				</div>
+				<input
+					name="description"
+					class="input input-md input-bordered w-full"
+					type="text"
+					placeholder="Services rendered"
+					bind:value={$form.description}
+					required
+				/>
+			</label>
 			<span class="flex w-full justify-end pt-4">
 				<Button
 					formaction="?/create"
-					variant="variant-filled-primary"
+					variant="btn-primary"
 					loading={$submitting}
 					label="Create"
 					loadingLabel="Creating"
@@ -126,15 +119,11 @@
 			</span>
 		</form>
 	</section>
-	<section
-		class={`border-surface-100-800-token min-h-[10rem] rounded-lg border bg-transparent p-4 ${
-			data.links.length > 0 ? '' : 'border-surface-200-700-token border-dashed'
-		}`}
-	>
+	<section class={`min-h-[10rem] p-4`}>
 		{#if data.links && data.links.length > 0}
 			<h2 class="mb-4 w-full text-center">Previous links</h2>
 			<div class="flex flex-col items-center">
-				<ul role="list" class="w-full divide-y divide-surface-500/10">
+				<ul role="list" class="divide-surface-500/10 w-full divide-y">
 					{#each data.links as link}
 						<li class="relative flex items-center space-x-4 py-4">
 							<div class="min-w-0 flex-auto">
@@ -186,7 +175,7 @@
 				</ul>
 			</div>
 		{:else}
-			<Empty hideBorder subtitle="Get started by creating a new quick link" />
+			<Empty subtitle="Get started by creating a new quick link" />
 		{/if}
 	</section>
 </div>

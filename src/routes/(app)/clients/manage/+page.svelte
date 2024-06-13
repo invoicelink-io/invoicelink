@@ -6,6 +6,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/settings/Divider.svelte';
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;
 
@@ -35,125 +36,147 @@
 	});
 </script>
 
-<PageHeading heading="Client Management" />
-
-<p class="text-surface-700-200-token mt-1 text-sm">Fill out the client details below</p>
-
+<PageHeading />
+<Divider>Capture your clients details</Divider>
 <form
-	class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2"
+	class="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-4"
 	method="post"
 	use:enhance
 	action="?/create"
 >
 	<div class="w-full">
-		<div class="mt-4 flex flex-col gap-4">
+		<div class="mt-4 flex flex-col gap-2">
 			<input hidden name="id" value={$form.id} />
 			<input hidden name="addressId" value={$form.addressId} />
-			<span>
-				<label for="name" class="label-primary">Full Name</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Client Name</span>
+				</div>
 				<input
 					name="name"
 					type="text"
-					class="input-primary"
+					class={`input-primary max-w-full ${$form.id !== '' ? '!input-disabled' : ''}`}
 					placeholder="John Doe"
-					disabled={$form.id !== ''}
+					readonly={$form.id !== ''}
 					required
 					bind:value={$form.name}
 				/>
-			</span>
-			<span>
-				<label for="email" class="label-primary">Email</label>
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Email</span>
+				</div>
 				<input
 					name="email"
 					type="email"
 					required
-					class="input-primary"
+					class="input-primary max-w-full"
 					placeholder="john@invoicelink.io"
 					bind:value={$form.email}
 				/>
-			</span>
-			<span>
-				<label for="phone" class="label-primary">Phone</label>
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Phone Number</span>
+				</div>
 				<input
 					name="phone"
 					type="tel"
-					class="input-primary"
+					class="input-primary max-w-full"
 					placeholder="012 345 6789"
 					bind:value={$form.phone}
 				/>
-			</span>
-			<span>
-				<label for="vatNumber" class="label-primary">VAT Registration Number</label>
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">VAT Number</span>
+				</div>
 				<input
 					name="vatNumber"
 					type="number"
-					class="input-primary"
+					class="input-primary max-w-full"
 					placeholder="4123456789"
 					bind:value={$form.vatNumber}
 				/>
-			</span>
+			</label>
 		</div>
 	</div>
 	<div class="w-full">
-		<div class="mt-4 flex flex-col gap-4">
-			<span>
-				<label for="line1" class="label-primary">Address line 1</label>
+		<div class="mt-4 flex flex-col gap-2">
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Address line 1</span>
+				</div>
 				<input
 					name="line1"
 					type="text"
-					class="input-primary"
+					class="input-primary max-w-full"
 					placeholder="0A Madiba Cir"
 					autocomplete="address-line1"
 					required
 					bind:value={$form.line1}
 				/>
-			</span>
-			<span>
-				<label for="line2" class="label-primary">Address line 2</label>
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Address line 2</span>
+				</div>
 				<input
 					name="line2"
 					type="text"
-					class="input-primary"
+					class="input-primary max-w-full"
 					placeholder="Rondebosch"
 					autocomplete="address-line2"
 					bind:value={$form.line2}
 				/>
-			</span>
-			<span>
-				<label for="line3" class="label-primary">Address line 3</label>
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Address line 3</span>
+				</div>
 				<input
 					name="line3"
 					type="text"
-					class="input-primary"
+					class="input-primary max-w-full"
 					placeholder="Cape Town"
 					autocomplete="address-line3"
 					bind:value={$form.line3}
 				/>
-			</span>
-			<span>
-				<label for="postalCode" class="label-primary">Postal Code</label>
+			</label>
+
+			<label class="form-control w-full">
+				<div class="label">
+					<span class="label-text text-xs">Postal Code</span>
+				</div>
 				<input
 					name="postalCode"
 					type="number"
-					class="input-primary"
+					class="input-primary max-w-full"
 					required
 					placeholder="7700"
 					autocomplete="postal-code"
 					bind:value={$form.postalCode}
 				/>
-			</span>
-			<div class="flex w-full justify-end gap-2">
+			</label>
+
+			<div class="mt-2 flex w-full justify-end gap-2">
 				{#if $form.id}
 					<Button
 						formaction="?/delete"
-						variant="variant-filled-error"
+						variant="btn-error"
 						loading={submitting === 'delete'}
 						label="Delete"
 						loadingLabel="Deleting"
 					/>
 					<Button
 						formaction="?/update"
-						variant="variant-filled-primary"
+						variant="btn-primary"
 						loading={submitting === 'update'}
 						label="Update"
 						loadingLabel="Updating"
@@ -161,7 +184,7 @@
 				{:else}
 					<Button
 						formaction="?/create"
-						variant="variant-filled-primary"
+						variant="btn-primary"
 						loading={submitting === 'create'}
 						label="Create"
 						loadingLabel="Creating"

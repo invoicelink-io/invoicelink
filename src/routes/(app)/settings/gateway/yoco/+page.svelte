@@ -9,6 +9,7 @@
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/settings/Divider.svelte';
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',
@@ -42,10 +43,7 @@
 	});
 </script>
 
-<h2 class="text-base font-normal">Yoco Integration</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">
-	Capture your yoco gateway details below to start accepting payments online
-</p>
+<Divider>Accept payments online with Yoco</Divider>
 <form name="integration-setup" method="POST" use:enhance>
 	<input name="id" type="hidden" bind:value={$form.id} />
 	<ul role="list" class="settings-list">
@@ -58,7 +56,7 @@
 			</label>
 			<input
 				name="publicKey"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				type="text"
 				placeholder="Yoco Public Key"
 				bind:value={$form.publicKey}
@@ -74,7 +72,7 @@
 			</label>
 			<input
 				name="secretKey"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				type="text"
 				placeholder="Yoco Secret Key"
 				bind:value={$form.secretKey}
@@ -90,14 +88,13 @@
 			amount={10}
 			itemName={'Integration setup successful'}
 			buttonLabel={'Test integration'}
-			buttonClass="btn btn-sm variant-filled"
 		/>
 		{#if $form.id}
 			<span class="flex items-center justify-center gap-2">
 				<button
 					type="submit"
 					formaction="?/delete"
-					class="variant-filled-error btn btn-sm"
+					class="btn btn-error btn-sm"
 					on:click|preventDefault={() => modalStore.trigger(modal)}
 					>{$submitting ? `Deleting` : `Delete`}</button
 				>
@@ -107,7 +104,7 @@
 					loadingLabel="Updating"
 					loading={$submitting}
 					type="submit"
-					variant="variant-filled-primary"
+					variant="btn-primary"
 				/>
 			</span>
 		{:else}
@@ -117,7 +114,7 @@
 				loadingLabel="Saving"
 				loading={$submitting}
 				type="submit"
-				variant="variant-filled-primary"
+				variant="btn-primary"
 			/>
 		{/if}
 	</div>

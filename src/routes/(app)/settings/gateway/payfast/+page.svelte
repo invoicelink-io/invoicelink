@@ -4,11 +4,12 @@
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { SlideToggle, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { type ModalSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 
 	import { getModalStore } from '@skeletonlabs/skeleton';
 	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/settings/Divider.svelte';
 	const modalStore = getModalStore();
 	const modal: ModalSettings = {
 		type: 'component',
@@ -50,10 +51,7 @@
 	}
 </script>
 
-<h2 class="text-base font-normal">Payfast Integration</h2>
-<p class="text-surface-700-200-token mt-1 text-sm">
-	Capture your payfast gateway details below to start accepting payments online
-</p>
+<Divider>Accept payments online with Payfast</Divider>
 <form name="integration-setup" method="POST" use:enhance>
 	<input name="id" type="hidden" bind:value={$form.id} />
 	<ul role="list" class="settings-list">
@@ -66,7 +64,7 @@
 			</label>
 			<input
 				name="merchantId"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				type="text"
 				placeholder="Payfast Merchant ID"
 				bind:value={$form.merchantId}
@@ -82,7 +80,7 @@
 			</label>
 			<input
 				name="merchantKey"
-				class="input-primary max-w-xl"
+				class="input-primary"
 				type="text"
 				placeholder="Payfast Merchant Key"
 				bind:value={$form.merchantKey}
@@ -91,14 +89,11 @@
 		</li>
 
 		<li>
-			<div class="flex w-full items-center justify-between">
-				<span class="text-xs">Require Signature</span>
-				<SlideToggle
-					size="sm"
-					active="bg-primary-500"
-					name="slide"
-					bind:checked={requireSecurity}
-				/>
+			<div class="form-control">
+				<label class="label cursor-pointer">
+					<span class="label-text mr-2">Require Signature</span>
+					<input type="checkbox" class="toggle toggle-accent" bind:checked={requireSecurity} />
+				</label>
 			</div>
 		</li>
 		{#if requireSecurity}
@@ -106,7 +101,7 @@
 				<label class="label-primary" for="passphrase">Security Passphrase</label>
 				<input
 					name="passphrase"
-					class="input-primary max-w-xl"
+					class="input-primary"
 					type="text"
 					placeholder="Payfast Passphrase"
 					bind:value={$form.passphrase}
@@ -123,7 +118,6 @@
 			amount={10}
 			itemName={'Integration setup successful'}
 			buttonLabel={'Test integration'}
-			buttonClass="btn btn-sm variant-filled"
 			{requireSecurity}
 		/>
 		{#if $form.id}
@@ -131,7 +125,7 @@
 				<button
 					type="submit"
 					formaction="?/delete"
-					class="variant-filled-error btn btn-sm"
+					class="btn btn-error btn-sm"
 					on:click|preventDefault={() => modalStore.trigger(modal)}
 					>{$submitting ? `Deleting` : `Delete`}</button
 				>
@@ -141,7 +135,7 @@
 					loadingLabel="Updating"
 					loading={$submitting}
 					type="submit"
-					variant="variant-filled-primary"
+					variant="btn-primary"
 				/>
 			</span>
 		{:else}
@@ -151,7 +145,7 @@
 				loadingLabel="Saving"
 				loading={$submitting}
 				type="submit"
-				variant="variant-filled-primary"
+				variant="btn-primary"
 			/>
 		{/if}
 	</div>
