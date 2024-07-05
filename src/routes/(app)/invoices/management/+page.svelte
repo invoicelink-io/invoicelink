@@ -4,7 +4,7 @@
 
 	import Empty from '$lib/components/Empty.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import Badge from '$lib/components/Badge.svelte';
+	import Badge from '$lib/components/ui/Badge.svelte';
 </script>
 
 <PageHeading>

@@ -7,7 +7,7 @@
 	const email = user?.email;
 
 	import Icon from './Icon.svelte';
-	import Avatar from './Avatar.svelte';
+	import Avatar from './ui/Avatar.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
 </script>
 

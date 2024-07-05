@@ -2,8 +2,8 @@
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import Button from '$lib/components/Button.svelte';
-	import Divider from '$lib/components/settings/Divider.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
+	import Divider from '$lib/components/ui/Divider.svelte';
 
 	const { form, enhance, message, submitting } = superForm($page.data.bankingForm, {
 		resetForm: false,

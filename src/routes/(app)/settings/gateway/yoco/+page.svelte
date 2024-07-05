@@ -6,8 +6,8 @@
 	import { superForm } from 'sveltekit-superforms/client';
 
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
-	import Button from '$lib/components/Button.svelte';
-	import Divider from '$lib/components/settings/Divider.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
+	import Divider from '$lib/components/ui/Divider.svelte';
 	import Modal from '$lib/components/ui/Modal.svelte';
 
 	let dialog: HTMLDialogElement;

@@ -3,7 +3,7 @@
 	export let data: PageData;
 	import { page } from '$app/stores';
 	import { getDrawerStore } from '@skeletonlabs/skeleton';
-	import Divider from '$lib/components/settings/Divider.svelte';
+	import Divider from '$lib/components/ui/Divider.svelte';
 
 	const gateways = [
 		{

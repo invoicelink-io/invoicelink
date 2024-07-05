@@ -6,8 +6,8 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 
-	import Button from '$lib/components/Button.svelte';
-	import Divider from '$lib/components/settings/Divider.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
+	import Divider from '$lib/components/ui/Divider.svelte';
 	let dialog: HTMLDialogElement
 	import Modal from '$lib/components/ui/Modal.svelte';
 

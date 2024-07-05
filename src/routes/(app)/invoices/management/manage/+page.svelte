@@ -16,10 +16,10 @@
 	import toast from 'svelte-french-toast';
 	import { type InvoiceStyles } from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
-	import Button from '$lib/components/Button.svelte';
+	import Button from '$lib/components/ui/Button.svelte';
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
-	import Badge from '$lib/components/Badge.svelte';
+	import Badge from '$lib/components/ui/Badge.svelte';
 	import ComboBox from '$lib/components/ComboBox.svelte';
 
 	// form
