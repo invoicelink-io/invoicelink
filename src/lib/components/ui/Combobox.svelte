@@ -1,52 +1,48 @@
 <script lang="ts">
-  import { Combobox } from "bits-ui";
-  import { fly as flyAndScale } from 'svelte/transition';
+  import { Combobox, type Selected } from "bits-ui";
+  import { fly } from 'svelte/transition';
   import Icon from "../Icon.svelte";
  
-  const fruits = [
-    { value: "mango", label: "Mango" },
-    { value: "watermelon", label: "Watermelon" },
-    { value: "apple", label: "Apple" },
-    { value: "pineapple", label: "Pineapple" },
-    { value: "orange", label: "Orange" }
-  ];
+  export let name: string;
+  export let selected : Selected<string>;
+  export let items: {
+	value: string;
+	label: string;
+  }[] = [];
  
   let inputValue = "";
   let touchedInput = false;
  
-  $: filteredFruits =
+  $: filteredItems =
     inputValue && touchedInput
-      ? fruits.filter((fruit) => fruit.value.includes(inputValue.toLowerCase()))
-      : fruits;
+      ? items.filter((item) => item.value.includes(inputValue.toLowerCase()))
+      : items;
 </script>
 
-<Combobox.Root items={filteredFruits} bind:inputValue bind:touchedInput>
-	<div class="relative">
+<Combobox.Root items={filteredItems} bind:inputValue bind:touchedInput bind:selected>
+	<div class="relative flex items-center">
 		<Combobox.Input
-			class="h-input rounded-9px border-border-input bg-background placeholder:text-foreground-alt/50 focus:ring-foreground focus:ring-offset-background inline-flex w-[296px] truncate border px-11 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
-			placeholder="Search a fruit"
-			aria-label="Search a fruit"
+			class="input input-primary"
+			placeholder="Search a item"
+			aria-label="Search a item"
 		/>
-		<Icon name="caret-up-down" />
+		<div class="absolute right-2 my-auto text-neutral opacity-50">
+			<Icon name="caret-up-down" />
+		</div>
 	</div>
-
 	<Combobox.Content
-		class="border-muted bg-background shadow-popover w-full rounded-xl border px-1 py-3 outline-none"
-		transition={flyAndScale}
+		class="menu dropdown-content rounded-btn bg-base-200"
+		transition={fly}
 		sideOffset={8}
 	>
-		{#each filteredFruits as fruit (fruit.value)}
-			<Combobox.Item
-				class="rounded-button data-[highlighted]:bg-muted flex h-10 w-full select-none items-center py-3 pl-5 pr-1.5 text-sm capitalize outline-none transition-all duration-75"
-				value={fruit.value}
-				label={fruit.label}
-			>
-				{fruit.label}
+		{#each filteredItems as item (item.value)}
+			<Combobox.Item class="btn btn-ghost" value={item.value} label={item.label}>
+				{item.label}
 				<Combobox.ItemIndicator class="ml-auto" asChild={false}></Combobox.ItemIndicator>
 			</Combobox.Item>
 		{:else}
 			<span class="block px-5 py-2 text-sm text-muted-foreground"> No results found </span>
 		{/each}
 	</Combobox.Content>
-	<Combobox.HiddenInput name="favoriteFruit" />
+	<Combobox.HiddenInput {name} />
 </Combobox.Root>

@@ -2,15 +2,16 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 
-	import { ListBox, ListBoxItem, popup, Avatar } from '@skeletonlabs/skeleton';
-	import type { PopupSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
 	import { getInitials } from '$lib/utils/stringHelpers';
 	import Meta from '$lib/components/Meta.svelte';
+	import Avatar from '$lib/components/ui/Avatar.svelte';
+	import Combobox from '$lib/components/ui/Combobox.svelte';
 
 	const isPaid = data.pay?.status === 'PAID';
 
+	// TODO: Edit when adding new integrations
 	const integrations: {
 		[key: string]: any;
 	} = {
@@ -18,17 +19,20 @@
 		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined
 	};
 
-	let selectedGateway: string =
-		Object.keys(integrations).find((key) => integrations[key] !== undefined) || '';
+	const paymentOptions = Object.keys(integrations).map((key) => {
+		if (integrations[key] !== undefined){
+			return {
+				value: key,
+				label: key
+			};
+		}
+	}).filter((option) => option !== undefined);
 
-	const popupCombobox: PopupSettings = {
-		event: 'click',
-		target: 'popupCombobox',
-		placement: 'top',
-		closeQuery: '.listbox-item'
-	};
+	let selectedPaymentOption = paymentOptions?.[0] ?? [];
 
-	const showPaymentOptions = Object.values(integrations).filter((i) => i !== undefined).length > 0;
+	$: {
+		console.log(selectedPaymentOption);
+	}
 </script>
 
 <svelte:head>
@@ -39,21 +43,20 @@
 	/>
 </svelte:head>
 
-<div data-theme="light" class="text-surface-900 flex h-svh w-full flex-col pb-20">
+<div data-theme="light" class="flex h-svh w-full flex-col pb-20">
 	{#if data.pay}
 		<div
-			class="bg-pattern bg-surface-100 relative flex h-[25vh] w-full flex-col items-center justify-center text-center"
+			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-base-200 text-center"
 		>
 			<div
-				class="bg-surface-50 absolute bottom-0 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
+				class="absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl bg-base-100 p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
 			>
 				<div class="flex flex-col items-center">
 					<div class="-mt-4 mb-4">
 						<Avatar
-							src={data.pay?.user.avatarUrl ?? undefined}
-							initials={getInitials(data.pay?.user.name || 'No username')}
-							width="w-12"
-							rounded="rounded-lg"
+							size="size-10"
+							avatarUrl={data.pay?.user.avatarUrl ?? undefined}
+							placeholder={getInitials(data.pay?.user.name || 'No username')}
 						/>
 					</div>
 
@@ -73,12 +76,11 @@
 			</div>
 		</div>
 		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
-			<a
-				href="/api/invoice?id={data?.pay.id}&type={data.type}&download=true"
-				class="variant-glass-surface btn w-36">Save invoice</a
+			<a href="/api/invoice?id={data?.pay.id}&type={data.type}&download=true" class="btn w-36"
+				>Save invoice</a
 			>
 			{#if !isPaid}
-				{#if integrations.payfast && selectedGateway === 'payfast'}
+				{#if integrations.payfast && selectedPaymentOption.value === 'payfast'}
 					<PayfastIntegration
 						userId={data.pay.user?.id}
 						merchantId={integrations.payfast.merchantId}
@@ -89,49 +91,28 @@
 						itemName={data.pay.user.name || 'Payment request'}
 						requireSecurity={integrations.payfast.passphrase !== ''}
 						demo={data?.pay.id === 'demo'}
-						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
+						buttonClass="btn btn-pay-now"
 						buttonLabel="Pay now"
 					/>
-				{:else if integrations.yoco && selectedGateway === 'yoco'}
+				{:else if integrations.yoco && selectedPaymentOption.value === 'yoco'}
 					<YocoIntegration
 						checkoutId={data.pay?.yocoCheckoutId ?? undefined}
 						publicKey={data.pay?.user.integrations[0].yoco[0].publicKey}
 						secretKey={data.pay?.user.integrations[0].yoco[0].secretKey}
 						amount={data.pay?.total}
 						itemName={data.pay.user.name || 'Payment request'}
-						buttonClass="variant-filled-surface btn bg-surface-800-100-token w-36"
+						buttonClass="btn btn-pay-now"
 						buttonLabel="Pay now"
 						openInNewTab={false}
 					/>
 				{/if}
 			{/if}
 		</div>
-		{#if showPaymentOptions}
+		{#if paymentOptions && paymentOptions.length > 0}
 			{#if !isPaid}
-				<div class="flex w-full flex-col items-center justify-end gap-y-2 pt-10">
+				<div class="mx-auto flex w-full max-w-xs flex-col items-center justify-end gap-y-2 pt-10">
 					<p class="text-sm">Change payment option</p>
-					<button
-						class="variant-outline-surface btn w-48 justify-between"
-						use:popup={popupCombobox}
-					>
-						<span class="w-full text-center capitalize">{selectedGateway ?? 'Trigger'}</span>
-					</button>
-					<div class="card w-48 py-2 shadow-xl" data-popup="popupCombobox">
-						<ListBox rounded="rounded-lg" active="variant-glass-surface" padding="mx-2 p-2">
-							{#each Object.keys(integrations) as gateway}
-								{#if integrations[gateway]}
-									<ListBoxItem
-										bind:group={selectedGateway}
-										name={gateway}
-										value={gateway}
-										class="capitalize"
-									>
-										{gateway}
-									</ListBoxItem>
-								{/if}
-							{/each}
-						</ListBox>
-					</div>
+					<Combobox name="gateway" bind:selected={selectedPaymentOption} items={paymentOptions} />
 				</div>
 			{/if}
 		{/if}
