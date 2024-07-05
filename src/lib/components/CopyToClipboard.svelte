@@ -25,7 +25,7 @@
 	on:click={handleClick}
 >
 	{#if show}
-		<Icon name="clipboard-document-list" />
+		<Icon name="copy" />
 	{:else}
 		<Icon name="clipboard-document-check" />
 	{/if}

@@ -101,13 +101,13 @@
 			</span>
 		</form>
 	</section>
-	<section class={`min-h-[10rem] p-4`}>
+	<section class={`min-h-[10rem] py-4`}>
 		{#if data.links && data.links.length > 0}
 			<h2 class="mb-4 w-full text-center">Previous links</h2>
 			<div class="flex flex-col items-center">
 				<ul role="list" class="divide-surface-500/10 w-full divide-y">
 					{#each data.links as link}
-						<li class="relative flex items-center space-x-4 py-4">
+						<li class="relative flex items-center space-x-2 py-4">
 							<div class="min-w-0 flex-auto">
 								<div class="flex items-center gap-x-3">
 									<h2 class="min-w-0 text-sm font-semibold leading-6">
@@ -149,9 +149,9 @@
 										</form>
 									</h2>
 								</div>
-								<div class="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
+								<div class="mt-3 flex items-center gap-x-2.5 text-xs leading-5">
 									<p class="truncate">{link.serial}</p>
-									<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 flex-none fill-gray-300">
+									<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 flex-none" fill="currentColor">
 										<circle cx="1" cy="1" r="1" />
 									</svg>
 									<p class="whitespace-nowrap">

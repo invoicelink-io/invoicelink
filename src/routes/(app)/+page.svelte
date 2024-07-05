@@ -3,7 +3,6 @@
 	export let data: PageData;
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
-	import Modal from '$lib/components/ui/Modal.svelte';
 	import { getFirstWord } from '$lib/utils/stringHelpers';
 
 	// get user's first name
@@ -26,7 +25,7 @@
 	<div class="card card-bordered w-full">
 		<div class="card-body">
 			<h2 class="card-title">New Quick Link</h2>
-			<p>Create a quick shareable link to send to clients for quick payments</p>
+			<p class="text-sm">Create a quick shareable link to send to clients for quick payments</p>
 			<div class="card-actions justify-end">
 				<a href="/quick-links" class="btn btn-primary btn-sm">Create</a>
 			</div>
@@ -36,11 +35,10 @@
 	<div class="card card-bordered w-full">
 		<div class="card-body">
 			<h2 class="card-title">New Invoice</h2>
-			<p>Create and send a new invoice to a client</p>
+			<p class="text-sm">Create and send a new invoice to a client</p>
 			<div class="card-actions justify-end">
 				<a href="/invoices/management/manage" class="btn btn-primary btn-sm">Create</a>
 			</div>
 		</div>
 	</div>
-	<Modal />
 </div>

@@ -20,7 +20,6 @@
 		| 'bars-3-bottom-left'
 		| 'bars-3-bottom-right'
 		| 'bars-3-bottom-center'
-		| 'arrow-up-right'
 		| 'plus'
 		| 'check'
 		| 'caret-up-down'
@@ -188,11 +187,10 @@
 {/if}
 
 {#if name === 'copy'}
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5"
+	<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="size-5" viewBox="0 0 256 256"
 		><path
-			fill="currentColor"
-			d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
-		/></svg
+			d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"
+		></path></svg
 	>
 {/if}
 
@@ -206,11 +204,10 @@
 {/if}
 
 {#if name === 'launch'}
-	<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+	<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="size-5" viewBox="0 0 256 256"
 		><path
-			fill="currentColor"
-			d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3h-7z"
-		/></svg
+			d="M224,104a8,8,0,0,1-16,0V59.32l-66.33,66.34a8,8,0,0,1-11.32-11.32L196.68,48H152a8,8,0,0,1,0-16h64a8,8,0,0,1,8,8Zm-40,24a8,8,0,0,0-8,8v72H48V80h72a8,8,0,0,0,0-16H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H176a16,16,0,0,0,16-16V136A8,8,0,0,0,184,128Z"
+		></path></svg
 	>
 {/if}
 
@@ -368,23 +365,6 @@
 			stroke-linecap="round"
 			stroke-linejoin="round"
 			d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"
-		/>
-	</svg>
-{/if}
-
-{#if name === 'arrow-up-right'}
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		stroke-width="1.5"
-		stroke="currentColor"
-		class="h-6 w-6"
-	>
-		<path
-			stroke-linecap="round"
-			stroke-linejoin="round"
-			d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
 		/>
 	</svg>
 {/if}

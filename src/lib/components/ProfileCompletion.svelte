@@ -9,7 +9,7 @@
 <div class="card card-bordered w-full bg-base-200">
 	<div class="card-body">
 		<h2 class="card-title">Profile Completion</h2>
-		<p>Capture your details for an optimal experience.</p>
+		<p class="text-sm">Capture your details for an optimal experience.</p>
 		<ul class="steps steps-vertical">
 			{#each profileTasks as task}
 				<li class="step text-xs" class:step-accent={task.complete}>

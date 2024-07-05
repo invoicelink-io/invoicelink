@@ -25,7 +25,7 @@
 					</h2>
 					<Icon name="user" />
 				</div>
-				<p class="w-full text-left text-xs">
+				<p class="w-full text-left text-sm">
 					{client.email}
 				</p>
 				<div class="card-actions justify-end">
