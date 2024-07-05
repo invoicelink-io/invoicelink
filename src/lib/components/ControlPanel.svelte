@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { InvoiceStyles } from '@prisma/client';
 	export let form: InvoiceStyles;
-	console.log(form);
 	export let enhance: any;
 	export let submitting: 'create' | 'update' | 'delete' | null;
 	const formKeys = Object.keys(form) as (keyof typeof form)[];

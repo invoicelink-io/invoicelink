@@ -9,9 +9,6 @@
 	import Icon from './Icon.svelte';
 	import Avatar from './Avatar.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
-
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
-	const drawerStore = getDrawerStore();
 </script>
 
 <div class="dropdown dropdown-end">

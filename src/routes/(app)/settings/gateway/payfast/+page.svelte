@@ -4,29 +4,13 @@
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { type ModalSettings } from '@skeletonlabs/skeleton';
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 
-	import { getModalStore } from '@skeletonlabs/skeleton';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/settings/Divider.svelte';
-	const modalStore = getModalStore();
-	const modal: ModalSettings = {
-		type: 'component',
-		component: 'ModalDeleteConfirm',
-		title: 'Delete Integration',
-		body: 'Are you sure you want to delete this integration?',
-		response: (r: boolean) => {
-			if (r) {
-				// submit the form to delete the integration
-				const form = document.forms.namedItem('integration-setup');
-				if (form) {
-					form.action = '?/delete';
-					form.submit();
-				}
-			}
-		}
-	};
+	let dialog: HTMLDialogElement
+	import Modal from '$lib/components/ui/Modal.svelte';
+
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		resetForm: false,
@@ -59,7 +43,7 @@
 			<label class="label-primary" for="merchantId">
 				Merchant ID
 				{#if $errors.merchantId}
-					<span class="text-error-400">{$errors.merchantId}</span>
+					<span class="text-error">{$errors.merchantId}</span>
 				{/if}
 			</label>
 			<input
@@ -75,7 +59,7 @@
 			<label class="label-primary" for="merchantKey">
 				Merchant Key
 				{#if $errors.merchantKey}
-					<span class="text-error-400">{$errors.merchantKey}</span>
+					<span class="text-error">{$errors.merchantKey}</span>
 				{/if}
 			</label>
 			<input
@@ -122,13 +106,22 @@
 		/>
 		{#if $form.id}
 			<span class="flex items-center justify-center gap-2">
-				<button
-					type="submit"
-					formaction="?/delete"
-					class="btn btn-error btn-sm"
-					on:click|preventDefault={() => modalStore.trigger(modal)}
-					>{$submitting ? `Deleting` : `Delete`}</button
-				>
+				<Modal bind:dialog>
+					<button
+						slot="modal-open-button"
+						type="button"
+						class="btn btn-error btn-sm"
+						on:click|preventDefault={() => dialog.showModal()}
+						>{$submitting ? `Deleting` : `Delete`}</button
+					>
+					<button
+						slot="modal-confirm-button"
+						type="submit"
+						formaction="?/delete"
+						class="btn btn-error btn-sm"
+						on:click={() => dialog.close()}>{$submitting ? `Deleting` : `Delete`}</button
+					>
+				</Modal>
 				<Button
 					formaction="?/update"
 					label="Update"

@@ -7,12 +7,15 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/settings/Divider.svelte';
+	import Modal from '$lib/components/ui/Modal.svelte';
+	let dialog: HTMLDialogElement;
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;
 
 	const { form, enhance, message } = superForm(data.form, {
 		resetForm: false,
 		onSubmit: ({ action }) => {
+			console.log("SUBMITTING...")
 			if (action.search.includes('?/delete')) {
 				submitting = 'delete';
 			} else if (action.search.includes('?/update')) {
@@ -40,7 +43,7 @@
 <Divider>Capture your clients details</Divider>
 <form
 	class="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-4"
-	method="post"
+	method="POST"
 	use:enhance
 	action="?/create"
 >
@@ -167,13 +170,27 @@
 
 			<div class="mt-2 flex w-full justify-end gap-2">
 				{#if $form.id}
-					<Button
-						formaction="?/delete"
-						variant="btn-error"
-						loading={submitting === 'delete'}
-						label="Delete"
-						loadingLabel="Deleting"
-					/>
+					<Modal bind:dialog>
+						<button
+							slot="modal-open-button"
+							type="button"
+							class="btn btn-error btn-sm"
+							on:click|preventDefault={() => dialog.showModal()}
+						>
+							{$submitting ? `Deleting` : `Delete`}
+						</button>
+						<button
+							slot="modal-confirm-button"
+							type="submit"
+							formaction="?/delete"
+							class="btn btn-error btn-sm"
+							on:click={() => { 
+								console.log("btn clicked, submitting..")
+								dialog.close()
+								}}
+							>{$submitting ? `Deleting` : `Delete`}</button
+						>
+					</Modal>
 					<Button
 						formaction="?/update"
 						variant="btn-primary"

@@ -3,7 +3,7 @@
 	export let data: PageData;
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	import Modal from '$lib/components/ui/Modal.svelte';
 	import { getFirstWord } from '$lib/utils/stringHelpers';
 
 	// get user's first name
@@ -42,4 +42,5 @@
 			</div>
 		</div>
 	</div>
+	<Modal />
 </div>

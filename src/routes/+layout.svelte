@@ -4,19 +4,8 @@
 	import { page } from '$app/stores';
 	import posthog from 'posthog-js';
 	import { Toaster, type ToastOptions } from 'svelte-french-toast';
-	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	import { storePopup, initializeStores, Modal } from '@skeletonlabs/skeleton';
-	import type { ModalComponent } from '@skeletonlabs/skeleton';
-	import ModalDeleteConfirm from '$lib/components/ui/modals/ModalDeleteConfirm.svelte';
 	import { browser } from '$app/environment';
 
-	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
-
-	initializeStores();
-
-	const modalRegistry: Record<string, ModalComponent> = {
-		ModalDeleteConfirm: { ref: ModalDeleteConfirm }
-	};
 	const toastOptions = {
 		className: `!bg-base-200 !text-base-content !text-sm`,
 		error: {
@@ -92,12 +81,5 @@
 	});
 </script>
 
-<Modal
-	regionHeader="h5"
-	regionBody="text-sm"
-	buttonPositive="btn btn-sm btn-primary"
-	buttonNeutral="btn btn-sm"
-	components={modalRegistry}
-/>
 <slot />
 <Toaster {toastOptions} />

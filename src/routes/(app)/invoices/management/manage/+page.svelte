@@ -17,9 +17,10 @@
 	import { type InvoiceStyles } from '@prisma/client';
 	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
+	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Badge from '$lib/components/Badge.svelte';
+	import ComboBox from '$lib/components/ComboBox.svelte';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -107,58 +108,32 @@
 		</div>
 		<div class="hide-scrollbar min-w-[25%] p-2 pb-8 lg:overflow-y-scroll lg:pb-0">
 			<form method="post" class="relative flex flex-col gap-y-2" action="?/create" use:enhance>
-				<input
-					name="description"
-					type="text"
-					class="input-primary"
-					bind:value={$form.description}
-					placeholder="Invoice description"
-					disabled={$form.status === 'PAID'}
+				<label class="form-control">
+					<div class="label">
+						<span class="label-text-alt">Description</span>
+					</div>
+					<input
+						name="description"
+						type="text"
+						class="input-primary"
+						bind:value={$form.description}
+						placeholder="Invoice description"
+						disabled={$form.status === 'PAID'}
+					/>
+				</label>
+
+				<ComboBox
+					labelText="Templates"
+					placeholder="Select a template"
+					options={templates}
+					bind:value={$form.invoiceStyleId}
 				/>
-
-				<details class="dropdown w-full">
-					<summary class="btn btn-block m-1">Select a template</summary>
-					<ul class="menu dropdown-content z-[1] w-full rounded-box bg-base-100 p-2 shadow">
-						{#if templates.length === 0}
-							<li>
-								<p>No templates found</p>
-							</li>
-						{:else}
-							{#each templates as template}
-								<li>
-									<button
-										type="button"
-										on:click={() => {
-											$form.invoiceStyleId = template.value;
-										}}>{template.label}</button
-									>
-								</li>
-							{/each}
-						{/if}
-					</ul>
-				</details>
-
-				<details class="dropdown w-full">
-					<summary class="btn btn-block m-1">Select a client</summary>
-					<ul class="menu dropdown-content z-[1] w-full rounded-box bg-base-100 p-2 shadow">
-						{#if clients.length === 0}
-							<li>
-								<p>No clients found</p>
-							</li>
-						{:else}
-							{#each clients as client}
-								<li>
-									<button
-										type="button"
-										on:click={() => {
-											$form.clientId = client.value;
-										}}>{client.label}</button
-									>
-								</li>
-							{/each}
-						{/if}
-					</ul>
-				</details>
+				<ComboBox
+					labelText="Clients"
+					placeholder="Select a client"
+					options={clients}
+					bind:value={$form.clientId}
+				/>
 
 				{#if $form.status !== 'PAID'}
 					<div class="flex w-full flex-col justify-between gap-y-2">
@@ -172,7 +147,8 @@
 								} else {
 									$form.lineItems = [{ ...defaultLineItem }];
 								}
-							}}>Remove line item</button
+							}}
+							>Remove line item</button
 						>
 						<button
 							type="button"

@@ -5,13 +5,15 @@
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Icon from '$lib/components/Icon.svelte';
-	import { getModalStore, getDrawerStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { formatTimeAgo } from '$lib/utils/time';
-	import CopyToClipboard from '$lib/components/ui/CopyToClipboard.svelte';
+	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Empty from '$lib/components/Empty.svelte';
 	import Badge from '$lib/components/Badge.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Modal from '$lib/components/ui/Modal.svelte';
+
+	let dialog: HTMLDialogElement;
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		resetForm: false,
@@ -40,26 +42,6 @@
 			toast.error($deleteMessage ?? 'Something went wrong');
 		}
 	});
-
-	let deleteId = '';
-
-	const modalStore = getModalStore();
-	const modal: ModalSettings = {
-		type: 'component',
-		component: 'ModalDeleteConfirm',
-		title: 'Delete quick link',
-		body: 'Are you sure you want to delete this quick link?',
-		response: (r: boolean) => {
-			if (r) {
-				// submit the form to delete the integration
-				const form = document.forms.namedItem(`delete-${deleteId}`);
-				if (form) {
-					form.submit();
-					deleteId = '';
-				}
-			}
-		}
-	};
 </script>
 
 <PageHeading />
@@ -142,15 +124,27 @@
 												})}</span
 											>
 											{#if link.status !== 'PAID'}
-												<button
-													type="submit"
-													on:click|preventDefault={() => {
-														deleteId = link.id;
-														modalStore.trigger(modal);
-													}}
+												<Modal
+													bind:dialog
+													title="Are you sure?"
+													body="This action cannot be undone."
 												>
-													<Icon name="trash" />
-												</button>
+													<button
+														slot="modal-open-button"
+														type="button"
+														class="hover:text-error"
+														on:click|preventDefault={() => dialog.showModal()}
+													>
+														<Icon name="trash" />
+													</button>
+													<button
+														slot="modal-confirm-button"
+														type="submit"
+														class="btn btn-error btn-sm"
+														on:click={() => dialog.close()}
+														>{$submitting ? `Deleting` : `Delete`}</button
+													>
+												</Modal>
 											{/if}
 										</form>
 									</h2>
