@@ -5,6 +5,7 @@
 	import Empty from '$lib/components/Empty.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Icon from '$lib/components/Icon.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 </script>
 
 <PageHeading>
@@ -17,21 +18,18 @@
 
 <div class="grid w-full gap-4 sm:grid-cols-3">
 	{#each data.clients as client}
-		<div class="card card-bordered">
-			<div class="card-body">
-				<div class="flex w-full justify-between">
+		<a href="/clients/manage?id={client.id}">
+			<Card>
+				<div slot="title" class="flex w-full justify-between">
 					<h2 class="card-title">
 						{client.name}
 					</h2>
 					<Icon name="user" />
 				</div>
-				<p class="w-full text-left text-sm">
+				<p slot="description" class="w-full text-left text-sm">
 					{client.email}
 				</p>
-				<div class="card-actions justify-end">
-					<a href="/clients/manage?id={client.id}" class="btn btn-primary btn-sm text-xs">Manage</a>
-				</div>
-			</div>
-		</div>
+			</Card>
+		</a>
 	{/each}
 </div>

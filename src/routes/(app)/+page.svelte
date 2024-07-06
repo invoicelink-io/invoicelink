@@ -3,6 +3,7 @@
 	export let data: PageData;
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
+	import Card from '$lib/components/ui/Card.svelte';
 	import { getFirstWord } from '$lib/utils/stringHelpers';
 
 	// get user's first name
@@ -16,29 +17,37 @@
 	}
 </script>
 
-<PageHeading {greeting} />
+<PageHeading {greeting}>
+	<span>
+		<a href="/quick-links" class="btn btn-accent btn-sm text-xs">Quick Link</a>
+		<a href="/invoices/management/manage" class="btn btn-accent btn-sm text-xs">New Invoice</a>
+	</span>
+</PageHeading>
 
 <div class="grid w-full gap-4 md:grid-cols-3">
 	{#if data.profileTasks.filter((item) => !item.complete).length > 0}
 		<ProfileCompletion profileTasks={data.profileTasks} />
 	{/if}
-	<div class="card card-bordered w-full">
-		<div class="card-body">
-			<h2 class="card-title">New Quick Link</h2>
-			<p class="text-sm">Create a quick shareable link to send to clients for quick payments</p>
-			<div class="card-actions justify-end">
-				<a href="/quick-links" class="btn btn-primary btn-sm">Create</a>
-			</div>
-		</div>
-	</div>
 
-	<div class="card card-bordered w-full">
-		<div class="card-body">
-			<h2 class="card-title">New Invoice</h2>
-			<p class="text-sm">Create and send a new invoice to a client</p>
-			<div class="card-actions justify-end">
-				<a href="/invoices/management/manage" class="btn btn-primary btn-sm">Create</a>
+	<a href="/quick-links">
+		<Card title="Quick Links">
+			<div slot="actions">
+				<div class="flex h-full flex-col items-end justify-end">
+					<span class="text-3xl">0</span>
+					<span class="text-sm">Create link</span>
+				</div>
 			</div>
-		</div>
-	</div>
+		</Card>
+	</a>
+
+	<a href="/invoices/management">
+		<Card title="Invoices">
+			<div slot="actions">
+				<div class="flex h-full flex-col items-end justify-end">
+					<span class="text-3xl">R0k</span>
+					<span class="text-sm">Amount Due</span>
+				</div>
+			</div>
+		</Card>
+	</a>
 </div>

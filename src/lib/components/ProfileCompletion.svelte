@@ -6,16 +6,18 @@
 	}[];
 </script>
 
-<div class="card card-bordered w-full bg-base-200">
+<div class="card card-bordered mb-2 w-full hover:bg-base-200">
 	<div class="card-body">
 		<h2 class="card-title">Profile Completion</h2>
 		<p class="text-sm">Capture your details for an optimal experience.</p>
-		<ul class="steps steps-vertical">
-			{#each profileTasks as task}
-				<li class="step text-xs" class:step-accent={task.complete}>
-					<a href={task.link}>{task.title}</a>
-				</li>
-			{/each}
-		</ul>
+		<div class="py-2">
+			<ul class="steps steps-vertical sm:steps-horizontal">
+				{#each profileTasks as task}
+					<li class="step text-xs" class:step-accent={task.complete}>
+						<a href={task.link}>{task.title}</a>
+					</li>
+				{/each}
+			</ul>
+		</div>
 	</div>
 </div>
