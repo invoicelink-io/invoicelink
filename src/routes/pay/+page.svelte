@@ -7,7 +7,7 @@
 	import { getInitials } from '$lib/utils/stringHelpers';
 	import Meta from '$lib/components/Meta.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
-	import Combobox from '$lib/components/ui/Combobox.svelte';
+	import Combobox from '$lib/components/ui/ComboBox.svelte';
 
 	const isPaid = data.pay?.status === 'PAID';
 

@@ -82,7 +82,7 @@
 		<p class="text-left text-xs font-normal">Bank Details</p>
 		<Justify disableCenter bind:align={form.bankDetailsAlign} />
 	</div>
-	<form method="POST" class="flex justify-end gap-x-2" action="?/create" use:enhance>
+	<form method="POST" class="flex flex-col justify-end gap-y-2" action="?/create" use:enhance>
 		{#each formKeys as key}
 			<input type="hidden" name={key} value={form[key]} />
 		{/each}

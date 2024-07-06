@@ -20,7 +20,7 @@
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
-	import ComboBox from '$lib/components/ComboBox.svelte';
+	import ComboBox from '$lib/components/ui/ComboBox.svelte';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -58,16 +58,28 @@
 		return { value: item.id, label: item.name };
 	}) ?? [{ value: defaultStyles.id, label: defaultStyles.name }];
 
+	let selectedTemplate = templates.find((item) => item.value === $form.invoiceStyleId) ?? {
+		value: defaultStyles.id,
+		label: defaultStyles.name
+	};
+
 	const clients = data.user?.client.map((item) => {
 		return { value: item.id, label: item.name };
 	}) ?? [{ value: defaultClient.id, label: defaultClient.name }];
 
+	let selectedClient = clients.find((item) => item.value === $form.clientId) ?? {
+		value: defaultClient.id,
+		label: defaultClient.name
+	};
+
 	$: {
+		$form.invoiceStyleId = selectedTemplate.value;
 		styles =
 			data.user?.invoiceStyles.find((item) => item.id === $form.invoiceStyleId) ?? defaultStyles;
 	}
 
 	$: {
+		$form.clientId = selectedClient.value;
 		$form.client = data.user?.client.find((item) => item.id === $form.clientId) ?? {
 			...defaultClient,
 			address: defaultAddress
@@ -115,51 +127,64 @@
 					<input
 						name="description"
 						type="text"
-						class="input-primary"
+						class="input input-primary max-w-full"
 						bind:value={$form.description}
 						placeholder="Invoice description"
 						disabled={$form.status === 'PAID'}
 					/>
 				</label>
 
-				<ComboBox
-					labelText="Templates"
-					placeholder="Select a template"
-					options={templates}
-					bind:value={$form.invoiceStyleId}
-				/>
-				<ComboBox
-					labelText="Clients"
-					placeholder="Select a client"
-					options={clients}
-					bind:value={$form.clientId}
-				/>
+				<label for="invoiceStyleId" class="form-control">
+					<div class="label">
+						<span class="label-text-alt">Templates</span>
+					</div>
+					<ComboBox
+						name="invoiceStyleId"
+						placeholder="Select a template"
+						items={templates}
+						bind:selected={selectedTemplate}
+					/>
+				</label>
+
+				<label for="clientId" class="form-control">
+					<div class="label">
+						<span class="label-text-alt">Templates</span>
+					</div>
+					<ComboBox
+						name="clientId"
+						placeholder="Select a client"
+						items={clients}
+						bind:selected={selectedClient}
+					/>
+				</label>
 
 				{#if $form.status !== 'PAID'}
-					<div class="flex w-full flex-col justify-between gap-y-2">
+					<div class="mt-2 flex w-full flex-col gap-y-2">
 						<button
 							type="button"
-							class="btn btn-sm btn-block"
+							class="btn join-item btn-sm btn-block text-xs"
 							on:click={() => {
-								if ($form.lineItems.length > 0) {
+								if ($form.lineItems.length > 1) {
 									// delete the last item
 									$form.lineItems = $form.lineItems.slice(0, -1);
 								} else {
 									$form.lineItems = [{ ...defaultLineItem }];
 								}
 							}}
-							>Remove line item</button
-						>
+							><Icon name="minus" /> Line item
+						</button>
 						<button
 							type="button"
+							class="btn join-item btn-sm btn-block text-xs"
 							on:click={() => {
 								$form.lineItems = [...$form.lineItems, { ...defaultLineItem }];
 							}}
-							class="btn btn-sm btn-block">Add line item</button
 						>
+							<Icon name="plus" /> Line item
+						</button>
 					</div>
 
-					<label class="form-control w-full max-w-xs">
+					<label class="form-control w-full">
 						<div class="label">
 							<span class="label-text-alt">Tax</span>
 							<span class="label-text-alt">{$form.taxPercentage}%</span>
@@ -173,7 +198,7 @@
 						/>
 					</label>
 
-					<div class="flex w-full flex-col gap-2">
+					<div class="mt-2 flex w-full flex-col gap-2">
 						{#if $form.id}
 							<Button
 								formaction="?/update"

@@ -2,9 +2,12 @@
   import { Combobox, type Selected } from "bits-ui";
   import { fly } from 'svelte/transition';
   import Icon from "../Icon.svelte";
- 
+
   export let name: string;
+  export let placeholder: string = "Search an item";
   export let selected : Selected<string>;
+  export let onSelectedChange: (selected: Selected<string> | undefined) => void = () => {};
+
   export let items: {
 	value: string;
 	label: string;
@@ -19,13 +22,15 @@
       : items;
 </script>
 
-<Combobox.Root items={filteredItems} bind:inputValue bind:touchedInput bind:selected>
-	<div class="relative flex items-center">
-		<Combobox.Input
-			class="input input-primary"
-			placeholder="Search a item"
-			aria-label="Search a item"
-		/>
+<Combobox.Root
+	items={filteredItems}
+	bind:inputValue
+	bind:touchedInput
+	bind:selected
+	{onSelectedChange}
+>
+	<div class="relative flex w-full items-center">
+		<Combobox.Input class="input input-primary max-w-full" {placeholder} aria-label={placeholder} />
 		<div class="absolute right-2 my-auto text-neutral opacity-50">
 			<Icon name="caret-up-down" />
 		</div>

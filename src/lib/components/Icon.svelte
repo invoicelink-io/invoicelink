@@ -21,6 +21,7 @@
 		| 'bars-3-bottom-right'
 		| 'bars-3-bottom-center'
 		| 'plus'
+		| 'minus'
 		| 'check'
 		| 'caret-up-down'
 		| 'link'
@@ -34,7 +35,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -59,7 +60,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -76,7 +77,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -93,7 +94,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -110,7 +111,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -127,7 +128,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -138,16 +139,17 @@
 {/if}
 
 {#if name === `plus`}
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		stroke-width="1.5"
-		stroke="currentColor"
-		class="h-5 w-5"
+	<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="size-4" viewBox="0 0 256 256"
+		><path
+			d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"
+		></path></svg
 	>
-		<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-	</svg>
+{/if}
+
+{#if name === `minus`}
+	<svg fill="currentColor" class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"
+		><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128Z"></path></svg
+	>
 {/if}
 
 {#if name === `settings`}
@@ -157,7 +159,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -175,7 +177,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -186,7 +188,7 @@
 {/if}
 
 {#if name === 'arrow-right'}
-	<svg class="h-5 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+	<svg class="size-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 		<path
 			fill-rule="evenodd"
 			d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
@@ -226,7 +228,7 @@
 		height="155"
 		viewBox="0 0 150 155"
 		fill="none"
-		class="h-5 w-5"
+		class="size-5"
 		xmlns="http://www.w3.org/2000/svg"
 	>
 		<rect
@@ -256,7 +258,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -332,7 +334,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -349,7 +351,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
@@ -366,7 +368,7 @@
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
-		class="h-5 w-5"
+		class="size-5"
 	>
 		<path
 			stroke-linecap="round"
