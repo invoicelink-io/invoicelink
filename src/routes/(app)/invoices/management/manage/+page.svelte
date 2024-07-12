@@ -74,6 +74,9 @@
 
 	$: {
 		$form.invoiceStyleId = selectedTemplate.value;
+		if (selectedTemplate.value == '') {
+			$form.invoiceStyleId = null;
+		}
 		styles =
 			data.user?.invoiceStyles.find((item) => item.id === $form.invoiceStyleId) ?? defaultStyles;
 	}
@@ -154,7 +157,7 @@
 
 				<label for="clientId" class="form-control">
 					<div class="label">
-						<span class="label-text-alt">Templates</span>
+						<span class="label-text-alt">Client</span>
 					</div>
 					<ComboBox
 						name="clientId"
