@@ -88,20 +88,20 @@
 		{/each}
 		{#if form.id}
 			<Button
-				formaction="?/delete"
-				variant="btn-error"
-				width="w-full"
-				loading={submitting === 'delete'}
-				label="Delete"
-				loadingLabel="Deleting"
-			/>
-			<Button
 				formaction="?/update"
 				variant="btn-primary"
 				width="w-full"
 				loading={submitting === 'update'}
 				label="Update"
 				loadingLabel="Updating"
+			/>
+			<Button
+				formaction="?/delete"
+				variant="btn-error"
+				width="w-full"
+				loading={submitting === 'delete'}
+				label="Delete"
+				loadingLabel="Deleting"
 			/>
 		{:else}
 			<Button
