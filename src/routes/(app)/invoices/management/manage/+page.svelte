@@ -91,15 +91,21 @@
 	{#if $form.id}
 		<div class="flex items-center justify-start gap-2">
 			<Badge status={$form.status} />
-			<a title="Preview invoicelink" target="_blank" href="/pay?id={$form.id}">
+			<a
+				class="tooltip tooltip-accent"
+				data-tip="Preview invoicelink"
+				target="_blank"
+				href="/pay?id={$form.id}"
+			>
 				<Icon name="launch" />
 			</a>
 			<a
-				title="Save a copy"
+				class="tooltip tooltip-accent"
+				data-tip="Save a copy"
 				target="_blank"
 				href="/api/invoice?id={$form.id}&type=invoice&download=true"
 			>
-				<Icon name="document-download" />
+				<Icon name="download" />
 			</a>
 			<CopyToClipboard
 				text={`${$page.url.origin}/pay?id=${$form.id}`}

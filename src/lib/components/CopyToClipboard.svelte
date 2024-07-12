@@ -17,9 +17,9 @@
 </script>
 
 <button
-	class="h-5 w-5"
 	type="button"
-	title="Copy link to clipboard"
+	class="tooltip tooltip-left tooltip-accent h-5 w-5"
+	data-tip="Copy link"
 	use:clipboard={text}
 	bind:this={currentElement}
 	on:click={handleClick}
