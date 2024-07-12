@@ -151,6 +151,7 @@
 						name="invoiceStyleId"
 						placeholder="Select a template"
 						items={templates}
+						disabled={$form.status === 'PAID'}
 						bind:selected={selectedTemplate}
 					/>
 				</label>
@@ -163,6 +164,7 @@
 						name="clientId"
 						placeholder="Select a client"
 						items={clients}
+						disabled={$form.status === 'PAID'}
 						bind:selected={selectedClient}
 					/>
 				</label>

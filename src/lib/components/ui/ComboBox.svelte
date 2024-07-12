@@ -1,25 +1,26 @@
 <script lang="ts">
-  import { Combobox, type Selected } from "bits-ui";
-  import { fly } from 'svelte/transition';
-  import Icon from "../Icon.svelte";
+	import { Combobox, type Selected } from 'bits-ui';
+	import { fly } from 'svelte/transition';
+	import Icon from '../Icon.svelte';
 
-  export let name: string;
-  export let placeholder: string = "Search an item";
-  export let selected : Selected<string>;
-  export let onSelectedChange: (selected: Selected<string> | undefined) => void = () => {};
+	export let name: string;
+	export let placeholder: string = 'Search an item';
+	export let disabled: boolean = false;
+	export let selected: Selected<string>;
+	export let onSelectedChange: (selected: Selected<string> | undefined) => void = () => {};
 
-  export let items: {
-	value: string;
-	label: string;
-  }[] = [];
- 
-  let inputValue = "";
-  let touchedInput = false;
- 
-  $: filteredItems =
-    inputValue && touchedInput
-      ? items.filter((item) => item.value.includes(inputValue.toLowerCase()))
-      : items;
+	export let items: {
+		value: string;
+		label: string;
+	}[] = [];
+
+	let inputValue = '';
+	let touchedInput = false;
+
+	$: filteredItems =
+		inputValue && touchedInput
+			? items.filter((item) => item.value.includes(inputValue.toLowerCase()))
+			: items;
 </script>
 
 <Combobox.Root
@@ -27,6 +28,7 @@
 	bind:inputValue
 	bind:touchedInput
 	bind:selected
+	{disabled}
 	{onSelectedChange}
 >
 	<div class="relative flex w-full items-center">
