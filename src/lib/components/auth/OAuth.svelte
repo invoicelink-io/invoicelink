@@ -1,5 +1,5 @@
 <div class="flex w-full flex-col gap-4">
-	<a href="/login/google" class="btn-block btn">
+	<a data-theme="light" href="/login/google" class="btn btn-block">
 		<img
 			class="h-6 w-6 opacity-100"
 			src="/oauth/google.svg"
@@ -9,7 +9,7 @@
 		/>
 		<span>Google</span>
 	</a>
-	<a id="appleid-signin" href="/login/apple" class="btn-block btn">
+	<a data-theme="light" id="appleid-signin" href="/login/apple" class="btn btn-block">
 		<img
 			class="h-6 w-6 opacity-100"
 			src="/oauth/apple.svg"
@@ -19,7 +19,7 @@
 		/>
 		<span>Apple</span>
 	</a>
-	<a href="/login/github" class="btn-block btn">
+	<a data-theme="light" href="/login/github" class="btn btn-block">
 		<img
 			class="h-6 w-6 opacity-100"
 			src="/oauth/github.svg"

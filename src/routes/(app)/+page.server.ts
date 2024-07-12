@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
 
-export const load = (async ({ parent, locals }) => {
+export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { session, user } = locals;
 
@@ -46,8 +46,6 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
-	console.log({ unpaidInvoices, unpaidQuickLinks });
-
 	const userAddressCaptured = !!userProfile?.address[0] && userProfile?.address?.[0]?.line1 !== '';
 	const bankDetailsCaptured =
 		!!userProfile?.bankAccount[0] && userProfile?.bankAccount?.[0]?.accountNo !== '';
@@ -80,6 +78,7 @@ export const load = (async ({ parent, locals }) => {
 		profileTasks,
 		user,
 		title: 'Home',
+		theme: cookies.get('colortheme'),
 		stats: {
 			unpaidInvoices: unpaidInvoices?._sum?.total ?? 0,
 			unpaidQuickLinks: unpaidQuickLinks?._count?.id ?? 0
