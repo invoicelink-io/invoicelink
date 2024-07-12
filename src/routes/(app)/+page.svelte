@@ -33,8 +33,16 @@
 		<Card title="Quick Links">
 			<div slot="actions">
 				<div class="flex h-full flex-col items-end justify-end">
-					<span class="text-3xl">0</span>
-					<span class="text-sm">Create link</span>
+					{#if data.stats.unpaidQuickLinks === 0}
+						<span class="text-3xl">None</span>
+						<span class="text-sm">Create a link</span>
+					{:else if data.stats.unpaidQuickLinks === 1}
+						<span class="text-3xl">{data.stats.unpaidQuickLinks}</span>
+						<span class="text-sm">Unpaid link</span>
+					{:else}
+						<span class="text-3xl">{data.stats.unpaidQuickLinks}</span>
+						<span class="text-sm">Unpaid links</span>
+					{/if}
 				</div>
 			</div>
 		</Card>
@@ -44,8 +52,18 @@
 		<Card title="Invoices">
 			<div slot="actions">
 				<div class="flex h-full flex-col items-end justify-end">
-					<span class="text-3xl">R0k</span>
-					<span class="text-sm">Amount Due</span>
+					{#if data.stats.unpaidInvoices === 0}
+						<span class="text-3xl">Zero</span>
+						<span class="text-sm">No invoices due</span>
+					{:else}
+						<span class="text-3xl"
+							>{data.stats.unpaidInvoices.toLocaleString('en-ZA', {
+								style: 'currency',
+								currency: 'ZAR'
+							})}</span
+						>
+						<span class="text-sm">Amount outstanding</span>
+					{/if}
 				</div>
 			</div>
 		</Card>

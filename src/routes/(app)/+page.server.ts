@@ -22,6 +22,32 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
+	const unpaidInvoices = await prisma.invoice.aggregate({
+		_sum: {
+			total: true
+		},
+		where: {
+			userId: user?.id,
+			NOT: {
+				status: 'PAID'
+			}
+		}
+	});
+
+	const unpaidQuickLinks = await prisma.quickLink.aggregate({
+		_count: {
+			id: true
+		},
+		where: {
+			userId: user?.id,
+			NOT: {
+				status: 'PAID'
+			}
+		}
+	});
+
+	console.log({ unpaidInvoices, unpaidQuickLinks });
+
 	const userAddressCaptured = !!userProfile?.address[0] && userProfile?.address?.[0]?.line1 !== '';
 	const bankDetailsCaptured =
 		!!userProfile?.bankAccount[0] && userProfile?.bankAccount?.[0]?.accountNo !== '';
@@ -49,7 +75,16 @@ export const load = (async ({ parent, locals }) => {
 		}
 	];
 
-	return { session, profileTasks, user, title: 'Home' };
+	return {
+		session,
+		profileTasks,
+		user,
+		title: 'Home',
+		stats: {
+			unpaidInvoices: unpaidInvoices?._sum?.total ?? 0,
+			unpaidQuickLinks: unpaidQuickLinks?._count?.id ?? 0
+		}
+	};
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
