@@ -18,7 +18,7 @@
 </script>
 
 <div
-	class="mb-8 flex w-full flex-row items-center justify-between gap-x-2 border-b border-base-200 py-2"
+	class="mb-8 flex w-full flex-row flex-wrap items-center justify-between gap-x-2 border-b border-base-200 py-2"
 >
 	<div class="breadcrumbs text-sm capitalize">
 		{#if greeting}

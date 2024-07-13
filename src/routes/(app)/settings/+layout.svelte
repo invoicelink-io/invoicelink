@@ -3,7 +3,7 @@
 </script>
 
 <PageHeading />
-<div class="-mt-8 flex w-full flex-col gap-4 md:mt-0 md:flex-row">
+<div class="flex w-full flex-col gap-4 md:mt-0 md:flex-row">
 	<ul class="menu rounded-box bg-base-200 lg:min-w-max">
 		<li>
 			<a href="/settings/general">General</a>

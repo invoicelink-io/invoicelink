@@ -92,7 +92,7 @@
 
 <PageHeading>
 	{#if $form.id}
-		<div class="flex items-center justify-start gap-2">
+		<div class="flex w-full items-center justify-start gap-2 py-4 sm:w-auto sm:py-0">
 			<Badge status={$form.status} />
 			<a
 				class="tooltip tooltip-accent"
