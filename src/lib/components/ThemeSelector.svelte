@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	const themes = ['light', 'dark', 'black', 'cupcake', 'dracula'];
+	import { themes } from '$lib/utils/defaults';
 </script>
 
 <details open={false}>

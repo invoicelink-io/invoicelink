@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/sveltekit';
 import { env } from '$env/dynamic/public';
 const { PUBLIC_SENTRY_DSN } = env;
 import { sequence } from '@sveltejs/kit/hooks';
+import { themes } from '$lib/utils/defaults';
 
 Sentry.init({
 	dsn: PUBLIC_SENTRY_DSN,
@@ -70,7 +71,12 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 	let theme: string | null = null;
 
 	const newTheme = event.url.searchParams.get('theme');
-	const cookieTheme = event.cookies.get('colortheme') ?? 'invoicelink';
+	let cookieTheme = event.cookies.get('colortheme') ?? 'light';
+
+	// fix for old cookie values i.e. removed themes
+	if (!themes.includes(cookieTheme)) {
+		cookieTheme = 'light';
+	}
 
 	if (newTheme) {
 		theme = newTheme;
