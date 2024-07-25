@@ -52,9 +52,15 @@ export const authHandle: Handle = async ({ event, resolve }) => {
 };
 
 export const routeProtectionHandler: Handle = async ({ resolve, event }) => {
-	const protectedRoutes = ['/', '/clients', '/invoices', '/integrations', '/'];
+	// Allow access to via the pay subdomain
+	// Rewrites will ensure that only the /pay route is accessible via the pay subdomain
+	if (event.url.hostname === 'pay.invoicelink.io') {
+		return await resolve(event);
+	}
 
-	if (protectedRoutes.includes(event.url.pathname.toLowerCase())) {
+	const protectedRoutes = ['/', '/clients', '/invoices', '/integrations', '/settings'];
+
+	if (protectedRoutes.includes(event.url.pathname.toLowerCase()?.split('/')[1])) {
 		const sessionId = event.cookies.get(lucia.sessionCookieName);
 		if (sessionId) {
 			const { session } = await lucia.validateSession(sessionId);
