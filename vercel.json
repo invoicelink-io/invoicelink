@@ -8,7 +8,7 @@
 					"value": "pay.invoicelink.io"
 				}
 			],
-			"destination": "/pay/:path*"
+			"destination": "https://app.invoicelink.io/pay/:path*"
 		}
 	]
 }
