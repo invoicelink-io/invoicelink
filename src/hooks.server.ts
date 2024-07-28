@@ -80,7 +80,7 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 	let cookieTheme = event.cookies.get('colortheme') ?? 'light';
 
 	// fix for old cookie values i.e. removed themes
-	if (!themes.includes(cookieTheme)) {
+	if (!themes.includes(cookieTheme?.toLowerCase())) {
 		cookieTheme = 'light';
 	}
 
