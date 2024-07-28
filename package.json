@@ -31,6 +31,7 @@
 		"@playwright/test": "^1.45.1",
 		"@skeletonlabs/skeleton": "^2.10.1",
 		"@skeletonlabs/tw-plugin": "^0.4.0",
+		"@svelte-put/clickoutside": "^3.0.2",
 		"@sveltejs/adapter-auto": "^3.2.2",
 		"@sveltejs/adapter-vercel": "^5.4.0",
 		"@sveltejs/kit": "^2.5.18",
