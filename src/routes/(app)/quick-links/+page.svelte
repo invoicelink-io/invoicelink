@@ -10,26 +10,12 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Empty from '$lib/components/Empty.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
 	import Modal from '$lib/components/ui/Modal.svelte';
+	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
 
 	let dialog: HTMLDialogElement;
 
-	const { form, enhance, message, submitting, errors } = superForm(data.form, {
-		resetForm: false,
-		onUpdated: ({ form }) => {
-			if (form.valid) {
-				toast.success($message);
-			} else {
-				toast.error($message ?? 'Invalid integration');
-			}
-		},
-		onError: () => {
-			toast.error($message ?? 'Something went wrong');
-		}
-	});
-
-	const { message: deleteMessage } = superForm(data.deleteForm, {
+	const { message: deleteMessage, submitting } = superForm(data.deleteForm, {
 		resetForm: false,
 		onUpdated: ({ form }) => {
 			if (form.valid) {
@@ -44,63 +30,11 @@
 	});
 </script>
 
-<PageHeading />
+<PageHeading>
+	<QuickLinkDrawer />
+</PageHeading>
 
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:gap-x-8">
-	<section>
-		<form
-			name="create-quick-link"
-			class="flex w-full flex-col"
-			method="POST"
-			use:enhance
-			action="?/create"
-		>
-			<input name="id" type="hidden" bind:value={$form.id} />
-			<input name="serial" type="hidden" bind:value={$form.serial} />
-			<label class="form-control w-full">
-				<div class="label">
-					<span class="label-text">Amount in ZAR</span>
-					{#if $errors.amount}
-						<span class="label-text-alt text-error">{$errors.amount}</span>
-					{/if}
-				</div>
-				<input
-					name="amount"
-					class="input input-md input-bordered w-full"
-					type="number"
-					placeholder="Amount in rands"
-					bind:value={$form.amount}
-					min={5}
-					required
-				/>
-			</label>
-			<label class="form-control w-full">
-				<div class="label">
-					<span class="label-text">Description</span>
-					{#if $errors.description}
-						<span class="label-text-alt text-error">{$errors.description}</span>
-					{/if}
-				</div>
-				<input
-					name="description"
-					class="input input-md input-bordered w-full"
-					type="text"
-					placeholder="Services rendered"
-					bind:value={$form.description}
-					required
-				/>
-			</label>
-			<span class="flex w-full justify-end pt-4">
-				<Button
-					formaction="?/create"
-					variant="btn-primary"
-					loading={$submitting}
-					label="Create"
-					loadingLabel="Creating"
-				/>
-			</span>
-		</form>
-	</section>
+<div class="grid grid-cols-1 gap-4 xl:gap-x-8">
 	<section class={`min-h-[10rem] py-4`}>
 		{#if data.links && data.links.length > 0}
 			<h2 class="mb-4 w-full text-center">Previous links</h2>

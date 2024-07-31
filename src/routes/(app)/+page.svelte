@@ -4,6 +4,7 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
+	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
 	import { getFirstWord } from '$lib/utils/stringHelpers';
 
 	// get user's first name
@@ -19,7 +20,7 @@
 
 <PageHeading {greeting}>
 	<span>
-		<a href="/quick-links" class="btn btn-accent btn-sm text-xs">Quick Link</a>
+		<QuickLinkDrawer />
 		<a href="/invoices/management/manage" class="btn btn-accent btn-sm text-xs">New Invoice</a>
 	</span>
 </PageHeading>

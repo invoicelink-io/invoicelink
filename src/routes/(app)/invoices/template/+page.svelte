@@ -7,7 +7,7 @@
 </script>
 
 <PageHeading>
-	<a href="/invoices/template/design" class="btn btn-accent btn-sm text-xs">New Template</a>
+	<a href="/invoices/template/design" class="btn btn-accent btn-sm text-xs">New Invoice Style</a>
 </PageHeading>
 
 <div
@@ -17,7 +17,7 @@
 	)}
 >
 	{#if data.templates.length === 0}
-		<Empty title="No Templates" subtitle="Click new template to get started" />
+		<Empty title="No Style Templates" subtitle="Click new invoice style to get started" />
 	{:else}
 		{#each data.templates as template}
 			<a href="/invoices/template/design?id={template.id}" class="card card-bordered card-compact">

@@ -18,7 +18,7 @@
 
 <button
 	type="button"
-	class="tooltip tooltip-left tooltip-accent h-5 w-5"
+	class="tooltip tooltip-top tooltip-secondary h-5 w-5"
 	data-tip="Copy link"
 	use:clipboard={text}
 	bind:this={currentElement}

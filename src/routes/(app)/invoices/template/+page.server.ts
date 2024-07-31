@@ -11,5 +11,5 @@ export const load = (async ({ parent, locals }) => {
 				userId: user?.id
 			}
 		})) ?? [];
-	return { user, templates, title: 'Invoice templates' };
+	return { user, templates, title: 'Invoice Style Templates' };
 }) satisfies PageServerLoad;

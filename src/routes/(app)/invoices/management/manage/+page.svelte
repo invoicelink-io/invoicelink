@@ -15,12 +15,12 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import { type InvoiceStyles } from '@prisma/client';
-	import Alert from '$lib/components/invoice/Alert.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import ComboBox from '$lib/components/ui/ComboBox.svelte';
+	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -118,7 +118,7 @@
 	{/if}
 </PageHeading>
 
-<Alert />
+<InvoiceAlert />
 
 {#if data.user}
 	<div class="relative flex h-[70vh] w-full flex-col gap-4 lg:flex-row">
@@ -145,11 +145,11 @@
 
 				<label for="invoiceStyleId" class="form-control">
 					<div class="label">
-						<span class="label-text-alt">Templates</span>
+						<span class="label-text-alt">Style Templates</span>
 					</div>
 					<ComboBox
 						name="invoiceStyleId"
-						placeholder="Select a template"
+						placeholder="Select a style template"
 						items={templates}
 						disabled={$form.status === 'PAID'}
 						bind:selected={selectedTemplate}

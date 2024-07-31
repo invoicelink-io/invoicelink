@@ -16,7 +16,7 @@
 	</a>
 	<a href="/invoices/template">
 		<Card
-			title="Invoice Templates"
+			title="Invoice Styles"
 			description="Customise your invoices by adding a logo, changing colours and layouts etc."
 		/>
 	</a>

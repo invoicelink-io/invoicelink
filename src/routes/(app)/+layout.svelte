@@ -10,6 +10,6 @@
 </svelte:head>
 
 <Header />
-<main class="w-full max-w-7xl p-4 xl:px-0">
+<main class="drawer-content w-full max-w-7xl p-4 xl:px-0">
 	<slot />
 </main>

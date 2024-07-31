@@ -59,7 +59,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 		{
 			title: 'Address',
 			complete: userAddressCaptured,
-			link: '/settings#user-address'
+			link: '/settings/general/invoicing'
 		},
 		{
 			title: 'Payment Gateway',
@@ -69,7 +69,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 		{
 			title: 'Banking Details',
 			complete: bankDetailsCaptured,
-			link: '/settings#banking-details'
+			link: '/settings/general/invoicing'
 		}
 	];
 

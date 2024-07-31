@@ -1,40 +1,17 @@
 import type { Actions, PageServerLoad } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { schema, deleteSchema } from './validation';
+import { deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 import { SerialType } from '@prisma/client';
-import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
+import { incrementSerialNumber } from '$lib/utils/serialNumbers';
 import { createCheckout } from '$lib/utils/yoco';
+import { quickLinkSchema } from '../validation';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
 	const { user } = locals;
 
-	const quickLink = {
-		id: '',
-		serial: initializeSerialNumber(SerialType.QUICK_LINK),
-		amount: 100,
-		description: ''
-	};
-	if (user) {
-		// get last used serial
-		const lastSerial = (
-			await prisma.lastUsedSerial.findUnique({
-				where: {
-					userId_type: {
-						userId: user?.id,
-						type: SerialType.QUICK_LINK
-					}
-				}
-			})
-		)?.serial;
-		quickLink.serial = lastSerial
-			? incrementSerialNumber(lastSerial)
-			: initializeSerialNumber(SerialType.QUICK_LINK);
-	}
-
-	const form = await superValidate(quickLink, zod(schema));
 	const deleteForm = await superValidate({ id: '' }, zod(deleteSchema));
 
 	const links = await prisma.quickLink.findMany({
@@ -46,13 +23,13 @@ export const load = (async ({ parent, locals }) => {
 		}
 	});
 
-	return { user, title: 'Quick Links', form, deleteForm, links };
+	return { user, title: 'Quick Links', deleteForm, links };
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	create: async ({ request, locals, url }) => {
 		const { user } = locals;
-		const form = await superValidate(request, zod(schema));
+		const form = await superValidate(request, zod(quickLinkSchema));
 
 		if (!form.valid) {
 			return message(form, 'Invalid quick link');

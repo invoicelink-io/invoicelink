@@ -6,7 +6,7 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import { defaultInvoice } from '$lib/utils/defaults';
 	import { superForm } from 'sveltekit-superforms/client';
-	import Alert from '$lib/components/invoice/Alert.svelte';
+	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
 	import toast from 'svelte-french-toast';
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -56,7 +56,7 @@
 
 <PageHeading />
 
-<Alert />
+<InvoiceAlert />
 
 <div class="relative flex h-[70vh] max-h-[70vh] w-full flex-col gap-4 lg:flex-row">
 	<div class="hide-scrollbar flex-grow rounded-lg border lg:overflow-y-scroll">

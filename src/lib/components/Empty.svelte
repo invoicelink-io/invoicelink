@@ -8,7 +8,7 @@
 <div
 	class={twMerge(
 		`flex h-full min-h-[10rem] w-full flex-col items-center justify-center rounded-[var(--rounded-box)] bg-transparent p-4 text-center`,
-		`${hideBorder ? '' : 'border border-dashed border-accent'}`
+		`${hideBorder ? '' : 'border border-dashed border-base-300'}`
 	)}
 >
 	<h3 class="mt-2 text-sm font-semibold">{title}</h3>

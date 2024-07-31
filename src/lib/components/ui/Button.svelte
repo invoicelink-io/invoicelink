@@ -3,7 +3,7 @@
 
 	export let loading: boolean = false;
 	export let formaction: string;
-	export let variant: 'btn-primary' | 'btn-ghost' | 'btn-error' = 'btn-primary';
+	export let variant: 'btn-primary' | 'btn-ghost' | 'btn-error' | 'btn-accent' = 'btn-primary';
 	export let label: string = 'Create';
 	export let loadingLabel: string = 'Creating';
 	export let type: 'submit' | 'button' = 'submit';
