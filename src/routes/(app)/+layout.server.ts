@@ -46,9 +46,7 @@ export const load = (async ({ cookies }) => {
 			: initializeSerialNumber(SerialType.QUICK_LINK);
 	}
 
-	console.log({ quickLink });
 	const quickLinkForm = await superValidate(quickLink, zod(quickLinkSchema));
-	console.log({ quickLinkForm });
 
 	return {
 		session,

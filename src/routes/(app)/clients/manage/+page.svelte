@@ -12,10 +12,11 @@
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;
 
+	console.log(data.form);
+
 	const { form, enhance, message } = superForm(data.form, {
 		resetForm: false,
 		onSubmit: ({ action }) => {
-			console.log("SUBMITTING...")
 			if (action.search.includes('?/delete')) {
 				submitting = 'delete';
 			} else if (action.search.includes('?/update')) {
@@ -37,6 +38,8 @@
 			submitting = null;
 		}
 	});
+
+	console.log($form);
 </script>
 
 <PageHeading />
@@ -177,18 +180,17 @@
 							class="btn btn-error btn-sm"
 							on:click|preventDefault={() => dialog.showModal()}
 						>
-							{$submitting ? `Deleting` : `Delete`}
+							{submitting ? `Deleting` : `Delete`}
 						</button>
 						<button
 							slot="modal-confirm-button"
 							type="submit"
 							formaction="?/delete"
 							class="btn btn-error btn-sm"
-							on:click={() => { 
-								console.log("btn clicked, submitting..")
-								dialog.close()
-								}}
-							>{$submitting ? `Deleting` : `Delete`}</button
+							on:click={() => {
+								console.log('btn clicked, submitting..');
+								dialog.close();
+							}}>{submitting ? `Deleting` : `Delete`}</button
 						>
 					</Modal>
 					<Button
