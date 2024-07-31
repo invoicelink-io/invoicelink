@@ -12,8 +12,6 @@
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;
 
-	console.log(data.form);
-
 	const { form, enhance, message } = superForm(data.form, {
 		resetForm: false,
 		onSubmit: ({ action }) => {
@@ -38,8 +36,6 @@
 			submitting = null;
 		}
 	});
-
-	console.log($form);
 </script>
 
 <PageHeading />
