@@ -1,7 +1,7 @@
 import type { FullInvoice } from '$lib/types';
 import type { Address, BankAccount, Client, InvoiceStyles, LineItem } from '@prisma/client';
 
-export const themes = ['light', 'dark', 'black', 'cupcake', 'dracula'];
+export const themes = ['light', 'dark', 'cupcake', 'dracula'];
 
 export const defaultStyles: InvoiceStyles = {
 	id: '',
