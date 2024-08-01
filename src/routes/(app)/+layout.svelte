@@ -2,6 +2,20 @@
 	import Header from '$lib/components/Header.svelte';
 	import { page } from '$app/stores';
 	import Meta from '$lib/components/Meta.svelte';
+	import { onNavigate } from '$app/navigation';
+
+	onNavigate((navigation) => {
+		// @ts-expect-error view transitions not yet fully supported
+		if (!document.startViewTransition) return;
+
+		return new Promise((resolve) => {
+			// @ts-expect-error view transitions not yet fully supported
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 </script>
 
 <svelte:head>

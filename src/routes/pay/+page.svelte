@@ -19,14 +19,16 @@
 		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined
 	};
 
-	const paymentOptions = Object.keys(integrations).map((key) => {
-		if (integrations[key] !== undefined){
-			return {
-				value: key,
-				label: key
-			};
-		}
-	}).filter((option) => option !== undefined);
+	const paymentOptions = Object.keys(integrations)
+		.map((key) => {
+			if (integrations[key] !== undefined) {
+				return {
+					value: key,
+					label: key
+				};
+			}
+		})
+		.filter((option) => option !== undefined);
 
 	let selectedPaymentOption = paymentOptions?.[0] ?? [];
 

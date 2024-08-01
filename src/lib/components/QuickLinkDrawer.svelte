@@ -6,8 +6,6 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Alert from './ui/Alert.svelte';
 
-	console.log($page);
-
 	let open = false;
 
 	const { form, enhance, message, submitting, errors } = superForm($page.data.quickLinkForm, {

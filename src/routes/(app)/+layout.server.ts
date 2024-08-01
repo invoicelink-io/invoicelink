@@ -7,8 +7,10 @@ import { SerialType } from '@prisma/client';
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { quickLinkSchema } from './validation';
+import { getProfileTasks } from '$lib/utils/profileTasks';
+import { prisma } from '$lib/server/prisma';
 
-export const load = (async ({ cookies }) => {
+export const load = (async ({ cookies, url }) => {
 	const sessionId = cookies.get(lucia.sessionCookieName);
 	if (!sessionId) {
 		redirect(303, '/login');
@@ -18,6 +20,13 @@ export const load = (async ({ cookies }) => {
 
 	if (!session) {
 		redirect(303, '/login');
+	}
+
+	const profileTasks = await getProfileTasks(user?.id);
+
+	const isNewUser = url.searchParams?.get('newUser')?.includes('true') ?? false;
+	if (isNewUser && profileTasks.filter((item) => !item.complete).length > 0) {
+		redirect(303, '/welcome');
 	}
 
 	const quickLink = {
@@ -51,6 +60,7 @@ export const load = (async ({ cookies }) => {
 	return {
 		session,
 		user,
+		profileTasks,
 		quickLinkForm
 	};
 }) satisfies LayoutServerLoad;

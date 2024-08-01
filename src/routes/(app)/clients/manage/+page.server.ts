@@ -139,9 +139,7 @@ export const actions: Actions = {
 		}
 	},
 	delete: async ({ request }) => {
-		console.log('delete client');
 		const form = await superValidate(request, zod(schema));
-		console.log({ form });
 		const clientId = form.data.id;
 		const clientAddressId = form.data.addressId;
 

@@ -6,22 +6,6 @@ export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { session, user } = locals;
 
-	const userProfile = await prisma.user.findUnique({
-		where: {
-			id: user?.id
-		},
-		include: {
-			address: true,
-			integrations: {
-				include: {
-					payfast: true,
-					yoco: true
-				}
-			},
-			bankAccount: true
-		}
-	});
-
 	const unpaidInvoices = await prisma.invoice.aggregate({
 		_sum: {
 			total: true
@@ -46,36 +30,8 @@ export const load = (async ({ parent, locals, cookies }) => {
 		}
 	});
 
-	const userAddressCaptured = !!userProfile?.address[0] && userProfile?.address?.[0]?.line1 !== '';
-	const bankDetailsCaptured =
-		!!userProfile?.bankAccount[0] && userProfile?.bankAccount?.[0]?.accountNo !== '';
-	const userIntegration = userProfile?.integrations[0];
-	const userGatewayConfigured = userIntegration
-		? (userIntegration?.payfast && userIntegration?.payfast.length > 0) ||
-			(userIntegration?.yoco && userIntegration?.yoco.length > 0)
-		: false;
-
-	const profileTasks = [
-		{
-			title: 'Address',
-			complete: userAddressCaptured,
-			link: '/settings/general/invoicing'
-		},
-		{
-			title: 'Payment Gateway',
-			complete: userGatewayConfigured,
-			link: '/settings/gateway'
-		},
-		{
-			title: 'Banking Details',
-			complete: bankDetailsCaptured,
-			link: '/settings/general/invoicing'
-		}
-	];
-
 	return {
 		session,
-		profileTasks,
 		user,
 		title: 'Home',
 		theme: cookies.get('colortheme'),

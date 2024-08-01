@@ -73,7 +73,7 @@
 
 @layer components {
 	.input-primary {
-		@apply input-md input-bordered input w-full max-w-lg;
+		@apply input input-md input-bordered w-full max-w-lg;
 	}
 
 	.settings-list {
@@ -85,7 +85,7 @@
 	}
 
 	.input-primary-invoice {
-		@apply bg-base-100 disabled:text-base-content w-full rounded-lg border-none py-2 read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
+		@apply w-full rounded-lg border-none bg-base-100 py-2 read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed disabled:text-base-content;
 	}
 
 	.input-invoice {
@@ -93,7 +93,7 @@
 	}
 
 	.btn-pay-now {
-		@apply bg-base-content text-base-100 hover:bg-base-content hover:bg-opacity-80 w-36
+		@apply w-36 bg-base-content text-base-100 hover:bg-base-content hover:bg-opacity-80;
 	}
 }
 

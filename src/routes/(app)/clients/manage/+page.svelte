@@ -184,7 +184,6 @@
 							formaction="?/delete"
 							class="btn btn-error btn-sm"
 							on:click={() => {
-								console.log('btn clicked, submitting..');
 								dialog.close();
 							}}>{submitting ? `Deleting` : `Delete`}</button
 						>

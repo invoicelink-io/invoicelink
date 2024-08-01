@@ -36,7 +36,6 @@
 			} else {
 				submitting = 'create';
 			}
-			console.log('submitting', action);
 		},
 		onUpdated: ({ form }) => {
 			if (form.valid) {

@@ -147,7 +147,6 @@ export const actions: Actions = {
 
 			// create the invoice
 			if (user?.id) {
-				console.log(form.data);
 				let invoice = await prisma.invoice.create({
 					data: {
 						issueDate: form.data.issueDate,

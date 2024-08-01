@@ -28,7 +28,6 @@ export const actions: Actions = {
 		const result = validateSignupForm({ email, password });
 
 		if (result) {
-			console.log({ result });
 			return fail(500, {
 				data: { email, password: '' },
 				errors: result.errors

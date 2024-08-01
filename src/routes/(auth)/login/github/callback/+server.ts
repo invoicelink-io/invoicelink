@@ -135,7 +135,7 @@ export const GET = async ({ url, cookies }) => {
 		return new Response(null, {
 			status: 302,
 			headers: {
-				Location: '/?signedIn=true&newUser=true&tour=1',
+				Location: '/?signedIn=true&newUser=true',
 				'Set-Cookie': sessionCookie.serialize()
 			}
 		});
