@@ -1,7 +1,6 @@
 <script lang="ts">
-    export let title: string = "";
-    export let description: string = "";
-
+	export let title: string = '';
+	export let description: string = '';
 </script>
 
 <div class="card card-bordered h-full w-full hover:bg-base-200">

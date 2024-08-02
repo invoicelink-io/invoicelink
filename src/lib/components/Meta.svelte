@@ -1,7 +1,7 @@
 <script lang="ts">
-    export let title = 'invoicelink.io';
-    export let description = 'Making it easy to get paid digitally.';
-    export let imageUrl = 'https://app.invoicelink.io/og-image.png';
+	export let title = 'invoicelink.io';
+	export let description = 'Making it easy to get paid digitally.';
+	export let imageUrl = 'https://app.invoicelink.io/og-image.png';
 </script>
 
 <title>{title}</title>
