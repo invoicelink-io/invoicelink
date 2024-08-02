@@ -1,11 +1,10 @@
 import type { PageServerLoad, Actions } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { addressSchema, bankSchema } from './validation';
+import { addressSchema, bankSchema } from '$lib/validation';
 import { prisma } from '$lib/server/prisma';
-import { redirect } from '@sveltejs/kit';
 
-export const load = (async ({ parent, locals, cookies, url }) => {
+export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { user } = locals;
 

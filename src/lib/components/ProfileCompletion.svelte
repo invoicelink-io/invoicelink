@@ -6,7 +6,7 @@
 	}[];
 </script>
 
-<a href="/settings/general/invoicing" class="card card-bordered mb-2 w-full hover:bg-base-200">
+<a href="/settings/general/invoicing" class="card card-bordered w-full hover:bg-base-200">
 	<div class="card-body">
 		<h2 class="card-title">Profile Completion</h2>
 		<p class="text-sm">Capture your details for an optimal experience.</p>

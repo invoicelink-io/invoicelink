@@ -12,7 +12,7 @@ const getBrowser = () =>
 			})
 		: // Run the browser locally while in development
 			puppeteer.launch({
-				headless: 'new'
+				headless: true
 			});
 
 export async function GET({ url }) {

@@ -8,9 +8,8 @@
 
 	import Button from '$lib/components/ui/Button.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
-	let dialog: HTMLDialogElement
+	let dialog: HTMLDialogElement;
 	import Modal from '$lib/components/ui/Modal.svelte';
-
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		resetForm: false,

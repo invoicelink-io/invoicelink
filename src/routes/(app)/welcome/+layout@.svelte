@@ -1,8 +1,18 @@
 <script>
 	import { onNavigate } from '$app/navigation';
 	import ShapeShift from '$lib/components/ShapeShift.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import Meta from '$lib/components/Meta.svelte';
+	import { onMount } from 'svelte';
+	import { welcome } from '$lib/stores/welcome';
+	import { page } from '$app/stores';
+
+	onMount(() => {
+		welcome.update((state) => {
+			return {
+				...state,
+				user: $page.data.user ?? state.user
+			};
+		});
+	});
 
 	onNavigate((navigation) => {
 		// @ts-expect-error view transitions not yet fully supported
@@ -18,10 +28,6 @@
 	});
 </script>
 
-<svelte:head>
-	<Meta title="Invoicelink.io Auth" description="Sign in or sign up to invoicelink.io" />
-</svelte:head>
-
 <div
 	data-theme="dark"
 	class="flex h-screen w-screen flex-col items-center justify-center gap-y-2 p-4"
@@ -30,9 +36,6 @@
 	<div
 		class="card flex w-full flex-col gap-y-2 bg-base-100 p-4 text-center shadow-lg [view-transition-name:welcome-card] sm:w-96"
 	>
-		<div class="mb-2 flex scale-150 items-center justify-center">
-			<Icon name="invoicelink" />
-		</div>
 		<slot />
 	</div>
 </div>

@@ -58,15 +58,17 @@ export const routeProtectionHandler: Handle = async ({ resolve, event }) => {
 		return await resolve(event);
 	}
 
-	const protectedRoutes = ['/', '/clients', '/invoices', '/integrations', '/settings'];
+	const protectedRoutes = ['/', '/clients', '/invoices', '/integrations', '/settings', '/welcome'];
 
-	if (protectedRoutes.includes(event.url.pathname.toLowerCase()?.split('/')[1])) {
+	if (protectedRoutes.includes('/' + event.url.pathname.toLowerCase()?.split('/')[1])) {
 		const sessionId = event.cookies.get(lucia.sessionCookieName);
 		if (sessionId) {
 			const { session } = await lucia.validateSession(sessionId);
 			if (!session) {
 				redirect(303, '/login');
 			}
+		} else {
+			redirect(303, '/login');
 		}
 	}
 

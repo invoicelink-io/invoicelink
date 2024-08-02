@@ -1,8 +1,10 @@
 <script lang="ts">
+	import Header from '$lib/components/welcome/Header.svelte';
 	import OAuth from '$lib/components/auth/OAuth.svelte';
 </script>
 
-<div class="flex w-full max-w-sm flex-col items-center gap-4">
-	<p class="text-base-content mb-2 text-center">Select a provider to continue</p>
-	<OAuth />
-</div>
+<Header
+	heading="Welcome to invoicelink.io"
+	description="Please use the buttons below to sign in or sign up."
+/>
+<OAuth />

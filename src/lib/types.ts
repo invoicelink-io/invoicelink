@@ -30,3 +30,24 @@ export type FullQuickLink = QuickLink & {
 	user: UserWithBankAccount;
 	sendersAddress: Address;
 };
+
+export type WelcomeStore = {
+	user: {
+		id: string;
+		name: string;
+		username: string;
+	};
+	address: {
+		line1: string;
+		line2: string;
+		line3: string;
+		postalCode: string;
+	};
+	bankDetails: {
+		accountHolder: string;
+		accountNo: string;
+		accountType: string;
+		bankName: string;
+		branchCode: string;
+	};
+};

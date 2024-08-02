@@ -4,7 +4,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { profileSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 
-export const load = (async ({ parent, locals, cookies, url }) => {
+export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { user } = locals;
 
