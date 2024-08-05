@@ -5,11 +5,14 @@
 	import { welcome } from '$lib/stores/welcome';
 	import { page } from '$app/stores';
 
+
 	onMount(() => {
 		welcome.update((state) => {
 			return {
 				...state,
-				user: $page.data.user ?? state.user
+				user: $page.data.user ?? state.user,
+				address: $page.data.address ?? state.address,
+				bankDetails: $page.data.bankDetails ?? state.bankDetails
 			};
 		});
 	});

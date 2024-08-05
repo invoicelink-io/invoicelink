@@ -67,38 +67,41 @@
 	/>
 </label>
 
-<div class="welcome-actions">
-	<a href="/welcome/address" class="btn btn-sm text-xs">Back</a>
-	<button
-		type="button"
-		class="btn btn-sm text-xs"
-		disabled={loading}
-		on:click={async (e) => {
-			e.preventDefault();
-			loading = true;
-			await fetch('/api/welcome/banking', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify($welcome)
-			})
-				.then((res) => {
-					if (res.ok) {
-						toast.success('Bank details saved');
-						loading = false;
-						goto('/');
-					}
+<div class="welcome-actions justify-between">
+	<a href="/welcome/address" class="btn btn-ghost btn-sm text-xs">Back</a>
+	<span>
+		<a href="/" class="btn btn-sm text-xs">Skip</a>
+		<button
+			type="button"
+			class="btn btn-sm text-xs"
+			disabled={loading}
+			on:click={async (e) => {
+				e.preventDefault();
+				loading = true;
+				await fetch('/api/welcome/banking', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify($welcome)
 				})
-				.catch((err) => {
-					loading = false;
-					if (err instanceof Error) {
-						toast.error(err.message);
-					}
-				});
-		}}
-	>
-		{#if loading}
-			<span class="loading loading-spinner loading-xs"></span>
-		{/if}
-		Finish
-	</button>
+					.then((res) => {
+						if (res.ok) {
+							toast.success('Bank details saved');
+							loading = false;
+							goto('/');
+						}
+					})
+					.catch((err) => {
+						loading = false;
+						if (err instanceof Error) {
+							toast.error(err.message);
+						}
+					});
+			}}
+		>
+			{#if loading}
+				<span class="loading loading-spinner loading-xs"></span>
+			{/if}
+			Finish
+		</button>
+	</span>
 </div>
