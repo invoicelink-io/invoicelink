@@ -4,3 +4,4 @@ out
 coverage
 .DS_Store
 .turbo
+.vercel/
