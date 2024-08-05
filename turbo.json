@@ -1,10 +1,37 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [".env"],
   "tasks": {
     "build": {
+      "dependsOn": ["^build"],
+      "env": ["SOME_ENV_VAR"]
+    },
+    "app#build": {
+      "inputs": [".env"],
       "outputs": [".svelte-kit/**", ".vercel/**"],
-      "dependsOn": ["format", "lint", "check"]
+      "dependsOn": ["format", "lint", "check"],
+      "env": [
+        "POSTGRES_PRISMA_URL",
+        "POSTGRES_URL_NON_POOLING",
+        "GITHUB_CLIENT_ID",
+        "GITHUB_CLIENT_SECRET",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "GOOGLE_REDIRECT_URI",
+        "APPLE_KEY_ID",
+        "APPLE_CLIENT_ID",
+        "APPLE_TEAM_ID",
+        "APPLE_CERTIFICATE",
+        "APPLE_REDIRECT_URI",
+        "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD",
+        "BROWSERLESS_API_TOKEN",
+        "PUBLIC_CLOUDINARY_CLOUD_NAME",
+        "PUBLIC_CLOUDINARY_UPLOAD_PRESET",
+        "CLOUDINARY_URL",
+        "PUBLIC_POSTHOG_API_KEY",
+        "SENDGRID_API_KEY",
+        "SENDGRID_CONTACT_LIST_ID",
+        "PUBLIC_SENTRY_DSN"
+      ]
     },
     "check": {
       "dependsOn": ["^check"]
