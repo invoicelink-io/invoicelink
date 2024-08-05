@@ -3,7 +3,7 @@
   "globalDependencies": [".env"],
   "tasks": {
     "build": {
-      "outputs": [".svelte-kit/**"],
+      "outputs": [".svelte-kit/**", ".vercel/**"],
       "dependsOn": ["format", "lint", "check"]
     },
     "check": {
