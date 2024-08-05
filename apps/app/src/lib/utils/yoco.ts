@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { NODE_ENV } from '$env/static/private';
+import { dev } from '$app/environment';
 import { createId } from '@paralleldrive/cuid2';
 import crypto from 'crypto';
 
-const secretKeyStartsWith = NODE_ENV === 'development' ? 'sk_' : 'sk_live_';
+const secretKeyStartsWith = dev ? 'sk_' : 'sk_live_';
 
 export const schema = z.object({
 	secretKey: z.string().startsWith(secretKeyStartsWith, {

@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { page } from '$app/stores';
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
 	import Divider from '$lib/components/ui/Divider.svelte';
 
 	const gateways = [

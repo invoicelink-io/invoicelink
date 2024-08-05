@@ -5,7 +5,6 @@
 	import { welcome } from '$lib/stores/welcome';
 	import { page } from '$app/stores';
 
-
 	onMount(() => {
 		welcome.update((state) => {
 			return {

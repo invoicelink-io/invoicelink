@@ -68,6 +68,7 @@
 		}
 	) {
 		if (error || result.event === 'success') {
+			// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 			onUpload && onUpload(error, result, widget);
 		}
 	}
@@ -83,6 +84,7 @@
 			}
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		'requestIdleCallback' in window ? requestIdleCallback(onIdle) : setTimeout(onIdle, 1);
 	});
 

@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { NODE_ENV } from '$env/static/private';
+import { dev } from '$app/environment';
 
-const publicKeyStartsWith = NODE_ENV === 'development' ? 'pk_' : 'pk_live_';
-const secretKeyStartsWith = NODE_ENV === 'development' ? 'sk_' : 'sk_live_';
+const publicKeyStartsWith = dev ? 'pk_' : 'pk_live_';
+const secretKeyStartsWith = dev ? 'sk_' : 'sk_live_';
 
 // Name has a default value just to display something in the form.
 export const schema = z.object({

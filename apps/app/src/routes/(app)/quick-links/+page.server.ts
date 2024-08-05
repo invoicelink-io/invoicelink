@@ -165,7 +165,6 @@ export const actions: Actions = {
 
 				form.data.id = quickLink.id;
 				form.data.serial = incrementSerialNumber(quickLink.serial);
-				form.data.amount;
 				form.data.description = '';
 				return message(form, 'Quick link created');
 			}
