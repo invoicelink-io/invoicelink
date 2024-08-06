@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Invoice, QuickLink } from '@prisma/client';
+	import type { Invoice, QuickLink } from '@invoicelink/db';
 
 	export let data: Invoice | QuickLink;
 	export let invoiceType: string = 'Invoice';

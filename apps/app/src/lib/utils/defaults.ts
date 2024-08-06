@@ -1,5 +1,5 @@
 import type { FullInvoice } from '$lib/types';
-import type { Address, BankAccount, Client, InvoiceStyles, LineItem } from '@prisma/client';
+import type { Address, BankAccount, Client, InvoiceStyles, LineItem } from '@invoicelink/db';
 
 export const themes = ['light', 'dark', 'cupcake', 'dracula'];
 

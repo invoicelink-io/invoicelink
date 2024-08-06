@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import { Status } from '@prisma/client';
+import { Status } from '@invoicelink/db';
 import { validateSignature } from '$lib/utils/yoco';
 
 export async function POST({ request, url }) {

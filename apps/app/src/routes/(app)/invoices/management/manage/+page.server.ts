@@ -4,7 +4,7 @@ import { defaultInvoice } from '$lib/utils/defaults';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { createCheckout } from '$lib/utils/yoco';
-import { SerialType } from '@prisma/client';
+import { SerialType } from '@invoicelink/db';
 import { getNextSerial } from '$lib/utils/serialNumbers';
 import { schema } from './validation';
 

@@ -1,5 +1,5 @@
 {
-  "name": "invoicelink-monorepo",
+  "name": "invoicelink",
   "version": "1.0.0",
   "description": "The invoicelink.io monorepo",
   "private": true,
@@ -8,7 +8,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "turbo run format"
+    "format": "turbo run format",
+    "generate": "turbo run generate --filter db"
   },
   "keywords": [],
   "author": "",

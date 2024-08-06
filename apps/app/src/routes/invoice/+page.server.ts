@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { defaultStyles, defaultInvoice } from '$lib/utils/defaults';
-import type { InvoiceStyles } from '@prisma/client';
+import type { InvoiceStyles } from '@invoicelink/db';
 import type { FullInvoice, FullQuickLink } from '$lib/types';
 
 export const load = (async ({ url }) => {

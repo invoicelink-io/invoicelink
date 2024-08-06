@@ -1,7 +1,7 @@
 import { lucia, appleAuth } from '$lib/server/auth';
 import { OAuth2RequestError, type AppleTokens } from 'arctic';
 import { prisma } from '$lib/server/prisma';
-import type { OauthAccount, User } from '@prisma/client';
+import type { OauthAccount, User } from '@invoicelink/db';
 import { jwtDecode } from 'jwt-decode';
 import { addUserToMailingList } from '$lib/utils/signup';
 

@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import { SerialType } from '@prisma/client';
+import { SerialType } from '@invoicelink/db';
 import { pad } from './stringHelpers';
 
 export function initializeSerialNumber(type: SerialType): string {

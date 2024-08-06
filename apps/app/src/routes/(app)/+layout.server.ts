@@ -3,7 +3,7 @@ import type { LayoutServerLoad } from './$types';
 import { lucia } from '$lib/server/auth';
 
 import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
-import { SerialType } from '@prisma/client';
+import { SerialType } from '@invoicelink/db';
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { quickLinkSchema } from './validation';

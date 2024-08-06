@@ -14,7 +14,7 @@
 	} from '$lib/utils/defaults';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import { type InvoiceStyles } from '@prisma/client';
+	import { type InvoiceStyles } from '@invoicelink/db';
 	import Button from '$lib/components/ui/Button.svelte';
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import Icon from '$lib/components/Icon.svelte';

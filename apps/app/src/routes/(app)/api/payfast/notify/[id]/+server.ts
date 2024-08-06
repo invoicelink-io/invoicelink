@@ -7,7 +7,7 @@ import {
 	pfValidSignature
 } from '$lib/utils/payfast';
 import { prisma } from '$lib/server/prisma';
-import { Status } from '@prisma/client';
+import { Status } from '@invoicelink/db';
 
 export async function POST({ request, url }) {
 	const userId = url.href.split('/').pop();

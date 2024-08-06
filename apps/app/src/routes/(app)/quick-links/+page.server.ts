@@ -3,7 +3,7 @@ import { superValidate, message } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
-import { SerialType } from '@prisma/client';
+import { SerialType } from '@invoicelink/db';
 import { incrementSerialNumber } from '$lib/utils/serialNumbers';
 import { createCheckout } from '$lib/utils/yoco';
 import { quickLinkSchema } from '../validation';

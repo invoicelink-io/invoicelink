@@ -1,8 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@invoicelink/db';
+import { dev } from '$app/environment';
 
 const prisma = global.prisma || new PrismaClient();
 
-if (process.env.NODE_ENV === 'development') {
+if (dev) {
 	global.prisma = prisma;
 }
 

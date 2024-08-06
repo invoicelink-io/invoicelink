@@ -9,7 +9,7 @@
 	import Total from '$lib/components/invoice/Total.svelte';
 	import Logo from '$lib/components/invoice/Logo.svelte';
 	import Banking from './invoice/Banking.svelte';
-	import type { InvoiceStyles } from '@prisma/client';
+	import type { InvoiceStyles } from '@invoicelink/db';
 	import type { FullQuickLink } from '$lib/types';
 
 	export let styles: InvoiceStyles;

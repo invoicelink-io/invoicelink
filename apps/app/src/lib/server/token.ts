@@ -1,5 +1,5 @@
 // import { prisma } from '$lib/server/prisma';
-// import { Token } from '@prisma/client';
+// import { Token } from '@invoicelink/db';
 // import { generateRandomString, isWithinExpiration } from 'lucia/utils';
 
 // const EXPIRES_IN = 1000 * 60 * 60 * 2; // 2 hours
