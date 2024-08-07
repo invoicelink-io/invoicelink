@@ -7,6 +7,7 @@ import { createCheckout } from '$lib/utils/yoco';
 import { SerialType } from '@invoicelink/db';
 import { getNextSerial } from '$lib/utils/serialNumbers';
 import { schema } from './validation';
+import { generateId } from '$lib/utils/id';
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();
@@ -149,6 +150,7 @@ export const actions: Actions = {
 			if (user?.id) {
 				let invoice = await prisma.invoice.create({
 					data: {
+						id: generateId(),
 						issueDate: form.data.issueDate,
 						dueDate: form.data.dueDate,
 						description: form.data.description,
@@ -180,9 +182,9 @@ export const actions: Actions = {
 					const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
 						secretKey: yocoIntegration.secretKey,
 						amount: form.data.total,
-						cancelUrl: `${url.origin}/pay?id=${invoice.id}`,
-						failureUrl: `${url.origin}/pay?id=${invoice.id}`,
-						successUrl: `${url.origin}/pay?id=${invoice.id}`
+						cancelUrl: `${url.origin}/${invoice.id}`,
+						failureUrl: `${url.origin}/${invoice.id}`,
+						successUrl: `${url.origin}/${invoice.id}`
 					});
 
 					if (yocoErrors) {
@@ -336,9 +338,9 @@ export const actions: Actions = {
 				const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
 					secretKey: yocoIntegration.secretKey,
 					amount: updatedInvoice.total,
-					cancelUrl: `${url.origin}/pay?id=${updatedInvoice.id}`,
-					failureUrl: `${url.origin}/pay?id=${updatedInvoice.id}`,
-					successUrl: `${url.origin}/pay?id=${updatedInvoice.id}`
+					cancelUrl: `${url.origin}/${updatedInvoice.id}`,
+					failureUrl: `${url.origin}/${updatedInvoice.id}`,
+					successUrl: `${url.origin}/${updatedInvoice.id}`
 				});
 
 				if (yocoErrors) {

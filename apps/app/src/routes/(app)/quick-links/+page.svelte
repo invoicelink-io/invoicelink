@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { page } from '$app/stores';
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Icon from '$lib/components/Icon.svelte';
@@ -94,10 +93,10 @@
 								</div>
 							</div>
 							<Badge status={link.status} />
-							<a target="_blank" href="/pay?id={link.id}">
+							<a target="_blank" href="https://pay.invoicelink.io/{link.id}">
 								<Icon name="launch" />
 							</a>
-							<CopyToClipboard text={`${$page.url.origin}/pay?id=${link.id}`} />
+							<CopyToClipboard text={`https://pay.invoicelink.io/${link.id}`} />
 						</li>
 					{/each}
 				</ul>

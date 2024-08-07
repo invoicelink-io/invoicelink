@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import { page } from '$app/stores';
 
 	import Invoice from '$lib/components/Invoice.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
@@ -88,6 +87,9 @@
 			address: defaultAddress
 		};
 	}
+
+	// payment link
+	const paymentLink = `https://pay.invoicelink.io/${$form.id}`;
 </script>
 
 <PageHeading>
@@ -98,7 +100,7 @@
 				class="tooltip tooltip-accent"
 				data-tip="Preview invoicelink"
 				target="_blank"
-				href="/pay?id={$form.id}"
+				href={paymentLink}
 			>
 				<Icon name="launch" />
 			</a>
@@ -110,10 +112,7 @@
 			>
 				<Icon name="download" />
 			</a>
-			<CopyToClipboard
-				text={`${$page.url.origin}/pay?id=${$form.id}`}
-				message="Invoicelink copied"
-			/>
+			<CopyToClipboard text={paymentLink} message="Invoicelink copied" />
 		</div>
 	{/if}
 </PageHeading>

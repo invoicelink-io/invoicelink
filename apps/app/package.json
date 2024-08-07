@@ -63,8 +63,8 @@
 		"pnpm": ">=8"
 	},
 	"dependencies": {
-		"@invoicelink/db": "workspace:*",
 		"@floating-ui/dom": "^1.6.8",
+		"@invoicelink/db": "workspace:*",
 		"@lucia-auth/adapter-prisma": "4.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",
 		"@prisma/client": "5.17.0",
@@ -77,6 +77,7 @@
 		"javascript-time-ago": "^2.5.10",
 		"jwt-decode": "^4.0.0",
 		"lucia": "3.2.0",
+		"nanoid": "^5.0.7",
 		"oslo": "^1.2.1",
 		"posthog-js": "^1.154.2",
 		"prisma": "5.17.0",

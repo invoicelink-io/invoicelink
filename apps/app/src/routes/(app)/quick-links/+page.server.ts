@@ -7,6 +7,7 @@ import { SerialType } from '@invoicelink/db';
 import { incrementSerialNumber } from '$lib/utils/serialNumbers';
 import { createCheckout } from '$lib/utils/yoco';
 import { quickLinkSchema } from '../validation';
+import { generateId } from '$lib/utils/id';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -93,6 +94,7 @@ export const actions: Actions = {
 			if (user?.id) {
 				let quickLink = await prisma.quickLink.create({
 					data: {
+						id: generateId(),
 						subtotal: form.data.amount,
 						tax: 0,
 						total: form.data.amount,
@@ -117,9 +119,9 @@ export const actions: Actions = {
 					const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
 						secretKey: yocoIntegration.secretKey,
 						amount: form.data.amount,
-						cancelUrl: `${url.origin}/pay?id=${quickLink.id}`,
-						failureUrl: `${url.origin}/pay?id=${quickLink.id}`,
-						successUrl: `${url.origin}/pay?id=${quickLink.id}`
+						cancelUrl: `${url.origin}/${quickLink.id}`,
+						failureUrl: `${url.origin}/${quickLink.id}`,
+						successUrl: `${url.origin}/${quickLink.id}`
 					});
 
 					if (yocoErrors) {
