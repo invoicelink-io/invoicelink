@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	@font-face {
+		font-family: 'Mona Sans';
+		src:
+			url('/fonts/Mona-Sans.woff2') format('woff2 supports variations'),
+			url('/fonts/Mona-Sans.woff2') format('woff2-variations');
+		font-weight: 200 900;
+		font-stretch: 75% 125%;
+		font-display: swap;
+	}
+
+	:root [data-theme='invoicelink'] {
+		--theme-font-family-base: 'Mona Sans', sans-serif;
+		--theme-font-family-heading: 'Mona Sans', sans-serif;
+		--theme-rounded-base: 8px;
+		--theme-rounded-container: 14px;
+	}
+	/* selection styles */
+	::selection {
+		@apply bg-primary text-primary-content;
+	}
+
+	/* smoothly transition between theme modes */
+	[data-theme='*'] {
+		@apply transition-all duration-300 ease-in-out;
+	}
+
+	/* Autocomplete styles */
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover,
+	textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		color: unset;
+		background: none;
+		background-color: inherit;
+		color: oklch(var(--bc)) !important;
+		-webkit-box-shadow: 0 0 0 0 none inset;
+		transition: background-color 5000s ease-in-out 0s;
+	}
+
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+		margin: 0;
+	}
+
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	.dark input[type='date'] {
+		color-scheme: dark;
+	}
+
+	* {
+		@apply font-wide font-normal;
+	}
+
+	p {
+		@apply font-light;
+	}
+}
+
+@layer components {
+	.input-primary {
+		@apply input input-md input-bordered w-full max-w-lg;
+	}
+
+	.settings-list {
+		@apply mt-4 text-sm leading-6;
+	}
+
+	.settings-list li {
+		@apply flex flex-col items-start justify-between gap-x-6 py-2 sm:flex-row sm:items-center;
+	}
+
+	.input-primary-invoice {
+		@apply bg-base-100 disabled:text-base-content w-full rounded-lg border-none py-2 read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
+	}
+
+	.input-invoice {
+		@apply hover:input-primary-invoice focus:input-primary-invoice m-0 w-full truncate border-none bg-transparent px-0 text-sm tabular-nums transition-all hover:px-2 focus:px-2;
+	}
+
+	.btn-pay-now {
+		@apply bg-base-content text-base-100 hover:bg-base-content w-36 hover:bg-opacity-80;
+	}
+
+	.input-welcome {
+		@apply input input-primary mt-1;
+	}
+	.label-welcome {
+		@apply label label-text-alt flex flex-col items-start;
+	}
+	.welcome-actions {
+		@apply flex w-full flex-row items-center gap-2 pt-2 [view-transition-name:welcome-actions];
+	}
+}
+
+@layer utilities {
+	.font-wide {
+		font-stretch: 125%;
+	}
+
+	/* Hide scrollbar for Chrome, Safari and Opera */
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Hide scrollbar for IE, Edge and Firefox */
+	.no-scrollbar {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
+
+	/* dynamic viewport */
+	.min-h-dvh {
+		min-height: 100vh;
+		min-height: 100dvh;
+	}
+
+	.min-h-svh {
+		min-height: 100vh;
+		min-height: 100svh;
+	}
+
+	.min-h-lvh {
+		min-height: 100vh;
+		min-height: 100lvh;
+	}
+
+	.h-dvh {
+		height: 100vh;
+		height: 100dvh;
+	}
+
+	.h-svh {
+		height: 100vh;
+		height: 100svh;
+	}
+
+	.h-lvh {
+		height: 100vh;
+		height: 100lvh;
+	}
+}

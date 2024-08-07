@@ -207,9 +207,6 @@ importers:
       tailwind-merge:
         specifier: ^2.4.0
         version: 2.4.0
-      tailwindcss:
-        specifier: ^3.4.7
-        version: 3.4.7(ts-node@10.9.2(@types/node@22.1.0)(typescript@5.5.4))
     devDependencies:
       '@fontsource/fira-mono':
         specifier: ^5.0.0
@@ -232,6 +229,9 @@ importers:
       '@types/eslint':
         specifier: ^9.6.0
         version: 9.6.0
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.20(postcss@8.4.40)
       eslint:
         specifier: ^9.0.0
         version: 9.8.0
@@ -244,6 +244,9 @@ importers:
       globals:
         specifier: ^15.0.0
         version: 15.9.0
+      postcss:
+        specifier: ^8.4.40
+        version: 8.4.40
       prettier:
         specifier: ^3.1.1
         version: 3.3.3
@@ -256,6 +259,9 @@ importers:
       svelte-check:
         specifier: ^3.6.0
         version: 3.8.5(@babel/core@7.25.2)(postcss-load-config@4.0.2(postcss@8.4.40)(ts-node@10.9.2(@types/node@22.1.0)(typescript@5.5.4)))(postcss@8.4.40)(svelte@4.2.18)
+      tailwindcss:
+        specifier: ^3.4.7
+        version: 3.4.7(ts-node@10.9.2(@types/node@22.1.0)(typescript@5.5.4))
       typescript:
         specifier: ^5.0.0
         version: 5.5.4

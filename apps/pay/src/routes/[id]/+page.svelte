@@ -31,21 +31,17 @@
 		.filter((option) => option !== undefined);
 
 	let selectedPaymentOption = paymentOptions?.[0] ?? [];
-
-	$: {
-		console.log(selectedPaymentOption);
-	}
 </script>
 
 <svelte:head>
 	<Meta
 		title="Pay Now"
 		description={`${data.pay?.user.name} is requesting a payment.`}
-		imageUrl="https://app.invoicelink.io/og-image.png"
+		imageUrl="https://pay.invoicelink.io/og-image.png"
 	/>
 </svelte:head>
 
-<div data-theme="light" class="flex h-svh w-full flex-col pb-20">
+<div class="flex h-svh w-full flex-col pb-20">
 	{#if data.pay}
 		<div
 			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-base-200 text-center"
