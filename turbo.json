@@ -4,7 +4,7 @@
 	"tasks": {
 		"build": {
 			"inputs": [".env"],
-			"dependsOn": ["^build", "^db:generate"]
+			"dependsOn": ["^db:generate", "^build"]
 		},
 		"app#build": {
 			"inputs": [
@@ -15,7 +15,7 @@
 				".env"
 			],
 			"outputs": [".svelte-kit/**", ".vercel/**"],
-			"dependsOn": ["format", "lint", "check", "^build", "^db:generate"],
+			"dependsOn": ["^db:generate", "format", "lint", "check", "^build"],
 			"env": [
 				"POSTGRES_PRISMA_URL",
 				"POSTGRES_URL_NON_POOLING",
