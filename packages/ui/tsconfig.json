@@ -1,0 +1,7 @@
+{
+	"extends": ["./.svelte-kit/tsconfig.json", "../../tsconfig.base.json"],
+	"compilerOptions": {
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext"
+	}
+}

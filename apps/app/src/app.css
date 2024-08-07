@@ -86,7 +86,7 @@
 	}
 
 	.input-primary-invoice {
-		@apply w-full rounded-lg border-none bg-base-100 py-2 read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed disabled:text-base-content;
+		@apply bg-base-100 disabled:text-base-content w-full rounded-lg border-none py-2 read-only:cursor-not-allowed focus:border-none focus:ring-0 disabled:cursor-not-allowed;
 	}
 
 	.input-invoice {
@@ -94,7 +94,7 @@
 	}
 
 	.btn-pay-now {
-		@apply w-36 bg-base-content text-base-100 hover:bg-base-content hover:bg-opacity-80;
+		@apply bg-base-content text-base-100 hover:bg-base-content w-36 hover:bg-opacity-80;
 	}
 
 	.input-welcome {
