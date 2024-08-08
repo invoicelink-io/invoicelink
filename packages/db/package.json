@@ -5,8 +5,10 @@
 	"scripts": {
 		"db:generate": "pnpm dlx prisma generate",
 		"db:push": "pnpm dlx prisma db push --skip-generate",
+		"db:migrate": "pnpm dlx prisma migrate dev",
 		"db:deploy": "pnpm dlx prisma migrate deploy",
-		"db:seed": "pnpm dlx prisma db seed"
+		"db:seed": "pnpm dlx prisma db seed",
+		"postinstall": "pnpm dlx prisma generate"
 	},
 	"exports": {
 		".": "./src/index.ts"
