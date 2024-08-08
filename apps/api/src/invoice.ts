@@ -1,9 +1,6 @@
 import { Elysia } from 'elysia'
 import puppeteer from 'puppeteer';
 
-
-const getBrowser = () => puppeteer.launch({ headless: true });
-
 const plugin = new Elysia()
     .get('/invoice', async ({
         query
@@ -11,7 +8,7 @@ const plugin = new Elysia()
         console.log(query)
         const { id, type, download } = query
 
-	    let browser = await getBrowser();
+	    let browser = await puppeteer.launch({ headless: true });
 		const page = await browser.newPage();
 
 		await page.goto(`https://app.invoicelink.io/invoice?id=${id}&type=${type}&download=${download}`);
@@ -19,6 +16,8 @@ const plugin = new Elysia()
 			format: 'A4',
 			printBackground: true
 		});
+         
+        await browser.close();
 
 		return new Response(pdf, {
 			headers: {
