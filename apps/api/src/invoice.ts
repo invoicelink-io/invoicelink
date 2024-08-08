@@ -1,17 +1,17 @@
+import { Elysia } from 'elysia'
 import puppeteer from 'puppeteer';
-import { Hono } from 'hono'
 
-const app = new Hono()
 
 const getBrowser = () => puppeteer.launch({ headless: true });
 
-app.get('/', async (c) => {
-	const {id, type, download} = c.req.queries()
+const plugin = new Elysia()
+    .get('/invoice', async ({
+        query
+    }) => {
+        console.log(query)
+        const { id, type, download } = query
 
-	let browser = null;
-
-	try {
-		browser = await getBrowser();
+	    let browser = await getBrowser();
 		const page = await browser.newPage();
 
 		await page.goto(`https://app.invoicelink.io/invoice?id=${id}&type=${type}&download=${download}`);
@@ -25,17 +25,7 @@ app.get('/', async (c) => {
 				'Content-Type': 'application/pdf',
 				'Content-Disposition': download ? `attachment; filename="invoice.pdf"` : `inline`
 			}
-		});
-	} catch (error: unknown) {
-		if (error instanceof Error) {
-			return c.json({ error: error.message });
-		}
-	} finally {
-		if (browser) {
-			browser.close();
-		}
-	}
-  return c.text('Hello from invoice!')
-})
+        });
+	});
 
-export default app
+export default plugin

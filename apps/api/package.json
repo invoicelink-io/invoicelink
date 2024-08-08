@@ -1,18 +1,20 @@
 {
 	"name": "api",
-	"type": "module",
+	"version": "1.1.0",
+	"description": "Invoicelink.io API Endpoints",
 	"scripts": {
-		"dev": "tsx watch src/index.ts",
-		"build": "tsc"
+		"dev": "bun --watch src/index.ts",
+		"build": "bun build src/index.ts --outdir=dist",
+		"start": "NODE_ENV=production bun src/index.ts",
+		"test": "bun test"
 	},
 	"dependencies": {
-		"@hono/node-server": "^1.12.0",
-		"hono": "^4.5.4",
-		"puppeteer": "^22.15.0"
+		"@elysiajs/swagger": "^1.1.0",
+		"elysia": "latest",
+		"puppeteer": "^23.0.2"
 	},
 	"devDependencies": {
-		"@types/node": "^20.11.17",
-		"tsx": "^4.7.1",
-		"typescript": "^5.5.4"
-	}
+		"bun-types": "latest"
+	},
+	"module": "src/index.js"
 }
