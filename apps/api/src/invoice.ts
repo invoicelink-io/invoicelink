@@ -11,7 +11,7 @@ const plugin = new Elysia()
 	    let browser = await puppeteer.launch({ headless: true });
 		const page = await browser.newPage();
 
-		await page.goto(`https://app.invoicelink.io/invoice?id=${id}&type=${type}&download=${download}`);
+		await page.goto(`https://app.invoicelink.io/invoice?id=${id}&type=${type}&download=${download}`,{ waitUntil: 'domcontentloaded' });
 		const pdf = await page.pdf({
 			format: 'A4',
 			printBackground: true
