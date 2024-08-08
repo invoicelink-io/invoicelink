@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@changesets/cli':
+        specifier: ^2.27.7
+        version: 2.27.7
     devDependencies:
       turbo:
         specifier: ^2.0.12
@@ -81,9 +85,6 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
-      '@changesets/cli':
-        specifier: ^2.27.7
-        version: 2.27.7
       '@eslint/js':
         specifier: ^9.8.0
         version: 9.8.0
