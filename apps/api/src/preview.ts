@@ -11,27 +11,40 @@ const plugin = new Elysia()
     }) => {
         const { styleId } = query
 
-	    let browser = await puppeteer.launch({ headless: true });
-		const page = await browser.newPage();
+        let browser = await puppeteer.launch({
+            headless: true, args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-session-crashed-bubble',
+                '--disable-accelerated-2d-canvas',
+                '--no-first-run',
+                '--no-zygote',
+                '--single-process',
+                '--noerrdialogs',
+                '--disable-gpu'
+            ],
+        });
+        const page = await browser.newPage();
 
-		await page.goto(`https://app.invoicelink.io/invoice?styleId=${styleId}`,{ waitUntil: 'domcontentloaded' });
-		const img = await page.screenshot({
-			fullPage: true,
-			optimizeForSpeed: true,
-			quality: 70,
-			omitBackground: true,
-			type: 'webp'
-		});
+        await page.goto(`https://app.invoicelink.io/invoice?styleId=${styleId}`, { waitUntil: 'domcontentloaded' });
+        const img = await page.screenshot({
+            fullPage: true,
+            optimizeForSpeed: true,
+            quality: 70,
+            omitBackground: true,
+            type: 'webp'
+        });
 
         await browser.close();
 
-		return new Response(img, {
-			headers: {
-				'Content-Type': 'image/webp'
-			},
+        return new Response(img, {
+            headers: {
+                'Content-Type': 'image/webp'
+            },
             status: 200
-		});
-	}, {
+        });
+    }, {
         query: t.Object({
             styleId: t.String({
                 description: 'An invoice template style id',

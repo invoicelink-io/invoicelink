@@ -13,25 +13,38 @@ const plugin = new Elysia()
     }) => {
         const { id, type, download } = query
 
-	    let browser = await puppeteer.launch({ headless: true });
-		const page = await browser.newPage();
+        let browser = await puppeteer.launch({
+            headless: true, args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-session-crashed-bubble',
+                '--disable-accelerated-2d-canvas',
+                '--no-first-run',
+                '--no-zygote',
+                '--single-process',
+                '--noerrdialogs',
+                '--disable-gpu'
+            ]
+        });
+        const page = await browser.newPage();
 
-		await page.goto(`https://app.invoicelink.io/invoice?id=${id}&type=${type}&download=${download}`,{ waitUntil: 'domcontentloaded' });
-		const pdf = await page.pdf({
-			format: 'A4',
-			printBackground: true
-		});
-         
+        await page.goto(`https://app.invoicelink.io/invoice?id=${id}&type=${type}&download=${download}`, { waitUntil: 'domcontentloaded' });
+        const pdf = await page.pdf({
+            format: 'A4',
+            printBackground: true
+        });
+
         await browser.close();
 
-		return new Response(pdf as unknown as File, {
-			headers: {
-				'Content-Type': 'application/pdf',
-				'Content-Disposition': download ? `attachment; filename="invoice.pdf"` : `inline`
-			},
+        return new Response(pdf as unknown as File, {
+            headers: {
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': download ? `attachment; filename="invoice.pdf"` : `inline`
+            },
             status: 200
         });
-	}, {
+    }, {
         query: t.Object({
             id: t.String({
                 description: 'An invoice or quicklink id',
