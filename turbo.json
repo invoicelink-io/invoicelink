@@ -47,7 +47,7 @@
 			"dependsOn": ["^format"]
 		},
 		"lint": {
-			"dependsOn": ["^lint"]
+			"dependsOn": ["format", "^lint"]
 		},
 		"dev": {
 			"dependsOn": ["^db:generate"],
