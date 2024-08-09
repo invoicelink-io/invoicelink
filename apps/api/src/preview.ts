@@ -9,7 +9,6 @@ const plugin = new Elysia()
             styleId: string;
         }
     }) => {
-        console.log(query)
         const { styleId } = query
 
 	    let browser = await puppeteer.launch({ headless: true });
