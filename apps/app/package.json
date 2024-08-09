@@ -6,7 +6,7 @@
 	"private": true,
 	"homepage": "https://app.invoicelink.io",
 	"scripts": {
-		"dev": "vite dev --open --port 5173",
+		"dev": "vite dev --port 5173",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",

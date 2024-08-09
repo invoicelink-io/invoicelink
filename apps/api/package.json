@@ -4,13 +4,14 @@
 	"description": "Invoicelink.io API Endpoints",
 	"scripts": {
 		"dev": "bun --watch src/index.ts",
-		"build": "bun build src/index.ts --outdir=dist",
+		"build": "bun build src/index.ts --outdir=.dist",
 		"start": "NODE_ENV=production bun src/index.ts",
 		"test": "bun test",
 		"postinstall": "bunx puppeteer browsers install chrome"
 	},
 	"dependencies": {
 		"@elysiajs/swagger": "^1.1.0",
+		"cloudinary": "^2.4.0",
 		"elysia": "latest",
 		"puppeteer": "^23.0.2"
 	},
