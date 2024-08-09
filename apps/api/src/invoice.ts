@@ -14,7 +14,7 @@ const plugin = new Elysia().get(
 	}) => {
 		const { id, type, download } = query;
 
-		let browser = await getBrowser();
+		const browser = await getBrowser();
 		const page = await browser.newPage();
 
 		await page.goto(

@@ -12,7 +12,7 @@ const plugin = new Elysia().get(
 	}) => {
 		const { styleId } = query;
 
-		let browser = await getBrowser();
+		const browser = await getBrowser();
 		const page = await browser.newPage();
 
 		await page.goto(`https://app.invoicelink.io/invoice?styleId=${styleId}`, {
