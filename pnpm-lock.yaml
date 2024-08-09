@@ -18,34 +18,25 @@ importers:
 
   apps/api:
     dependencies:
-      '@hono/node-server':
-        specifier: ^1.12.0
-        version: 1.12.0
-      '@hono/swagger-ui':
-        specifier: ^0.4.0
-        version: 0.4.0(hono@4.5.4)
-      '@hono/zod-openapi':
-        specifier: ^0.15.1
-        version: 0.15.1(hono@4.5.4)(zod@3.23.8)
-      hono:
-        specifier: ^4.5.4
-        version: 4.5.4
+      '@elysiajs/cors':
+        specifier: ^1.1.0
+        version: 1.1.0(elysia@1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4))
+      '@elysiajs/swagger':
+        specifier: ^1.1.0
+        version: 1.1.0(elysia@1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4))
+      cloudinary:
+        specifier: ^2.4.0
+        version: 2.4.0
+      elysia:
+        specifier: latest
+        version: 1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4)
       puppeteer:
-        specifier: ^22.15.0
-        version: 22.15.0(typescript@5.5.4)
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
+        specifier: ^23.0.2
+        version: 23.0.2(typescript@5.5.4)
     devDependencies:
-      '@types/node':
-        specifier: ^20.11.17
-        version: 20.14.14
-      tsx:
-        specifier: ^4.7.1
-        version: 4.16.5
-      typescript:
-        specifier: ^5.5.4
-        version: 5.5.4
+      bun-types:
+        specifier: latest
+        version: 1.1.22
 
   apps/app:
     dependencies:
@@ -342,11 +333,6 @@ packages:
   '@ark/util@0.1.0':
     resolution: {integrity: sha512-qCLYICQoCy3kEKDVwirQp8qvxhY7NJd8BhhoHaj1l3wCFAk9NUbcDsxAkPStZEMdPI/d7NcbGJe8SWZuRG2twQ==}
 
-  '@asteasolutions/zod-to-openapi@7.1.1':
-    resolution: {integrity: sha512-lF0d1gAc0lYLO9/BAGivwTwE2Sh9h6CHuDcbk5KnGBfIuAsAkDC+Fdat4dkQY3CS/zUWKHRmFEma0B7X132Ymw==}
-    peerDependencies:
-      zod: ^3.20.2
-
   '@babel/code-frame@7.24.7':
     resolution: {integrity: sha512-BcYH1CVJBO9tvyIZ2jVeXgSIMvGZ2FDRvDdOIVQyuklNKSsx+eppDEBq/g47Ayw+RqNFE+URvOShmf+f/qwAlA==}
     engines: {node: '>=6.9.0'}
@@ -492,6 +478,16 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     peerDependencies:
       postcss-selector-parser: ^6.0.13
+
+  '@elysiajs/cors@1.1.0':
+    resolution: {integrity: sha512-k5caMGURZGggLrj7lgaaRLqCabyrxpPTRObsPDVug+YIWGgE2NGWCdY/FAU9kgn9PsUEE/V5QaUFO8OasV5x9g==}
+    peerDependencies:
+      elysia: '>= 1.1.0'
+
+  '@elysiajs/swagger@1.1.0':
+    resolution: {integrity: sha512-DnGpzs3fs+rvcCN6JhBfVo9ISjsaVJBuPnmaIgPNZvXsUbuKCOROGYmRLM0u7Hr4QfH/myrgbWk7C6JeoVeYjQ==}
+    peerDependencies:
+      elysia: '>= 1.1.0'
 
   '@emnapi/core@0.45.0':
     resolution: {integrity: sha512-DPWjcUDQkCeEM4VnljEOEcXdAD7pp8zSZsgOujk/LGIwCXWbXJngin+MO4zbH429lzeC3WbYLGjE2MaUOwzpyw==}
@@ -834,28 +830,6 @@ packages:
 
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
-
-  '@hono/node-server@1.12.0':
-    resolution: {integrity: sha512-e6oHjNiErRxsZRZBmc2KucuvY3btlO/XPncIpP2X75bRdTilF9GLjm3NHvKKunpJbbJJj31/FoPTksTf8djAVw==}
-    engines: {node: '>=18.14.1'}
-
-  '@hono/swagger-ui@0.4.0':
-    resolution: {integrity: sha512-8lF+dexzgV2HRM1R/gf49E5djroq4jVMYMSwLkSF9pT0I6sYhuqirFDCRFrBtbbLCBsKzw6f2MF5rS+WY3d7Nw==}
-    peerDependencies:
-      hono: '*'
-
-  '@hono/zod-openapi@0.15.1':
-    resolution: {integrity: sha512-2Un3D5xD1j4tIvUwzQ/XkB6xwrEA0Ne23TRjB8UVw0PgUWzsB3xiB8Hl/y2ZEMfcIfrA15/ga4P6Bkct8uYaLg==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      hono: '>=4.3.6'
-      zod: 3.*
-
-  '@hono/zod-validator@0.2.2':
-    resolution: {integrity: sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==}
-    peerDependencies:
-      hono: '>=3.9.0'
-      zod: ^3.19.1
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -1640,8 +1614,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@20.14.14':
-    resolution: {integrity: sha512-d64f00982fS9YoOgJkAMolK7MN8Iq3TDdVjchbYHdEmjth/DHowx82GnoA+tVUAN+7vxfYUgAzi+JXbKNd2SDQ==}
+  '@types/node@20.12.14':
+    resolution: {integrity: sha512-scnD59RpYD91xngrQQLGkE+6UrHUPzeKZWhhjBSa3HSkwjbQc38+q3RoIVEwxQGRw3M+j5hpNAM+lgV3cVormg==}
 
   '@types/node@22.1.0':
     resolution: {integrity: sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==}
@@ -1663,6 +1637,9 @@ packages:
 
   '@types/validator@13.12.0':
     resolution: {integrity: sha512-nH45Lk7oPIJ1RVOF6JgFI6Dy0QpHEzq4QecZhvguxYPDwT8c93prCMqAtiIttm39voZ+DDR+qkNnMpJmMBRqag==}
+
+  '@types/ws@8.5.12':
+    resolution: {integrity: sha512-3tPRkv1EtkDpzlgyKyI8pGsGZAGPEaXeu0DOj5DI25Ja91bdAYddYHbADRYVrZMRbfW+1l5YwXVDKohDJNQxkQ==}
 
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
@@ -1961,6 +1938,9 @@ packages:
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
 
+  bun-types@1.1.22:
+    resolution: {integrity: sha512-PBgj4pQd+1WZJ8kWCho7D6i1RMS9/6WkiRikIfqYFzFomfyWZET32Wy83xK2zmF9HiKXd2+bjtVahJ6546oraA==}
+
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
     engines: {node: '>=8'}
@@ -2009,6 +1989,11 @@ packages:
 
   chromium-bidi@0.6.3:
     resolution: {integrity: sha512-qXlsCmpCZJAnoTYI83Iu6EdYQpMYdVkCfq08KDh2pmlVqK5t5IA9mGs4/LwCwp4fqisSOMXZxP3HIh8w8aRn0A==}
+    peerDependencies:
+      devtools-protocol: '*'
+
+  chromium-bidi@0.6.4:
+    resolution: {integrity: sha512-8zoq6ogmhQQkAKZVKO2ObFTl4uOkqoX1PlKQX3hZQ5E9cbUotcAb7h4pTNVAGGv8Z36PF3CtdOriEp/Rz82JqQ==}
     peerDependencies:
       devtools-protocol: '*'
 
@@ -2187,6 +2172,18 @@ packages:
   electron-to-chromium@1.5.5:
     resolution: {integrity: sha512-QR7/A7ZkMS8tZuoftC/jfqNkZLQO779SSW3YuZHP4eXpj3EffGLFcB/Xu9AAZQzLccTiCV+EmUo3ha4mQ9wnlA==}
 
+  elysia@1.1.5:
+    resolution: {integrity: sha512-wtJZE4vkn5WLH+Lfpl7cWDoF03OfoEb2elvRjtVD/OGjH5l1DIDuI92idVLbILOHvwx8YySFkXv2n41WwkFlfw==}
+    peerDependencies:
+      '@sinclair/typebox': '>= 0.32.0'
+      openapi-types: '>= 12.0.0'
+      typescript: '>= 5.0.0'
+    peerDependenciesMeta:
+      openapi-types:
+        optional: true
+      typescript:
+        optional: true
+
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -2340,6 +2337,9 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
 
+  fast-decode-uri-component@1.0.1:
+    resolution: {integrity: sha512-WKgKWg5eUxvRZGwW8FvfbaH7AXSh2cL+3j5fMGzUMCxWBJ3dV3a7Wz8y2f/uQ0e3B6WmodD3oS54jTQ9HVTIIg==}
+
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
@@ -2479,9 +2479,6 @@ packages:
     resolution: {integrity: sha512-VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==}
     engines: {node: '>=16'}
 
-  get-tsconfig@4.7.6:
-    resolution: {integrity: sha512-ZAqrLlu18NbDdRaHq+AKXzAmqIUPswPWKUchfytdAjiRFnCe5ojG2bstg6mRiZabkKfCoL/e98pbBELIV/YCeA==}
-
   get-uri@6.0.3:
     resolution: {integrity: sha512-BzUrJBS9EcUb4cFol8r4W3v1cPsSyajLSthNkz5BxbpDcHN5tIrM10E2eNvfnvBn3DaT3DUgx0OpsBKkaOpanw==}
     engines: {node: '>= 14'}
@@ -2548,10 +2545,6 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
-
-  hono@4.5.4:
-    resolution: {integrity: sha512-k2IguJfRgNCpDbAfpxk+o+fZBLFHl4+eIZUpjc1ItZWHeZ37SmT3efA1UpkIaC0hSf1NJg0E79/wWn6g9LQ4Cw==}
-    engines: {node: '>=16.0.0'}
 
   http-proxy-agent@7.0.2:
     resolution: {integrity: sha512-T1gkAiYYDWYx3V5Bmyu7HcfcvL7mUrTWiM6yOfa3PIphViJ/gFPbvidQ+veqSOHci/PxBcDabeUNCzpOODJZig==}
@@ -2765,6 +2758,9 @@ packages:
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
+
+  lodash.clonedeep@4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -2995,8 +2991,8 @@ packages:
     resolution: {integrity: sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==}
     engines: {node: '>=12'}
 
-  openapi3-ts@4.3.3:
-    resolution: {integrity: sha512-LKkzBGJcZ6wdvkKGMoSvpK+0cbN5Xc3XuYkJskO+vjEQWJgs1kgtyUk0pjf8KwPuysv323Er62F5P17XQl96Qg==}
+  openapi-types@12.1.3:
+    resolution: {integrity: sha512-N4YtSYJqghVu4iek2ZUvcN/0aqH1kRDuNqzcycDxhOUpg7GdvLa2F3DgS6yBNhInhv2r/6I0Flkn7CqL8+nIcw==}
 
   opentelemetry-instrumentation-fetch-node@1.2.3:
     resolution: {integrity: sha512-Qb11T7KvoCevMaSeuamcLsAD+pZnavkhDnlVL0kRozfhl42dKG5Q3anUklAFKJZjY3twLR+BnRa6DlwwkIE/+A==}
@@ -3360,8 +3356,17 @@ packages:
     resolution: {integrity: sha512-cHArnywCiAAVXa3t4GGL2vttNxh7GqXtIYGym99egkNJ3oG//wL9LkvO4WE8W1TJe95t1F1ocu9X4xWaGsOKOA==}
     engines: {node: '>=18'}
 
+  puppeteer-core@23.0.2:
+    resolution: {integrity: sha512-MvOHn+g1TYkAR2oVd/bf/YWXKqFTJmkhyyurYgxkrjh8rBOL1ZH5VyOsLJi0bLO7/yoipAmk1gFZEx9HUJnaoA==}
+    engines: {node: '>=18'}
+
   puppeteer@22.15.0:
     resolution: {integrity: sha512-XjCY1SiSEi1T7iSYuxS82ft85kwDJUS7wj1Z0eGVXKdtr5g4xnVcbjwxhq5xBnpK/E7x1VZZoJDxpjAOasHT4Q==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  puppeteer@23.0.2:
+    resolution: {integrity: sha512-I/l1P8s8brcLG+oW9AwF8hUaOSGGJcGKMflXRgULUH0S3ABptlLI9ZKjqWDo8ipY6v789ZKd+bNKtcCwpTh5Ww==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3419,9 +3424,6 @@ packages:
   resolve-from@5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
-
-  resolve-pkg-maps@1.0.0:
-    resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
   resolve@1.22.8:
     resolution: {integrity: sha512-oKWePCxqpd6FlLvGV1VU0x7bkPmmCNolxzjMf4NczoDnQcIWrAF+cPtZn5i6n+RfD2d9i0tzpKnG6Yk168yIyw==}
@@ -3824,11 +3826,6 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
-  tsx@4.16.5:
-    resolution: {integrity: sha512-ArsiAQHEW2iGaqZ8fTA1nX0a+lN5mNTyuGRRO6OW3H/Yno1y9/t1f9YOI1Cfoqz63VAthn++ZYcbDP7jPflc+A==}
-    engines: {node: '>=18.0.0'}
-    hasBin: true
-
   turbo-darwin-64@2.0.12:
     resolution: {integrity: sha512-NAgfgbXxX/JScWQmmQnGbPuFZq7LIswHfcMk5JwyBXQM/xmklNOxxac7MnGGIOf19Z2f6S3qHy17VIj0SeGfnA==}
     cpu: [x64]
@@ -4136,11 +4133,6 @@ snapshots:
   '@ark/util@0.1.0':
     optional: true
 
-  '@asteasolutions/zod-to-openapi@7.1.1(zod@3.23.8)':
-    dependencies:
-      openapi3-ts: 4.3.3
-      zod: 3.23.8
-
   '@babel/code-frame@7.24.7':
     dependencies:
       '@babel/highlight': 7.24.7
@@ -4425,6 +4417,16 @@ snapshots:
     dependencies:
       postcss-selector-parser: 6.1.1
 
+  '@elysiajs/cors@1.1.0(elysia@1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4))':
+    dependencies:
+      elysia: 1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4)
+
+  '@elysiajs/swagger@1.1.0(elysia@1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4))':
+    dependencies:
+      elysia: 1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4)
+      lodash.clonedeep: 4.5.0
+      openapi-types: 12.1.3
+
   '@emnapi/core@0.45.0':
     dependencies:
       tslib: 2.6.3
@@ -4645,24 +4647,6 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
     optional: true
-
-  '@hono/node-server@1.12.0': {}
-
-  '@hono/swagger-ui@0.4.0(hono@4.5.4)':
-    dependencies:
-      hono: 4.5.4
-
-  '@hono/zod-openapi@0.15.1(hono@4.5.4)(zod@3.23.8)':
-    dependencies:
-      '@asteasolutions/zod-to-openapi': 7.1.1(zod@3.23.8)
-      '@hono/zod-validator': 0.2.2(hono@4.5.4)(zod@3.23.8)
-      hono: 4.5.4
-      zod: 3.23.8
-
-  '@hono/zod-validator@0.2.2(hono@4.5.4)(zod@3.23.8)':
-    dependencies:
-      hono: 4.5.4
-      zod: 3.23.8
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
@@ -5425,8 +5409,7 @@ snapshots:
   '@sideway/pinpoint@2.0.0':
     optional: true
 
-  '@sinclair/typebox@0.32.35':
-    optional: true
+  '@sinclair/typebox@0.32.35': {}
 
   '@skeletonlabs/skeleton@2.10.2(svelte@4.2.18)':
     dependencies:
@@ -5548,7 +5531,7 @@ snapshots:
 
   '@types/node@12.20.55': {}
 
-  '@types/node@20.14.14':
+  '@types/node@20.12.14':
     dependencies:
       undici-types: 5.26.5
 
@@ -5574,6 +5557,10 @@ snapshots:
 
   '@types/validator@13.12.0':
     optional: true
+
+  '@types/ws@8.5.12':
+    dependencies:
+      '@types/node': 22.1.0
 
   '@types/yauzl@2.10.3':
     dependencies:
@@ -5937,6 +5924,11 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
+  bun-types@1.1.22:
+    dependencies:
+      '@types/node': 20.12.14
+      '@types/ws': 8.5.12
+
   cac@6.7.14: {}
 
   callsites@3.1.0: {}
@@ -5986,6 +5978,13 @@ snapshots:
   chownr@2.0.0: {}
 
   chromium-bidi@0.6.3(devtools-protocol@0.0.1312386):
+    dependencies:
+      devtools-protocol: 0.0.1312386
+      mitt: 3.0.1
+      urlpattern-polyfill: 10.0.0
+      zod: 3.23.8
+
+  chromium-bidi@0.6.4(devtools-protocol@0.0.1312386):
     dependencies:
       devtools-protocol: 0.0.1312386
       mitt: 3.0.1
@@ -6139,6 +6138,15 @@ snapshots:
   eastasianwidth@0.2.0: {}
 
   electron-to-chromium@1.5.5: {}
+
+  elysia@1.1.5(@sinclair/typebox@0.32.35)(openapi-types@12.1.3)(typescript@5.5.4):
+    dependencies:
+      '@sinclair/typebox': 0.32.35
+      cookie: 0.6.0
+      fast-decode-uri-component: 1.0.1
+    optionalDependencies:
+      openapi-types: 12.1.3
+      typescript: 5.5.4
 
   emoji-regex@8.0.0: {}
 
@@ -6381,6 +6389,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  fast-decode-uri-component@1.0.1: {}
+
   fast-deep-equal@3.1.3: {}
 
   fast-fifo@1.3.2: {}
@@ -6519,10 +6529,6 @@ snapshots:
 
   get-stream@8.0.1: {}
 
-  get-tsconfig@4.7.6:
-    dependencies:
-      resolve-pkg-maps: 1.0.0
-
   get-uri@6.0.3:
     dependencies:
       basic-ftp: 5.0.5
@@ -6597,8 +6603,6 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
-
-  hono@4.5.4: {}
 
   http-proxy-agent@7.0.2:
     dependencies:
@@ -6807,6 +6811,8 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
+  lodash.clonedeep@4.5.0: {}
+
   lodash.merge@4.6.2: {}
 
   lodash.startcase@4.4.0: {}
@@ -6994,9 +7000,7 @@ snapshots:
     dependencies:
       mimic-fn: 4.0.0
 
-  openapi3-ts@4.3.3:
-    dependencies:
-      yaml: 2.5.0
+  openapi-types@12.1.3: {}
 
   opentelemetry-instrumentation-fetch-node@1.2.3(@opentelemetry/api@1.9.0):
     dependencies:
@@ -7303,12 +7307,37 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  puppeteer-core@23.0.2:
+    dependencies:
+      '@puppeteer/browsers': 2.3.0
+      chromium-bidi: 0.6.4(devtools-protocol@0.0.1312386)
+      debug: 4.3.6
+      devtools-protocol: 0.0.1312386
+      ws: 8.18.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   puppeteer@22.15.0(typescript@5.5.4):
     dependencies:
       '@puppeteer/browsers': 2.3.0
       cosmiconfig: 9.0.0(typescript@5.5.4)
       devtools-protocol: 0.0.1312386
       puppeteer-core: 22.15.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - typescript
+      - utf-8-validate
+
+  puppeteer@23.0.2(typescript@5.5.4):
+    dependencies:
+      '@puppeteer/browsers': 2.3.0
+      chromium-bidi: 0.6.4(devtools-protocol@0.0.1312386)
+      cosmiconfig: 9.0.0(typescript@5.5.4)
+      devtools-protocol: 0.0.1312386
+      puppeteer-core: 23.0.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -7367,8 +7396,6 @@ snapshots:
   resolve-from@4.0.0: {}
 
   resolve-from@5.0.0: {}
-
-  resolve-pkg-maps@1.0.0: {}
 
   resolve@1.22.8:
     dependencies:
@@ -7822,13 +7849,6 @@ snapshots:
     optional: true
 
   tslib@2.6.3: {}
-
-  tsx@4.16.5:
-    dependencies:
-      esbuild: 0.21.5
-      get-tsconfig: 4.7.6
-    optionalDependencies:
-      fsevents: 2.3.3
 
   turbo-darwin-64@2.0.12:
     optional: true
