@@ -4,7 +4,6 @@
 	"description": "Invoicelink.io API Endpoints",
 	"scripts": {
 		"dev": "bun --watch src/index.ts",
-		"build": "bun build src/index.ts --outdir=.dist",
 		"start": "NODE_ENV=production bun src/index.ts",
 		"test": "bun test"
 	},
