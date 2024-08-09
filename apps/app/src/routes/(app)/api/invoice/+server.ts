@@ -11,7 +11,7 @@ const getBrowser = () =>
 			})
 		: // Connect to browserless so we don't run Chrome on the same hardware in production
 			puppeteer.connect({
-				browserWSEndpoint: `wss://chrome.browserless.io?token=${BROWSERLESS_API_TOKEN}`
+				browserWSEndpoint: `wss://browserless.looped.co.za?token=${BROWSERLESS_API_TOKEN}`
 			});
 
 export async function GET({ url }) {
