@@ -1,0 +1,28 @@
+{
+	"name": "@invoicelink/config",
+	"version": "1.1.0",
+	"description": "The invoicelink config package",
+	"type": "module",
+	"exports": {
+		".": "./src/index.js",
+		"./eslint": "./src/eslint.js",
+		"./prettier": "./src/prettier.js",
+		"./tailwind": "./src/tailwind.js",
+		"./themes": "./src/themes.js"
+	},
+	"keywords": [],
+	"author": "Ratul Maharaj <ratulmaharaj@looped.co.za>",
+	"license": "ISC",
+	"dependencies": {
+		"@eslint/js": "^9.8.0",
+		"@types/eslint-config-prettier": "^6.11.3",
+		"@types/eslint__js": "^8.42.3",
+		"@types/node": "^22.1.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.43.0",
+		"globals": "^15.9.0",
+		"tailwindcss": "^3.4.7",
+		"typescript": "^5.5.4",
+		"typescript-eslint": "^8.0.1"
+	}
+}

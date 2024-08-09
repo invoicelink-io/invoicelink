@@ -18,6 +18,7 @@
 		"test:unit": "vitest"
 	},
 	"devDependencies": {
+		"@invoicelink/config": "workspace:*",
 		"@eslint/js": "^9.8.0",
 		"@playwright/test": "^1.45.3",
 		"@skeletonlabs/skeleton": "^2.10.2",
@@ -59,8 +60,8 @@
 		"pnpm": ">=8"
 	},
 	"dependencies": {
-		"@floating-ui/dom": "^1.6.8",
 		"@invoicelink/db": "workspace:*",
+		"@floating-ui/dom": "^1.6.8",
 		"@lucia-auth/adapter-prisma": "4.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",
 		"@prisma/client": "5.18.0",
