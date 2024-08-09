@@ -48,10 +48,10 @@
 <div data-theme="light" class="flex h-svh w-full flex-col pb-20">
 	{#if data.pay}
 		<div
-			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-base-200 text-center"
+			class="bg-pattern bg-base-200 relative flex h-[25vh] w-full flex-col items-center justify-center text-center"
 		>
 			<div
-				class="absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl bg-base-100 p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
+				class="bg-base-100 absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
 			>
 				<div class="flex flex-col items-center">
 					<div class="-mt-4 mb-4">
@@ -78,8 +78,9 @@
 			</div>
 		</div>
 		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
-			<a href="/api/invoice?id={data?.pay.id}&type={data.type}&download=true" class="btn w-36"
-				>Save invoice</a
+			<a
+				href="https://api.invoicelink.io/invoice?id={data?.pay.id}&type={data.type}&download=true"
+				class="btn w-36">Save invoice</a
 			>
 			{#if !isPaid}
 				{#if integrations.payfast && selectedPaymentOption.value === 'payfast'}

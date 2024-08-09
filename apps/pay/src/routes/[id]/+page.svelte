@@ -74,8 +74,9 @@
 			</div>
 		</div>
 		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
-			<a href="/api/invoice?id={data?.pay.id}&type={data.type}&download=true" class="btn w-36"
-				>Save invoice</a
+			<a
+				href="https://api.invoicelink.io/invoice?id={data?.pay.id}&type={data.type}&download=true"
+				class="btn w-36">Save invoice</a
 			>
 			{#if !isPaid}
 				{#if integrations.payfast && selectedPaymentOption.value === 'payfast'}

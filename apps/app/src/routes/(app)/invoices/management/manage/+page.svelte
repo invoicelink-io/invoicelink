@@ -108,7 +108,7 @@
 				class="tooltip tooltip-accent"
 				data-tip="Save a copy"
 				target="_blank"
-				href="/api/invoice?id={$form.id}&type=invoice&download=true"
+				href="https://api.invoicelink.io/invoice?id={$form.id}&type=invoice&download=true"
 			>
 				<Icon name="download" />
 			</a>

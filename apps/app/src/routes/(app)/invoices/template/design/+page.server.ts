@@ -39,7 +39,7 @@ export const load = (async ({ parent, locals, url }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	create: async ({ request, locals, url }) => {
+	create: async ({ request, locals }) => {
 		const { user } = locals;
 		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
@@ -58,7 +58,7 @@ export const actions: Actions = {
 			});
 
 			// grab the screenshot of the template
-			const imageUrl = `${url.origin}/api/templatePreview?styleId=${res.id}`;
+			const imageUrl = `https://api.invoicelink.io/preview?styleId=${res.id}`;
 			const base64image = await fetch(imageUrl)
 				.then((res) => res.arrayBuffer())
 				.then((buf) => arrayBufferToBase64(buf, 'image/webp'));
@@ -83,7 +83,7 @@ export const actions: Actions = {
 			return message(form, 'Template created');
 		}
 	},
-	update: async ({ request, locals, url }) => {
+	update: async ({ request, locals }) => {
 		const { user } = locals;
 		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
@@ -105,7 +105,7 @@ export const actions: Actions = {
 				}
 			});
 
-			const imageUrl = `${url.origin}/api/templatePreview?styleId=${form.data.id}`;
+			const imageUrl = `https://api.invoicelink.io/preview?styleId=${form.data.id}`;
 			const base64image = await fetch(imageUrl)
 				.then((res) => res.arrayBuffer())
 				.then((buf) => arrayBufferToBase64(buf, 'image/webp'));
