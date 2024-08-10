@@ -5,6 +5,7 @@
 	import toast from 'svelte-french-toast';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
+	import Currency from './Currency.svelte';
 
 	const { form, enhance, message, submitting } = superForm(data.profileForm, {
 		resetForm: false,
@@ -21,7 +22,8 @@
 	});
 </script>
 
-<Divider>Update your profile information</Divider>
+<Currency />
+<Divider>Update your personal information</Divider>
 
 <form id="profile-settings" method="POST" action="?/updateProfile" use:enhance>
 	<ul role="list" class="settings-list">

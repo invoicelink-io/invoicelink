@@ -24,7 +24,7 @@
 	let selected = currencies.find((c) => c.value === $form.currency) ?? currencies[0];
 </script>
 
-<Divider>Set your currency</Divider>
+<Divider>Change your currency</Divider>
 
 <form method="POST" id="currency-settings" action="?/updateCurrency" use:enhance>
 	<input hidden name="id" value={$form.id} />

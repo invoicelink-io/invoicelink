@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { addressSchema, bankSchema, currencySchema } from '$lib/validation';
+import { addressSchema, bankSchema } from '$lib/validation';
 import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals, cookies }) => {
@@ -59,25 +59,12 @@ export const load = (async ({ parent, locals, cookies }) => {
 
 	const bankingForm = await superValidate(bank, zod(bankSchema));
 
-	const dbUser = await prisma.user.findFirst({
-		where: {
-			id: user?.id
-		},
-		select: {
-			id: true,
-			currency: true
-		}
-	});
-
-	const currencyForm = await superValidate(dbUser, zod(currencySchema));
-
 	return {
 		user,
 		title: 'Settings',
 		theme: cookies.get('colortheme'),
 		addressForm,
-		bankingForm,
-		currencyForm
+		bankingForm
 	};
 }) satisfies PageServerLoad;
 
@@ -119,23 +106,5 @@ export const actions: Actions = {
 			}
 		});
 		return message(bankForm, 'Banking details updated');
-	},
-	updateCurrency: async ({ request, locals }) => {
-		const { user } = locals;
-		const currencyForm = await superValidate(request, zod(currencySchema));
-
-		if (!currencyForm.valid) {
-			return message(currencyForm, 'Invalid currency');
-		}
-
-		await prisma.user.update({
-			where: {
-				id: user?.id
-			},
-			data: {
-				currency: currencyForm.data.currency
-			}
-		});
-		return message(currencyForm, 'Currency choice updated');
 	}
 };
