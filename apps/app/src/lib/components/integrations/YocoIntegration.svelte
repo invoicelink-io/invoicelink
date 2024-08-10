@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import toast from 'svelte-french-toast';
-	import { followUrl } from '$lib/utils/platform';
+	import { followUrl } from '@invoicelink/lib/utils/platform';
 	// props
 	export let checkoutId: string | undefined;
 	export let publicKey: string;

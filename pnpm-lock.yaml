@@ -55,6 +55,9 @@ importers:
       '@invoicelink/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@invoicelink/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@lucia-auth/adapter-prisma':
         specifier: 4.0.1
         version: 4.0.1(@prisma/client@5.18.0(prisma@5.18.0))(lucia@3.2.0)
@@ -230,6 +233,9 @@ importers:
       '@invoicelink/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@invoicelink/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@prisma/client':
         specifier: 5.18.0
         version: 5.18.0(prisma@5.18.0)
@@ -364,6 +370,21 @@ importers:
       prisma:
         specifier: 5.18.0
         version: 5.18.0
+
+  packages/lib:
+    dependencies:
+      '@invoicelink/db':
+        specifier: workspace:*
+        version: link:../db
+      '@types/node':
+        specifier: ^22.1.0
+        version: 22.1.0
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
+      vitest:
+        specifier: ^2.0.5
+        version: 2.0.5(@types/node@22.1.0)
 
 packages:
 

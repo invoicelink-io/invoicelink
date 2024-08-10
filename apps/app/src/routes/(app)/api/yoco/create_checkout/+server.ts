@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { createCheckout } from '$lib/utils/yoco';
+import { createCheckout } from '@invoicelink/lib/utils/payments/yoco';
 
 export async function POST({ request }) {
 	const { secretKey, amount, returnUrl, cancelUrl } = await request.json();

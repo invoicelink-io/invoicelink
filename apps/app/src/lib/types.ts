@@ -12,7 +12,7 @@ import type {
 export type PaymentGateways = 'payfast' | 'paypal' | 'yoco';
 
 // TODO: Fix the omit type
-export type UserWithBankAccount = Omit<User, "currency"> & {
+export type UserWithBankAccount = Omit<User, 'currency'> & {
 	bankAccount: BankAccount[];
 };
 

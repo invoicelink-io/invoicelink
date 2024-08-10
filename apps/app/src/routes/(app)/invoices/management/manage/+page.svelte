@@ -10,7 +10,7 @@
 		defaultClient,
 		defaultLineItem,
 		defaultStyles
-	} from '$lib/utils/defaults';
+	} from '@invoicelink/lib/utils/defaults';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
 	import { type InvoiceStyles } from '@invoicelink/db';

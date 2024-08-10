@@ -61,6 +61,7 @@
 	},
 	"dependencies": {
 		"@invoicelink/db": "workspace:*",
+		"@invoicelink/lib": "workspace:*",
 		"@floating-ui/dom": "^1.6.8",
 		"@lucia-auth/adapter-prisma": "4.0.1",
 		"@paralleldrive/cuid2": "^2.2.2",

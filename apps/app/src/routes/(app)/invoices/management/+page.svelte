@@ -7,7 +7,7 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import { page } from '$app/stores';
-	import { formatCurrency } from '$lib/utils/currency';
+	import { formatCurrency } from '@invoicelink/lib/utils/currency';
 </script>
 
 <PageHeading>

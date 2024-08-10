@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isAppleMobile } from '$lib/utils/platform';
+	import { isAppleMobile } from '@invoicelink/lib/utils/platform';
 	import { browser, dev } from '$app/environment';
 	import { page } from '$app/stores';
 	// props

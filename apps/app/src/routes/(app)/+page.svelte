@@ -5,8 +5,8 @@
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
-	import { getFirstWord } from '$lib/utils/stringHelpers';
-	import { formatCurrency } from '$lib/utils/currency';
+	import { getFirstWord } from '@invoicelink/lib/utils/stringHelpers';
+	import { formatCurrency } from '@invoicelink/lib/utils/currency';
 	import { page } from '$app/stores';
 
 	// get user's first name

@@ -5,7 +5,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Divider from '$lib/components/ui/Divider.svelte';
 	import ComboBox from '$lib/components/ui/ComboBox.svelte';
-	import { currencies } from '$lib/utils/currency';
+	import { currencies } from '@invoicelink/lib/utils/currency';
 
 	const { form, enhance, message, submitting } = superForm($page.data.currencyForm, {
 		resetForm: false,

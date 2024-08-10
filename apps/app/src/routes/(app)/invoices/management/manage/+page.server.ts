@@ -1,13 +1,13 @@
 import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
-import { defaultInvoice } from '$lib/utils/defaults';
+import { defaultInvoice } from '@invoicelink/lib/utils/defaults';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { createCheckout } from '$lib/utils/yoco';
+import { createCheckout } from '@invoicelink/lib/utils/payments/yoco';
 import { SerialType } from '@invoicelink/db';
-import { getNextSerial } from '$lib/utils/serialNumbers';
+import { getNextSerial } from '@invoicelink/lib/utils/serialNumbers';
 import { schema } from './validation';
-import { generateId } from '$lib/utils/id';
+import { generateId } from '@invoicelink/lib/utils/id';
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();
@@ -34,7 +34,7 @@ export const load = (async ({ parent, locals, url }) => {
 	let invoice = { ...defaultInvoice };
 
 	// set the default serial
-	invoice.serial = await getNextSerial(locals.user?.id, SerialType.INVOICE);
+	invoice.serial = await getNextSerial(prisma, locals.user?.id, SerialType.INVOICE);
 
 	// set user based defaults
 	if (user) {
@@ -255,7 +255,7 @@ export const actions: Actions = {
 			});
 
 			// get the next serial number
-			const serial = await getNextSerial(user?.id, SerialType.INVOICE);
+			const serial = await getNextSerial(prisma, user?.id, SerialType.INVOICE);
 
 			form.data = { ...form, ...defaultInvoice, serial };
 			return message(form, 'Invoice deleted');

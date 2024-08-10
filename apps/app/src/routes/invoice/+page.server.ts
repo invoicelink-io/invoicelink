@@ -1,9 +1,9 @@
 import type { PageServerLoad } from './$types';
 import { prisma } from '$lib/server/prisma';
-import { defaultStyles, defaultInvoice } from '$lib/utils/defaults';
+import { defaultStyles, defaultInvoice } from '@invoicelink/lib/utils/defaults';
 import type { InvoiceStyles } from '@invoicelink/db';
 import type { FullInvoice, FullQuickLink } from '$lib/types';
-import { extractLocale } from '$lib/utils/locale';
+import { extractLocale } from '@invoicelink/lib/utils/locale';
 
 export const load = (async ({ url, request }) => {
 	const documentType = (url.searchParams.get('type') ?? 'invoice') as 'quick' | 'invoice';

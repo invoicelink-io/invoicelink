@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { formatCurrency } from '$lib/utils/currency';
+	import { formatCurrency } from '@invoicelink/lib/utils/currency';
 	import { twMerge } from 'tailwind-merge';
 
 	export let editable: boolean = false;

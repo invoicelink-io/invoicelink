@@ -1,4 +1,4 @@
-import { generateSignature } from '$lib/utils/payfast';
+import { generateSignature } from '@invoicelink/lib/utils/payments/payfast';
 import { json } from '@sveltejs/kit';
 
 export async function POST({ request }) {

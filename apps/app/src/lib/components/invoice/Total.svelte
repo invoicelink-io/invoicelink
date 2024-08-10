@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { formatCurrency } from '$lib/utils/currency';
+	import { formatCurrency } from '@invoicelink/lib/utils/currency';
 	import type { Invoice, QuickLink } from '@invoicelink/db';
 
 	export let data: Invoice | QuickLink;

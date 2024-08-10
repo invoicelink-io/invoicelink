@@ -5,11 +5,11 @@
 
 	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
 	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
-	import { getInitials } from '$lib/utils/stringHelpers';
 	import Meta from '$lib/components/Meta.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 	import Combobox from '$lib/components/ui/ComboBox.svelte';
-	import { formatCurrency } from '$lib/utils/currency';
+	import { getInitials } from '@invoicelink/lib/utils/stringHelpers';
+	import { formatCurrency } from '@invoicelink/lib/utils/currency';
 
 	const isPaid = data.pay?.status === 'PAID';
 

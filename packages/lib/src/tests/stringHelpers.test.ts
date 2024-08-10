@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { getInitials, capitalizeFirstLetter, pad, getFirstWord } from './stringHelpers';
+import { getInitials, capitalizeFirstLetter, pad, getFirstWord } from '../utils/stringHelpers';
 
 test('Get initials from names', () => {
 	expect(getInitials(`John Mayer`)).toBe('JM');

@@ -5,14 +5,14 @@
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Icon from '$lib/components/Icon.svelte';
-	import { formatTimeAgo } from '$lib/utils/time';
+	import { formatTimeAgo } from '@invoicelink/lib/utils/time';
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Empty from '$lib/components/Empty.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Modal from '$lib/components/ui/Modal.svelte';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
-	import { formatCurrency } from '$lib/utils/currency';
+	import { formatCurrency } from '@invoicelink/lib/utils/currency';
 	import { dev } from '$app/environment';
 
 	let dialog: HTMLDialogElement;

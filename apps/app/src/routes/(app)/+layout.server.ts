@@ -2,14 +2,17 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import { lucia } from '$lib/server/auth';
 
-import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
+import {
+	incrementSerialNumber,
+	initializeSerialNumber
+} from '@invoicelink/lib/utils/serialNumbers';
 import { SerialType } from '@invoicelink/db';
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { quickLinkSchema } from './validation';
 import { getProfileTasks } from '$lib/utils/profileTasks';
 import { prisma } from '$lib/server/prisma';
-import { extractLocale } from '$lib/utils/locale';
+import { extractLocale } from '@invoicelink/lib/utils/locale';
 
 export const load = (async ({ request, cookies, url }) => {
 	const sessionId = cookies.get(lucia.sessionCookieName);

@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 	import toast from 'svelte-french-toast';
 	import ComboBox from '$lib/components/ui/ComboBox.svelte';
-	import { currencies } from '$lib/utils/currency';
+	import { currencies } from '@invoicelink/lib/utils/currency';
 
 	let loading = false;
 	let selected = currencies.find((c) => c.value === $welcome.currency) ?? currencies[0];

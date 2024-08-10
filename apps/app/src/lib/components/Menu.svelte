@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getInitials } from '$lib/utils/stringHelpers';
+	import { getInitials } from '@invoicelink/lib/utils/stringHelpers';
 	import { clickoutside } from '@svelte-put/clickoutside';
 	const user = $page.data.user;
 	const avatarUrl = user?.avatarUrl;

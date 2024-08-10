@@ -4,10 +4,10 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 import { SerialType } from '@invoicelink/db';
-import { incrementSerialNumber } from '$lib/utils/serialNumbers';
-import { createCheckout } from '$lib/utils/yoco';
+import { incrementSerialNumber } from '@invoicelink/lib/utils/serialNumbers';
+import { createCheckout } from '@invoicelink/lib/utils/payments/yoco';
 import { quickLinkSchema } from '../validation';
-import { generateId } from '$lib/utils/id';
+import { generateId } from '@invoicelink/lib/utils/id';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
