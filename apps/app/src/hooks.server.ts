@@ -93,8 +93,13 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 	}
 
 	// always force light theme for these routes
-	if (['/pay', '/invoice'].includes(event.url.pathname)) {
+	if (['/invoice'].includes(event.url.pathname)) {
 		theme = 'light';
+	}
+
+	// always force dark theme for these routes
+	if (['/welcome'].includes("/" + event.url.pathname.split("/")[1])) {
+		theme = 'dark';
 	}
 
 	if (theme) {

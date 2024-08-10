@@ -5,9 +5,8 @@ export const load = (async ({ parent, locals, cookies, url }) => {
 	await parent();
 	const { user } = locals;
 
-	// get current requested page
 	if (url.pathname === '/settings') {
-		return redirect(300, '/settings/general');
+		redirect(301, '/settings/general');
 	}
 
 	return {

@@ -1,30 +1,33 @@
-<script>
+<script lang="ts">
 	import Header from '$lib/components/welcome/Header.svelte';
 	import { welcome } from '$lib/stores/welcome';
 	import { goto } from '$app/navigation';
 	import toast from 'svelte-french-toast';
+	import ComboBox from '$lib/components/ui/ComboBox.svelte';
+	import { currencies } from '$lib/utils/currency';
 
 	let loading = false;
+	let selected = currencies.find((c) => c.value === $welcome.currency) ?? currencies[0];
 </script>
 
-<Header
-	heading="Tell us about yourself 🙋‍♂️"
-	description="Provide a display name to be shown on invoices"
-/>
-<label for="name" class="label-welcome">
-	Name
-	<input
-		id="name"
-		class="input-welcome"
-		placeholder="Your fullname"
-		bind:value={$welcome.user.name}
+<Header heading="What currency do you use? 💸" description="Please select an option below" />
+<label data-theme="dark" for="name" class="label-welcome">
+	Currency
+	<ComboBox
+		name="currency"
+		bind:selected
+		onSelectedChange={(e) => {
+			if (e) $welcome.currency = e.value;
+		}}
+		placeholder="Select currency"
+		items={currencies}
 	/>
 </label>
 
 <div class="welcome-actions justify-between">
-	<a href="/welcome" class="btn btn-ghost btn-sm text-xs">Back</a>
+	<a href="/welcome/user" class="btn btn-ghost btn-sm text-xs">Back</a>
 	<span class="flex items-center gap-2">
-		<a href="/welcome/currency" class="btn btn-sm text-xs">Skip</a>
+		<a href="/welcome/address" class="btn btn-sm text-xs">Skip</a>
 		<button
 			type="button"
 			class="btn btn-sm text-xs"
@@ -32,16 +35,16 @@
 			on:click={async (e) => {
 				e.preventDefault();
 				loading = true;
-				await fetch('/api/welcome/user', {
+				await fetch('/api/welcome/currency', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify($welcome)
 				})
 					.then((res) => {
 						if (res.ok) {
-							toast.success('User info saved');
+							toast.success('Currency choice saved');
 							loading = false;
-							goto('/welcome/currency');
+							goto('/welcome/address');
 						}
 					})
 					.catch((err) => {

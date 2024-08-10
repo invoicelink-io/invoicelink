@@ -1,5 +1,12 @@
 import { z } from 'zod';
 
+export const currency = z.enum(["ZAR", "USD", "EUR"]);
+
+export const currencySchema = z.object({
+	id: z.string().optional(),
+	currency: currency
+})
+
 export const userSchema = z.object({
 	id: z.string().optional(),
 	name: z.string()

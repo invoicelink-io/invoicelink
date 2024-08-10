@@ -17,6 +17,7 @@ model User {
   username      String?        @unique
   avatarUrl     String?
   vatNumber     String?
+  currency      Currency       @default(USD)
   sessions      Session[]
   passwords     Password[]
   oauthAccounts OauthAccount[]
@@ -40,6 +41,12 @@ model LastUsedSerial {
   userId String
 
   @@unique([userId, type])
+}
+
+enum Currency {
+  EUR
+  USD
+  ZAR
 }
 
 enum SerialType {

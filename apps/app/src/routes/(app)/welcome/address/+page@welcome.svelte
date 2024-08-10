@@ -61,7 +61,7 @@
 </label>
 
 <div class="welcome-actions justify-between">
-	<a href="/welcome/user" class="btn btn-ghost btn-sm text-xs">Back</a>
+	<a href="/welcome/currency" class="btn btn-ghost btn-sm text-xs">Back</a>
 	<span>
 		<a href="/welcome/banking" class="btn btn-sm text-xs">Skip</a>
 		<button

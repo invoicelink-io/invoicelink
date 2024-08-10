@@ -3,6 +3,7 @@ import type { WelcomeStore } from '$lib/types';
 
 export const welcome = writable<WelcomeStore>({
 	user: { id: '', name: '', username: '' },
+	currency: 'USD',
 	address: {
 		line1: '',
 		line2: '',

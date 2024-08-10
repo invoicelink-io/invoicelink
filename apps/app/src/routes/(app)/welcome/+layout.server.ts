@@ -25,6 +25,7 @@ export const load: LayoutServerLoad = async ({ parent, locals }) => {
 	return {
 		user,
 		address: dbUser?.address[0],
-		bankDetails: dbUser?.bankAccount[0]
+		bankDetails: dbUser?.bankAccount[0],
+		currency: dbUser?.currency
 	};
 };
