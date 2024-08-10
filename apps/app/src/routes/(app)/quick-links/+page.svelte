@@ -13,6 +13,7 @@
 	import Modal from '$lib/components/ui/Modal.svelte';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
 	import { formatCurrency } from '$lib/utils/currency';
+	import { dev } from '$app/environment';
 
 	let dialog: HTMLDialogElement;
 
@@ -94,10 +95,19 @@
 								</div>
 							</div>
 							<Badge status={link.status} />
-							<a target="_blank" href="https://pay.invoicelink.io/{link.id}">
+							<a
+								target="_blank"
+								href={dev
+									? `http://localhost:5174/${link.id}`
+									: `https://pay.invoicelink.io/${link.id}`}
+							>
 								<Icon name="launch" />
 							</a>
-							<CopyToClipboard text={`https://pay.invoicelink.io/${link.id}`} />
+							<CopyToClipboard
+								text={dev
+									? `http://localhost:5174/${link.id}`
+									: `https://pay.invoicelink.io/${link.id}`}
+							/>
 						</li>
 					{/each}
 				</ul>
