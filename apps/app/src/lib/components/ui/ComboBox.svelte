@@ -33,7 +33,7 @@
 >
 	<div class="relative flex w-full items-center">
 		<Combobox.Input class="input input-primary max-w-full" {placeholder} aria-label={placeholder} />
-		<div class="text-neutral absolute right-2 my-auto opacity-50">
+		<div class="absolute right-2 my-auto text-neutral opacity-50">
 			<Icon name="caret-up-down" />
 		</div>
 	</div>

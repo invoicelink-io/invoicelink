@@ -34,7 +34,7 @@
 <div class="flex h-screen w-screen flex-col items-center justify-center gap-y-2 p-4">
 	<ShapeShift />
 	<div
-		class="card bg-base-100 flex w-full flex-col gap-y-2 p-4 text-center shadow-lg [view-transition-name:welcome-card] sm:w-96"
+		class="card flex w-full flex-col gap-y-2 bg-base-100 p-4 text-center shadow-lg [view-transition-name:welcome-card] sm:w-96"
 	>
 		<slot />
 	</div>

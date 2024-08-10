@@ -98,7 +98,7 @@ export const themeHandler: Handle = async ({ event, resolve }) => {
 	}
 
 	// always force dark theme for these routes
-	if (['/welcome'].includes("/" + event.url.pathname.split("/")[1])) {
+	if (['/welcome'].includes('/' + event.url.pathname.split('/')[1])) {
 		theme = 'dark';
 	}
 

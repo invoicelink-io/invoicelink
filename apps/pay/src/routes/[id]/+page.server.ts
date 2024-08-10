@@ -2,12 +2,15 @@ import type { PageServerLoad } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ url, params }) => {
+export const load: PageServerLoad = async ({ url, params, request }) => {
 	const id = params?.id;
 
 	if (!id) {
 		error(404, 'Not found');
 	}
+
+	const currency = url.searchParams.get('currency') ?? 'USD';
+	const locale = request.headers.get('Accept-Language')?.split(',')[0] ?? 'en-US';
 
 	if (id === 'demo') {
 		const paid = url.searchParams.get('paid');
@@ -37,7 +40,7 @@ export const load: PageServerLoad = async ({ url, params }) => {
 				]
 			}
 		};
-		return { pay, type: 'quick' };
+		return { pay, type: 'quick', locale, currency };
 	} else {
 		const quickLink = await prisma.quickLink.findUnique({
 			where: {
@@ -50,6 +53,7 @@ export const load: PageServerLoad = async ({ url, params }) => {
 						avatarUrl: true,
 						email: true,
 						name: true,
+						currency: true,
 						integrations: {
 							select: {
 								payfast: true,
@@ -64,7 +68,9 @@ export const load: PageServerLoad = async ({ url, params }) => {
 		if (quickLink) {
 			return {
 				pay: quickLink,
-				type: 'quick'
+				type: 'quick',
+				locale,
+				currency: quickLink.user.currency
 			};
 		} else {
 			const invoice = await prisma.invoice.findUnique({
@@ -78,6 +84,7 @@ export const load: PageServerLoad = async ({ url, params }) => {
 							avatarUrl: true,
 							email: true,
 							name: true,
+							currency: true,
 							integrations: {
 								select: {
 									payfast: true,
@@ -91,7 +98,9 @@ export const load: PageServerLoad = async ({ url, params }) => {
 
 			return {
 				pay: invoice,
-				type: 'invoice'
+				type: 'invoice',
+				locale,
+				currency: invoice?.user.currency
 			};
 		}
 	}

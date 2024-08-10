@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	export let data: PageData;
 	import toast from 'svelte-french-toast';
@@ -11,6 +12,7 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Modal from '$lib/components/ui/Modal.svelte';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
+	import { formatCurrency } from '$lib/utils/currency';
 
 	let dialog: HTMLDialogElement;
 
@@ -27,6 +29,8 @@
 			toast.error($deleteMessage ?? 'Something went wrong');
 		}
 	});
+
+	console.log($page.data);
 </script>
 
 <PageHeading>
@@ -51,10 +55,7 @@
 											action="?/delete&id={link.id}"
 										>
 											<span
-												>{Number(link.total).toLocaleString('en-ZA', {
-													style: 'currency',
-													currency: 'ZAR'
-												})}</span
+												>{formatCurrency(link.total, $page.data.locale, $page.data.currency)}</span
 											>
 											{#if link.status !== 'PAID'}
 												<Modal

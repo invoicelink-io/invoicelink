@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	export let data: PageData;
 
@@ -8,6 +9,7 @@
 	import Meta from '$lib/components/Meta.svelte';
 	import Avatar from '$lib/components/ui/Avatar.svelte';
 	import Combobox from '$lib/components/ui/ComboBox.svelte';
+	import { formatCurrency } from '$lib/utils/currency';
 
 	const isPaid = data.pay?.status === 'PAID';
 
@@ -31,6 +33,8 @@
 		.filter((option) => option !== undefined);
 
 	let selectedPaymentOption = paymentOptions?.[0] ?? [];
+
+	console.log($page.data);
 </script>
 
 <svelte:head>
@@ -66,10 +70,7 @@
 					{/if}
 				</div>
 				<p class="w-full text-center text-3xl font-bold sm:text-5xl md:text-7xl">
-					{Number(data.pay?.total).toLocaleString('en-ZA', {
-						style: 'currency',
-						currency: 'ZAR'
-					})}
+					{formatCurrency(data.pay?.total, $page.data.locale, $page.data.currency)}
 				</p>
 			</div>
 		</div>

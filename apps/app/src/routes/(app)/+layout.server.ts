@@ -10,7 +10,7 @@ import { quickLinkSchema } from './validation';
 import { getProfileTasks } from '$lib/utils/profileTasks';
 import { prisma } from '$lib/server/prisma';
 
-export const load = (async ({ cookies, url }) => {
+export const load = (async ({ request, cookies, url }) => {
 	const sessionId = cookies.get(lucia.sessionCookieName);
 	if (!sessionId) {
 		redirect(303, '/login');
@@ -36,6 +36,9 @@ export const load = (async ({ cookies, url }) => {
 		description: ''
 	};
 
+	let currency = 'USD';
+	const locale = request.headers.get('Accept-Language')?.split(',')[0] ?? 'en-US';
+
 	if (user) {
 		const userProfile = await prisma.user.findUnique({
 			where: {
@@ -45,6 +48,11 @@ export const load = (async ({ cookies, url }) => {
 				lastUsedSerial: true
 			}
 		});
+
+		// get last used currency
+		if (userProfile?.currency) {
+			currency = userProfile?.currency;
+		}
 
 		// get last used serial
 		const lastSerial = userProfile?.lastUsedSerial.find(
@@ -60,6 +68,8 @@ export const load = (async ({ cookies, url }) => {
 	return {
 		session,
 		user,
+		currency,
+		locale,
 		profileTasks,
 		quickLinkForm
 	};

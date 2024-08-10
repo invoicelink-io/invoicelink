@@ -16,7 +16,7 @@ export async function POST({ request }) {
 				id: body.user.id
 			},
 			data: {
-				currency: body.currency as Currency,
+				currency: body.currency as Currency
 			}
 		});
 		return new Response('User currency updated', { status: 200 });

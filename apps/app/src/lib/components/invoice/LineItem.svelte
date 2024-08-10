@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { formatCurrency } from '$lib/utils/currency';
 	import { twMerge } from 'tailwind-merge';
 
 	export let editable: boolean = false;
@@ -40,14 +42,8 @@
 			type="text"
 			placeholder="Amount"
 			value={amount
-				? amount.toLocaleString('en-ZA', {
-						style: 'currency',
-						currency: 'ZAR'
-					})
-				: Number(0).toLocaleString('en-ZA', {
-						style: 'currency',
-						currency: 'ZAR'
-					})}
+				? formatCurrency(amount, $page.data.locale, $page.data.currency)
+				: formatCurrency(0, $page.data.locale, $page.data.currency)}
 		/>
 	</div>
 	<div class="hidden py-2 text-right tabular-nums group-hover:table-cell">

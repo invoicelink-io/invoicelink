@@ -6,6 +6,8 @@
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Card from '$lib/components/ui/Card.svelte';
+	import { page } from '$app/stores';
+	import { formatCurrency } from '$lib/utils/currency';
 </script>
 
 <PageHeading>
@@ -31,10 +33,7 @@
 					</p>
 					<p class="flex justify-between">
 						<strong>Amount</strong>
-						{invoice.total.toLocaleString('en-ZA', {
-							style: 'currency',
-							currency: 'ZAR'
-						})}
+						{formatCurrency(invoice.total, $page.data.locale, $page.data.currency)}
 					</p>
 				</div>
 				<div slot="actions">

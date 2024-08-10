@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { formatCurrency } from '$lib/utils/currency';
 	import type { Invoice, QuickLink } from '@invoicelink/db';
 
 	export let data: Invoice | QuickLink;
@@ -13,19 +15,13 @@
 	</div>
 	<div class="flex flex-col leading-6">
 		<span class="truncate text-right tabular-nums"
-			>{data?.subtotal.toLocaleString('en-ZA', {
-				style: 'currency',
-				currency: 'ZAR'
-			})}</span
+			>{formatCurrency(data?.subtotal, $page.data.locale, $page.data.currency)}</span
 		>
 		<span class="truncate text-right tabular-nums"
-			>{data?.tax.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' })}</span
+			>{formatCurrency(data?.tax, $page.data.locale, $page.data.currency)}</span
 		>
 		<span class="truncate text-right font-semibold tabular-nums"
-			>{data?.total.toLocaleString('en-ZA', {
-				style: 'currency',
-				currency: 'ZAR'
-			})}</span
+			>{formatCurrency(data?.total, $page.data.locale, $page.data.currency)}</span
 		>
 	</div>
 </div>

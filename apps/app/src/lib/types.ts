@@ -5,7 +5,7 @@ import type {
 	Address,
 	User,
 	QuickLink,
-	BankAccount,
+	BankAccount
 } from '@invoicelink/db';
 
 // place files you want to import through the `$lib` alias in this folder.

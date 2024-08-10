@@ -69,7 +69,7 @@ export const load = (async ({ parent, locals, cookies }) => {
 		}
 	});
 
-	const currencyForm = await superValidate(dbUser, zod(currencySchema))
+	const currencyForm = await superValidate(dbUser, zod(currencySchema));
 
 	return {
 		user,
@@ -130,11 +130,11 @@ export const actions: Actions = {
 
 		await prisma.user.update({
 			where: {
-				id: user?.id,
+				id: user?.id
 			},
 			data: {
-				currency: currencyForm.data.currency,
-			},
+				currency: currencyForm.data.currency
+			}
 		});
 		return message(currencyForm, 'Currency choice updated');
 	}

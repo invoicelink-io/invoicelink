@@ -20,6 +20,7 @@
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import ComboBox from '$lib/components/ui/ComboBox.svelte';
 	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
+	import { dev } from '$app/environment';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -89,7 +90,9 @@
 	}
 
 	// payment link
-	const paymentLink = `https://pay.invoicelink.io/${$form.id}`;
+	const paymentLink = dev
+		? `http://localhost:5174/${$form.id}`
+		: `https://pay.invoicelink.io/${$form.id}`;
 </script>
 
 <PageHeading>

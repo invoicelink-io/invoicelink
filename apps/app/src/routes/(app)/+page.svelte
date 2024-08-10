@@ -6,6 +6,8 @@
 	import Card from '$lib/components/ui/Card.svelte';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
 	import { getFirstWord } from '$lib/utils/stringHelpers';
+	import { formatCurrency } from '$lib/utils/currency';
+	import { page } from '$app/stores';
 
 	// get user's first name
 	const name = data.user?.name || data?.user?.username;
@@ -58,10 +60,11 @@
 						<span class="text-sm">No invoices due</span>
 					{:else}
 						<span class="text-3xl"
-							>{data.stats.unpaidInvoices.toLocaleString('en-ZA', {
-								style: 'currency',
-								currency: 'ZAR'
-							})}</span
+							>{formatCurrency(
+								data.stats.unpaidInvoices,
+								$page.data.locale,
+								$page.data.currency
+							)}</span
 						>
 						<span class="text-sm">Amount outstanding</span>
 					{/if}
