@@ -3,11 +3,14 @@ import { prisma } from '$lib/server/prisma';
 import { defaultStyles, defaultInvoice } from '$lib/utils/defaults';
 import type { InvoiceStyles } from '@invoicelink/db';
 import type { FullInvoice, FullQuickLink } from '$lib/types';
+import { extractLocale } from '$lib/utils/locale';
 
-export const load = (async ({ url }) => {
+export const load = (async ({ url, request }) => {
 	const documentType = (url.searchParams.get('type') ?? 'invoice') as 'quick' | 'invoice';
 	const id = url.searchParams.get('id');
 	const styleId = url.searchParams.get('styleId');
+	let currency = 'USD';
+	const locale = extractLocale(request);
 
 	let styles = defaultStyles;
 	if (styleId) {
@@ -24,7 +27,7 @@ export const load = (async ({ url }) => {
 
 	let data = defaultInvoice;
 	if (!id || id === 'demo') {
-		return { documentType, styles, data };
+		return { documentType, styles, data, locale };
 	}
 
 	if (documentType && documentType === 'quick') {
@@ -41,7 +44,10 @@ export const load = (async ({ url }) => {
 				sendersAddress: true
 			}
 		})) as FullQuickLink;
-		return { documentType, data: quickLink, styles };
+
+		// @ts-expect-error TODO: Fix the type error
+		currency = quickLink.user.currency;
+		return { documentType, data: quickLink, styles, locale, currency };
 	} else {
 		data = (await prisma.invoice.findUnique({
 			where: {
@@ -64,6 +70,8 @@ export const load = (async ({ url }) => {
 				lineItems: true
 			}
 		})) as FullInvoice;
+		// @ts-expect-error TODO: Fix the type error
+		currency = data.user.currency;
 		if (data.invoiceStyleId) {
 			styles = (await prisma.invoiceStyles.findUnique({
 				where: {
@@ -71,6 +79,6 @@ export const load = (async ({ url }) => {
 				}
 			})) as InvoiceStyles;
 		}
-		return { documentType, data, styles };
+		return { documentType, data, styles, locale, currency };
 	}
 }) satisfies PageServerLoad;

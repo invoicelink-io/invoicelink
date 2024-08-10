@@ -9,6 +9,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { quickLinkSchema } from './validation';
 import { getProfileTasks } from '$lib/utils/profileTasks';
 import { prisma } from '$lib/server/prisma';
+import { extractLocale } from '$lib/utils/locale';
 
 export const load = (async ({ request, cookies, url }) => {
 	const sessionId = cookies.get(lucia.sessionCookieName);
@@ -37,7 +38,7 @@ export const load = (async ({ request, cookies, url }) => {
 	};
 
 	let currency = 'USD';
-	const locale = request.headers.get('Accept-Language')?.split(',')[0] ?? 'en-US';
+	const locale = extractLocale(request);
 
 	if (user) {
 		const userProfile = await prisma.user.findUnique({
