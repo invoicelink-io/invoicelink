@@ -1,0 +1,26 @@
+node_modules
+Dockerfile*
+docker-compose*
+.dockerignore
+.git
+.gitignore
+README.md
+LICENSE
+.vscode
+Makefile
+helm-charts
+.env
+.editorconfig
+.idea
+coverage*
+
+# Ignore pnpm store
+.pnpm-store
+
+# Ignore other potentially unwanted files
+dist
+build
+.turbo
+.git
+.cache
+logs

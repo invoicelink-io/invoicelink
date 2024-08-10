@@ -6,6 +6,7 @@
 	"packageManager": "pnpm@9.5.0",
 	"scripts": {
 		"build": "turbo run build",
+		"build:api": "docker build -t invoicelink/api:latest .",
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
 		"format": "turbo run format",
