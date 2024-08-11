@@ -25,11 +25,11 @@
 		"dist"
 	],
 	"peerDependencies": {
-		"svelte": "^4.0.0",
-		"zod": "^3.23.8",
+		"@sveltejs/kit": "^2.0.0",
 		"bits-ui": "^0.21.13",
+		"svelte": "^4.0.0",
 		"tailwind-merge": "^2.4.0",
-		"@sveltejs/kit": "^2.0.0"
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@invoicelink/config": "workspace:*",
@@ -54,5 +54,8 @@
 	"sideEffects": [
 		"**/*.css"
 	],
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"esm-env": "^1.0.0"
+	}
 }

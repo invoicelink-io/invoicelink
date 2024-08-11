@@ -16,14 +16,15 @@
   "author": "Ratul Maharaj <ratulmaharaj@looped.co.za>",
   "license": "ISC",
   "peerDependencies": {
-    "nanoid": "^5.0.7",
-    "javascript-time-ago": "^2.5.10",
     "@paralleldrive/cuid2": "^2.2.2",
+    "javascript-time-ago": "^2.5.10",
+    "nanoid": "^5.0.7",
     "zod": "^3.23.8"
   },
   "dependencies": {
     "@invoicelink/db": "workspace:*",
     "@types/node": "^22.1.0",
+    "esm-env": "^1.0.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   }
