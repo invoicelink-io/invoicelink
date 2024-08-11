@@ -26,6 +26,7 @@
 	],
 	"peerDependencies": {
 		"svelte": "^4.0.0",
+		"zod": "^3.23.8",
 		"bits-ui": "^0.21.13",
 		"tailwind-merge": "^2.4.0",
 		"@sveltejs/kit": "^2.0.0"
