@@ -16,7 +16,9 @@
   "author": "Ratul Maharaj <ratulmaharaj@looped.co.za>",
   "license": "ISC",
   "peerDependencies": {
-    "nanoid": "^5.0.7"
+    "nanoid": "^5.0.7",
+    "javascript-time-ago": "^2.5.10",
+    "@paralleldrive/cuid2": "^2.2.2"
   },
   "dependencies": {
     "@invoicelink/db": "workspace:*",

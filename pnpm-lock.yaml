@@ -382,9 +382,15 @@ importers:
       '@invoicelink/db':
         specifier: workspace:*
         version: link:../db
+      '@paralleldrive/cuid2':
+        specifier: ^2.2.2
+        version: 2.2.2
       '@types/node':
         specifier: ^22.1.0
         version: 22.1.0
+      javascript-time-ago:
+        specifier: ^2.5.10
+        version: 2.5.10
       nanoid:
         specifier: ^5.0.7
         version: 5.0.7
