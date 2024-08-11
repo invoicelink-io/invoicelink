@@ -3,7 +3,10 @@ import { tailwind as invoicelinkPreset, themes as invoicelinkThemes } from '@inv
 import type { Config } from 'tailwindcss';
 
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/@invoicelink/ui/dist/**/*.{html,js,svelte,ts}'
+	],
 	plugins: [daisyui],
 	presets: [invoicelinkPreset],
 	daisyui: {
