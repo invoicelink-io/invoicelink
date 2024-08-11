@@ -25,13 +25,14 @@
 	],
 	"peerDependencies": {
 		"svelte": "^4.0.0",
+		"bits-ui": "^0.21.13",
+		"tailwind-merge": "^2.4.0",
 		"@sveltejs/kit": "^2.0.0"
 	},
 	"devDependencies": {
 		"@invoicelink/config": "workspace:*",
 		"@invoicelink/lib": "workspace:*",
 		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^9.6.0",
@@ -51,8 +52,5 @@
 	"sideEffects": [
 		"**/*.css"
 	],
-	"type": "module",
-	"dependencies": {
-		"tailwind-merge": "^2.4.0"
-	}
+	"type": "module"
 }
