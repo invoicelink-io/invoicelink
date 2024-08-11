@@ -15,6 +15,9 @@
   "keywords": [],
   "author": "Ratul Maharaj <ratulmaharaj@looped.co.za>",
   "license": "ISC",
+  "peerDependencies": {
+    "nanoid": "^5.0.7"
+  },
   "dependencies": {
     "@invoicelink/db": "workspace:*",
     "@types/node": "^22.1.0",
