@@ -8,12 +8,11 @@
 	import InvoiceType from '$lib/components/radioGroups/InvoiceType.svelte';
 	import Size from '$lib/components/radioGroups/Size.svelte';
 	import Justify from '$lib/components/radioGroups/Justify.svelte';
-	import ColorPicker from '$lib/components/ui/ColorPicker.svelte';
+	import { ColorPicker, Button } from '@invoicelink/ui';
 	import Casing from './radioGroups/Casing.svelte';
 	import Spacing from './radioGroups/Spacing.svelte';
 	import Divider from './radioGroups/Divider.svelte';
 	import ImageUpload from '$lib/components/ImageUpload.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
 </script>
 
 <aside id="invoice_controls" class="flex w-full flex-col gap-2 px-2">

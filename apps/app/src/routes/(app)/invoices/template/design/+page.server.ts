@@ -4,9 +4,9 @@ import type { PageServerLoad, Actions } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { schema } from './validation';
-import { defaultStyles } from '@invoicelink/lib/utils/defaults';
+import { defaultStyles } from '@invoicelink/lib/defaults';
 import { v2 as cloudinary } from 'cloudinary';
-import { arrayBufferToBase64 } from '@invoicelink/lib/utils/encoding';
+import { arrayBufferToBase64 } from '@invoicelink/lib';
 
 // Return "https" URLs by setting secure: true
 cloudinary.config({

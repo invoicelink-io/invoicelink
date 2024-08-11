@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { generateIPRange } from "../ip";
+import { generateIPRange } from "../utils/ip";
 
 export const generateSignature = (
   data: Record<string, string>,

@@ -4,8 +4,7 @@
 
 	import Empty from '$lib/components/Empty.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
+	import { Icon, Card } from '@invoicelink/ui';
 </script>
 
 <PageHeading>

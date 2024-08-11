@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { initializeSerialNumber, incrementSerialNumber } from "../utils/serialNumbers";
+import { initializeSerialNumber, incrementSerialNumber } from "./serialNumbers";
 
 test("initializeSerialNumber should return a string with the correct format for invoice type", () => {
   const result = initializeSerialNumber("INVOICE");

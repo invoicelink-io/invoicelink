@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Combobox, type Selected } from 'bits-ui';
 	import { fly } from 'svelte/transition';
-	import Icon from '../Icon.svelte';
+	import Icon from './Icon.svelte';
 
 	export let name: string;
 	export let placeholder: string = 'Search an item';

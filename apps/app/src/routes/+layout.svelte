@@ -3,24 +3,9 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import posthog from 'posthog-js';
-	import { Toaster, type ToastOptions } from 'svelte-french-toast';
+	import { Toaster } from 'svelte-french-toast';
 	import { browser } from '$app/environment';
-
-	const toastOptions = {
-		className: `!bg-base-200 !text-base-content !text-sm`,
-		error: {
-			iconTheme: {
-				primary: `oklch(var(--er))`,
-				secondary: `oklch(var(--erc))`
-			}
-		},
-		success: {
-			iconTheme: {
-				primary: `oklch(var(--su))`,
-				secondary: `oklch(var(--succ))`
-			}
-		}
-	} as ToastOptions;
+	import { toastOptions } from '@invoicelink/lib';
 
 	// POSTHOG
 	let currentPath = '';

@@ -2,7 +2,7 @@ import { schema } from './validation';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad, Actions } from './$types';
-import { defaultAddress, defaultClient } from '@invoicelink/lib/utils/defaults';
+import { defaultAddress, defaultClient } from '@invoicelink/lib/defaults';
 import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ parent, locals, url }) => {

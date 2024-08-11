@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Logo from '$lib/components/invoice/Logo.svelte';
+	import { Logo } from '@invoicelink/ui';
 </script>
 
 <div class="flex h-screen w-screen flex-col items-center justify-center py-4">

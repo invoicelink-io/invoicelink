@@ -2,7 +2,7 @@
 	export let text = '';
 	export let message = 'Quick link copied';
 	import { clipboard } from '@skeletonlabs/skeleton';
-	import Icon from '$lib/components/Icon.svelte';
+	import { Icon } from '@invoicelink/ui';
 	let currentElement: HTMLButtonElement;
 	let show = true;
 	import toast from 'svelte-french-toast';

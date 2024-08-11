@@ -1,19 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { dev } from '$app/environment';
 	import type { PageData } from './$types';
 	export let data: PageData;
+
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
-	import Icon from '$lib/components/Icon.svelte';
-	import { formatTimeAgo } from '@invoicelink/lib/utils/time';
+
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import Empty from '$lib/components/Empty.svelte';
-	import Badge from '$lib/components/ui/Badge.svelte';
-	import Modal from '$lib/components/ui/Modal.svelte';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
-	import { formatCurrency } from '@invoicelink/lib/utils/currency';
-	import { dev } from '$app/environment';
+
+	import { Badge, Modal, Icon } from '@invoicelink/ui';
+	import { formatCurrency, formatTimeAgo } from '@invoicelink/lib';
 
 	let dialog: HTMLDialogElement;
 

@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Drawer from './ui/Drawer.svelte';
+	import { Drawer, Button, Alert } from '@invoicelink/ui';
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Alert from './ui/Alert.svelte';
 
 	let open = false;
 

@@ -44,6 +44,7 @@
 		"@eslint/js": "^9.8.0",
 		"@invoicelink/db": "workspace:*",
 		"@invoicelink/lib": "workspace:*",
+		"@invoicelink/ui": "workspace:*",
 		"@prisma/client": "5.18.0",
 		"@sveltejs/adapter-vercel": "^5.4.1",
 		"bits-ui": "^0.21.13",

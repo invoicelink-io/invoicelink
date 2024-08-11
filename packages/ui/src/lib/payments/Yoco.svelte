@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import toast from 'svelte-french-toast';
-	import { followUrl } from '@invoicelink/lib/utils/platform';
+	import { followUrl } from '@invoicelink/lib';
 	// props
 	export let checkoutId: string | undefined;
 	export let publicKey: string;
@@ -46,7 +45,7 @@
 			if (redirectUrl) {
 				followUrl(redirectUrl, openInNewTab);
 			} else {
-				toast.error('Could not create a yoco checkout.');
+				console.error('Could not create a yoco checkout.');
 			}
 			loading = false;
 		}}>{loading ? `Busy` : buttonLabel}</button

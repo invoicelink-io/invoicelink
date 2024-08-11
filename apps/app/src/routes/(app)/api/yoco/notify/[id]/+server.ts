@@ -1,6 +1,6 @@
 import { prisma } from '$lib/server/prisma';
 import { Status } from '@invoicelink/db';
-import { validateSignature } from '@invoicelink/lib/utils/payments/yoco';
+import { validateSignature } from '@invoicelink/lib/payments';
 
 export async function POST({ request, url }) {
 	const userId = url.href.split('/').pop();

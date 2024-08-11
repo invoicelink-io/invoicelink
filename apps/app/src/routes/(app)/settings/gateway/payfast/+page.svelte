@@ -4,12 +4,9 @@
 	import toast from 'svelte-french-toast';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
-
-	import Button from '$lib/components/ui/Button.svelte';
-	import Divider from '$lib/components/ui/Divider.svelte';
+	import { Payfast as PayfastIntegration } from '@invoicelink/ui/payments';
+	import { Button, Divider, Modal } from '@invoicelink/ui';
 	let dialog: HTMLDialogElement;
-	import Modal from '$lib/components/ui/Modal.svelte';
 
 	const { form, enhance, message, submitting, errors } = superForm(data.form, {
 		resetForm: false,

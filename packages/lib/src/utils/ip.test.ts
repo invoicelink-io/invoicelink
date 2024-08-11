@@ -1,5 +1,5 @@
 import { expect, describe, it } from "vitest";
-import { generateIPRange } from "../utils/ip";
+import { generateIPRange } from "./ip";
 
 describe("generateIPRange", () => {
   it("should generate the correct IP range", () => {

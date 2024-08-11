@@ -1,5 +1,5 @@
 <script>
-	import Alert from '../ui/Alert.svelte';
+	import { Alert } from '@invoicelink/ui';
 </script>
 
 <Alert class="alert -mt-3 mb-4 text-xs sm:hidden">

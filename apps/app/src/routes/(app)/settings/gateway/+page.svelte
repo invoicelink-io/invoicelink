@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	import Divider from '$lib/components/ui/Divider.svelte';
+	import { Divider } from '@invoicelink/ui';
 
 	const gateways = [
 		{

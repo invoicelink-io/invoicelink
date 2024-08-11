@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getInitials } from '@invoicelink/lib/utils/stringHelpers';
+	import { getInitials } from '@invoicelink/lib';
 	import { clickoutside } from '@svelte-put/clickoutside';
 	const user = $page.data.user;
 	const avatarUrl = user?.avatarUrl;
 	const name = user?.name || user?.username || 'No name';
 	const email = user?.email;
 
-	import Icon from './Icon.svelte';
-	import Avatar from './ui/Avatar.svelte';
+	import { Icon, Avatar } from '@invoicelink/ui';
 	import ThemeSelector from './ThemeSelector.svelte';
 
 	let details: HTMLDetailsElement;

@@ -3,10 +3,9 @@
 	export let data: PageData;
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import ProfileCompletion from '$lib/components/ProfileCompletion.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
+	import { Card } from '@invoicelink/ui';
 	import QuickLinkDrawer from '$lib/components/QuickLinkDrawer.svelte';
-	import { getFirstWord } from '@invoicelink/lib/utils/stringHelpers';
-	import { formatCurrency } from '@invoicelink/lib/utils/currency';
+	import { getFirstWord, formatCurrency } from '@invoicelink/lib';
 	import { page } from '$app/stores';
 
 	// get user's first name

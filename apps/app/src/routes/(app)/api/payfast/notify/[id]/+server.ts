@@ -5,7 +5,7 @@ import {
 	pfValidPaymentData,
 	pfValidServerConfirmation,
 	pfValidSignature
-} from '@invoicelink/lib/utils/payments/payfast';
+} from '@invoicelink/lib/payments';
 import { prisma } from '$lib/server/prisma';
 import { Status } from '@invoicelink/db';
 

@@ -10,11 +10,14 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "cSpell.words": ["skeletonlabs"],
+  "cSpell.words": ["invoicelink", "skeletonlabs"],
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
   "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[properties]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   }
 }

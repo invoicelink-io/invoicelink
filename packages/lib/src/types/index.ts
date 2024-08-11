@@ -8,8 +8,7 @@ import type {
   BankAccount,
 } from "@invoicelink/db";
 
-// place files you want to import through the `$lib` alias in this folder.
-export type PaymentGateways = "payfast" | "paypal" | "yoco";
+export type PaymentGateways = "payfast" | "yoco";
 
 // TODO: Fix the omit type
 export type UserWithBankAccount = Omit<User, "currency"> & {

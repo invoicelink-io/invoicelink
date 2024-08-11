@@ -3,13 +3,9 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 
-	import PayfastIntegration from '$lib/components/integrations/PayfastIntegration.svelte';
-	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
-	import Meta from '$lib/components/Meta.svelte';
-	import Avatar from '$lib/components/ui/Avatar.svelte';
-	import Combobox from '$lib/components/ui/ComboBox.svelte';
-	import { getInitials } from '@invoicelink/lib/utils/stringHelpers';
-	import { formatCurrency } from '@invoicelink/lib/utils/currency';
+	import { Payfast as PayfastIntegration, Yoco as YocoIntegration } from '@invoicelink/ui/payments';
+	import { Avatar, ComboBox, Meta } from '@invoicelink/ui';
+	import { getInitials, formatCurrency } from '@invoicelink/lib';
 
 	const isPaid = data.pay?.status === 'PAID';
 
@@ -48,10 +44,10 @@
 <div class="flex h-svh w-full flex-col pb-20">
 	{#if data.pay}
 		<div
-			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-base-200 text-center"
+			class="bg-pattern bg-base-200 relative flex h-[25vh] w-full flex-col items-center justify-center text-center"
 		>
 			<div
-				class="absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl bg-base-100 p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
+				class="bg-base-100 absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
 			>
 				<div class="flex flex-col items-center">
 					<div class="-mt-4 mb-4">
@@ -112,7 +108,7 @@
 			{#if !isPaid}
 				<div class="mx-auto flex w-full max-w-xs flex-col items-center justify-end gap-y-2 pt-10">
 					<p class="text-sm">Change payment option</p>
-					<Combobox name="gateway" bind:selected={selectedPaymentOption} items={paymentOptions} />
+					<ComboBox name="gateway" bind:selected={selectedPaymentOption} items={paymentOptions} />
 				</div>
 			{/if}
 		{/if}

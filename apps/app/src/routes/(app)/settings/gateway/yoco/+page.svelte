@@ -5,10 +5,8 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 
-	import YocoIntegration from '$lib/components/integrations/YocoIntegration.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Divider from '$lib/components/ui/Divider.svelte';
-	import Modal from '$lib/components/ui/Modal.svelte';
+	import { Button, Divider, Modal } from '@invoicelink/ui';
+	import { Yoco as YocoIntegration } from '@invoicelink/ui/payments';
 
 	let dialog: HTMLDialogElement;
 

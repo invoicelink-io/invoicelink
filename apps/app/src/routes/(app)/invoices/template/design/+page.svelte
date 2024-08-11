@@ -4,7 +4,7 @@
 	import Invoice from '$lib/components/Invoice.svelte';
 	import ControlPanel from '$lib/components/ControlPanel.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import { defaultInvoice } from '@invoicelink/lib/utils/defaults';
+	import { defaultInvoice } from '@invoicelink/lib/defaults';
 	import { superForm } from 'sveltekit-superforms/client';
 	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
 	import toast from 'svelte-french-toast';

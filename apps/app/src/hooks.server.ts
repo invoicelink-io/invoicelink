@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/sveltekit';
 import { env } from '$env/dynamic/public';
 const { PUBLIC_SENTRY_DSN } = env;
 import { sequence } from '@sveltejs/kit/hooks';
-import { themes } from '@invoicelink/lib/utils/defaults';
+import { themes } from '@invoicelink/lib/defaults';
 
 Sentry.init({
 	dsn: PUBLIC_SENTRY_DSN,

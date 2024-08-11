@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/components/Header.svelte';
 	import { page } from '$app/stores';
-	import Meta from '$lib/components/Meta.svelte';
+	import { Meta } from '@invoicelink/ui';
 	import { onNavigate } from '$app/navigation';
 
 	onNavigate((navigation) => {

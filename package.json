@@ -1,28 +1,28 @@
 {
-	"name": "invoicelink",
-	"version": "1.1.0",
-	"description": "The invoicelink.io monorepo",
-	"private": true,
-	"packageManager": "pnpm@9.5.0",
-	"scripts": {
-		"build": "turbo run build",
-		"build:api": "docker build -t invoicelink/api:latest .",
-		"dev": "turbo run dev",
-		"lint": "turbo run lint",
-		"format": "turbo run format",
-		"generate": "turbo run generate --filter db",
-		"changelog": "changeset",
-		"changelog:version": "changeset version",
-		"changelog:publish": "changeset publish"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"turbo": "^2.0.12"
-	},
-	"nx": {},
-	"dependencies": {
-		"@changesets/cli": "^2.27.7"
-	}
+  "name": "invoicelink",
+  "version": "1.1.0",
+  "description": "The invoicelink.io monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.7.0",
+  "scripts": {
+    "build": "turbo run build",
+    "build:api": "docker build -t invoicelink/api:latest .",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "generate": "turbo run generate --filter db",
+    "changelog": "changeset",
+    "changelog:version": "changeset version",
+    "changelog:publish": "changeset publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^2.0.12"
+  },
+  "nx": {},
+  "dependencies": {
+    "@changesets/cli": "^2.27.7"
+  }
 }

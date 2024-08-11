@@ -5,9 +5,7 @@
 	import toast from 'svelte-french-toast';
 	import { superForm } from 'sveltekit-superforms/client';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Divider from '$lib/components/ui/Divider.svelte';
-	import Modal from '$lib/components/ui/Modal.svelte';
+	import { Button, Divider, Modal } from '@invoicelink/ui';
 	let dialog: HTMLDialogElement;
 
 	let submitting: 'create' | 'update' | 'delete' | null = null;

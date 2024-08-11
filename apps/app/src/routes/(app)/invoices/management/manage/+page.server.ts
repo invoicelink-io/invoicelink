@@ -1,13 +1,13 @@
 import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
-import { defaultInvoice } from '@invoicelink/lib/utils/defaults';
+import { defaultInvoice } from '@invoicelink/lib/defaults';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { createCheckout } from '@invoicelink/lib/utils/payments/yoco';
+import { createCheckout } from '@invoicelink/lib/payments';
 import { SerialType } from '@invoicelink/db';
-import { getNextSerial } from '@invoicelink/lib/utils/serialNumbers';
+import { getNextSerial } from '@invoicelink/lib';
 import { schema } from './validation';
-import { generateId } from '@invoicelink/lib/utils/id';
+import { generateId } from '@invoicelink/lib';
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();

@@ -1,26 +1,24 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	import { dev } from '$app/environment';
 
 	import Invoice from '$lib/components/Invoice.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
+	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
+	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
 
+	import { type InvoiceStyles } from '@invoicelink/db';
+	import { Button, Icon, Badge, ComboBox } from '@invoicelink/ui';
 	import {
 		defaultAddress,
 		defaultClient,
 		defaultLineItem,
 		defaultStyles
-	} from '@invoicelink/lib/utils/defaults';
+	} from '@invoicelink/lib/defaults';
+
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import { type InvoiceStyles } from '@invoicelink/db';
-	import Button from '$lib/components/ui/Button.svelte';
-	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import Badge from '$lib/components/ui/Badge.svelte';
-	import ComboBox from '$lib/components/ui/ComboBox.svelte';
-	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
-	import { dev } from '$app/environment';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;

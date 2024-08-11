@@ -7,7 +7,7 @@
 	import Spacer from '$lib/components/invoice/Spacer.svelte';
 	import LineItem from '$lib/components/invoice/LineItem.svelte';
 	import Total from '$lib/components/invoice/Total.svelte';
-	import Logo from '$lib/components/invoice/Logo.svelte';
+	import { Logo } from '@invoicelink/ui';
 	import type { InvoiceStyles } from '@invoicelink/db';
 	import type { FullInvoice } from '$lib/types';
 	import Banking from './invoice/Banking.svelte';
@@ -34,7 +34,7 @@
 <div
 	data-theme="light"
 	id="invoice_template"
-	class={twMerge('min-h-full w-full flex-grow rounded-lg bg-base-100', styles.baseFontSize)}
+	class={twMerge('bg-base-100 min-h-full w-full flex-grow rounded-lg', styles.baseFontSize)}
 >
 	<div class="w-full p-4 sm:p-10">
 		<div class="flex justify-between leading-6">

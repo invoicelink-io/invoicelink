@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { themes } from '@invoicelink/lib/utils/defaults';
+	import { themes } from '@invoicelink/lib/defaults';
 </script>
 
 <details open={false}>

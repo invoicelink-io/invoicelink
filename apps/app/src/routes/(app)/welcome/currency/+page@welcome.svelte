@@ -3,8 +3,8 @@
 	import { welcome } from '$lib/stores/welcome';
 	import { goto } from '$app/navigation';
 	import toast from 'svelte-french-toast';
-	import ComboBox from '$lib/components/ui/ComboBox.svelte';
-	import { currencies } from '@invoicelink/lib/utils/currency';
+	import { ComboBox } from '@invoicelink/ui';
+	import { currencies } from '@invoicelink/lib';
 
 	let loading = false;
 	let selected = currencies.find((c) => c.value === $welcome.currency) ?? currencies[0];

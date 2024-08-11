@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
+	import { Card } from '@invoicelink/ui';
 </script>
 
 <PageHeading>

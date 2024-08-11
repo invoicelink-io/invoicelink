@@ -7,8 +7,10 @@
     "test": "vitest run"
   },
   "exports": {
-    "./types/*": "./src/types/*.ts",
-    "./utils/*": "./src/utils/*.ts"
+    ".": "./src/utils/index.ts",
+    "./defaults": "./src/defaults/index.ts",
+    "./payments": "./src/payments/index.ts",
+    "./types": "./src/types/index.ts"
   },
   "keywords": [],
   "author": "Ratul Maharaj <ratulmaharaj@looped.co.za>",

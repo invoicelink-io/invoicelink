@@ -1,13 +1,13 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	export let data: PageData;
 
 	import Empty from '$lib/components/Empty.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
-	import Badge from '$lib/components/ui/Badge.svelte';
-	import Card from '$lib/components/ui/Card.svelte';
-	import { page } from '$app/stores';
-	import { formatCurrency } from '@invoicelink/lib/utils/currency';
+
+	import { Card, Badge } from '@invoicelink/ui';
+	import { formatCurrency } from '@invoicelink/lib';
 </script>
 
 <PageHeading>

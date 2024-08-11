@@ -2,10 +2,8 @@
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
-	import Button from '$lib/components/ui/Button.svelte';
-	import Divider from '$lib/components/ui/Divider.svelte';
-	import ComboBox from '$lib/components/ui/ComboBox.svelte';
-	import { currencies } from '@invoicelink/lib/utils/currency';
+	import { Button, Divider, ComboBox } from '@invoicelink/ui';
+	import { currencies } from '@invoicelink/lib';
 
 	const { form, enhance, message, submitting } = superForm($page.data.currencyForm, {
 		resetForm: false,
