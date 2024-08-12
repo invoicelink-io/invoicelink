@@ -28,7 +28,7 @@
 		class={buttonClass}
 		on:click|preventDefault={async () => {
 			loading = true;
-			const res = await fetch(`/api/yoco/create_checkout`, {
+			const res = await fetch(`https://app.invoicelink.io/api/yoco/create_checkout`, {
 				method: 'POST',
 				body: JSON.stringify({
 					publicKey,

@@ -13,7 +13,7 @@
 	export let passphrase: string | null = null;
 	export let returnUrl: string = $page.url.href;
 	export let cancelUrl: string = $page.url.href;
-	export let notifyUrl: string = `${$page.url.origin}/api/payfast/notify/${userId}`;
+	export let notifyUrl: string = `https://app.invoicelink.io/api/payfast/notify/${userId}`;
 	export let endpoint: string = dev
 		? 'https://sandbox.payfast.co.za/eng/process'
 		: 'https://www.payfast.co.za/eng/process';
@@ -61,7 +61,7 @@
 				}
 			}
 			if (passphrase && requireSecurity) {
-				fetch('/api/payfast/generate_signature', {
+				fetch('https://app.invoicelink.io/api/payfast/generate_signature', {
 					method: 'POST',
 					body: JSON.stringify({
 						data: Object.fromEntries(new FormData(payfastForm)),
