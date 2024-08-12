@@ -8,7 +8,7 @@ export default defineConfig({
 	},
 	server: {
 		proxy: {
-			'/api': 'https://app.invoicelink.io'
+			'/api': 'http://localhost:5173'
 		}
 	}
 });

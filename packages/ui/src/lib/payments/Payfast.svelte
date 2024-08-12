@@ -61,8 +61,11 @@
 				}
 			}
 			if (passphrase && requireSecurity) {
-				fetch('https://app.invoicelink.io/api/payfast/generate_signature', {
+				fetch('/api/payfast/generate_signature', {
 					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
 					body: JSON.stringify({
 						data: Object.fromEntries(new FormData(payfastForm)),
 						passphrase
