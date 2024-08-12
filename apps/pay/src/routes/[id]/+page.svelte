@@ -17,9 +17,9 @@
 	const integrations: {
 		[key: string]: any;
 	} = {
+		stripe: data.pay?.user?.integrations[0]?.stripe?.[0] ?? undefined,
 		payfast: data.pay?.user?.integrations[0]?.payfast?.[0] ?? undefined,
-		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined,
-		stripe: data.pay?.user?.integrations[0]?.stripe?.[0] ?? undefined
+		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined
 	};
 
 	const paymentOptions = Object.keys(integrations)
@@ -29,6 +29,15 @@
 					value: key,
 					label: key
 				};
+			}
+		})
+		.filter((option) => {
+			if ($page.data.currency !== 'ZAR') {
+				// if not ZAR, only show Stripe
+				return option?.value === 'stripe';
+			} else {
+				// if ZAR, show all available integrations
+				return true;
 			}
 		})
 		.filter((option) => option !== undefined);
@@ -75,7 +84,8 @@
 		</div>
 		<div class="mt-[10vh] flex w-full flex-grow items-center justify-center gap-2 py-10">
 			<a
-				href="https://api.invoicelink.io/invoice?id={data?.pay.id}&type={data.type}&download=true"
+				href="https://api.invoicelink.io/invoice?id={data?.pay
+					.id}&type={data.type}&download=true&currency={$page.data.currency}"
 				class="btn w-36">Save invoice</a
 			>
 			{#if !isPaid}

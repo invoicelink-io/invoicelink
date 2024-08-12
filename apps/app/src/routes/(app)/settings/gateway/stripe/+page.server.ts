@@ -29,7 +29,7 @@ export const load = (async ({ parent, locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	create: async ({ request, locals, url }) => {
+	create: async ({ request, locals }) => {
 		const { user } = locals;
 		const form = await superValidate(request, zod(schema));
 
@@ -51,7 +51,7 @@ export const actions: Actions = {
 			// register a new webhook for the user
 			const webhook = await registerStripeWebhook({
 				secretKey: form.data.secretKey,
-				url: `${url.origin}/api/stripe/notify/${user?.id}`
+				url: `https://app.invoicelink.io/api/stripe/notify/${user?.id}`
 			});
 
 			if (userIntegration) {
@@ -121,7 +121,7 @@ export const actions: Actions = {
 			}
 		}
 	},
-	update: async ({ request, url, locals }) => {
+	update: async ({ request, locals }) => {
 		const { user } = locals;
 		const form = await superValidate(request, zod(schema));
 		if (!form.valid) {
@@ -136,7 +136,7 @@ export const actions: Actions = {
 				// register a new webhook for the user
 				const webhook = await registerStripeWebhook({
 					secretKey: form.data.secretKey,
-					url: `${url.origin}/api/stripe/notify/${user?.id}`
+					url: `https://app.invoicelink.io/api/stripe/notify/${user?.id}`
 				});
 
 				await prisma.stripe.update({

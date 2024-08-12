@@ -9,7 +9,7 @@ export const load = (async ({ url, request }) => {
 	const documentType = (url.searchParams.get('type') ?? 'invoice') as 'quick' | 'invoice';
 	const id = url.searchParams.get('id');
 	const styleId = url.searchParams.get('styleId');
-	let currency = 'USD';
+	let currency = url.searchParams.get('currency') ?? 'USD';
 	const locale = extractLocale(request);
 
 	let styles = defaultStyles;

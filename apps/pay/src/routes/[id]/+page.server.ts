@@ -35,7 +35,12 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 								passphrase: 'SuperSecretPassphrase'
 							}
 						],
-						yoco: []
+						yoco: [],
+						stripe: [
+							{
+								secretKey: 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
+							}
+						]
 					}
 				]
 			}
