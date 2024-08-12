@@ -27,7 +27,7 @@ export const load = (async ({ url, request }) => {
 
 	let data = defaultInvoice;
 	if (!id || id === 'demo') {
-		return { documentType, styles, data, locale };
+		return { documentType, styles, data, locale, currency };
 	}
 
 	if (documentType && documentType === 'quick') {
