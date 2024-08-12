@@ -4,7 +4,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 import { SerialType } from '@prisma/client';
-import { incrementSerialNumber } from '@invoicelink/lib';
+import { incrementSerialNumber } from '$lib/utils/serialNumbers';
 import { createYocoCheckout } from '@invoicelink/lib/payments';
 import { quickLinkSchema } from '../validation';
 import { generateId } from '@invoicelink/lib';
