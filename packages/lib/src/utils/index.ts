@@ -1,4 +1,9 @@
-export { currencies, formatCurrency } from "./currency";
+export {
+  currencies,
+  formatCurrency,
+  currencyCodes,
+  currencyLabels,
+} from "./currency";
 export { arrayBufferToBase64 } from "./encoding";
 export { generateId } from "./id";
 export { generateIPRange } from "./ip";

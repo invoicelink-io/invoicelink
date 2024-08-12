@@ -44,7 +44,11 @@ model LastUsedSerial {
 }
 
 enum Currency {
+  AED
+  CAD
   EUR
+  GBP
+  INR
   USD
   ZAR
 }
@@ -185,29 +189,29 @@ model QuickLink {
 }
 
 model Invoice {
-  id               String     @id @unique @default(cuid())
-  createdAt        DateTime   @default(now())
-  updatedAt        DateTime   @updatedAt
+  id               String         @id @unique @default(cuid())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
   issueDate        DateTime
   dueDate          DateTime?
   description      String?
   userId           String
-  user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user             User           @relation(references: [id], fields: [userId], onDelete: Cascade)
   subtotal         Float
-  taxPercentage    Int        @default(15)
+  taxPercentage    Int            @default(15)
   tax              Float
   total            Float
   serial           String
   lineItems        LineItem[]
-  status           Status     @default(PENDING)
-  sendersAddress   Address    @relation(fields: [sendersAddressId], references: [id])
+  status           Status         @default(PENDING)
+  sendersAddress   Address        @relation(fields: [sendersAddressId], references: [id])
   sendersAddressId String
-  client           Client     @relation(fields: [clientId], references: [id])
+  client           Client         @relation(fields: [clientId], references: [id])
   clientId         String
-  yocoCheckoutId   String?    @unique
-  stripeCheckoutId String?    @unique
-  invoiceStyleId String?
-  invoiceStyle   InvoiceStyles? @relation(fields: [invoiceStyleId], references: [id], onDelete: SetNull)
+  yocoCheckoutId   String?        @unique
+  stripeCheckoutId String?        @unique
+  invoiceStyleId   String?
+  invoiceStyle     InvoiceStyles? @relation(fields: [invoiceStyleId], references: [id], onDelete: SetNull)
 }
 
 model LineItem {
