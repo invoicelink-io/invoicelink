@@ -14,7 +14,8 @@ export async function getProfileTasks(userId: string | undefined) {
 			integrations: {
 				include: {
 					payfast: true,
-					yoco: true
+					yoco: true,
+					stripe: true
 				}
 			},
 			bankAccount: true
@@ -27,7 +28,8 @@ export async function getProfileTasks(userId: string | undefined) {
 	const userIntegration = userProfile?.integrations[0];
 	const userGatewayConfigured = userIntegration
 		? (userIntegration?.payfast && userIntegration?.payfast.length > 0) ||
-			(userIntegration?.yoco && userIntegration?.yoco.length > 0)
+			(userIntegration?.yoco && userIntegration?.yoco.length > 0) ||
+			(userIntegration?.stripe && userIntegration?.stripe.length > 0)
 		: false;
 
 	return [

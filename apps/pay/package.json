@@ -13,11 +13,11 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"prepare": "svelte-kit sync"
+		"prepare": "svelte-kit sync && pnpm dlx prisma generate --schema ./node_modules/@invoicelink/db/schema.prisma"
 	},
 	"devDependencies": {
-		"@invoicelink/config": "workspace:*",
 		"@fontsource/fira-mono": "^5.0.13",
+		"@invoicelink/config": "workspace:*",
 		"@neoconfetti/svelte": "^2.2.1",
 		"@playwright/test": "^1.46.0",
 		"@sveltejs/adapter-auto": "^3.2.2",
@@ -50,6 +50,7 @@
 		"@sveltejs/adapter-vercel": "^5.4.1",
 		"bits-ui": "^0.21.13",
 		"daisyui": "^4.12.10",
+		"esm-env": "^1.0.0",
 		"prisma": "5.18.0",
 		"svelte-french-toast": "^1.2.0",
 		"tailwind-merge": "^2.4.0"

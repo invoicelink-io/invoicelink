@@ -1,7 +1,7 @@
 import type { WelcomeStore } from '$lib/types';
 import { prisma } from '$lib/server/prisma';
 import { userSchema, currency as currencySchema } from '$lib/validation';
-import type { Currency } from '@invoicelink/db';
+import type { Currency } from '@prisma/client';
 
 export async function POST({ request }) {
 	const body = (await request.json()) as WelcomeStore;

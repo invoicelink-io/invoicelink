@@ -41,7 +41,7 @@ type Checkout = {
   processingMode: string;
 };
 
-export async function createCheckout({
+export async function createYocoCheckout({
   secretKey,
   amount,
   cancelUrl,

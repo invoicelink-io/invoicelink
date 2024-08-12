@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { defaultStyles, defaultInvoice } from '@invoicelink/lib/defaults';
-import type { InvoiceStyles } from '@invoicelink/db';
+import type { InvoiceStyles } from '@prisma/client';
 import type { FullInvoice, FullQuickLink } from '$lib/types';
 import { extractLocale } from '@invoicelink/lib';
 

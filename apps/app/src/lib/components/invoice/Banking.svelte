@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BankAccount } from '@invoicelink/db';
+	import type { BankAccount } from '@prisma/client';
 	import { twMerge } from 'tailwind-merge';
 	export let data: BankAccount | undefined;
 	export let align = 'text-left';

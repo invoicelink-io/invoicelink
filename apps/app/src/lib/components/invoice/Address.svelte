@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Address } from '@invoicelink/db';
+	import type { Address } from '@prisma/client';
 	import { twMerge } from 'tailwind-merge';
 	export let name: string;
 	export let data: Address;

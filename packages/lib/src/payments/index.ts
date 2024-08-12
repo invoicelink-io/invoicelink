@@ -6,10 +6,17 @@ export {
   pfValidSignature,
 } from "./payfast";
 export {
-  createCheckout,
+  createYocoCheckout,
   deleteAllWebhooks,
   deleteWebhook,
   getAllWebhooks,
   registerWebhook,
   validateSignature,
 } from "./yoco";
+export {
+  createStripeCheckout,
+  registerStripeWebhook,
+  deleteStripeWebhook,
+  deleteAllStripeWebhooks,
+  validateStripeSignature,
+} from "./stripe";

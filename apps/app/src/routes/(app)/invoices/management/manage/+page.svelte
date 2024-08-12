@@ -8,7 +8,7 @@
 	import CopyToClipboard from '$lib/components/CopyToClipboard.svelte';
 	import InvoiceAlert from '$lib/components/invoice/InvoiceAlert.svelte';
 
-	import { type InvoiceStyles } from '@invoicelink/db';
+	import { type InvoiceStyles } from '@prisma/client';
 	import { Button, Icon, Badge, ComboBox } from '@invoicelink/ui';
 	import {
 		defaultAddress,

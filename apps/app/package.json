@@ -6,11 +6,11 @@
 	"private": true,
 	"homepage": "https://app.invoicelink.io",
 	"scripts": {
-		"dev": "vite dev --port 5173",
+		"dev": "vite dev --port 5173 --mode development",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
-		"prepare": "svelte-kit sync",
+		"prepare": "svelte-kit sync && pnpm dlx prisma generate --schema ./node_modules/@invoicelink/db/schema.prisma",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",

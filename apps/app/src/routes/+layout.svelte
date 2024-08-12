@@ -4,8 +4,8 @@
 	import { page } from '$app/stores';
 	import posthog from 'posthog-js';
 	import { Toaster } from 'svelte-french-toast';
-	import { browser } from '$app/environment';
 	import { toastOptions } from '@invoicelink/lib';
+	import { browser } from '$app/environment';
 
 	// POSTHOG
 	let currentPath = '';

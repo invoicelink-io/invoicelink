@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { InvoiceStyles } from '@invoicelink/db';
+	import type { InvoiceStyles } from '@prisma/client';
 	export let form: InvoiceStyles;
 	export let enhance: any;
 	export let submitting: 'create' | 'update' | 'delete' | null;

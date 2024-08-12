@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { formatCurrency } from '@invoicelink/lib';
-	import type { Invoice, QuickLink } from '@invoicelink/db';
+	import type { Invoice, QuickLink } from '@prisma/client';
 
 	export let data: Invoice | QuickLink;
 	export let invoiceType: string = 'Invoice';

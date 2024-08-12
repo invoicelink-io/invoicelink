@@ -20,6 +20,9 @@
 			<a href="/settings/gateway">Payment Gateway</a>
 			<ul>
 				<li>
+					<a href="/settings/gateway/stripe">Stripe</a>
+				</li>
+				<li>
 					<a href="/settings/gateway/payfast">Payfast</a>
 				</li>
 				<li>

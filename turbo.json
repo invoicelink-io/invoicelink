@@ -22,7 +22,9 @@
         "PUBLIC_POSTHOG_API_KEY",
         "PUBLIC_SENTRY_DSN",
         "SENDGRID_API_KEY",
-        "SENDGRID_CONTACT_LIST_ID"
+        "SENDGRID_CONTACT_LIST_ID",
+        "POSTGRES_PRISMA_URL",
+        "POSTGRES_URL_NON_POOLING"
       ]
     },
     "api#build": {
@@ -43,14 +45,7 @@
     "dev": {
       "dependsOn": ["^db:generate"],
       "persistent": true,
-      "cache": false,
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env.development.local",
-        ".env.local",
-        ".env.development",
-        ".env"
-      ]
+      "cache": false
     },
     "db:generate": {
       "cache": false

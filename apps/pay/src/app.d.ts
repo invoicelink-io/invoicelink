@@ -10,7 +10,7 @@ declare global {
 	}
 
 	// eslint-disable-next-line no-var
-	var prisma: import('@invoicelink/db').PrismaClient;
+	var prisma: import('@prisma/client').PrismaClient;
 }
 
 export {};

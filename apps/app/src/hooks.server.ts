@@ -149,7 +149,7 @@ function isFormContentType(request: Request) {
 
 export const handle: Handle = sequence(
 	Sentry.sentryHandle(),
-	csrf(['/login/apple/callback', '/api/payfast/notify', '/api/yoco/notify']),
+	csrf(['/login/apple/callback', '/api/payfast/notify', '/api/yoco/notify', '/api/stripe/notify']),
 	authHandle,
 	routeProtectionHandler,
 	themeHandler

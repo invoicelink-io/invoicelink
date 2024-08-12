@@ -3,7 +3,11 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 
-	import { Payfast as PayfastIntegration, Yoco as YocoIntegration } from '@invoicelink/ui/payments';
+	import {
+		Payfast as PayfastIntegration,
+		Yoco as YocoIntegration,
+		Stripe as StripeIntegration
+	} from '@invoicelink/ui/payments';
 	import { Avatar, ComboBox, Meta } from '@invoicelink/ui';
 	import { getInitials, formatCurrency } from '@invoicelink/lib';
 
@@ -14,7 +18,8 @@
 		[key: string]: any;
 	} = {
 		payfast: data.pay?.user?.integrations[0]?.payfast?.[0] ?? undefined,
-		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined
+		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined,
+		stripe: data.pay?.user?.integrations[0]?.stripe?.[0] ?? undefined
 	};
 
 	const paymentOptions = Object.keys(integrations)
@@ -29,8 +34,6 @@
 		.filter((option) => option !== undefined);
 
 	let selectedPaymentOption = paymentOptions?.[0] ?? [];
-
-	console.log($page.data);
 </script>
 
 <svelte:head>
@@ -95,6 +98,15 @@
 						checkoutId={data.pay?.yocoCheckoutId ?? undefined}
 						publicKey={data.pay?.user.integrations[0].yoco[0].publicKey}
 						secretKey={data.pay?.user.integrations[0].yoco[0].secretKey}
+						amount={data.pay?.total}
+						itemName={data.pay.user.name || 'Payment request'}
+						buttonClass="btn btn-pay-now"
+						buttonLabel="Pay now"
+						openInNewTab={false}
+					/>
+				{:else if integrations.stripe && selectedPaymentOption.value === 'stripe'}
+					<StripeIntegration
+						secretKey={data.pay?.user.integrations[0].stripe[0].secretKey}
 						amount={data.pay?.total}
 						itemName={data.pay.user.name || 'Payment request'}
 						buttonClass="btn btn-pay-now"

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Status } from '@invoicelink/db';
+	import type { Status } from '@prisma/client';
 	export let status: Status;
 </script>
 

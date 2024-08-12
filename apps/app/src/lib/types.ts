@@ -6,7 +6,7 @@ import type {
 	User,
 	QuickLink,
 	BankAccount
-} from '@invoicelink/db';
+} from '@prisma/client';
 
 // place files you want to import through the `$lib` alias in this folder.
 export type PaymentGateways = 'payfast' | 'paypal' | 'yoco';

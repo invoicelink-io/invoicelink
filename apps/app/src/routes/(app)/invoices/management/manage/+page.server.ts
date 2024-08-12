@@ -3,8 +3,8 @@ import { prisma } from '$lib/server/prisma';
 import { defaultInvoice } from '@invoicelink/lib/defaults';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { createCheckout } from '@invoicelink/lib/payments';
-import { SerialType } from '@invoicelink/db';
+import { createYocoCheckout } from '@invoicelink/lib/payments';
+import { SerialType } from '@prisma/client';
 import { getNextSerial } from '@invoicelink/lib';
 import { schema } from './validation';
 import { generateId } from '@invoicelink/lib';
@@ -179,7 +179,7 @@ export const actions: Actions = {
 				// If the user has a yoco integration, create and store a checkout
 				if (userIntegration && userIntegration.yoco.length > 0) {
 					const yocoIntegration = userIntegration.yoco[0];
-					const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
+					const { errors: yocoErrors, checkout: yocoCheckout } = await createYocoCheckout({
 						secretKey: yocoIntegration.secretKey,
 						amount: form.data.total,
 						cancelUrl: `${url.origin}/${invoice.id}`,
@@ -335,7 +335,7 @@ export const actions: Actions = {
 			});
 			if (userIntegration && userIntegration.yoco.length > 0) {
 				const yocoIntegration = userIntegration.yoco[0];
-				const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
+				const { errors: yocoErrors, checkout: yocoCheckout } = await createYocoCheckout({
 					secretKey: yocoIntegration.secretKey,
 					amount: updatedInvoice.total,
 					cancelUrl: `${url.origin}/${updatedInvoice.id}`,

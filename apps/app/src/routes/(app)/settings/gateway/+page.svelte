@@ -5,6 +5,10 @@
 
 	const gateways = [
 		{
+			name: 'stripe',
+			href: '/settings/gateway/stripe'
+		},
+		{
 			name: 'payfast',
 			href: '/settings/gateway/payfast'
 		},

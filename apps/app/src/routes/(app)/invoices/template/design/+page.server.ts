@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import type { InvoiceStyles } from '@invoicelink/db';
+import type { InvoiceStyles } from '@prisma/client';
 import type { PageServerLoad, Actions } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';

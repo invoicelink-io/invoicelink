@@ -8,7 +8,7 @@
 	import LineItem from '$lib/components/invoice/LineItem.svelte';
 	import Total from '$lib/components/invoice/Total.svelte';
 	import { Logo } from '@invoicelink/ui';
-	import type { InvoiceStyles } from '@invoicelink/db';
+	import type { InvoiceStyles } from '@prisma/client';
 	import type { FullInvoice } from '$lib/types';
 	import Banking from './invoice/Banking.svelte';
 

@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import { Status } from '@invoicelink/db';
+import { Status } from '@prisma/client';
 import { validateSignature } from '@invoicelink/lib/payments';
 
 export async function POST({ request, url }) {

@@ -5,11 +5,6 @@ export { generateIPRange } from "./ip";
 export { extractLocale } from "./locale";
 export { followUrl, isAppleMobile } from "./platform";
 export {
-  getNextSerial,
-  incrementSerialNumber,
-  initializeSerialNumber,
-} from "./serialNumbers";
-export {
   capitalizeFirstLetter,
   getInitials,
   getFirstWord,

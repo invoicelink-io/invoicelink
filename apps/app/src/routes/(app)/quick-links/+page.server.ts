@@ -3,9 +3,9 @@ import { superValidate, message } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
-import { SerialType } from '@invoicelink/db';
+import { SerialType } from '@prisma/client';
 import { incrementSerialNumber } from '@invoicelink/lib';
-import { createCheckout } from '@invoicelink/lib/payments';
+import { createYocoCheckout } from '@invoicelink/lib/payments';
 import { quickLinkSchema } from '../validation';
 import { generateId } from '@invoicelink/lib';
 
@@ -116,7 +116,7 @@ export const actions: Actions = {
 				// If the user has a yoco integration, create and store a checkout
 				if (userIntegration && userIntegration.yoco.length > 0) {
 					const yocoIntegration = userIntegration.yoco[0];
-					const { errors: yocoErrors, checkout: yocoCheckout } = await createCheckout({
+					const { errors: yocoErrors, checkout: yocoCheckout } = await createYocoCheckout({
 						secretKey: yocoIntegration.secretKey,
 						amount: form.data.amount,
 						cancelUrl: `${url.origin}/${quickLink.id}`,

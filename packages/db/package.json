@@ -1,25 +1,27 @@
 {
-	"name": "@invoicelink/db",
-	"version": "1.1.0",
-	"description": "Invoicelink prisma database library",
-	"scripts": {
-		"db:generate": "pnpm dlx prisma generate",
-		"db:push": "pnpm dlx prisma db push --skip-generate",
-		"db:migrate": "pnpm dlx prisma migrate dev",
-		"db:deploy": "pnpm dlx prisma migrate deploy",
-		"db:seed": "pnpm dlx prisma db seed",
-		"postinstall": "pnpm dlx prisma generate"
-	},
-	"exports": {
-		".": "./src/index.ts"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"devDependencies": {
-		"prisma": "5.18.0"
-	},
-	"dependencies": {
-		"@prisma/client": "5.18.0"
-	}
+  "name": "@invoicelink/db",
+  "version": "1.1.0",
+  "description": "Invoicelink prisma database library",
+  "scripts": {
+    "build": "pnpm dlx prisma generate",
+    "db:push": "pnpm dlx prisma db push --skip-generate",
+    "db:migrate": "pnpm dlx prisma migrate dev",
+    "db:deploy": "pnpm dlx prisma migrate deploy",
+    "db:seed": "pnpm dlx prisma db seed"
+  },
+  "files": [
+    "prisma"
+  ],
+  "publishConfig": {
+    "directory": "prisma"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "5.18.0"
+  },
+  "dependencies": {
+    "@prisma/client": "5.18.0"
+  }
 }

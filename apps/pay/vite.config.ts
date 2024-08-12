@@ -1,6 +1,6 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
-const dev = import.meta.env?.DEV ?? false;
+const dev = process.env?.NODE_ENV === 'development';
 
 export default defineConfig({
 	plugins: [sveltekit()],

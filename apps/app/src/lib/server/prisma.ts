@@ -1,4 +1,4 @@
-import { PrismaClient } from '@invoicelink/db';
+import { PrismaClient } from '@prisma/client';
 import { dev } from '$app/environment';
 
 const prisma = global.prisma || new PrismaClient();

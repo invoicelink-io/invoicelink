@@ -2,8 +2,9 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import { lucia } from '$lib/server/auth';
 
-import { incrementSerialNumber, initializeSerialNumber, extractLocale } from '@invoicelink/lib';
-import { SerialType } from '@invoicelink/db';
+import { extractLocale } from '@invoicelink/lib';
+import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serialNumbers';
+import { SerialType } from '@prisma/client';
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { quickLinkSchema } from './validation';

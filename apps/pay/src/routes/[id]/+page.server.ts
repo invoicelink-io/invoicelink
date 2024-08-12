@@ -57,7 +57,8 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 						integrations: {
 							select: {
 								payfast: true,
-								yoco: true
+								yoco: true,
+								stripe: true
 							}
 						}
 					}
@@ -88,7 +89,8 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 							integrations: {
 								select: {
 									payfast: true,
-									yoco: true
+									yoco: true,
+									stripe: true
 								}
 							}
 						}

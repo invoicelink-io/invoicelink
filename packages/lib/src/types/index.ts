@@ -6,7 +6,7 @@ import type {
   User,
   QuickLink,
   BankAccount,
-} from "@invoicelink/db";
+} from "@prisma/client";
 
 export type PaymentGateways = "payfast" | "yoco";
 

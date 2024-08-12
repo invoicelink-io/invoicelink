@@ -5,7 +5,7 @@ import type {
   Client,
   InvoiceStyles,
   LineItem,
-} from "@invoicelink/db";
+} from "@prisma/client";
 
 export const themes = ["light", "dark", "cupcake", "dracula"];
 
