@@ -4,7 +4,7 @@
   "description": "The invoicelink lib package",
   "type": "module",
   "scripts": {
-    "prepare": "svelte-kit sync && pnpm dlx prisma generate --schema ./node_modules/@invoicelink/db/schema.prisma"
+    "prepare": "pnpm dlx prisma generate --schema ./node_modules/@invoicelink/db/schema.prisma"
   },
   "exports": {
     ".": "./src/utils/index.ts",
