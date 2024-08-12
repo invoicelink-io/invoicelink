@@ -49,7 +49,7 @@
 	<div class="flex w-full items-center justify-between py-6">
 		<StripeIntegration
 			secretKey={$form.secretKey}
-			amount={1}
+			amount={10}
 			itemName={'Integration setup successful'}
 			buttonLabel={'Test integration'}
 		/>

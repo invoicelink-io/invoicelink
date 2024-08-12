@@ -1,6 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
-const dev = process.env?.NODE_ENV === 'development';
 
 export default defineConfig({
 	plugins: [sveltekit()],
@@ -9,7 +8,7 @@ export default defineConfig({
 	},
 	server: {
 		proxy: {
-			'/api': dev ? 'http://localhost:5173' : 'https://app.invoicelink.io'
+			'/api': 'https://app.invoicelink.io'
 		}
 	}
 });
