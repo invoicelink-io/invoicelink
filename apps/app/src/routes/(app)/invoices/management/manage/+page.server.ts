@@ -5,7 +5,7 @@ import { message, superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
 import { createYocoCheckout } from '@invoicelink/lib/payments';
 import { SerialType } from '@prisma/client';
-import { getNextSerial } from '@invoicelink/lib';
+import { getNextSerial } from '$lib/utils/serialNumbers';
 import { schema } from './validation';
 import { generateId } from '@invoicelink/lib';
 
