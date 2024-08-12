@@ -100,6 +100,7 @@ export const defaultInvoice: FullInvoice = {
   sendersAddressId: "",
   clientId: "",
   yocoCheckoutId: null,
+  stripeCheckoutId: null,
   invoiceStyleId: null,
   // user data
   user: {
@@ -109,6 +110,7 @@ export const defaultInvoice: FullInvoice = {
     username: "",
     avatarUrl: "",
     vatNumber: "",
+    currency: "USD",
     bankAccount: [defaultBankDetails],
   },
   sendersAddress: {

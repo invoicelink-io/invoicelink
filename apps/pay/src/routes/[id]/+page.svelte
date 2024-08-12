@@ -56,10 +56,10 @@
 <div class="flex h-svh w-full flex-col pb-20">
 	{#if data.pay}
 		<div
-			class="bg-pattern bg-base-200 relative flex h-[25vh] w-full flex-col items-center justify-center text-center"
+			class="bg-pattern relative flex h-[25vh] w-full flex-col items-center justify-center bg-base-200 text-center"
 		>
 			<div
-				class="bg-base-100 absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
+				class="absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl bg-base-100 p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
 			>
 				<div class="flex flex-col items-center">
 					<div class="-mt-4 mb-4">

@@ -45,7 +45,6 @@ export const load = (async ({ url, request }) => {
 			}
 		})) as FullQuickLink;
 
-		// @ts-expect-error TODO: Fix the type error
 		currency = quickLink.user.currency;
 		return { documentType, data: quickLink, styles, locale, currency };
 	} else {
@@ -70,7 +69,7 @@ export const load = (async ({ url, request }) => {
 				lineItems: true
 			}
 		})) as FullInvoice;
-		// @ts-expect-error TODO: Fix the type error
+
 		currency = data.user.currency;
 		if (data.invoiceStyleId) {
 			styles = (await prisma.invoiceStyles.findUnique({

@@ -8,10 +8,10 @@ import type {
   BankAccount,
 } from "@prisma/client";
 
-export type PaymentGateways = "payfast" | "yoco";
+export type PaymentGateways = "payfast" | "yoco" | "stripe";
 
 // TODO: Fix the omit type
-export type UserWithBankAccount = Omit<User, "currency"> & {
+export type UserWithBankAccount = User & {
   bankAccount: BankAccount[];
 };
 

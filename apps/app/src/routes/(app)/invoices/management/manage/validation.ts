@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { currencyEnumSchema } from '$lib/validation';
 const StatusSchema = z.enum(['PENDING', 'PAID', 'EXPIRED', 'OVERDUE']);
 
 export const schema = z.object({
@@ -45,6 +46,7 @@ export const schema = z.object({
 		username: z.string().nullable(),
 		avatarUrl: z.string().nullable(),
 		vatNumber: z.string().nullable(),
+		currency: currencyEnumSchema,
 		bankAccount: z.array(
 			z.object({
 				id: z.string(),
@@ -60,6 +62,7 @@ export const schema = z.object({
 		)
 	}),
 	yocoCheckoutId: z.string().nullable(),
+	stripeCheckoutId: z.string().nullable(),
 	invoiceStyleId: z.string().nullable(),
 	updatedAt: z.date(),
 	createdAt: z.date(),
