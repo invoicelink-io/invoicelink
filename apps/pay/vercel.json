@@ -2,7 +2,7 @@
 	"rewrites": [
 		{
 			"source": "/api/:path*",
-			"destination": "https://app.invoicelink.io/:path*"
+			"destination": "https://app.invoicelink.io/api/:path*"
 		}
 	]
 }
