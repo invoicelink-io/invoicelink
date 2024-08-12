@@ -19,7 +19,16 @@
 
 	$: filteredItems =
 		inputValue && touchedInput
-			? items.filter((item) => item.value.includes(inputValue.toLowerCase()))
+			? items.filter((item) => {
+					if (
+						item.label.toLowerCase().includes(inputValue.toLowerCase()) ||
+						item.value.toLowerCase().includes(inputValue.toLowerCase())
+					) {
+						return true;
+					} else {
+						return false;
+					}
+				})
 			: items;
 </script>
 
