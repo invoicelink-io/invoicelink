@@ -118,6 +118,7 @@ const csrf =
 		const forbidden =
 			event.request.method === 'POST' &&
 			event.request.headers.get('origin') !== event.url.origin &&
+			!event.request.headers.get('origin')?.includes('pay.invoicelink.io') &&
 			isFormContentType(event.request) &&
 			!allowedPaths.some((path) => event.url.pathname.startsWith(path));
 
@@ -149,7 +150,14 @@ function isFormContentType(request: Request) {
 
 export const handle: Handle = sequence(
 	Sentry.sentryHandle(),
-	csrf(['/login/apple/callback', '/api/payfast/notify', '/api/yoco/notify', '/api/stripe/notify']),
+	csrf([
+		'/login/apple/callback',
+		'/login/google/callback',
+		'/login/github/callback',
+		'/api/payfast/notify',
+		'/api/yoco/notify',
+		'/api/stripe/notify'
+	]),
 	authHandle,
 	routeProtectionHandler,
 	themeHandler
