@@ -118,7 +118,6 @@ const csrf =
 		const forbidden =
 			event.request.method === 'POST' &&
 			event.request.headers.get('origin') !== event.url.origin &&
-			!event.request.headers.get('origin')?.includes('pay.invoicelink.io') &&
 			isFormContentType(event.request) &&
 			!allowedPaths.some((path) => event.url.pathname.startsWith(path));
 
@@ -154,9 +153,9 @@ export const handle: Handle = sequence(
 		'/login/apple/callback',
 		'/login/google/callback',
 		'/login/github/callback',
-		'/api/payfast/notify',
-		'/api/yoco/notify',
-		'/api/stripe/notify'
+		'/api/payfast',
+		'/api/yoco',
+		'/api/stripe'
 	]),
 	authHandle,
 	routeProtectionHandler,
