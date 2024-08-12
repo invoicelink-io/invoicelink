@@ -3,6 +3,7 @@
 	import toast from 'svelte-french-toast';
 	import { followUrl } from '@invoicelink/lib';
 	// props
+	export let id: string;
 	export let secretKey: string;
 	export let amount: number;
 	export let itemName: string;
@@ -23,6 +24,7 @@
 		const res = await fetch(`https://app.invoicelink.io/api/stripe/create_checkout`, {
 			method: 'POST',
 			body: JSON.stringify({
+				id,
 				secretKey,
 				amount,
 				itemName,

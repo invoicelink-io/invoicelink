@@ -48,6 +48,7 @@
 	</ul>
 	<div class="flex w-full items-center justify-between py-6">
 		<StripeIntegration
+			id={'test'}
 			secretKey={$form.secretKey}
 			amount={10}
 			itemName={'Integration setup successful'}

@@ -112,6 +112,9 @@ importers:
       puppeteer:
         specifier: ^22.15.0
         version: 22.15.0(typescript@5.5.4)
+      stripe:
+        specifier: ^16.7.0
+        version: 16.7.0
       svelte-french-toast:
         specifier: ^1.2.0
         version: 1.2.0(svelte@4.2.18)

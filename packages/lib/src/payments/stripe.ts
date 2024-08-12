@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 
 export async function createStripeCheckout({
+  id,
   itemName,
   secretKey,
   amount,
@@ -8,6 +9,7 @@ export async function createStripeCheckout({
   returnUrl,
   cancelUrl,
 }: {
+  id: string | undefined;
   itemName: string;
   secretKey: string;
   amount: number;
@@ -33,6 +35,9 @@ export async function createStripeCheckout({
     mode: "payment",
     success_url: returnUrl,
     cancel_url: cancelUrl,
+    metadata: {
+      id: id ?? "",
+    },
   });
 }
 
@@ -82,18 +87,16 @@ export async function deleteStripeWebhook(
 }
 
 export function validateStripeSignature({
-  headers,
+  payload,
+  signature,
   webhookSecret,
-  body,
   secretKey,
 }: {
-  headers: Headers;
+  payload: string;
+  signature: string;
   webhookSecret: string;
-  body: string;
   secretKey: string;
 }) {
   const stripe = new Stripe(secretKey);
-  const sig = headers.get("Stripe-Signature") ?? "";
-  const endpointSecret = webhookSecret;
-  return stripe.webhooks.constructEvent(body, sig, endpointSecret);
+  return stripe.webhooks.constructEvent(payload, signature, webhookSecret);
 }
