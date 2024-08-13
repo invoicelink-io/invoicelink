@@ -59,7 +59,7 @@
 			class="bg-pattern bg-base-200 relative flex h-[25vh] w-full flex-col items-center justify-center text-center"
 		>
 			<div
-				class="bg-base-100 absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] flex-col items-center justify-center gap-4 rounded-xl p-10 shadow-lg sm:mx-auto sm:w-full sm:max-w-xl"
+				class="bg-base-100 absolute bottom-0 z-10 -mb-[10vh] flex h-auto w-[90vw] min-w-60 flex-col items-center justify-center gap-4 rounded-xl p-10 shadow-lg sm:mx-auto sm:w-max"
 			>
 				<div class="flex flex-col items-center">
 					<div class="-mt-4 mb-4">
@@ -77,7 +77,9 @@
 						<span class="text-sm leading-none">requested a payment of</span>
 					{/if}
 				</div>
-				<p class="w-full text-center text-3xl font-bold sm:text-5xl md:text-7xl">
+				<p
+					class="w-auto whitespace-break-spaces text-center text-3xl font-bold sm:text-5xl md:text-6xl"
+				>
 					{formatCurrency(data.pay?.total, $page.data.locale, $page.data.currency)}
 				</p>
 			</div>
