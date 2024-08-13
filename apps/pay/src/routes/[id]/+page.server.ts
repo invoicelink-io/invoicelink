@@ -16,9 +16,9 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 		const paid = url.searchParams.get('paid');
 		const pay = {
 			id: 'demo',
-			subtotal: 250,
+			subtotal: 100,
 			tax: 0,
-			total: 250,
+			total: 100,
 			status: paid === 'true' ? 'PAID' : 'PENDING',
 			yocoCheckoutId: 'demo',
 			user: {
