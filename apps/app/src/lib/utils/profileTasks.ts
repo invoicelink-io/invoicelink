@@ -39,14 +39,14 @@ export async function getProfileTasks(userId: string | undefined) {
 			link: '/settings/general/invoicing'
 		},
 		{
-			title: 'Payment Gateway',
-			complete: userGatewayConfigured,
-			link: '/settings/gateway'
-		},
-		{
 			title: 'Banking Details',
 			complete: bankDetailsCaptured,
 			link: '/settings/general/invoicing'
+		},
+		{
+			title: 'Payment Gateway',
+			complete: userGatewayConfigured,
+			link: '/settings/gateway'
 		}
 	];
 }
