@@ -43,7 +43,7 @@
 		{#if data.links && data.links.length > 0}
 			<h2 class="mb-4 w-full text-center">Previous links</h2>
 			<div class="flex flex-col items-center">
-				<ul role="list" class="divide-surface-500/10 w-full divide-y">
+				<ul role="list" class="divide-base-200 w-full divide-y">
 					{#each data.links as link}
 						<li class="relative flex items-center space-x-2 py-4">
 							<div class="min-w-0 flex-auto">

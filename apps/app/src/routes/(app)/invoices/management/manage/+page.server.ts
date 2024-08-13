@@ -257,7 +257,14 @@ export const actions: Actions = {
 			// get the next serial number
 			const serial = await getNextSerial(prisma, user?.id, SerialType.INVOICE);
 
-			form.data = { ...form, ...defaultInvoice, serial };
+			form.data = {
+				...form.data,
+				...defaultInvoice,
+				sendersAddress: form.data.sendersAddress,
+				sendersAddressId: form.data.sendersAddressId,
+				serial
+			};
+			console.log(form, form.data);
 			return message(form, 'Invoice deleted');
 		} catch (error) {
 			console.error(error);

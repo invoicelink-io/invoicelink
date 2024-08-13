@@ -88,7 +88,7 @@
 	}
 
 	// payment link
-	const paymentLink = dev
+	$: paymentLink = dev
 		? `http://localhost:5174/${$form.id}`
 		: `https://pay.invoicelink.io/${$form.id}`;
 </script>
@@ -144,8 +144,10 @@
 				</label>
 
 				<label for="invoiceStyleId" class="form-control">
-					<div class="label">
+					<div class="label justify-between">
 						<span class="label-text-alt">Style Templates</span>
+						<a href="/invoices/template/design" class="label-text-alt hover:underline">Create new</a
+						>
 					</div>
 					<ComboBox
 						name="invoiceStyleId"
@@ -157,8 +159,9 @@
 				</label>
 
 				<label for="clientId" class="form-control">
-					<div class="label">
+					<div class="label justify-between">
 						<span class="label-text-alt">Client</span>
+						<span class="label-text-alt hover:underline">Create new</span>
 					</div>
 					<ComboBox
 						name="clientId"
