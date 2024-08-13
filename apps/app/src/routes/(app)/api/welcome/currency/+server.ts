@@ -1,13 +1,13 @@
 import type { WelcomeStore } from '$lib/types';
 import { prisma } from '$lib/server/prisma';
-import { userSchema, currencySchema } from '$lib/validation';
+import { userSchema, currencyEnumSchema } from '$lib/validation';
 import type { Currency } from '@prisma/client';
 
 export async function POST({ request }) {
 	const body = (await request.json()) as WelcomeStore;
 
 	const user = userSchema.safeParse(body.user);
-	const currency = currencySchema.safeParse(body.currency);
+	const currency = currencyEnumSchema.safeParse(body.currency);
 
 	// update the users currency
 	if (user.success && currency.success) {
