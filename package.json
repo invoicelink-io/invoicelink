@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "turbo": "^2.0.12"
+    "turbo": "^2.0.13"
   },
   "nx": {},
   "dependencies": {

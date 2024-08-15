@@ -19,7 +19,7 @@
 <div
 	data-theme="light"
 	id="invoice_template"
-	class={twMerge('h-max w-full flex-grow rounded-lg bg-base-100', styles.baseFontSize)}
+	class={twMerge('bg-base-100 h-max w-full flex-grow rounded-lg', styles.baseFontSize)}
 >
 	<div class="w-full p-10">
 		<div class="flex justify-between leading-6">
@@ -66,9 +66,10 @@
 			/>
 			<tbody>
 				<LineItem
-					amount={data.total}
 					description={data.description ?? 'Services rendered'}
+					unitPrice={data.total}
 					quantity={1}
+					amount={data.total}
 					divider={styles.lineItemDivider}
 					dividerColor={styles.baseDividerColor}
 					lineItemFontSize={styles.baseFontSize}

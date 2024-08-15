@@ -168,6 +168,7 @@ export const actions: Actions = {
 							create: form.data.lineItems.map((item) => {
 								return {
 									description: item.description,
+									unitPrice: item.unitPrice,
 									quantity: item.quantity,
 									amount: item.amount
 								};

@@ -70,6 +70,7 @@ export const schema = z.object({
 		z.object({
 			id: z.string(),
 			description: z.string(),
+			unitPrice: z.number(),
 			quantity: z.number(),
 			amount: z.number(),
 			invoiceId: z.string(),

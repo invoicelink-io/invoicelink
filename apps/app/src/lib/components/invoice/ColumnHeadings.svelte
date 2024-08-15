@@ -8,15 +8,18 @@
 </script>
 
 <div id="table-header" style="border-bottom: 1px {divider} {dividerColor};">
-	<div class="grid grid-cols-3 sm:grid-cols-4">
-		<span class={twMerge('py-3 font-semibold sm:col-span-2', size, casing)} style="color: {color};"
+	<div class="grid grid-cols-4">
+		<span class={twMerge('py-3 font-semibold', size, casing)} style="color: {color};"
 			>Description</span
 		>
+		<span class={twMerge('py-3 text-right font-semibold', size, casing)} style="color: {color};">
+			Price
+		</span>
 		<span class={twMerge('py-3 text-right font-semibold', size, casing)} style="color: {color};">
 			Quantity
 		</span>
 		<span class={twMerge('py-3 text-right font-semibold', size, casing)} style="color: {color};"
-			>Amount</span
+			>Total</span
 		>
 	</div>
 </div>

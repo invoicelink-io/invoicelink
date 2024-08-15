@@ -29,12 +29,14 @@
 
 		data.total = parseFloat((data.subtotal + data.tax).toFixed(2));
 	}
+
+	$: console.log(data);
 </script>
 
 <div
 	data-theme="light"
 	id="invoice_template"
-	class={twMerge('min-h-full w-full flex-grow rounded-lg bg-base-100', styles.baseFontSize)}
+	class={twMerge('bg-base-100 min-h-full w-full flex-grow rounded-lg', styles.baseFontSize)}
 >
 	<div class="w-full p-4 sm:p-10">
 		<div class="flex justify-between leading-6">
@@ -91,8 +93,9 @@
 				{#each data.lineItems as lineItem}
 					<LineItem
 						{editable}
-						bind:amount={lineItem.amount}
+						bind:unitPrice={lineItem.unitPrice}
 						bind:description={lineItem.description}
+						bind:amount={lineItem.amount}
 						bind:quantity={lineItem.quantity}
 						divider={styles.lineItemDivider}
 						dividerColor={styles.baseDividerColor}
