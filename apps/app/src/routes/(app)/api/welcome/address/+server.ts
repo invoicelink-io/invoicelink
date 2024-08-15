@@ -4,6 +4,7 @@ import { addressSchema } from '$lib/validation';
 
 export async function POST({ request }) {
 	const body = (await request.json()) as WelcomeStore;
+	console.log(body);
 
 	// get the users address
 	const user = await prisma.user.findFirst({
@@ -15,12 +16,14 @@ export async function POST({ request }) {
 		}
 	});
 
+	console.log(user);
+
 	// validate the address fields
 	const address = addressSchema.safeParse(body.address);
 
 	if (address.success) {
 		// if the user has an address, update it
-		if (user?.address) {
+		if (user?.address && user?.address.length > 0) {
 			await prisma.address.update({
 				where: {
 					id: user.address[0].id

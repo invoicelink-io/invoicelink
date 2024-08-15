@@ -13,12 +13,6 @@
 		font-display: swap;
 	}
 
-	:root [data-theme='invoicelink'] {
-		--theme-font-family-base: 'Mona Sans', sans-serif;
-		--theme-font-family-heading: 'Mona Sans', sans-serif;
-		--theme-rounded-base: 8px;
-		--theme-rounded-container: 14px;
-	}
 	/* selection styles */
 	::selection {
 		@apply bg-primary text-primary-content;
@@ -40,9 +34,11 @@
 	select:-webkit-autofill:hover,
 	select:-webkit-autofill:focus {
 		color: unset;
+		color: oklch(var(--bc)) !important;
 		background: none;
 		background-color: inherit;
-		color: oklch(var(--bc)) !important;
+		-webkit-text-fill-color: unset;
+		-webkit-text-fill-color: oklch(var(--bc)) !important;
 		-webkit-box-shadow: 0 0 0 0 none inset;
 		transition: background-color 5000s ease-in-out 0s;
 	}
