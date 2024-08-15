@@ -20,7 +20,7 @@ export async function POST({ request }) {
 
 	if (banking.success) {
 		// if the user has an address, update it
-		if (user?.bankAccount) {
+		if (user?.bankAccount && user.bankAccount.length > 0) {
 			await prisma.bankAccount.update({
 				where: {
 					id: user.bankAccount[0].id
