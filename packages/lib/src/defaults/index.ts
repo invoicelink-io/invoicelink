@@ -42,6 +42,7 @@ export const defaultStyles: InvoiceStyles = {
 export const defaultLineItem: LineItem = {
   id: "",
   description: "Service rendered",
+  unitPrice: 100,
   quantity: 1,
   amount: 100,
   invoiceId: "",

@@ -161,7 +161,7 @@
 				<label for="clientId" class="form-control">
 					<div class="label justify-between">
 						<span class="label-text-alt">Client</span>
-						<span class="label-text-alt hover:underline">Create new</span>
+						<a href="/clients/manage" class="label-text-alt hover:underline">Create new</a>
 					</div>
 					<ComboBox
 						name="clientId"
