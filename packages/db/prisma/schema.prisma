@@ -222,7 +222,7 @@ model LineItem {
   invoice     Invoice  @relation(references: [id], fields: [invoiceId], onDelete: Cascade)
   description String
   unitPrice   Float    @default(0)
-  quantity    Int
+  quantity    Float    @default(1)
   amount      Float
 }
 
