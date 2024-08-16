@@ -47,6 +47,7 @@
 		"@invoicelink/lib": "workspace:*",
 		"@invoicelink/ui": "workspace:*",
 		"@prisma/client": "5.18.0",
+		"@sveltejs/adapter-node": "^5.2.2",
 		"@sveltejs/adapter-vercel": "^5.4.1",
 		"bits-ui": "^0.21.13",
 		"daisyui": "^4.12.10",

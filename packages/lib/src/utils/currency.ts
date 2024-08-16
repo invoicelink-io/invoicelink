@@ -25,8 +25,6 @@ export const currencies = currencyCodes.map((key) => {
   };
 });
 
-console.log(currencies);
-
 export function formatCurrency(
   value: number | string,
   locale: string,
