@@ -27,7 +27,7 @@ export const load = (async ({ request, cookies, url }) => {
 
 	const isNewUser = url.searchParams?.get('newUser')?.includes('true') ?? false;
 	if (isNewUser && profileTasks.filter((item) => !item.complete).length > 0) {
-		redirect(303, '/welcome');
+		redirect(303, '/welcome?newUser=true');
 	}
 
 	const quickLink = {
