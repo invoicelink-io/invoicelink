@@ -5,10 +5,11 @@
 	import Empty from '$lib/components/Empty.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
 	import { Icon, Card } from '@invoicelink/ui';
+	import ClientDrawer from '$lib/components/ClientDrawer.svelte';
 </script>
 
 <PageHeading>
-	<a href="/clients/manage" class="btn btn-accent btn-sm text-xs">New Client</a>
+	<ClientDrawer />
 </PageHeading>
 
 {#if data.clients.length === 0}

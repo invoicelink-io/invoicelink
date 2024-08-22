@@ -179,7 +179,7 @@
 						<button
 							slot="modal-confirm-button"
 							type="submit"
-							formaction="?/delete"
+							formaction="/clients?/deleteClient"
 							class="btn btn-error btn-sm"
 							on:click={() => {
 								dialog.close();
@@ -187,7 +187,7 @@
 						>
 					</Modal>
 					<Button
-						formaction="?/update"
+						formaction="/clients?/updateClient"
 						variant="btn-primary"
 						loading={submitting === 'update'}
 						label="Update"
@@ -195,7 +195,7 @@
 					/>
 				{:else}
 					<Button
-						formaction="?/create"
+						formaction="/clients?/createClient"
 						variant="btn-primary"
 						loading={submitting === 'create'}
 						label="Create"

@@ -1,12 +1,11 @@
 import type { Actions, PageServerLoad } from './$types';
 import { superValidate, message } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { deleteSchema } from './validation';
 import { prisma } from '$lib/server/prisma';
 import { SerialType } from '@prisma/client';
 import { incrementSerialNumber } from '$lib/utils/serialNumbers';
 import { createYocoCheckout } from '@invoicelink/lib/payments';
-import { quickLinkSchema } from '../validation';
+import { quickLinkSchema, deleteSchema } from '$lib/validation';
 import { generateId } from '@invoicelink/lib';
 
 export const load = (async ({ parent, locals }) => {

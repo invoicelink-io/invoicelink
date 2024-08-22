@@ -14,3 +14,4 @@ test-results/
 # Sentry Config File
 .sentryclirc
 *.bak
+.env*.local

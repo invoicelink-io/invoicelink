@@ -19,6 +19,7 @@
 
 	import { superForm } from 'sveltekit-superforms/client';
 	import toast from 'svelte-french-toast';
+	import ClientDrawer from '$lib/components/ClientDrawer.svelte';
 
 	// form
 	let submitting: 'create' | 'update' | 'delete' | null = null;
@@ -27,7 +28,7 @@
 		resetForm: false,
 		onSubmit: ({ action }) => {
 			if (action.search.includes('?/delete')) {
-				submitting = 'delete';
+				submitting = 'delete';w
 			} else if (action.search.includes('?/update')) {
 				submitting = 'update';
 			} else {
@@ -161,7 +162,7 @@
 				<label for="clientId" class="form-control">
 					<div class="label justify-between">
 						<span class="label-text-alt">Client</span>
-						<a href="/clients/manage" class="label-text-alt hover:underline">Create new</a>
+						<ClientDrawer unstyledButton={true} />
 					</div>
 					<ComboBox
 						name="clientId"

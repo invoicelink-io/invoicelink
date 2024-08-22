@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 import { prisma } from '$lib/server/prisma';
+import { themeActions } from '$lib/server/actions/theme';
 
 export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
@@ -43,17 +43,5 @@ export const load = (async ({ parent, locals, cookies }) => {
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	setTheme: async ({ url, cookies }) => {
-		const theme = url.searchParams.get('theme');
-		const redirectTo = url.searchParams.get('redirectTo');
-
-		if (theme) {
-			cookies.set('colortheme', theme, {
-				maxAge: 60 * 60 * 24 * 365,
-				path: '/'
-			});
-		}
-
-		redirect(303, redirectTo ?? '/');
-	}
+	...themeActions
 };

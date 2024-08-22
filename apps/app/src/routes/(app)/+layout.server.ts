@@ -7,9 +7,10 @@ import { incrementSerialNumber, initializeSerialNumber } from '$lib/utils/serial
 import { SerialType } from '@prisma/client';
 import { superValidate } from 'sveltekit-superforms/server';
 import { zod } from 'sveltekit-superforms/adapters';
-import { quickLinkSchema } from './validation';
 import { getProfileTasks } from '$lib/utils/profileTasks';
 import { prisma } from '$lib/server/prisma';
+import { defaultAddress, defaultClient } from '@invoicelink/lib/defaults';
+import { clientAddressSchema, quickLinkSchema } from '$lib/validation';
 
 export const load = (async ({ request, cookies, url }) => {
 	const sessionId = cookies.get(lucia.sessionCookieName);
@@ -66,11 +67,19 @@ export const load = (async ({ request, cookies, url }) => {
 
 	const quickLinkForm = await superValidate(quickLink, zod(quickLinkSchema));
 
+	const client = {
+		...defaultClient,
+		...defaultAddress
+	};
+
+	const clientForm = await superValidate(client, zod(clientAddressSchema));
+
 	return {
 		session,
 		user,
 		currency,
 		locale,
+		clientForm,
 		profileTasks,
 		quickLinkForm
 	};
