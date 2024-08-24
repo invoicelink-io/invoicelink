@@ -53,6 +53,7 @@
 			amount={10}
 			itemName={'Integration setup successful'}
 			buttonLabel={'Test integration'}
+			openInNewTab={false}
 		/>
 		{#if $form.id}
 			<span class="flex items-center justify-center gap-2">

@@ -11,7 +11,7 @@
 	export let cancelUrl: string = $page.url.href;
 	export let buttonLabel: string = 'Pay now';
 	export let buttonClass: string = 'btn btn-sm text-xs';
-	export let openInNewTab: boolean = true;
+	export let openInNewTab: boolean = false;
 
 	let loading = false;
 </script>
