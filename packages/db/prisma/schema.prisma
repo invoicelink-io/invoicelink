@@ -124,14 +124,15 @@ enum Token {
 }
 
 model Integration {
-  id        String    @id @unique @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        String     @id @unique @default(cuid())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   userId    String
-  user      User      @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user      User       @relation(references: [id], fields: [userId], onDelete: Cascade)
   payfast   Payfast[]
   yoco      Yoco[]
   stripe    Stripe[]
+  coinbase  Coinbase[]
 }
 
 model Payfast {
@@ -159,6 +160,18 @@ model Yoco {
 }
 
 model Stripe {
+  id            String      @id @unique @default(cuid())
+  integrationId String
+  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  publicKey     String?
+  secretKey     String
+  webhookSecret String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  active        Boolean     @default(true)
+}
+
+model Coinbase {
   id            String      @id @unique @default(cuid())
   integrationId String
   integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)

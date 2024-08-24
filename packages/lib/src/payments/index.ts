@@ -20,3 +20,19 @@ export {
   deleteAllStripeWebhooks,
   validateStripeSignature,
 } from "./stripe";
+export {
+  createCoinbaseCheckout,
+  deleteAllCoinbaseWebhooks,
+  deleteCoinbaseWebhook,
+  registerCoinbaseWebhook,
+  validateCoinbaseSignature,
+} from "./coinbase";
+
+// NOTE: Update this when adding more payment gateways
+// used in prisma queries
+export const supportedIntegrations = {
+  payfast: true,
+  yoco: true,
+  stripe: true,
+  coinbase: true,
+};

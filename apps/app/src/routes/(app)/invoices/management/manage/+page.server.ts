@@ -8,6 +8,7 @@ import { SerialType } from '@prisma/client';
 import { getNextSerial } from '$lib/utils/serialNumbers';
 import { schema } from './validation';
 import { generateId } from '@invoicelink/lib';
+import { getIntegrations } from '$lib/utils/integrations';
 
 export const load = (async ({ parent, locals, url }) => {
 	await parent();
@@ -102,17 +103,8 @@ export const actions: Actions = {
 		}
 
 		try {
-			// NOTE: Update this when adding more payment gateways
 			// check if the user has an active integration
-			const userIntegration = await prisma.integration.findFirst({
-				where: {
-					userId: user?.id
-				},
-				include: {
-					payfast: true,
-					yoco: true
-				}
-			});
+			const userIntegration = await getIntegrations(user?.id);
 
 			const userAddress = await prisma.address.findFirst({
 				where: {
@@ -275,6 +267,7 @@ export const actions: Actions = {
 		}
 	},
 	update: async ({ request, url, locals }) => {
+		const { user } = locals;
 		const form = await superValidate(request, zod(schema));
 
 		if (!form.valid) {
@@ -330,17 +323,9 @@ export const actions: Actions = {
 			});
 
 			// Update yoco link
-			// NOTE: Update this when adding more payment gateways
 			// check if the user has an active integration
-			const userIntegration = await prisma.integration.findFirst({
-				where: {
-					userId: locals.user?.id
-				},
-				include: {
-					payfast: true,
-					yoco: true
-				}
-			});
+			const userIntegration = await getIntegrations(user?.id);
+
 			if (userIntegration && userIntegration.yoco.length > 0) {
 				const yocoIntegration = userIntegration.yoco[0];
 				const { errors: yocoErrors, checkout: yocoCheckout } = await createYocoCheckout({

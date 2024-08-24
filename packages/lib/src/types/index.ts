@@ -10,7 +10,6 @@ import type {
 
 export type PaymentGateways = "payfast" | "yoco" | "stripe";
 
-// TODO: Fix the omit type
 export type UserWithBankAccount = User & {
   bankAccount: BankAccount[];
 };
