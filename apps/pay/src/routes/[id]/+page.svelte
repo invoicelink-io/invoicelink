@@ -1,25 +1,25 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { PageData } from './$types';
-	export let data: PageData;
 
 	import {
 		Payfast as PayfastIntegration,
 		Yoco as YocoIntegration,
-		Stripe as StripeIntegration
+		Stripe as StripeIntegration,
+		Coinbase as CoinbaseIntegration
 	} from '@invoicelink/ui/payments';
 	import { Avatar, ComboBox, Meta } from '@invoicelink/ui';
 	import { getInitials, formatCurrency } from '@invoicelink/lib';
 
+	const data = $page.data;
 	const isPaid = data.pay?.status === 'PAID';
 
-	// TODO: Edit when adding new integrations
 	const integrations: {
 		[key: string]: any;
 	} = {
 		stripe: data.pay?.user?.integrations[0]?.stripe?.[0] ?? undefined,
 		payfast: data.pay?.user?.integrations[0]?.payfast?.[0] ?? undefined,
-		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined
+		yoco: data.pay?.user?.integrations[0]?.yoco?.[0] ?? undefined,
+		coinbase: data.pay?.user?.integrations[0]?.coinbase?.[0] ?? undefined
 	};
 
 	const paymentOptions = Object.keys(integrations)
@@ -33,10 +33,9 @@
 		})
 		.filter((option) => {
 			if ($page.data.currency !== 'ZAR') {
-				// if not ZAR, only show Stripe
-				return option?.value === 'stripe';
+				// if not ZAR, hide payfast and yoco
+				return option?.value !== 'payfast' && option?.value && 'yoco';
 			} else {
-				// if ZAR, show all available integrations
 				return true;
 			}
 		})
@@ -120,6 +119,16 @@
 					<StripeIntegration
 						id={data.pay?.id}
 						secretKey={data.pay?.user.integrations[0].stripe[0].secretKey}
+						amount={data.pay?.total}
+						itemName={data.pay.user.name || 'Payment request'}
+						buttonClass="btn btn-pay-now"
+						buttonLabel="Pay now"
+						openInNewTab={false}
+					/>
+				{:else if integrations.coinbase && selectedPaymentOption.value === 'coinbase'}
+					<CoinbaseIntegration
+						id={data.pay?.id}
+						secretKey={data.pay?.user.integrations[0].coinbase[0].secretKey}
 						amount={data.pay?.total}
 						itemName={data.pay.user.name || 'Payment request'}
 						buttonClass="btn btn-pay-now"

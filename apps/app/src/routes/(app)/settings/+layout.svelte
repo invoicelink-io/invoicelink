@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import PageHeading from '$lib/components/PageHeading.svelte';
+
+	console.log($page.data);
 </script>
 
 <PageHeading />
@@ -19,15 +22,11 @@
 		<li>
 			<a href="/settings/gateway">Payment Gateway</a>
 			<ul>
-				<li>
-					<a href="/settings/gateway/stripe">Stripe</a>
-				</li>
-				<li>
-					<a href="/settings/gateway/payfast">Payfast</a>
-				</li>
-				<li>
-					<a href="/settings/gateway/yoco">Yoco</a>
-				</li>
+				{#each $page.data.gateways as { name, href }}
+					<li>
+						<a class="capitalize" {href}>{name}</a>
+					</li>
+				{/each}
 			</ul>
 		</li>
 	</ul>

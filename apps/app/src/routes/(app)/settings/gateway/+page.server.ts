@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { prisma } from '$lib/server/prisma';
+import { getIntegrations } from '$lib/utils/integrations';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -10,15 +10,7 @@ export const load = (async ({ parent, locals }) => {
 	};
 
 	// fetch users integrations
-	const userIntegrations = await prisma.integration.findFirst({
-		where: {
-			userId: user?.id
-		},
-		include: {
-			payfast: true,
-			yoco: true
-		}
-	});
+	const userIntegrations = await getIntegrations(user?.id);
 
 	// update integration statuses
 	if (userIntegrations?.payfast[0]?.active) {

@@ -1,4 +1,5 @@
 import { prisma } from '$lib/server/prisma';
+import { supportedIntegrations } from '@invoicelink/lib/payments';
 
 export async function getProfileTasks(userId: string | undefined) {
 	if (!userId) {
@@ -12,11 +13,7 @@ export async function getProfileTasks(userId: string | undefined) {
 		include: {
 			address: true,
 			integrations: {
-				include: {
-					payfast: true,
-					yoco: true,
-					stripe: true
-				}
+				include: supportedIntegrations
 			},
 			bankAccount: true
 		}
@@ -26,6 +23,8 @@ export async function getProfileTasks(userId: string | undefined) {
 	const bankDetailsCaptured =
 		!!userProfile?.bankAccount[0] && userProfile?.bankAccount?.[0]?.accountNo !== '';
 	const userIntegration = userProfile?.integrations[0];
+
+	// NOTE: Update this when adding more payment gateways
 	const userGatewayConfigured = userIntegration
 		? (userIntegration?.payfast && userIntegration?.payfast.length > 0) ||
 			(userIntegration?.yoco && userIntegration?.yoco.length > 0) ||

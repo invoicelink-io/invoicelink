@@ -11,7 +11,6 @@ import type {
 // place files you want to import through the `$lib` alias in this folder.
 export type PaymentGateways = 'payfast' | 'stripe' | 'yoco';
 
-// TODO: Fix the omit type
 export type UserWithBankAccount = User & {
 	bankAccount: BankAccount[];
 };

@@ -8,6 +8,7 @@ import { incrementSerialNumber } from '$lib/utils/serialNumbers';
 import { createYocoCheckout } from '@invoicelink/lib/payments';
 import { quickLinkSchema } from '../validation';
 import { generateId } from '@invoicelink/lib';
+import { getIntegrations } from '$lib/utils/integrations';
 
 export const load = (async ({ parent, locals }) => {
 	await parent();
@@ -37,17 +38,8 @@ export const actions: Actions = {
 		}
 
 		try {
-			// NOTE: Update this when adding more payment gateways
 			// check if the user has an active integration
-			const userIntegration = await prisma.integration.findFirst({
-				where: {
-					userId: user?.id
-				},
-				include: {
-					payfast: true,
-					yoco: true
-				}
-			});
+			const userIntegration = await getIntegrations(user?.id);
 
 			const userAddress = await prisma.address.findFirst({
 				where: {

@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types';
 import { prisma } from '$lib/server/prisma';
 import { error } from '@sveltejs/kit';
+import { supportedIntegrations } from '@invoicelink/lib/payments';
 
 export const load: PageServerLoad = async ({ url, params, request }) => {
 	const id = params?.id;
@@ -27,6 +28,7 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 				email: 'demo@invoicelink.io',
 				avatarUrl: '/apple-touch-icon.png',
 				integrations: [
+					// NOTE: Update this when adding more payment gateways
 					{
 						payfast: [
 							{
@@ -36,6 +38,7 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 							}
 						],
 						yoco: [],
+						coinbase: [],
 						stripe: [
 							{
 								secretKey: 'sk_test_4eC39HqLyjWDarjtT1zdp7dc'
@@ -60,11 +63,7 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 						name: true,
 						currency: true,
 						integrations: {
-							select: {
-								payfast: true,
-								yoco: true,
-								stripe: true
-							}
+							select: supportedIntegrations
 						}
 					}
 				}
@@ -92,11 +91,7 @@ export const load: PageServerLoad = async ({ url, params, request }) => {
 							name: true,
 							currency: true,
 							integrations: {
-								select: {
-									payfast: true,
-									yoco: true,
-									stripe: true
-								}
+								select: supportedIntegrations
 							}
 						}
 					}
