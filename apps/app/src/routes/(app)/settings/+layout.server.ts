@@ -1,7 +1,6 @@
 import type { LayoutServerLoad } from './$types';
-import { redirect } from '@sveltejs/kit';
 
-export const load = (async ({ parent, locals, cookies, url }) => {
+export const load = (async ({ parent, locals, cookies }) => {
 	await parent();
 	const { user } = locals;
 
@@ -23,10 +22,6 @@ export const load = (async ({ parent, locals, cookies, url }) => {
 			href: '/settings/gateway/yoco'
 		}
 	];
-
-	if (url.pathname === '/settings') {
-		redirect(301, '/settings/general');
-	}
 
 	return {
 		user,
