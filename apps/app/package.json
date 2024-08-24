@@ -58,7 +58,7 @@
 	"type": "module",
 	"engines": {
 		"node": ">=18.0.0 <21",
-		"pnpm": ">=8"
+		"pnpm": ">=9"
 	},
 	"dependencies": {
 		"@floating-ui/dom": "^1.6.8",
