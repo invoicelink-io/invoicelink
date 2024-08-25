@@ -147,8 +147,38 @@ function isFormContentType(request: Request) {
 	return isContentType(request, 'application/x-www-form-urlencoded', 'multipart/form-data');
 }
 
+export const corsHandle: Handle = async ({ resolve, event }) => {
+	const validDomains = /^(.*)?\.?invoicelink\.io$/;
+	let cors = '';
+
+	let originDomain = null;
+	try {
+		originDomain = new URL(event.request.headers.get('origin') || '').hostname;
+		if (validDomains.test(originDomain)) {
+			cors = `https://${originDomain}`;
+		}
+	} catch (e) {
+		console.log('Invalid origin', e);
+	}
+
+	if (event.request.method === 'OPTIONS' && cors) {
+		return new Response(null, {
+			headers: {
+				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+				'Access-Control-Allow-Origin': cors,
+				'Access-Control-Allow-Headers': '*'
+			}
+		});
+	}
+
+	const response = await resolve(event);
+	response.headers.append('Access-Control-Allow-Origin', cors);
+	return response;
+};
+
 export const handle: Handle = sequence(
 	Sentry.sentryHandle(),
+	corsHandle,
 	// NOTE: Update this when adding more payment gateways
 	csrf([
 		'/login/apple/callback',
