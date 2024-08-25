@@ -149,13 +149,15 @@ function isFormContentType(request: Request) {
 
 export const handle: Handle = sequence(
 	Sentry.sentryHandle(),
+	// NOTE: Update this when adding more payment gateways
 	csrf([
 		'/login/apple/callback',
 		'/login/google/callback',
 		'/login/github/callback',
 		'/api/payfast',
 		'/api/yoco',
-		'/api/stripe'
+		'/api/stripe',
+		'/api/coinbase'
 	]),
 	authHandle,
 	routeProtectionHandler,
