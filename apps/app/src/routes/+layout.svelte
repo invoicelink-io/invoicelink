@@ -32,26 +32,6 @@
 			};
 			window.addEventListener('beforeunload', handleBeforeUnload);
 
-			if ($page.url.searchParams.get('signedIn') === 'true' && $page.data.user) {
-				console.log('posthog: identify');
-				posthog.identify($page.data.user.email, {
-					email: $page.data.user.email,
-					name: $page.data.user.name,
-					username: $page.data.user.username,
-					id: $page.data.user.id
-				});
-			}
-
-			if ($page.url.searchParams.get('newUser') === 'true') {
-				console.log('posthog: Sign up');
-				posthog.capture('Sign up', {
-					email: $page.data.user?.email,
-					name: $page.data.user?.name,
-					username: $page.data.user?.username,
-					id: $page.data.user?.id
-				});
-			}
-
 			if ($page.url.searchParams.get('signedOut') === 'true') {
 				console.log('posthog: reset');
 				posthog.reset();

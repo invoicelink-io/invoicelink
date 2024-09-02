@@ -3,6 +3,20 @@
 	import { page } from '$app/stores';
 	import { Meta } from '@invoicelink/ui';
 	import { onNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import posthog from 'posthog-js';
+
+	onMount(() => {
+		if ($page.url.searchParams.get('signedIn') === 'true' && $page.data.user) {
+			console.log('posthog: identify');
+			posthog.identify($page.data.user.email, {
+				email: $page.data.user.email,
+				name: $page.data.user.name,
+				username: $page.data.user.username,
+				id: $page.data.user.id
+			});
+		}
+	});
 
 	onNavigate((navigation) => {
 		// @ts-expect-error view transitions not yet fully supported
