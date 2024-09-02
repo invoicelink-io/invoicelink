@@ -1,0 +1,6 @@
+[phases.setup]
+nixPkgs = [
+    'nodejs_20',
+    'pnpm-9',
+    'openssl'
+]
