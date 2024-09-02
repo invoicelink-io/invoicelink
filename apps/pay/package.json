@@ -41,23 +41,23 @@
 		"vitest": "^2.0.5"
 	},
 	"type": "module",
-	"packageManager": "pnpm@8.15.9",
+	"packageManager": "pnpm@9.9.0",
 	"engines": {
 		"node": "20.x",
-		"pnpm": "8"
+		"pnpm": "9"
 	},
 	"dependencies": {
 		"@eslint/js": "^9.8.0",
 		"@invoicelink/db": "workspace:*",
 		"@invoicelink/lib": "workspace:*",
 		"@invoicelink/ui": "workspace:*",
-		"@prisma/client": "5.18.0",
+		"@prisma/client": "5.19.0",
 		"@sveltejs/adapter-node": "^5.2.2",
 		"@sveltejs/adapter-vercel": "^5.4.1",
 		"bits-ui": "^0.21.13",
 		"daisyui": "^4.12.10",
 		"esm-env": "^1.0.0",
-		"prisma": "5.18.0",
+		"prisma": "5.19.0",
 		"svelte-french-toast": "^1.2.0",
 		"tailwind-merge": "^2.4.0"
 	}
