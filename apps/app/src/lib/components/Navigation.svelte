@@ -5,10 +5,6 @@
 			text: 'Home'
 		},
 		{
-			href: '/quick-links',
-			text: 'Quick Links'
-		},
-		{
 			href: '/invoices',
 			text: 'Invoices'
 		},
